@@ -36,7 +36,7 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
         },
       ],
     },
-    theme: 'system',
+    theme: 'light',
     skin: Skins.Default,
     iconRenderer: VIcon,
   },
@@ -48,7 +48,7 @@ export const { themeConfig, layoutConfig } = defineThemeConfig({
   verticalNav: {
     isVerticalNavCollapsed: false,
     defaultNavItemIconProps: { icon: 'tabler-circle' },
-    isVerticalNavSemiDark: false,
+    isVerticalNavSemiDark: true,
   },
   horizontalNav: {
     type: 'sticky',

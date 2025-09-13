@@ -1,7 +1,11 @@
 import type { ThemeDefinition } from 'vuetify'
 
-export const staticPrimaryColor = '#7367F0'
-export const staticPrimaryDarkenColor = '#675DD8'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-expect-error
+import * as colors from 'vuetify/lib/util/colors'
+
+export const staticPrimaryColor = colors.teal.base // Использование teal из Material Design
+export const staticPrimaryDarkenColor = colors.teal.darken1 // teal darken-1
 
 export const themes: Record<string, ThemeDefinition> = {
   light: {
