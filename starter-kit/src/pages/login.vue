@@ -31,21 +31,14 @@ const isPasswordVisible = ref(false)
         <RouterLink to="/">
           <div class="app-logo">
             <VNodeRenderer :nodes="themeConfig.app.logo" />
-            <h1 class="app-logo-title">
-              {{ themeConfig.app.title }}
-            </h1>
+
           </div>
         </RouterLink>
       </VCardTitle>
     </VCardItem>
 
     <VCardText>
-      <h4 class="text-h4 mb-1">
-        Welcome to <span class="text-capitalize">{{ themeConfig.app.title }}</span>! 👋🏻
-      </h4>
-      <p class="mb-0">
-        Please sign-in to your account and start the adventure
-      </p>
+      <p class="mb-0 text-center">Пожалуйста, войдите в личный кабинет</p>
     </VCardText>
 
     <VCardText>
