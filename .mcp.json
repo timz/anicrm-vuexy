@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "@playwright/mcp@latest"
+      ],
+      "env": {}
+    },
+    "vuetify": {
+      "command": "npx",
+      "args": [
+        "@vuetify/mcp@latest"
+      ]
+    }
+  }
+}
