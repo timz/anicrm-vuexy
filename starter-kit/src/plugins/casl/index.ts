@@ -7,7 +7,7 @@ export default function (app: App) {
   // Получаем правила из localStorage (вместо cookie для совместимости с нашей системой)
   const storedRules = localStorage.getItem('userAbilityRules')
   const userAbilityRules: Rule[] = storedRules ? JSON.parse(storedRules) : []
-  
+
   const initialAbility = createMongoAbility(userAbilityRules)
 
   app.use(abilitiesPlugin, initialAbility, {
