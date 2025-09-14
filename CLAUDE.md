@@ -13,6 +13,11 @@
 - **full-version** - источник для изучения реализации UI и компонентов
 - **starter-kit** - целевая директория для всех изменений
 
+### Важные изменения в архитектуре:
+- **Система API полностью заменена** - вместо ofetch и useApi теперь используется Axios из spa-vuetify
+- **Хранение токенов** - используется localStorage вместо cookie (как в spa-vuetify)
+- **Все HTTP-запросы** должны использовать `secureApi` или `api` из `src/services/AxiosService.ts`
+
 ### Алгоритм переноса логики из spa-vuetify:
 1. **Анализ** - изучить что делает исходный компонент или класс в spa-vuetify
 2. **Поиск альтернатив** - проверить, есть ли в starter-kit готовый механизм для решения этой задачи
@@ -109,9 +114,15 @@ pnpm run build:icons
 - Утилиты аутентификации в `src/plugins/casl/`
 
 ### API и данные
+- **Axios** для HTTP-запросов с полной системой interceptor'ов из spa-vuetify
+- Сервис AxiosService в `src/services/AxiosService.ts` с:
+  - Автоматическим обновлением токенов (refresh token)
+  - Глобальным индикатором загрузки
+  - Обработкой ошибок и уведомлениями
+- EnvService в `src/services/EnvService.ts` для управления токенами и URL
+- Система уведомлений в `src/composables/useNotifications.ts`
 - Реализация Mock API в `src/plugins/fake-api/`
 - MSW (Mock Service Worker) для имитации API
-- Ofetch для HTTP-запросов
 
 ### Стилизация
 - SCSS с темизацией Vuetify
