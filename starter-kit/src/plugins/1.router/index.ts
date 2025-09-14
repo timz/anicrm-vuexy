@@ -5,6 +5,8 @@ import type { RouteRecordRaw } from 'vue-router/auto'
 
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import envService from '@/services/EnvService'
+import { ability } from '@/plugins/casl/ability'
+import { canNavigate } from '@layouts/plugins/casl'
 
 function recursiveLayouts(route: RouteRecordRaw): RouteRecordRaw {
   if (route.children) {
@@ -30,7 +32,7 @@ const router = createRouter({
   ],
 })
 
-// Защита маршрутов - проверка авторизации
+// Защита маршрутов - проверка авторизации и CASL прав
 router.beforeEach((to, from, next) => {
   const isAuthenticated = !!envService.getAuthToken()
   const isPublicRoute = to.meta.public === true || to.path === '/login'
@@ -41,6 +43,17 @@ router.beforeEach((to, from, next) => {
   } else if (isAuthenticated && to.path === '/login') {
     // Если пользователь авторизован и пытается зайти на страницу логина
     next('/')
+  } else if (isAuthenticated) {
+    // Проверяем CASL права для авторизованных пользователей
+    // Если у маршрута есть требования к правам доступа
+    if (to.meta.action && to.meta.subject) {
+      if (!canNavigate(to)) {
+        // Если нет прав доступа, перенаправляем на страницу 403
+        next({ name: 'not-authorized' })
+        return
+      }
+    }
+    next()
   } else {
     next()
   }

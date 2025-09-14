@@ -3,6 +3,8 @@ import avatar1 from '@images/avatars/avatar-1.png'
 import envService from '@/services/EnvService'
 import { useRouter } from 'vue-router'
 import { notifications } from '@/services/notification'
+import { clearAbilityRules } from '@/plugins/casl'
+import { ability } from '@/plugins/casl/ability'
 
 const router = useRouter()
 
@@ -10,6 +12,10 @@ const handleLogout = () => {
   // Очищаем токены
   envService.removeTokenFromLocalStorage()
   envService.removeRefreshTokenFromLocalStorage()
+  
+  // Очищаем CASL правила
+  clearAbilityRules()
+  ability.update([]) // Очищаем текущие правила
   
   // Показываем уведомление
   notifications.info('Вы вышли из системы')

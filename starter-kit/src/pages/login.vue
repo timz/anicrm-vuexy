@@ -5,6 +5,8 @@ import { api } from '@/services/AxiosService'
 import envService from '@/services/EnvService'
 import { notifications } from '@/services/notification'
 import { useRouter } from 'vue-router'
+import { saveAbilityRules } from '@/plugins/casl'
+import { ability } from '@/plugins/casl/ability'
 
 const router = useRouter()
 
@@ -37,8 +39,24 @@ const onSubmit = async (): Promise<void> => {
     isLoading.value = true
     const response = await api.post('/auth/login', form.value)
     const content = response.data.content
+    
+    // Сохраняем токены
     envService.saveTokenInLocalStorage(content.access_token)
     envService.saveRefreshTokenInLocalStorage(content.refresh_token)
+    
+    // Сохраняем CASL правила (если они пришли с сервера)
+    if (content.ability_rules) {
+      saveAbilityRules(content.ability_rules)
+      ability.update(content.ability_rules)
+    } else {
+      // Если правила не пришли, создаем базовые правила для тестирования
+      const defaultRules = [
+        { action: 'manage', subject: 'all' } // Полный доступ для разработки
+      ]
+      saveAbilityRules(defaultRules)
+      ability.update(defaultRules)
+    }
+    
     notifications.positive('Добро пожаловать!')
     await router.push({ name: 'index' })
   } catch (error: any) {
