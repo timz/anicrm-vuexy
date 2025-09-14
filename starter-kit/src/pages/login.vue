@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 import { api } from '@/services/AxiosService'
 import envService from '@/services/EnvService'
 import { notifications } from '@/services/notification'
-import { useRouter } from 'vue-router'
 import { saveAbilityRules } from '@/plugins/casl'
 import { ability } from '@/plugins/casl/ability'
 
@@ -37,32 +37,37 @@ const resetEmail = ref('')
 const onSubmit = async (): Promise<void> => {
   try {
     isLoading.value = true
+
     const response = await api.post('/auth/login', form.value)
     const content = response.data.content
-    
+
     // Сохраняем токены
     envService.saveTokenInLocalStorage(content.access_token)
     envService.saveRefreshTokenInLocalStorage(content.refresh_token)
-    
+
     // Сохраняем CASL правила (если они пришли с сервера)
     if (content.ability_rules) {
       saveAbilityRules(content.ability_rules)
       ability.update(content.ability_rules)
-    } else {
+    }
+    else {
       // Если правила не пришли, создаем базовые правила для тестирования
       const defaultRules = [
-        { action: 'manage', subject: 'all' } // Полный доступ для разработки
+        { action: 'manage', subject: 'all' }, // Полный доступ для разработки
       ]
+
       saveAbilityRules(defaultRules)
       ability.update(defaultRules)
     }
-    
+
     notifications.positive('Добро пожаловать!')
-    await router.push({ name: 'index' })
-  } catch (error: any) {
+    await router.push('/')
+  }
+  catch (error: any) {
     // Ошибки обрабатываются в AxiosService interceptors
     console.warn('Login failed:', error)
-  } finally {
+  }
+  finally {
     isLoading.value = false
   }
 }
@@ -74,9 +79,11 @@ const onResetPassword = async (): Promise<void> => {
     notifications.positive('На указанный email выслано письмо с инструкциями по восстановлению пароля')
     showResetForm.value = false
     resetEmail.value = ''
-  } catch (error: any) {
+  }
+  catch (error: any) {
     console.warn('Reset password failed:', error)
-  } finally {
+  }
+  finally {
     isLoading.value = false
   }
 }
@@ -94,7 +101,6 @@ const onResetPassword = async (): Promise<void> => {
         <RouterLink to="/">
           <div class="app-logo">
             <VNodeRenderer :nodes="themeConfig.app.logo" />
-
           </div>
         </RouterLink>
       </VCardTitle>
@@ -103,7 +109,9 @@ const onResetPassword = async (): Promise<void> => {
     <VCardText>
       <VExpandTransition mode="out-in">
         <div v-if="!showResetForm">
-          <h4 class="text-h4 text-center mb-6">Вход</h4>
+          <h4 class="text-h4 text-center mb-6">
+            Вход
+          </h4>
           <VForm @submit.prevent="onSubmit">
             <VRow>
               <!-- email -->
@@ -116,7 +124,7 @@ const onResetPassword = async (): Promise<void> => {
                   :disabled="isLoading"
                   :rules="[
                     (v: string) => !!v || 'Обязательное поле',
-                    (v: string) => v.length >= 2 || 'Минимум 2 символа'
+                    (v: string) => v.length >= 2 || 'Минимум 2 символа',
                   ]"
                 />
               </VCol>
@@ -133,7 +141,7 @@ const onResetPassword = async (): Promise<void> => {
                   :disabled="isLoading"
                   :rules="[
                     (v: string) => !!v || 'Обязательное поле',
-                    (v: string) => v.length >= 6 || 'Минимум 6 символов'
+                    (v: string) => v.length >= 6 || 'Минимум 6 символов',
                   ]"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -150,7 +158,7 @@ const onResetPassword = async (): Promise<void> => {
                   >
                     Войти
                   </VBtn>
-                  
+
                   <!-- forgot password -->
                   <VBtn
                     variant="text"
@@ -165,9 +173,11 @@ const onResetPassword = async (): Promise<void> => {
             </VRow>
           </VForm>
         </div>
-        
+
         <div v-else>
-          <h5 class="text-h5 text-center mb-6">Восстановление пароля</h5>
+          <h5 class="text-h5 text-center mb-6">
+            Восстановление пароля
+          </h5>
           <VForm @submit.prevent="onResetPassword">
             <VRow>
               <VCol cols="12">
@@ -180,11 +190,11 @@ const onResetPassword = async (): Promise<void> => {
                   :rules="[
                     (v: string) => !!v || 'Обязательное поле',
                     (v: string) => /.+@.+\..+/.test(v) || 'Email должен быть корректным',
-                    (v: string) => v.length >= 5 || 'Минимум 5 символов'
+                    (v: string) => v.length >= 5 || 'Минимум 5 символов',
                   ]"
                 />
               </VCol>
-              
+
               <VCol cols="12">
                 <div class="d-flex flex-column ga-3">
                   <VBtn
@@ -195,7 +205,7 @@ const onResetPassword = async (): Promise<void> => {
                   >
                     Отправить инструкции
                   </VBtn>
-                  
+
                   <VBtn
                     variant="text"
                     color="primary"
