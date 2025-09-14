@@ -5,7 +5,10 @@
       "Bash(pnpm list:*)",
       "mcp__vuetify__get_feature_guide",
       "Bash(dir:*)",
-      "Bash(pnpm add:*)"
+      "Bash(pnpm add:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(curl:*)",
+      "Bash(pnpm run:*)"
     ],
     "deny": [],
     "ask": []

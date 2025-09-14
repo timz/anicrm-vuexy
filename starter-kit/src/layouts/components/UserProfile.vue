@@ -1,5 +1,22 @@
 <script setup lang="ts">
 import avatar1 from '@images/avatars/avatar-1.png'
+import envService from '@/services/EnvService'
+import { useRouter } from 'vue-router'
+import { notifications } from '@/services/notification'
+
+const router = useRouter()
+
+const handleLogout = () => {
+  // Очищаем токены
+  envService.removeTokenFromLocalStorage()
+  envService.removeRefreshTokenFromLocalStorage()
+  
+  // Показываем уведомление
+  notifications.info('Вы вышли из системы')
+  
+  // Перенаправляем на страницу логина
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -111,7 +128,7 @@ import avatar1 from '@images/avatars/avatar-1.png'
           <VDivider class="my-2" />
 
           <!-- 👉 Logout -->
-          <VListItem to="/login">
+          <VListItem @click="handleLogout">
             <template #prepend>
               <VIcon
                 class="me-2"
@@ -120,7 +137,7 @@ import avatar1 from '@images/avatars/avatar-1.png'
               />
             </template>
 
-            <VListItemTitle>Logout</VListItemTitle>
+            <VListItemTitle>Выйти</VListItemTitle>
           </VListItem>
         </VList>
       </VMenu>
