@@ -1,0 +1,35 @@
+.soft-shadow {
+  box-shadow: 0 2px 10px 0 rgba(58, 53, 65, 0.1) !important;
+  border: 1px solid rgba(58, 53, 65, 0.05);
+}
+
+/* Переопределяем стили границ для полей ввода */
+.v-theme--light {
+  --v-border-color: 47, 43, 61;
+  --v-border-opacity: 0.22;
+  --v-medium-emphasis-opacity: 0.7;
+  --v-high-emphasis-opacity: 0.9;
+}
+
+/* Применяем к outlined полям */
+.v-theme--light .v-field--variant-outlined .v-field__outline__start,
+.v-theme--light .v-field--variant-outlined .v-field__outline__end,
+.v-theme--light .v-field--variant-outlined .v-field__outline__notch::before,
+.v-theme--light .v-field--variant-outlined .v-field__outline__notch::after{
+  border-color: rgba(47, 43, 61, 0.42);
+}
+
+/* При hover */
+.v-theme--light .v-field--variant-outlined:not(.v-field--disabled):hover .v-field__outline__start,
+.v-theme--light .v-field--variant-outlined:not(.v-field--disabled):hover .v-field__outline__end,
+.v-theme--light .v-field--variant-outlined .v-field__outline__notch::before,
+.v-theme--light .v-field--variant-outlined .v-field__outline__notch::after{
+  border-color: rgba(47, 43, 61, 0.38);
+}
+
+/* Переопределяем отступы в row форм */
+.v-row-form > .v-col,
+.v-row-form > [class*="v-col-"] {
+  padding: 8px;
+}
+

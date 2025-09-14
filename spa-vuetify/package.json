@@ -1,0 +1,46 @@
+{
+  "name": "anicrm-spa-vuetify",
+  "version": "0.0.1",
+  "description": "crm saas - Vuetify migration",
+  "productName": "Anicrm Vuetify",
+  "author": "timz <timugatu@mail.ru>",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lint": "eslint \"src/**/*.{ts,js,cjs,mjs,vue}\"",
+    "format": "prettier --write \"**/*.{js,ts,vue,scss,html,md,json}\" --ignore-path .gitignore",
+    "test": "echo \"No test specified\" && exit 0",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mdi/font": "^7.4.47",
+    "axios": "^1.2.1",
+    "dayjs": "^1.11.13",
+    "lodash": "^4.17.21",
+    "pinia": "^3.0.1",
+    "unplugin-fonts": "^1.4.0",
+    "vite-plugin-vuetify": "^2.1.2",
+    "vue": "^3.5.20",
+    "vue-i18n": "^11.1.9",
+    "vue-router": "^4.0.12",
+    "vuedraggable": "^4.1.0",
+    "vuetify": "^3.9.6"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.16",
+    "@types/node": "^20.5.9",
+    "@vitejs/plugin-vue": "^6.0.1",
+    "prettier": "^3.3.3",
+    "sass-embedded": "^1.91.0",
+    "typescript": "~5.5.3",
+    "vite": "^7.1.3",
+    "vue-tsc": "^2.0.29"
+  },
+  "engines": {
+    "node": "^28 || ^26 || ^24 || ^22 || ^20 || ^18",
+    "npm": ">= 6.13.4",
+    "yarn": ">= 1.21.1"
+  }
+}

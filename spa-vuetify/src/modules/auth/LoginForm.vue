@@ -1,0 +1,99 @@
+<template>
+  <div>
+    <h4 class="text-h4 text-center mb-6 text-blue-grey-darken-2">Вход</h4>
+    <v-form ref="formRef" @submit.prevent="onSubmit">
+      <div class="mb-6">
+        <crud-input
+          v-model="model.username"
+          label="Email или имя пользователя"
+          :rules="[r.required(), r.strMinLength(2)]"
+          :disabled="crudForm.stateProcessing.value"
+        />
+      </div>
+      <div class="mb-6">
+        <crud-input
+          v-model="model.password"
+          label="Пароль"
+          type="password"
+          :rules="[r.required(), r.strMinLength(6)]"
+          :disabled="crudForm.stateProcessing.value"
+        />
+      </div>
+      <div class="d-flex flex-column ga-3">
+        <crud-button-primary 
+          size="large"
+          block
+          @click="onSubmit()"
+          :loading="crudForm.stateProcessing.value"
+        >
+          Войти
+        </crud-button-primary>
+        <v-btn 
+          variant="text" 
+          color="primary"
+          size="small"
+          @click="navigateResetForm()"
+        >
+          Забыли пароль?
+        </v-btn>
+      </div>
+    </v-form>
+  </div>
+</template>
+
+<script setup lang="ts">
+import r from '@crud/services/RulesService'
+import CrudButtonPrimary from '@crud/components/buttons/CrudButtonPrimary.vue'
+import {ref} from 'vue'
+import envService from '@crud/services/EnvService'
+import {notifications} from '@crud/boot/notification'
+import CrudInput from '@crud/components/Inputs/CrudInput.vue'
+import {useCrudForm, type QFormConfig} from '@crud/providers/useCrudForm'
+import type { FormModel } from '@crud/types'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+interface LoginModel extends FormModel {
+  username: string
+  password: string
+  platform: string
+}
+
+const model = ref<LoginModel>({
+  username: import.meta.env.VITE_USER_SA_NAME || '',
+  password: import.meta.env.VITE_USER_SA_PASS || '',
+  platform: 'app',
+})
+
+const crudForm = useCrudForm({
+  requestKey: false,
+  url: '/auth/login',
+  model: model,
+  isSecure: false,
+} as QFormConfig<LoginModel>)
+
+const formRef = crudForm.formRef
+
+const emits = defineEmits(['goResetForm'])
+
+function navigateResetForm() {
+  emits('goResetForm')
+}
+
+
+const onSubmit = async (): Promise<void> => {
+  try {
+    const result = await crudForm.submit()
+    const content = result.content
+    envService.saveTokenInLocalStorage(content.access_token)
+    envService.saveRefreshTokenInLocalStorage(content.refresh_token)
+    notifications.positive('Добро пожаловать!')
+    await router.push({ name: 'home' })
+  } catch (error) {
+    // Ошибки обрабатываются в AxiosService interceptors
+    // Здесь можем добавить специфичную для логина логику, если нужно
+    console.warn('Login failed:', error)
+  }
+}
+</script>

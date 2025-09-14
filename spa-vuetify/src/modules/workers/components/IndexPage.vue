@@ -1,0 +1,127 @@
+<template>
+  <PageTitle>Сотрудники</PageTitle>
+  <crud-table>
+    <template #actionsSection>
+      <crud-button-primary
+        label="Создать"
+        v-if="meStore.userCan('workers_create')"
+        :to="{ name: 'workerCreate' }"
+      >
+        Создать
+      </crud-button-primary>
+    </template>
+    <template #filterForm>
+      <v-col cols="12" md="4">
+        <crud-input v-model="dataListProvider.filter.value.name" label="ФИО" />
+      </v-col>
+      <v-col cols="12" md="3">
+        <crud-select
+          v-model="dataListProvider.filter.value.is_outside"
+          label="Внешний сотрудник"
+          :items="[
+            { title: 'Все', value: null },
+            { title: 'Да', value: true },
+            { title: 'Нет', value: false },
+          ]"
+        />
+      </v-col>
+    </template>
+
+    <!-- Custom formatting for is_outside column -->
+    <template #body-cell-is_outside="{ value }">
+      {{ value ? "Да" : "Нет" }}
+    </template>
+
+    <!-- Custom formatting for created column -->
+    <template #body-cell-created="{ value }">
+      {{ formatTableDate(value) }}
+    </template>
+  </crud-table>
+</template>
+
+<script setup lang="ts">
+import { provide } from "vue";
+import { useMeStore } from "@crud/stores/meStore";
+import CrudTable from "@crud/components/table/CrudTable.vue";
+import type { UseCrudDataListReturn } from "@crud/providers/useCrudDataList";
+import { useCrudDataList } from "@crud/providers/useCrudDataList";
+import CrudInput from "@crud/components/Inputs/CrudInput.vue";
+import CrudButtonPrimary from "@crud/components/buttons/CrudButtonPrimary.vue";
+import { createStandardActions } from "@crud/components/table/buttons/rowActionsFactory";
+import { useTimezone } from "@crud/composables/useTimezone";
+import CrudSelect from "@crud/components/Inputs/CrudSelect.vue";
+import PageTitle from "@crud/components/templates/PageTitle.vue";
+
+interface WorkerItem {
+  id: number | null;
+  mobile: string;
+  is_outside: boolean;
+  name: string;
+  created: string;
+}
+
+const meStore = useMeStore();
+const { formatTableDate } = useTimezone();
+
+const columns = [
+  {
+    name: "name",
+    required: true,
+    label: "ФИО",
+    align: "left",
+    field: "name",
+    sortable: true,
+  },
+  {
+    name: "mobile",
+    required: false,
+    label: "Телефон",
+    align: "left",
+    field: "mobile",
+    sortable: true,
+  },
+  {
+    name: "is_outside",
+    required: false,
+    label: "Внешний",
+    align: "center",
+    field: "is_outside",
+    sortable: true,
+    headerStyle: "width: 100px",
+  },
+  {
+    name: "created",
+    required: false,
+    label: "Создан",
+    align: "center",
+    field: "created",
+    sortable: true,
+    headerStyle: "width: 150px",
+  },
+];
+
+// Создаем dataListProvider
+const dataListProvider: UseCrudDataListReturn<WorkerItem> =
+  useCrudDataList<WorkerItem>({
+    mode: "table",
+    urlBase: "/workers",
+    pk: "id",
+    columns,
+    rowActions: [
+      ...createStandardActions<WorkerItem>({
+        edit: {
+          routeName: "workerEdit",
+          show: () => meStore.userCan("workers_update"),
+        },
+        delete: {
+          show: () => meStore.userCan("workers_delete"),
+          onDelete: (item: WorkerItem) => {
+            console.log("Delete item:", item.id);
+          },
+        },
+      }),
+    ],
+  });
+
+provide("dataListProvider", dataListProvider);
+</script>
