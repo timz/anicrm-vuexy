@@ -13,14 +13,6 @@ initCore()
 initConfigStore()
 
 const configStore = useConfigStore()
-
-// Hide initial loader after app is mounted
-onMounted(() => {
-  const loader = document.getElementById('loading-bg')
-  if (loader) {
-    loader.style.display = 'none'
-  }
-})
 </script>
 
 <template>
