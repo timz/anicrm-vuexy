@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import avatar1 from '@images/avatars/avatar-1.png'
-import envService from '@/services/EnvService'
-import { notifications } from '@/services/notification'
+import envService from '@crud/services/EnvService'
+import { notifications } from '@crud/boot/notification'
 import { clearAbilityRules } from '@/crudui/plugins/casl'
 import { ability } from '@/crudui/plugins/casl/ability'
-import { useMeStore } from '@/stores/meStore'
+import { useMeStore } from '@crud/stores/meStore'
 
 const router = useRouter()
 const meStore = useMeStore()

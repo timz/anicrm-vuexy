@@ -2,8 +2,8 @@ import type { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios'
 import envService from '@crud/services/EnvService'
 import { notifications } from '@crud/boot/notification'
-import type { ResponseDto } from '../interfaces/ResponseDto'
-import { useGlobalLoading } from '../composables/useGlobalLoading'
+import type { ResponseDto } from '@crud/interfaces/ResponseDto'
+import { useGlobalLoading } from '@crud/composables/useGlobalLoading'
 
 export const secureApi = getAxiosInstance(true)
 export const api = getAxiosInstance(false)

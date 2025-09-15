@@ -7,7 +7,7 @@ import { notifications } from '@crud/boot/notification'
 /**
  * @description Обходим все папки модулей в @modules/* и объединяем все routes.ts
  */
-const modulesRouteFiles = import.meta.glob('../modules/*/routes.ts',{ eager: true })
+const modulesRouteFiles = import.meta.glob('../../modules/*/routes.ts',{ eager: true })
 const modulesRoute: unknown[] = []
 
 export const freeRoutes = [

@@ -12,7 +12,8 @@
       "Bash(robocopy:*)",
       "Bash(xcopy:*)",
       "Bash(powershell:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "ask": []

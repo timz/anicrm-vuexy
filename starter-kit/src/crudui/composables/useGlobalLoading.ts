@@ -5,14 +5,14 @@ const loadingMessage = ref<string>('')
 
 export const useGlobalLoading = () => {
   const isLoading = computed(() => activeRequests.value > 0)
-  
+
   const startLoading = (message?: string) => {
     activeRequests.value++
     if (message) {
       loadingMessage.value = message
     }
   }
-  
+
   const stopLoading = () => {
     if (activeRequests.value > 0) {
       activeRequests.value--
@@ -21,12 +21,12 @@ export const useGlobalLoading = () => {
       loadingMessage.value = ''
     }
   }
-  
+
   const resetLoading = () => {
     activeRequests.value = 0
     loadingMessage.value = ''
   }
-  
+
   return {
     isLoading,
     loadingMessage,
