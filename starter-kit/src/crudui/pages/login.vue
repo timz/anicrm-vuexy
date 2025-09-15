@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { VNodeRenderer } from '@crudui/layouts/components/VNodeRenderer'
+import { VNodeRenderer } from '@crudui/components/templates/helpers/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 import { api } from '@crudui/services/AxiosService'
 import envService from '@crudui/services/EnvService'
 import { notifications } from '@crudui/boot/notification'
-import { saveAbilityRules } from '@/crudui/plugins/casl'
+import { saveAbilityRules } from '@/crudui/plugins/casl/index'
 import { ability } from '@/crudui/plugins/casl/ability'
 
 const router = useRouter()

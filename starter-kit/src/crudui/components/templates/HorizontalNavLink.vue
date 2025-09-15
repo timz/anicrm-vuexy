@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-import { layoutConfig } from '@crudui/layouts'
+import { layoutConfig } from '@crudui/components/templates/helpers'
 import { can } from '@crudui/plugins/casl'
-import type { NavLink } from '@crudui/layouts/types'
-import { getComputedNavLinkToProp, getDynamicI18nProps, isNavLinkActive } from '@crudui/layouts/utils'
+import type { NavLink } from '@crudui/components/templates/helpers/types'
+import {
+  getComputedNavLinkToProp,
+  getDynamicI18nProps,
+  isNavLinkActive,
+} from '@crudui/components/templates/helpers/utils'
 
 interface Props {
   item: NavLink

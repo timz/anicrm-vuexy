@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { layoutConfig } from '@crudui/layouts'
+import { layoutConfig } from '@crudui/components/templates/helpers'
 import { can } from '@crudui/plugins/casl'
-import { useLayoutConfigStore } from '@crudui/layouts/stores/config'
-import type { NavSectionTitle } from '@crudui/layouts/types'
-import { getDynamicI18nProps } from '@crudui/layouts/utils'
+import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
+import type { NavSectionTitle } from '@crudui/components/templates/helpers/types'
+import { getDynamicI18nProps } from '@crudui/components/templates/helpers/utils'
 
 defineProps<{
   item: NavSectionTitle

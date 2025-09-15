@@ -1,12 +1,16 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { VNodeRenderer } from './VNodeRenderer'
-import { layoutConfig } from '@crudui/layouts'
-import { VerticalNavGroup, VerticalNavLink, VerticalNavSectionTitle } from '@crudui/layouts/components'
-import { useLayoutConfigStore } from '@crudui/layouts/stores/config'
-import { injectionKeyIsVerticalNavHovered } from '@crudui/layouts/symbols'
-import type { NavGroup, NavLink, NavSectionTitle, VerticalNavItems } from '@crudui/layouts/types'
+import { VNodeRenderer } from './helpers/VNodeRenderer'
+import { layoutConfig } from '@crudui/components/templates/helpers'
+import {
+  VerticalNavGroup,
+  VerticalNavLink,
+  VerticalNavSectionTitle,
+} from '@crudui/components/templates/helpers/components'
+import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
+import { injectionKeyIsVerticalNavHovered } from '@crudui/components/templates/helpers/symbols'
+import type { NavGroup, NavLink, NavSectionTitle, VerticalNavItems } from '@crudui/components/templates/helpers/types'
 
 interface Props {
   tag?: string | Component
@@ -152,7 +156,7 @@ const hideTitleAndIcon = configStore.isVerticalNavMini(isHovered)
 
 <style lang="scss">
 @use "../../../assets/styles/variables/template" as variables;
-@use "@layouts/styles/mixins";
+@use "@crudui/styles/mixins";
 
 // 👉 Vertical Nav
 .layout-vertical-nav {

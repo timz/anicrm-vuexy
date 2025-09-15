@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import navItems from '@/crudui/navigation/vertical'
+import navItems from '@crudui/navigation/vertical'
 
 // Components
-import UserProfile from '@/crudui/layouts/components/UserProfile.vue'
+import UserProfile from '@crudui/components/templates/UserProfile.vue'
 
 // @layouts plugin
-import { VerticalNavLayout } from '@crudui/layouts'
+import { VerticalNavLayout } from '@crudui/components/templates/helpers'
 </script>
 
 <template>

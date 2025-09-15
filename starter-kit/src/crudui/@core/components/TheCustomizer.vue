@@ -6,8 +6,8 @@ import { staticPrimaryColor, staticPrimaryDarkenColor } from '@/crudui/plugins/v
 import { Direction, Layout, Skins, Theme } from '@core/enums'
 import { useConfigStore } from '@core/stores/config'
 import horizontalLight from '@images/customizer-icons/horizontal-light.svg'
-import { AppContentLayoutNav, ContentWidth } from '@crudui/layouts/enums'
-import { cookieRef, namespaceConfig } from '@crudui/layouts/stores/config'
+import { AppContentLayoutNav, ContentWidth } from '@crudui/components/templates/helpers/enums'
+import { cookieRef, namespaceConfig } from '@crudui/components/templates/stores/config'
 import { themeConfig } from '@themeConfig'
 
 import borderSkin from '@images/customizer-icons/border-light.svg'
@@ -555,7 +555,7 @@ const resetCustomizer = async () => {
 </template>
 
 <style lang="scss">
-@use "@layouts/styles/mixins" as layoutMixins;
+@use "@crudui/styles/mixins" as layoutMixins;
 
 .app-customizer {
   &.v-navigation-drawer--temporary:not(.v-navigation-drawer--active) {

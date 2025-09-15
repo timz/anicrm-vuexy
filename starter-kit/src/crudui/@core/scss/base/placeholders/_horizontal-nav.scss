@@ -1,6 +1,6 @@
-@use "@layouts/styles/mixins" as layoutsMixins;
+@use "@crudui/styles/mixins" as layoutsMixins;
 @use "@core/scss/base/variables";
-@use "@layouts/styles/placeholders";
+@use "@crudui/styles/placeholders";
 @use "@core/scss/base/mixins";
 
 // Horizontal nav item styles (including nested)

@@ -3,7 +3,7 @@ import { createMongoAbility } from '@casl/ability'
 import { abilitiesPlugin, useAbility } from '@casl/vue'
 import type { RouteLocationNormalized } from 'vue-router'
 import type { Rule } from './ability'
-import type { NavGroup } from '@crudui/layouts/types'
+import type { NavGroup } from '@crudui/components/templates/helpers/types'
 
 export default function (app: App) {
   // Получаем правила из localStorage (вместо cookie для совместимости с нашей системой)

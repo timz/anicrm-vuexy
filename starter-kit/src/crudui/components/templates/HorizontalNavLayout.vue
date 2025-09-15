@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { HorizontalNav } from '@crudui/layouts/components'
-import type { HorizontalNavItems } from '@crudui/layouts/types'
+import { HorizontalNav } from '@crudui/components/templates/helpers/components'
+import type { HorizontalNavItems } from '@crudui/components/templates/helpers/types'
 
 // ℹ️ Using import from `@layouts` causing build to hangup
 // import { useLayouts } from '@layouts'
-import { useLayoutConfigStore } from '@crudui/layouts/stores/config'
+import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
 
 defineProps<{
   navItems: HorizontalNavItems
@@ -52,8 +52,8 @@ const configStore = useLayoutConfigStore()
 
 <style lang="scss">
 @use "../../../assets/styles/variables/template" as variables;
-@use "@layouts/styles/placeholders";
-@use "@layouts/styles/mixins";
+@use "@crudui/styles/placeholders";
+@use "@crudui/styles/mixins";
 
 .layout-wrapper {
   &.layout-nav-type-horizontal {

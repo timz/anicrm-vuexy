@@ -1,12 +1,12 @@
 import type { App } from 'vue'
 
 import type { PartialDeep } from 'type-fest/source/partial-deep'
-import { createLayouts } from '@crudui/layouts'
+import { createLayouts } from '@crudui/components/templates/helpers'
 
 import { layoutConfig } from '@themeConfig'
 
 // Styles
-import '@crudui/layouts/styles/index.scss'
+import '@crudui/styles/index.scss'
 
 export default function (app: App) {
   // ℹ️ We generate layout config from our themeConfig so you don't have to write config twice

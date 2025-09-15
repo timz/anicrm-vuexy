@@ -1,6 +1,6 @@
-import { AppContentLayoutNav, NavbarType } from '@crudui/layouts/enums'
-import { injectionKeyIsVerticalNavHovered } from '@crudui/layouts/symbols'
-import { _setDirAttr } from '@crudui/layouts/utils'
+import { AppContentLayoutNav, NavbarType } from '@crudui/components/templates/helpers/enums'
+import { injectionKeyIsVerticalNavHovered } from '@crudui/components/templates/helpers/symbols'
+import { _setDirAttr } from '@crudui/components/templates/helpers/utils'
 
 // ℹ️ We should not import themeConfig here but in urgency we are doing it for now
 import { layoutConfig } from '@themeConfig'

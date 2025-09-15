@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { HorizontalNavGroup, HorizontalNavLink } from '@crudui/layouts/components'
-import type { HorizontalNavItems, NavGroup, NavLink } from '@crudui/layouts/types'
+import { HorizontalNavGroup, HorizontalNavLink } from '@crudui/components/templates/helpers/components'
+import type { HorizontalNavItems, NavGroup, NavLink } from '@crudui/components/templates/helpers/types'
 
 defineProps<{
   navItems: HorizontalNavItems

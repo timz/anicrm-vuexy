@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import avatar1 from '@images/avatars/avatar-1.png'
-import envService from '@crudui/services/EnvService'
 import { notifications } from '@crudui/boot/notification'
-import { clearAbilityRules } from '@/crudui/plugins/casl'
-import { ability } from '@/crudui/plugins/casl/ability'
+import { clearAbilityRules } from '@crudui/plugins/casl/index'
+import { ability } from '@crudui/plugins/casl/ability'
 import { useMeStore } from '@crudui/stores/meStore'
 
 const router = useRouter()

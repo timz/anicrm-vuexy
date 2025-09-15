@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useConfigStore } from '@core/stores/config'
-import type { ThemeSwitcherTheme } from '@crudui/layouts/types'
+import type { ThemeSwitcherTheme } from '@crudui/components/templates/helpers/types'
 
 const props = defineProps<{
   themes: ThemeSwitcherTheme[]

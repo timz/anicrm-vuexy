@@ -1,5 +1,5 @@
 @use "placeholders";
-@use "../../../assets/styles/variables/template" as variables;
+@use "../../assets/styles/variables/template" as variables;
 
 @mixin rtl {
   @if variables.$enable-rtl-styles {

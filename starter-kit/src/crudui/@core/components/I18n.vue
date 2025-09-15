@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { I18nLanguage } from '@crudui/layouts/types'
+import type { I18nLanguage } from '@crudui/components/templates/helpers/types'
 
 interface Props {
   languages: I18nLanguage[]

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Notification } from '@crudui/layouts/types'
+import type { Notification } from '@crudui/components/templates/helpers/types'
 
 import avatar3 from '@images/avatars/avatar-3.png'
 import avatar4 from '@images/avatars/avatar-4.png'

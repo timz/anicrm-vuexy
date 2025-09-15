@@ -1,9 +1,9 @@
 import type { PartialDeep } from 'type-fest'
 import type { Plugin } from 'vue'
-import { layoutConfig } from '@crudui/layouts/config'
-import { cookieRef, useLayoutConfigStore } from '@crudui/layouts/stores/config'
-import type { LayoutConfig } from '@crudui/layouts/types'
-import { _setDirAttr } from '@crudui/layouts/utils'
+import { layoutConfig } from '@crudui/components/templates/helpers/config'
+import { cookieRef, useLayoutConfigStore } from '@crudui/components/templates/stores/config'
+import type { LayoutConfig } from '@crudui/components/templates/helpers/types'
+import { _setDirAttr } from '@crudui/components/templates/helpers/utils'
 
 // 🔌 Plugin
 export const createLayouts = (userConfig: PartialDeep<LayoutConfig>): Plugin => {

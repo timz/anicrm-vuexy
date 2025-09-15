@@ -43,7 +43,11 @@ const suggestionGroups: SuggestionGroup[] = [
     content: [
       { icon: 'tabler-calendar', title: 'Calendar', url: { name: 'apps-calendar' } },
       { icon: 'tabler-lock', title: 'Roles & Permissions', url: { name: 'apps-roles' } },
-      { icon: 'tabler-settings', title: 'Account Settings', url: { name: 'pages-account-settings-tab', params: { tab: 'account' } } },
+      {
+        icon: 'tabler-settings',
+        title: 'Account Settings',
+        url: { name: 'pages-account-settings-tab', params: { tab: 'account' } },
+      },
       { icon: 'tabler-copy', title: 'Dialog Examples', url: { name: 'pages-dialog-examples' } },
     ],
   },
@@ -242,7 +246,7 @@ const LazyAppBarSearch = defineAsyncComponent(() => import('@core/components/App
 </template>
 
 <style lang="scss">
-@use "@styles/variables/vuetify.scss";
+@use "vuetify";
 
 .meta-key {
   border: thin solid rgba(var(--v-border-color), var(--v-border-opacity));

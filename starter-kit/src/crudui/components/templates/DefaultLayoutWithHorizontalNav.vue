@@ -1,13 +1,13 @@
 <script lang="ts" setup>
-import navItems from '@/crudui/navigation/horizontal'
+import navItems from '@crudui/navigation/horizontal'
 
 import { themeConfig } from '@themeConfig'
 
 // Components
-import UserProfile from '@/crudui/layouts/components/UserProfile.vue'
+import UserProfile from '@crudui/components/templates/UserProfile.vue'
 import NavBarI18n from '@core/components/I18n.vue'
-import { HorizontalNavLayout } from '@crudui/layouts'
-import { VNodeRenderer } from '@crudui/layouts/components/VNodeRenderer'
+import { HorizontalNavLayout } from '@crudui/components/templates/helpers'
+import { VNodeRenderer } from '@crudui/components/templates/helpers/VNodeRenderer'
 </script>
 
 <template>

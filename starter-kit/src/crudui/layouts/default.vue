@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { useConfigStore } from '@core/stores/config'
-import { AppContentLayoutNav } from '@crudui/layouts/enums'
-import { switchToVerticalNavOnLtOverlayNavBreakpoint } from '@crudui/layouts/utils'
+import { AppContentLayoutNav } from '@crudui/components/templates/helpers/enums'
+import { switchToVerticalNavOnLtOverlayNavBreakpoint } from '@crudui/components/templates/helpers/utils'
 
-const DefaultLayoutWithHorizontalNav = defineAsyncComponent(() => import('./components/DefaultLayoutWithHorizontalNav.vue'))
-const DefaultLayoutWithVerticalNav = defineAsyncComponent(() => import('./components/DefaultLayoutWithVerticalNav.vue'))
+const DefaultLayoutWithHorizontalNav = defineAsyncComponent(() => import('../components/templates/DefaultLayoutWithHorizontalNav.vue'))
+const DefaultLayoutWithVerticalNav = defineAsyncComponent(() => import('../components/templates/DefaultLayoutWithVerticalNav.vue'))
 
 const configStore = useConfigStore()
 
@@ -52,5 +52,5 @@ watch([isFallbackStateActive, refLoadingIndicator], () => {
 
 <style lang="scss">
 // As we are using `layouts` plugin we need its styles to be imported
-@use "@layouts/styles/default-layout";
+@use "@crudui/styles/default-layout";
 </style>

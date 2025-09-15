@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia'
 import { useTheme } from 'vuetify'
-import { cookieRef, useLayoutConfigStore } from '@crudui/layouts/stores/config'
+import { cookieRef, useLayoutConfigStore } from '@crudui/components/templates/stores/config'
 import { themeConfig } from '@themeConfig'
 
 // SECTION Store

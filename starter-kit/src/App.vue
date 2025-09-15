@@ -4,7 +4,7 @@ import ScrollToTop from '@core/components/ScrollToTop.vue'
 import initCore from '@core/initCore'
 import { initConfigStore, useConfigStore } from '@core/stores/config'
 import { hexToRgb } from '@core/utils/colorConverter'
-import NotificationSystem from '@/crudui/components/NotificationSystem.vue'
+import NotificationSystem from '@crudui/components/templates/NotificationSystem.vue'
 
 const { global } = useTheme()
 

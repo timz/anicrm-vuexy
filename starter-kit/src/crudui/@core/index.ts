@@ -1,5 +1,5 @@
 import type { UserThemeConfig } from './types'
-import type { LayoutConfig } from '@crudui/layouts/types'
+import type { LayoutConfig } from '@crudui/components/templates/helpers/types'
 
 export const defineThemeConfig = (userConfig: UserThemeConfig): {
   themeConfig: UserThemeConfig
