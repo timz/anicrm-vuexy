@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/work/anicrm/anicrm-vuexy-migrate/spa-vuetify/src/crudui/components/templates/menus/right/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
