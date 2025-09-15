@@ -105,7 +105,7 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
-  const paginationMeta: typeof import('./src/crudui/utils/paginationMeta')['paginationMeta']
+  const paginationMeta: typeof import('./src/crudui/@core/utils/paginationMeta')['paginationMeta']
   const passwordValidator: typeof import('./src/crudui/@core/utils/validators')['passwordValidator']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
   const prefixWithPlus: typeof import('./src/crudui/@core/utils/formatters')['prefixWithPlus']
@@ -478,7 +478,7 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
-    readonly paginationMeta: UnwrapRef<typeof import('./src/crudui/utils/paginationMeta')['paginationMeta']>
+    readonly paginationMeta: UnwrapRef<typeof import('./src/crudui/@core/utils/paginationMeta')['paginationMeta']>
     readonly passwordValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['passwordValidator']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly prefixWithPlus: UnwrapRef<typeof import('./src/crudui/@core/utils/formatters')['prefixWithPlus']>
@@ -565,7 +565,6 @@ declare module 'vue' {
     readonly useCloned: UnwrapRef<typeof import('@vueuse/core')['useCloned']>
     readonly useColorMode: UnwrapRef<typeof import('@vueuse/core')['useColorMode']>
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
-    readonly useCookie: UnwrapRef<typeof import('./src/crudui/@core/composable/useCookie')['useCookie']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
     readonly useCrudDataForm: UnwrapRef<typeof import('./src/crudui/providers/useCrudDataForm')['useCrudDataForm']>
     readonly useCrudDataList: UnwrapRef<typeof import('./src/crudui/providers/useCrudDataList')['useCrudDataList']>

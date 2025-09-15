@@ -18,10 +18,7 @@ const props = withDefaults(defineProps<Props>(), {
   noPadding: false,
 })
 
-const preferredCodeLanguage = useCookie<CodeLanguages>('preferredCodeLanguage', {
-  default: () => 'ts',
-  maxAge: COOKIE_MAX_AGE_1_YEAR,
-})
+const preferredCodeLanguage = ref<CodeLanguages>('ts')
 
 const isCodeShown = ref(false)
 

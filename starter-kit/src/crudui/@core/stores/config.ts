@@ -1,13 +1,13 @@
 import { storeToRefs } from 'pinia'
 import { useTheme } from 'vuetify'
-import { cookieRef, useLayoutConfigStore } from '@crudui/components/templates/stores/config'
+import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
 import { themeConfig } from '@themeConfig'
 
 // SECTION Store
 export const useConfigStore = defineStore('config', () => {
   // 👉 Theme
   const userPreferredColorScheme = usePreferredColorScheme()
-  const cookieColorScheme = cookieRef<'light' | 'dark'>('color-scheme', 'light')
+  const cookieColorScheme = ref<'light' | 'dark'>('light')
 
   watch(
     userPreferredColorScheme,
@@ -18,13 +18,13 @@ export const useConfigStore = defineStore('config', () => {
     { immediate: true },
   )
 
-  const theme = cookieRef('theme', themeConfig.app.theme)
+  const theme = ref(themeConfig.app.theme)
 
   // 👉 isVerticalNavSemiDark
-  const isVerticalNavSemiDark = cookieRef('isVerticalNavSemiDark', themeConfig.verticalNav.isVerticalNavSemiDark)
+  const isVerticalNavSemiDark = ref(themeConfig.verticalNav.isVerticalNavSemiDark)
 
   // 👉 isVerticalNavSemiDark
-  const skin = cookieRef('skin', themeConfig.app.skin)
+  const skin = ref(themeConfig.app.skin)
 
   // ℹ️ We need to use `storeToRefs` to forward the state
   const {

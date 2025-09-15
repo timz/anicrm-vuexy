@@ -1,12 +1,12 @@
 import { useStorage } from '@vueuse/core'
 import { useTheme } from 'vuetify'
 import { useConfigStore } from '@core/stores/config'
-import { cookieRef, namespaceConfig } from '@crudui/components/templates/stores/config'
+import { namespaceConfig } from '@crudui/components/templates/stores/config'
 import { themeConfig } from '@themeConfig'
 
 const _syncAppRtl = () => {
   const configStore = useConfigStore()
-  const storedLang = cookieRef<string | null>('language', null)
+  const storedLang = ref<string | null>(null)
 
   const { locale } = useI18n({ useScope: 'global' })
 
@@ -22,7 +22,7 @@ const _syncAppRtl = () => {
       if (typeof document !== 'undefined')
         document.documentElement.setAttribute('lang', val as string)
 
-      // Store selected language in cookie
+      // Store selected language (no longer in cookie)
       storedLang.value = val as string
 
       // set isAppRtl value based on selected language

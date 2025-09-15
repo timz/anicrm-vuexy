@@ -8,7 +8,6 @@ import { staticPrimaryColor, staticPrimaryDarkenColor, themes } from './theme'
 import { themeConfig } from '@themeConfig'
 
 // Styles
-import { cookieRef } from '@crudui/components/templates/stores/config'
 import '@core/scss/template/libs/vuetify/index.scss'
 import 'vuetify/styles'
 
@@ -18,14 +17,14 @@ export default function (app: App) {
     themes: {
       light: {
         colors: {
-          'primary': cookieRef('lightThemePrimaryColor', staticPrimaryColor).value,
-          'primary-darken-1': cookieRef('lightThemePrimaryDarkenColor', staticPrimaryDarkenColor).value,
+          'primary': staticPrimaryColor,
+          'primary-darken-1': staticPrimaryDarkenColor,
         },
       },
       dark: {
         colors: {
-          'primary': cookieRef('darkThemePrimaryColor', staticPrimaryColor).value,
-          'primary-darken-1': cookieRef('darkThemePrimaryDarkenColor', staticPrimaryDarkenColor).value,
+          'primary': staticPrimaryColor,
+          'primary-darken-1': staticPrimaryDarkenColor,
         },
       },
     },

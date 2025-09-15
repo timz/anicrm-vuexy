@@ -14,7 +14,8 @@
       "Bash(powershell:*)",
       "Bash(findstr:*)",
       "Bash(grep:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(del \"C:\\work\\anicrm\\anicrm-vuexy-migrate\\starter-kit\\src\\crudui\\@core\\composable\\useCookie.ts\")"
     ],
     "deny": [],
     "ask": []

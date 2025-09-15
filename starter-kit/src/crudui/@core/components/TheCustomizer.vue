@@ -7,7 +7,7 @@ import { Direction, Layout, Skins, Theme } from '@core/enums'
 import { useConfigStore } from '@core/stores/config'
 import horizontalLight from '@images/customizer-icons/horizontal-light.svg'
 import { AppContentLayoutNav, ContentWidth } from '@crudui/components/templates/helpers/enums'
-import { cookieRef, namespaceConfig } from '@crudui/components/templates/stores/config'
+import { namespaceConfig } from '@crudui/components/templates/stores/config'
 import { themeConfig } from '@themeConfig'
 
 import borderSkin from '@images/customizer-icons/border-light.svg'
@@ -38,7 +38,7 @@ const customPrimaryColor = ref('#663131')
 watch(
   () => configStore.theme,
   () => {
-    const cookiePrimaryColor = cookieRef(`${vuetifyTheme.name.value}ThemePrimaryColor`, null).value
+    const cookiePrimaryColor = null
 
     if (cookiePrimaryColor && !colors.some(color => color.main === cookiePrimaryColor))
       customPrimaryColor.value = cookiePrimaryColor
@@ -51,9 +51,7 @@ const setPrimaryColor = useDebounceFn((color: { main: string; darken: string }) 
   vuetifyTheme.themes.value[vuetifyTheme.name.value].colors.primary = color.main
   vuetifyTheme.themes.value[vuetifyTheme.name.value].colors['primary-darken-1'] = color.darken
 
-  // ℹ️ We need to store this color value in cookie so vuetify plugin can pick on next reload
-  cookieRef<string | null>(`${vuetifyTheme.name.value}ThemePrimaryColor`, null).value = color.main
-  cookieRef<string | null>(`${vuetifyTheme.name.value}ThemePrimaryDarkenColor`, null).value = color.darken
+  // ℹ️ Color values are no longer stored in cookies
 
   // ℹ️ Update initial loader color
   useStorage<string | null>(namespaceConfig('initial-loader-color'), null).value = color.main
@@ -246,10 +244,7 @@ const resetCustomizer = async () => {
     useStorage<string | null>(namespaceConfig('initial-loader-color'), null).value = staticPrimaryColor
     currentLayout.value = themeConfig.app.contentLayoutNav
 
-    cookieRef('lightThemePrimaryColor', null).value = null
-    cookieRef('darkThemePrimaryColor', null).value = null
-    cookieRef('lightThemePrimaryDarkenColor', null).value = null
-    cookieRef('darkThemePrimaryDarkenColor', null).value = null
+    // Cookie references removed - colors reset to defaults
 
     await nextTick()
 

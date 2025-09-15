@@ -7,10 +7,6 @@ import { layoutConfig } from '@themeConfig'
 
 export const namespaceConfig = (str: string) => `${layoutConfig.app.title}-${str}`
 
-export const cookieRef = <T>(key: string, defaultValue: T) => {
-  return useCookie<T>(namespaceConfig(key), { default: () => defaultValue })
-}
-
 export const useLayoutConfigStore = defineStore('layoutConfig', () => {
   const route = useRoute()
 
@@ -18,13 +14,13 @@ export const useLayoutConfigStore = defineStore('layoutConfig', () => {
   const navbarType = ref(layoutConfig.navbar.type)
 
   // 👉 Navbar Type
-  const isNavbarBlurEnabled = cookieRef('isNavbarBlurEnabled', layoutConfig.navbar.navbarBlur)
+  const isNavbarBlurEnabled = ref(layoutConfig.navbar.navbarBlur)
 
   // 👉 Vertical Nav Collapsed
-  const isVerticalNavCollapsed = cookieRef('isVerticalNavCollapsed', layoutConfig.verticalNav.isVerticalNavCollapsed)
+  const isVerticalNavCollapsed = ref(layoutConfig.verticalNav.isVerticalNavCollapsed)
 
   // 👉 App Content Width
-  const appContentWidth = cookieRef('appContentWidth', layoutConfig.app.contentWidth)
+  const appContentWidth = ref(layoutConfig.app.contentWidth)
 
   // 👉 App Content Layout Nav
   const appContentLayoutNav = ref(layoutConfig.app.contentLayoutNav)

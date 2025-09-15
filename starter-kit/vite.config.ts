@@ -77,7 +77,7 @@ export default defineConfig({
       vueTemplate: true,
 
       // ℹ️ Disabled to avoid confusion & accidental usage
-      ignore: ['useCookies', 'useStorage'],
+      ignore: ['useStorage'],
     }),
 
     svgLoader(),

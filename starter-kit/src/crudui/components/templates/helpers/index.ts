@@ -1,7 +1,7 @@
 import type { PartialDeep } from 'type-fest'
 import type { Plugin } from 'vue'
 import { layoutConfig } from '@crudui/components/templates/helpers/config'
-import { cookieRef, useLayoutConfigStore } from '@crudui/components/templates/stores/config'
+import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
 import type { LayoutConfig } from '@crudui/components/templates/helpers/types'
 import { _setDirAttr } from '@crudui/components/templates/helpers/utils'
 
@@ -28,16 +28,16 @@ export const createLayouts = (userConfig: PartialDeep<LayoutConfig>): Plugin => 
 
     // Reactive Values (Store)
     configStore.$patch({
-      appContentLayoutNav: cookieRef('appContentLayoutNav', userConfig.app?.contentLayoutNav ?? layoutConfig.app.contentLayoutNav).value,
-      appContentWidth: cookieRef('appContentWidth', userConfig.app?.contentWidth ?? layoutConfig.app.contentWidth).value,
-      footerType: cookieRef('footerType', userConfig.footer?.type ?? layoutConfig.footer.type).value,
-      navbarType: cookieRef('navbarType', userConfig.navbar?.type ?? layoutConfig.navbar.type).value,
-      isNavbarBlurEnabled: cookieRef('isNavbarBlurEnabled', userConfig.navbar?.navbarBlur ?? layoutConfig.navbar.navbarBlur).value,
-      isVerticalNavCollapsed: cookieRef('isVerticalNavCollapsed', userConfig.verticalNav?.isVerticalNavCollapsed ?? layoutConfig.verticalNav.isVerticalNavCollapsed).value,
+      appContentLayoutNav: userConfig.app?.contentLayoutNav ?? layoutConfig.app.contentLayoutNav,
+      appContentWidth: userConfig.app?.contentWidth ?? layoutConfig.app.contentWidth,
+      footerType: userConfig.footer?.type ?? layoutConfig.footer.type,
+      navbarType: userConfig.navbar?.type ?? layoutConfig.navbar.type,
+      isNavbarBlurEnabled: userConfig.navbar?.navbarBlur ?? layoutConfig.navbar.navbarBlur,
+      isVerticalNavCollapsed: userConfig.verticalNav?.isVerticalNavCollapsed ?? layoutConfig.verticalNav.isVerticalNavCollapsed,
 
       // isAppRTL: userConfig.app?.isRTL ?? config.app.isRTL,
       // isLessThanOverlayNavBreakpoint: false,
-      horizontalNavType: cookieRef('horizontalNavType', userConfig.horizontalNav?.type ?? layoutConfig.horizontalNav.type).value,
+      horizontalNavType: userConfig.horizontalNav?.type ?? layoutConfig.horizontalNav.type,
     })
 
     // _setDirAttr(config.app.isRTL ? 'rtl' : 'ltr')
