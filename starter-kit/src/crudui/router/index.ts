@@ -1,8 +1,8 @@
 import { createMemoryHistory, createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
-import type { TCrudRouteRecord } from '@crud/interfaces/CrudRouterInterface'
-import { useMeStore } from '@crud/stores/meStore'
-import envService from '@crud/services/EnvService'
-import { notifications } from '@crud/boot/notification'
+import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
+import { useMeStore } from '@crudui/stores/meStore'
+import envService from '@crudui/services/EnvService'
+import { notifications } from '@crudui/boot/notification'
 
 /**
  * @description Обходим все папки модулей в @modules/* и объединяем все routes.ts
@@ -37,7 +37,7 @@ const routes: TCrudRouteRecord[] = [
   {
     path: '/auth',
     name: 'auth',
-    component: () => import('@crud/layouts/AuthLayoutDefault.vue'),
+    component: () => import('@crudui/layouts/AuthLayoutDefault.vue'),
     redirect: '/auth/login',
     meta: {
       menuTitle: '',
@@ -56,7 +56,7 @@ const routes: TCrudRouteRecord[] = [
   {
     path: '/',
     name: 'static',
-    component: () => import('@crud/layouts/MainLayoutDefault.vue'),
+    component: () => import('@crudui/layouts/MainLayoutDefault.vue'),
     children: [
       {
         name: 'home',
@@ -77,7 +77,7 @@ const routes: TCrudRouteRecord[] = [
   {
     path: '/',
     name: 'root',
-    component: () => import('@crud/layouts/CleanLayout.vue'),
+    component: () => import('@crudui/layouts/CleanLayout.vue'),
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error
     children: modulesRoute.flat(1), //Роуты всех модулей динамически подгружаем сюда, без иерархии
@@ -85,11 +85,11 @@ const routes: TCrudRouteRecord[] = [
   {
     path: '/',
     name: 'errors',
-    component: () => import('@crud/layouts/ErrorsLayoutDefault.vue'),
+    component: () => import('@crudui/layouts/ErrorsLayoutDefault.vue'),
     children: [
       {
         path: '/:catchAll(.*)*',
-        component: () => import('@crud/pages/DefaultErrorPage.vue'),
+        component: () => import('@crudui/pages/DefaultErrorPage.vue'),
         meta: {
           // title: 'Страница не найдена',
           description: 'Опаньки. Похоже тут ничего нет...',
@@ -108,7 +108,7 @@ const routes: TCrudRouteRecord[] = [
       {
         path: 'error',
         name: 'errorDefault',
-        component: () => import('@crud/pages/DefaultErrorPage.vue'),
+        component: () => import('@crudui/pages/DefaultErrorPage.vue'),
         meta: {
           description: 'Ошибка!',
         },
@@ -116,7 +116,7 @@ const routes: TCrudRouteRecord[] = [
       {
         path: 'error500',
         name: 'error500',
-        component: () => import('@crud/pages/DefaultErrorPage.vue'),
+        component: () => import('@crudui/pages/DefaultErrorPage.vue'),
         meta: {
           description: 'Попробуйте еще раз или обратитесь к администратору',
         },
@@ -124,7 +124,7 @@ const routes: TCrudRouteRecord[] = [
       {
         path: 'network-error',
         name: 'errorNetwork',
-        component: () => import('@crud/pages/DefaultErrorPage.vue'),
+        component: () => import('@crudui/pages/DefaultErrorPage.vue'),
         meta: {
           description: 'Сервер недоступен. Попробуйте открыть приложение чуть позже или обратитесь к администратору',
         },

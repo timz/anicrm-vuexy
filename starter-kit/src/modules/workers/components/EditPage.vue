@@ -69,15 +69,15 @@
 
 <script setup lang="ts">
 import { provide, ref } from "vue";
-import CrudEditForm from "@crud/components/forms/CrudEditForm.vue";
-import CrudInput from "@crud/components/Inputs/CrudInput.vue";
-import CrudButtonSecondary from "@crud/components/buttons/CrudButtonSecondary.vue";
-import { useCrudEditPage } from "@crud/providers/useCrudEditPage";
-import type { FormModel } from "@crud/types";
-import r from "@crud/services/RulesService";
+import CrudEditForm from "@crudui/components/forms/CrudEditForm.vue";
+import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
+import CrudButtonSecondary from "@crudui/components/buttons/CrudButtonSecondary.vue";
+import { useCrudEditPage } from "@crudui/providers/useCrudEditPage";
+import type { FormModel } from "@crudui/types";
+import r from "@crudui/services/RulesService";
 import InviteDialog from "./InviteDialog.vue";
-import CrudDatePicker from "@crud/components/Inputs/CrudDatePicker.vue";
-import PageTitle from "@crud/components/templates/PageTitle.vue";
+import CrudDatePicker from "@crudui/components/Inputs/CrudDatePicker.vue";
+import PageTitle from "@crudui/components/templates/PageTitle.vue";
 
 interface WorkerItem extends FormModel {
   name: string;

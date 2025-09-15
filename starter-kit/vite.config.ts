@@ -89,7 +89,6 @@ export default defineConfig({
       '@themeConfig': fileURLToPath(new URL('./themeConfig.ts', import.meta.url)),
       '@core': fileURLToPath(new URL('./src/@core', import.meta.url)),
       '@layouts': fileURLToPath(new URL('./src/@layouts', import.meta.url)),
-      '@crud': fileURLToPath(new URL('./src/crudui', import.meta.url)),
       '@crudui': fileURLToPath(new URL('./src/crudui', import.meta.url)),
       '@modules': fileURLToPath(new URL('./src/modules', import.meta.url)),
       '@images': fileURLToPath(new URL('./src/assets/images/', import.meta.url)),

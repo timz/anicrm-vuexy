@@ -115,10 +115,10 @@ import { computed, inject, type Ref, ref, useSlots } from "vue";
 import type {
   CrudRowAction,
   UseCrudDataListReturn,
-} from "@crud/providers/useCrudDataList";
-import ButtonBatchDelete from "@crud/components/table/buttons/ButtonBatchDelete.vue";
-import CrudButtonPrimary from "@crud/components/buttons/CrudButtonPrimary.vue";
-import CrudButtonSecondary from "@crud/components/buttons/CrudButtonSecondary.vue";
+} from "@crudui/providers/useCrudDataList";
+import ButtonBatchDelete from "@crudui/components/table/buttons/ButtonBatchDelete.vue";
+import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
+import CrudButtonSecondary from "@crudui/components/buttons/CrudButtonSecondary.vue";
 
 const filterPanel = ref(false);
 const slots = useSlots();

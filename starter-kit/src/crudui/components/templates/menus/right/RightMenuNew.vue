@@ -53,7 +53,7 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import { useMeStore } from "@crud/stores/meStore";
+import { useMeStore } from "@crudui/stores/meStore";
 
 const meStore = useMeStore();
 const router = useRouter();

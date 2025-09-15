@@ -1,5 +1,5 @@
 // Notification service for Vuetify using composable
-import { useNotifications } from '@crud/composables/useNotifications'
+import { useNotifications } from '@crudui/composables/useNotifications'
 
 const { positive, negative, warning, info } = useNotifications()
 

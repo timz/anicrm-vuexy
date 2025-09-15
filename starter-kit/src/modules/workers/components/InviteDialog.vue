@@ -40,11 +40,11 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useCrudForm } from '@crud/providers/useCrudForm'
-import CrudInput from '@crud/components/Inputs/CrudInput.vue'
-import CrudButtonPrimary from '@crud/components/buttons/CrudButtonPrimary.vue'
-import r from '@crud/services/RulesService'
-import { notifications } from '@crud/boot/notification'
+import { useCrudForm } from '@crudui/providers/useCrudForm'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import r from '@crudui/services/RulesService'
+import { notifications } from '@crudui/boot/notification'
 
 interface InviteForm {
   email: string

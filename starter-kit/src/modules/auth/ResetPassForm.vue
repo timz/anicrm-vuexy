@@ -36,12 +36,12 @@
 </template>
 
 <script setup lang="ts">
-import r from '@crud/services/RulesService'
-import CrudButtonPrimary from '@crud/components/buttons/CrudButtonPrimary.vue'
+import r from '@crudui/services/RulesService'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import {ref} from 'vue'
-import CrudInput from '@crud/components/Inputs/CrudInput.vue'
-import {useCrudForm} from '@crud/providers/useCrudForm'
-import {notifications} from '@crud/boot/notification'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import {useCrudForm} from '@crudui/providers/useCrudForm'
+import {notifications} from '@crudui/boot/notification'
 
 const model = ref({
   email: ''

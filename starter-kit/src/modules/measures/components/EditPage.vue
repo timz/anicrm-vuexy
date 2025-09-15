@@ -79,11 +79,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import CrudButtonPrimary from '@crud/components/buttons/CrudButtonPrimary.vue'
-import CrudButtonSecondary from '@crud/components/buttons/CrudButtonSecondary.vue'
-import CrudInput from '@crud/components/Inputs/CrudInput.vue'
-import CrudSelect from '@crud/components/Inputs/CrudSelect.vue'
-import CrudCheckbox from '@crud/components/Inputs/CrudCheckbox.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudSelect from '@crudui/components/Inputs/CrudSelect.vue'
+import CrudCheckbox from '@crudui/components/Inputs/CrudCheckbox.vue'
 
 const measure = ref({
   title: '',

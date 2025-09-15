@@ -26,16 +26,16 @@
 
 <script setup lang="ts">
 import {ref, provide} from 'vue'
-import CrudEditForm from '@crud/components/forms/CrudEditForm.vue'
-import CrudInput from '@crud/components/Inputs/CrudInput.vue'
-import CrudDatePicker from '@crud/components/Inputs/CrudDatePicker.vue'
-import {useCrudEditPage} from '@crud/providers/useCrudEditPage'
-import type {FormModel} from '@crud/types'
-import type {CrudTabInterface} from '@crud/components/forms/tabs/TabTypes'
-import {TabVisibilityHelpers} from '@crud/components/forms/tabs/TabHelpers'
+import CrudEditForm from '@crudui/components/forms/CrudEditForm.vue'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
+import {useCrudEditPage} from '@crudui/providers/useCrudEditPage'
+import type {FormModel} from '@crudui/types'
+import type {CrudTabInterface} from '@crudui/components/forms/tabs/TabTypes'
+import {TabVisibilityHelpers} from '@crudui/components/forms/tabs/TabHelpers'
 import ClientKidsIndexPage from '../../client-kids/components/IndexPage.vue'
-import r from '@crud/services/RulesService'
-import PageTitle from "@crud/components/templates/PageTitle.vue";
+import r from '@crudui/services/RulesService'
+import PageTitle from "@crudui/components/templates/PageTitle.vue";
 
 interface ClientItem extends FormModel {
   name: string

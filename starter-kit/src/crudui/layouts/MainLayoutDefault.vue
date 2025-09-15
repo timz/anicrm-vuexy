@@ -51,8 +51,8 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import LeftMenu from "@crud/components/templates/menus/left/LeftMenu.vue";
-import RightMenuNew from "@crud/components/templates/menus/right/RightMenuNew.vue";
+import LeftMenu from "@crudui/components/templates/menus/left/LeftMenu.vue";
+import RightMenuNew from "@crudui/components/templates/menus/right/RightMenuNew.vue";
 
 const leftDrawerOpen = ref(true);
 </script>

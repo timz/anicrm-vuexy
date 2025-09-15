@@ -46,20 +46,20 @@
 
 <script setup lang="ts">
 import { provide, ref, computed } from "vue";
-import { useMeStore } from "@crud/stores/meStore";
-import CrudTable from "@crud/components/table/CrudTable.vue";
-import type { UseCrudDataListReturn } from "@crud/providers/useCrudDataList";
-import { useCrudDataList } from "@crud/providers/useCrudDataList";
-import CrudInput from "@crud/components/Inputs/CrudInput.vue";
-import CrudButtonPrimary from "@crud/components/buttons/CrudButtonPrimary.vue";
-import { createStandardActions } from "@crud/components/table/buttons/rowActionsFactory";
-import { useCrudDialogProvider } from "@crud/providers/useCrudDialogProvider";
-import CrudDialog from "@crud/components/dialogs/CrudDialog.vue";
-import { useTabParentProvider } from "@crud/components/forms/tabs/useTabParentProvider";
-import CrudSelect from "@crud/components/Inputs/CrudSelect.vue";
-import r from "@crud/services/RulesService";
-import CrudDatePicker from "@crud/components/Inputs/CrudDatePicker.vue";
-import { useTimezone } from "@crud/composables/useTimezone";
+import { useMeStore } from "@crudui/stores/meStore";
+import CrudTable from "@crudui/components/table/CrudTable.vue";
+import type { UseCrudDataListReturn } from "@crudui/providers/useCrudDataList";
+import { useCrudDataList } from "@crudui/providers/useCrudDataList";
+import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
+import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
+import { createStandardActions } from "@crudui/components/table/buttons/rowActionsFactory";
+import { useCrudDialogProvider } from "@crudui/providers/useCrudDialogProvider";
+import CrudDialog from "@crudui/components/dialogs/CrudDialog.vue";
+import { useTabParentProvider } from "@crudui/components/forms/tabs/useTabParentProvider";
+import CrudSelect from "@crudui/components/Inputs/CrudSelect.vue";
+import r from "@crudui/services/RulesService";
+import CrudDatePicker from "@crudui/components/Inputs/CrudDatePicker.vue";
+import { useTimezone } from "@crudui/composables/useTimezone";
 const { parseDateISOToLocal } = useTimezone();
 
 interface ClientKidItem {

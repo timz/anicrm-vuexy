@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import commonProps from '@crud/components/Inputs/interfaces/CommonProps'
+import commonProps from '@crudui/components/Inputs/interfaces/CommonProps'
 
 defineProps({
   ...commonProps,

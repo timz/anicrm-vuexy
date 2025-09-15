@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
-import { useNotifications } from '@crud/composables/useNotifications'
+import { useNotifications } from '@crudui/composables/useNotifications'
 
 const { notifications, remove } = useNotifications()
 

@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { useMeStore } from '@crud/stores/meStore'
+import { useMeStore } from '@crudui/stores/meStore'
 import dayjs from 'dayjs'
 import customParseFormat from 'dayjs/plugin/customParseFormat'
 import utc from 'dayjs/plugin/utc'

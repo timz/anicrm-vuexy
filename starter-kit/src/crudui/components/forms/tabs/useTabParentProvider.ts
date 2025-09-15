@@ -1,6 +1,6 @@
 import { inject, computed, type ComputedRef } from 'vue'
-import type { CrudEditPageReturn } from '@crud/providers/useCrudEditPage'
-import type { FormModel } from '@crud/types'
+import type { CrudEditPageReturn } from '@crudui/providers/useCrudEditPage'
+import type { FormModel } from '@crudui/types'
 
 export interface TabParentReturn<T extends FormModel = FormModel> {
   parentModel: ComputedRef<T | undefined>

@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { MenuItemInterface } from '@crud/components/templates/menus/left/MenuItemInterface'
+import { MenuItemInterface } from '@crudui/components/templates/menus/left/MenuItemInterface'
 
 export default defineComponent({
   name: 'MenuItem',

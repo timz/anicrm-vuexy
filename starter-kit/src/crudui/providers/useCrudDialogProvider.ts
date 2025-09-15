@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import type { Ref, ComputedRef } from 'vue'
 import { useCrudDataForm, type CrudDataFormConfig } from './useCrudDataForm'
-import type { FormModel } from '@crud/types'
+import type { FormModel } from '@crudui/types'
 
 export interface CrudDialogConfig<T extends FormModel = FormModel> {
   formConfig: CrudDataFormConfig<T>

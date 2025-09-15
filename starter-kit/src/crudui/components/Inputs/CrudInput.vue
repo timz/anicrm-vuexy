@@ -32,8 +32,8 @@
 import type { PropType } from 'vue'
 import { ref } from 'vue'
 
-import commonProps from '@crud/components/Inputs/interfaces/CommonProps'
-import type { AvailableTypesForInputsType } from '@crud/components/Inputs/interfaces/AvailableTypesForInputsType'
+import commonProps from '@crudui/components/Inputs/interfaces/CommonProps'
+import type { AvailableTypesForInputsType } from '@crudui/components/Inputs/interfaces/AvailableTypesForInputsType'
 
 defineProps({
   ...commonProps,

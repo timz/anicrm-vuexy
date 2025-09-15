@@ -41,10 +41,10 @@
 
 <script setup lang="ts">
 import { inject, ref, watch } from "vue";
-import { useCrudDataForm } from "@crud/providers/useCrudDataForm";
-import type { CrudDialogProviderReturn } from "@crud/providers/useCrudDialogProvider";
-import CrudButtonPrimary from "@crud/components/buttons/CrudButtonPrimary.vue";
-import CrudButtonSecondary from "@crud/components/buttons/CrudButtonSecondary.vue";
+import { useCrudDataForm } from "@crudui/providers/useCrudDataForm";
+import type { CrudDialogProviderReturn } from "@crudui/providers/useCrudDialogProvider";
+import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
+import CrudButtonSecondary from "@crudui/components/buttons/CrudButtonSecondary.vue";
 
 interface Props {
   providerKey?: string;

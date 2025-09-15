@@ -1,9 +1,9 @@
 import type { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
 import axios from 'axios'
-import envService from '@crud/services/EnvService'
-import { notifications } from '@crud/boot/notification'
-import type { ResponseDto } from '@crud/interfaces/ResponseDto'
-import { useGlobalLoading } from '@crud/composables/useGlobalLoading'
+import envService from '@crudui/services/EnvService'
+import { notifications } from '@crudui/boot/notification'
+import type { ResponseDto } from '@crudui/interfaces/ResponseDto'
+import { useGlobalLoading } from '@crudui/composables/useGlobalLoading'
 
 export const secureApi = getAxiosInstance(true)
 export const api = getAxiosInstance(false)

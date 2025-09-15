@@ -1,4 +1,4 @@
-import { i18n } from '@crud/boot/i18n'
+import { i18n } from '@crudui/boot/i18n'
 
 const t = i18n.global.t
 const isEmpty = (val: string | number): boolean => val == null || val == ''

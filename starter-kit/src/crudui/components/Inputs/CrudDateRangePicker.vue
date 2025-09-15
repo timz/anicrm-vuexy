@@ -24,8 +24,8 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import CrudCheckbox from "@crud/components/Inputs/CrudCheckbox.vue";
-import CrudDatePicker from "@crud/components/Inputs/CrudDatePicker.vue";
+import CrudCheckbox from "@crudui/components/Inputs/CrudCheckbox.vue";
+import CrudDatePicker from "@crudui/components/Inputs/CrudDatePicker.vue";
 
 interface Props {
   modelValue?: [string | null, string | null] | null | undefined

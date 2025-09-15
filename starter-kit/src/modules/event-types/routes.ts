@@ -1,4 +1,4 @@
-import type { TCrudRouteRecord } from '@crud/interfaces/CrudRouterInterface'
+import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
 
 export default <TCrudRouteRecord[]>[
   {

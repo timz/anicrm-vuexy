@@ -41,9 +41,9 @@
 
 <script setup lang="ts">
 import { ref, computed, watch } from "vue";
-import CrudDatePicker from "@crud/components/Inputs/CrudDatePicker.vue";
-import CrudInput from "@crud/components/Inputs/CrudInput.vue";
-import CrudCheckbox from "@crud/components/Inputs/CrudCheckbox.vue";
+import CrudDatePicker from "@crudui/components/Inputs/CrudDatePicker.vue";
+import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
+import CrudCheckbox from "@crudui/components/Inputs/CrudCheckbox.vue";
 import dayjs from "dayjs";
 
 const props = defineProps<{

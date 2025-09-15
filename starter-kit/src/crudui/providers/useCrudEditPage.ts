@@ -1,7 +1,7 @@
 import { onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { type CrudDataFormConfig, type CrudDataFormReturn, useCrudDataForm } from './useCrudDataForm'
-import type { FormModel, RouteConfig } from '@crud/types'
+import type { FormModel, RouteConfig } from '@crudui/types'
 
 // Конечный интерфейс через пересечение
 export type CrudEditPageConfig<T extends FormModel = FormModel> = CrudDataFormConfig<T> & RouteConfig

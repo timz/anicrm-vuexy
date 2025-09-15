@@ -1,7 +1,7 @@
-import type { CrudRowAction } from '@crud/providers/useCrudDataList'
+import type { CrudRowAction } from '@crudui/providers/useCrudDataList'
 import { useRouter } from 'vue-router'
 import type { RouteParamValueRaw } from 'vue-router'
-import type { FormModel } from '@crud/types'
+import type { FormModel } from '@crudui/types'
 
 export interface StandardActionConfig {
   show?: (item: unknown) => boolean

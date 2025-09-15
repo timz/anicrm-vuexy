@@ -1,7 +1,7 @@
 import type {ComputedRef, Ref} from 'vue'
 import {computed, ref, shallowRef, unref} from 'vue'
 import type {AxiosInstance} from 'axios'
-import {secureApi} from '@crud/services/AxiosService'
+import {secureApi} from '@crudui/services/AxiosService'
 
 export interface CrudDataListPagination {
   page: number

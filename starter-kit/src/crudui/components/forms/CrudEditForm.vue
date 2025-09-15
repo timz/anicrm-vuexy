@@ -89,13 +89,13 @@
 <script setup lang="ts">
 import { computed, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import type { CrudEditPageReturn } from "@crud/providers/useCrudEditPage";
+import type { CrudEditPageReturn } from "@crudui/providers/useCrudEditPage";
 import type {
   CrudTabInterface,
   TabContext,
-} from "@crud/components/forms/tabs/TabTypes";
-import CrudButtonSecondary from "@crud/components/buttons/CrudButtonSecondary.vue";
-import CrudButtonPrimary from "@crud/components/buttons/CrudButtonPrimary.vue";
+} from "@crudui/components/forms/tabs/TabTypes";
+import CrudButtonSecondary from "@crudui/components/buttons/CrudButtonSecondary.vue";
+import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
 
 interface Props {
   providerKey?: string;

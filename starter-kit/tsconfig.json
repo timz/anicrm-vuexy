@@ -31,12 +31,6 @@
       "@core": [
         "./src/@core"
       ],
-      "@crud/*": [
-        "./src/crudui/*"
-      ],
-      "@crud": [
-        "./src/crudui"
-      ],
       "@crudui/*": [
         "./src/crudui/*"
       ],

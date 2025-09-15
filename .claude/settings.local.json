@@ -13,7 +13,8 @@
       "Bash(xcopy:*)",
       "Bash(powershell:*)",
       "Bash(findstr:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []

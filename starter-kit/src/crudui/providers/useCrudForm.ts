@@ -1,8 +1,8 @@
 import type { Ref} from 'vue';
 import { toRaw, watch, nextTick, ref, computed } from 'vue'
 import type { AxiosInstance } from 'axios'
-import { api, secureApi } from '@crud/services/AxiosService'
-import type { FormModel, CrudResponse, HttpConfig, ModelConfig } from '@crud/types'
+import { api, secureApi } from '@crudui/services/AxiosService'
+import type { FormModel, CrudResponse, HttpConfig, ModelConfig } from '@crudui/types'
 
 // Интерфейс формы для совместимости с Vuetify
 export interface VForm {

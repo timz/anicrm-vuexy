@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useNotifications, type NotificationItem } from '@crud/composables/useNotifications'
+import { useNotifications, type NotificationItem } from '@crudui/composables/useNotifications'
 
 interface NotificationWithVisible extends NotificationItem {
   visible: boolean

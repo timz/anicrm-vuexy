@@ -2,10 +2,10 @@ import type { Ref, ComputedRef} from 'vue';
 import { ref, computed } from 'vue'
 import type { AxiosInstance } from 'axios'
 import type { AxiosError } from 'axios'
-import { api, secureApi } from '@crud/services/AxiosService'
+import { api, secureApi } from '@crudui/services/AxiosService'
 import { useCrudForm, type QFormConfig, type UseCrudFormReturn } from './useCrudForm'
-import { notifications } from '@crud/boot/notification'
-import type { FormModel, CrudResponse, HttpConfig, ModelConfig, UrlConfig, FormConfig } from '@crud/types'
+import { notifications } from '@crudui/boot/notification'
+import type { FormModel, CrudResponse, HttpConfig, ModelConfig, UrlConfig, FormConfig } from '@crudui/types'
 
 interface ValidationErrorResponse {
   error: string | Record<string, string>

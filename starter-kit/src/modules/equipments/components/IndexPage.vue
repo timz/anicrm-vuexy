@@ -56,17 +56,17 @@
 
 <script setup lang="ts">
 import { onMounted, provide, ref } from 'vue'
-import { useMeStore } from '@crud/stores/meStore'
-import CrudTable from '@crud/components/table/CrudTable.vue'
-import type { UseCrudDataListReturn } from '@crud/providers/useCrudDataList'
-import { useCrudDataList } from '@crud/providers/useCrudDataList'
-import CrudInput from '@crud/components/Inputs/CrudInput.vue'
-import CrudButtonPrimary from '@crud/components/buttons/CrudButtonPrimary.vue'
-import { createStandardActions } from '@crud/components/table/buttons/rowActionsFactory'
-import { useCrudDialogProvider } from '@crud/providers/useCrudDialogProvider'
-import CrudDialog from '@crud/components/dialogs/CrudDialog.vue'
-import CrudBooleanSelect from '@crud/components/Inputs/CrudBooleanSelect.vue'
-import { useTimezone } from '@crud/composables/useTimezone'
+import { useMeStore } from '@crudui/stores/meStore'
+import CrudTable from '@crudui/components/table/CrudTable.vue'
+import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
+import { useCrudDataList } from '@crudui/providers/useCrudDataList'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
+import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
+import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'
+import CrudBooleanSelect from '@crudui/components/Inputs/CrudBooleanSelect.vue'
+import { useTimezone } from '@crudui/composables/useTimezone'
 
 const { formatTableDate } = useTimezone()
 

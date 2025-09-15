@@ -8,5 +8,5 @@
 
 <script setup lang="ts">
 // Страница редактирования
-import PageTitle from "@crud/components/templates/PageTitle.vue";
+import PageTitle from "@crudui/components/templates/PageTitle.vue";
 </script>

@@ -42,14 +42,14 @@
 </template>
 
 <script setup lang="ts">
-import r from '@crud/services/RulesService'
-import CrudButtonPrimary from '@crud/components/buttons/CrudButtonPrimary.vue'
+import r from '@crudui/services/RulesService'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import {ref} from 'vue'
-import envService from '@crud/services/EnvService'
-import {notifications} from '@crud/boot/notification'
-import CrudInput from '@crud/components/Inputs/CrudInput.vue'
-import {useCrudForm, type QFormConfig} from '@crud/providers/useCrudForm'
-import type { FormModel } from '@crud/types'
+import envService from '@crudui/services/EnvService'
+import {notifications} from '@crudui/boot/notification'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import {useCrudForm, type QFormConfig} from '@crudui/providers/useCrudForm'
+import type { FormModel } from '@crudui/types'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()

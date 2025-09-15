@@ -1,15 +1,15 @@
 import { defineStore } from 'pinia'
 import { sortBy } from 'lodash'
 import { toRaw } from 'vue'
-import type { TCrudRouteRecord } from '@crud/interfaces/CrudRouterInterface'
-import { freeRoutes } from '@crud/router'
-import type { NotifyItemDto } from '@crud/interfaces/NotifyItemDto'
-import { secureApi } from '@crud/services/AxiosService'
-import envService from '@crud/services/EnvService'
+import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
+import { freeRoutes } from '@crudui/router'
+import type { NotifyItemDto } from '@crudui/interfaces/NotifyItemDto'
+import { secureApi } from '@crudui/services/AxiosService'
+import envService from '@crudui/services/EnvService'
 import type { RouteLocationNormalized } from 'vue-router'
-import type { MenuItemInterface } from '@crud/components/templates/menus/left/MenuItemInterface'
-import { menuGroups, type MenuGroupKey } from '@crud/router/menuGroups'
-import router from '@crud/router'
+import type { MenuItemInterface } from '@crudui/components/templates/menus/left/MenuItemInterface'
+import { menuGroups, type MenuGroupKey } from '@crudui/router/menuGroups'
+import router from '@crudui/router'
 
 // Локальные типы для разрешений
 type PermissionsType = Record<string, 'all'>

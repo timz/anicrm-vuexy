@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import MenuCategory from './MenuCategory.vue'
 import MenuItem from './MenuItem.vue'
-import { useMeStore } from '@crud/stores/meStore'
+import { useMeStore } from '@crudui/stores/meStore'
 
 defineProps({
   menuItems: Array,

@@ -1,7 +1,7 @@
 import type { Ref } from 'vue';
 import { inject } from 'vue'
 import { useRoute } from 'vue-router'
-import type { ICrudRouteMeta } from '@crud/interfaces/CrudRouterInterface'
+import type { ICrudRouteMeta } from '@crudui/interfaces/CrudRouterInterface'
 
 export function setPageTitle(newTitle: string) {
   const pageTitle: Ref<string> | undefined = inject('pageTitle')

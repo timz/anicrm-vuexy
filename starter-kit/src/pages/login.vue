@@ -2,9 +2,9 @@
 import { useRouter } from 'vue-router'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
-import { api } from '@crud/services/AxiosService'
-import envService from '@crud/services/EnvService'
-import { notifications } from '@crud/boot/notification'
+import { api } from '@crudui/services/AxiosService'
+import envService from '@crudui/services/EnvService'
+import { notifications } from '@crudui/boot/notification'
 import { saveAbilityRules } from '@/crudui/plugins/casl'
 import { ability } from '@/crudui/plugins/casl/ability'
 
