@@ -1,7 +1,7 @@
 export default {
   welcome: 'Добро пожаловать',
   login: 'Вход',
-  logout: 'Выход', 
+  logout: 'Выход',
   save: 'Сохранить',
   cancel: 'Отмена',
   edit: 'Редактировать',
@@ -9,6 +9,6 @@ export default {
   add: 'Добавить',
   search: 'Поиск',
   validation: {
-    required: 'Поле обязательно для заполнения'
-  }
+    required: 'Поле обязательно для заполнения',
+  },
 }
