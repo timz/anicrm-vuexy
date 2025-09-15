@@ -4,7 +4,7 @@ import type { App } from 'vue'
 import type { RouteRecordRaw } from 'vue-router/auto'
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import envService from '@/services/EnvService'
-import { canNavigate } from '@layouts/plugins/casl'
+import { canNavigate } from '@/crudui/plugins/casl'
 
 function recursiveLayouts(route: RouteRecordRaw): RouteRecordRaw {
   if (route.children) {

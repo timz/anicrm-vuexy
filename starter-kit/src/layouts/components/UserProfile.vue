@@ -3,8 +3,8 @@ import { useRouter } from 'vue-router'
 import avatar1 from '@images/avatars/avatar-1.png'
 import envService from '@/services/EnvService'
 import { notifications } from '@/services/notification'
-import { clearAbilityRules } from '@/plugins/casl'
-import { ability } from '@/plugins/casl/ability'
+import { clearAbilityRules } from '@/crudui/plugins/casl'
+import { ability } from '@/crudui/plugins/casl/ability'
 import { useMeStore } from '@/stores/meStore'
 
 const router = useRouter()

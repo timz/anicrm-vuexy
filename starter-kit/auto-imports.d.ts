@@ -196,6 +196,11 @@ declare global {
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useCookie: typeof import('./src/@core/composable/useCookie')['useCookie']
   const useCounter: typeof import('@vueuse/core')['useCounter']
+  const useCrudDataForm: typeof import('./src/crudui/providers/useCrudDataForm')['useCrudDataForm']
+  const useCrudDataList: typeof import('./src/crudui/providers/useCrudDataList')['useCrudDataList']
+  const useCrudDialogProvider: typeof import('./src/crudui/providers/useCrudDialogProvider')['useCrudDialogProvider']
+  const useCrudEditPage: typeof import('./src/crudui/providers/useCrudEditPage')['useCrudEditPage']
+  const useCrudForm: typeof import('./src/crudui/providers/useCrudForm')['useCrudForm']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVar: typeof import('@vueuse/core')['useCssVar']
   const useCssVars: typeof import('vue')['useCssVars']
@@ -327,6 +332,7 @@ declare global {
   const useTimeoutFn: typeof import('@vueuse/core')['useTimeoutFn']
   const useTimeoutPoll: typeof import('@vueuse/core')['useTimeoutPoll']
   const useTimestamp: typeof import('@vueuse/core')['useTimestamp']
+  const useTimezone: typeof import('./src/crudui/composables/useTimezone')['useTimezone']
   const useTitle: typeof import('@vueuse/core')['useTitle']
   const useToNumber: typeof import('@vueuse/core')['useToNumber']
   const useToString: typeof import('@vueuse/core')['useToString']
@@ -525,7 +531,6 @@ declare module 'vue' {
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
     readonly urlValidator: UnwrapRef<typeof import('./src/@core/utils/validators')['urlValidator']>
-    readonly useAbility: UnwrapRef<typeof import('./src/plugins/casl/composables/useAbility')['useAbility']>
     readonly useAbs: UnwrapRef<typeof import('@vueuse/math')['useAbs']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
     readonly useAnimate: UnwrapRef<typeof import('@vueuse/core')['useAnimate']>
@@ -561,6 +566,11 @@ declare module 'vue' {
     readonly useConfirmDialog: UnwrapRef<typeof import('@vueuse/core')['useConfirmDialog']>
     readonly useCookie: UnwrapRef<typeof import('./src/@core/composable/useCookie')['useCookie']>
     readonly useCounter: UnwrapRef<typeof import('@vueuse/core')['useCounter']>
+    readonly useCrudDataForm: UnwrapRef<typeof import('./src/crudui/providers/useCrudDataForm')['useCrudDataForm']>
+    readonly useCrudDataList: UnwrapRef<typeof import('./src/crudui/providers/useCrudDataList')['useCrudDataList']>
+    readonly useCrudDialogProvider: UnwrapRef<typeof import('./src/crudui/providers/useCrudDialogProvider')['useCrudDialogProvider']>
+    readonly useCrudEditPage: UnwrapRef<typeof import('./src/crudui/providers/useCrudEditPage')['useCrudEditPage']>
+    readonly useCrudForm: UnwrapRef<typeof import('./src/crudui/providers/useCrudForm')['useCrudForm']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVar: UnwrapRef<typeof import('@vueuse/core')['useCssVar']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
@@ -688,6 +698,7 @@ declare module 'vue' {
     readonly useTimeoutFn: UnwrapRef<typeof import('@vueuse/core')['useTimeoutFn']>
     readonly useTimeoutPoll: UnwrapRef<typeof import('@vueuse/core')['useTimeoutPoll']>
     readonly useTimestamp: UnwrapRef<typeof import('@vueuse/core')['useTimestamp']>
+    readonly useTimezone: UnwrapRef<typeof import('./src/crudui/composables/useTimezone')['useTimezone']>
     readonly useTitle: UnwrapRef<typeof import('@vueuse/core')['useTitle']>
     readonly useToNumber: UnwrapRef<typeof import('@vueuse/core')['useToNumber']>
     readonly useToString: UnwrapRef<typeof import('@vueuse/core')['useToString']>

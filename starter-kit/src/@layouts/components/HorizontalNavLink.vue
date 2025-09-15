@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { layoutConfig } from '@layouts'
-import { can } from '@layouts/plugins/casl'
+import { can } from '@/crudui/plugins/casl'
 import type { NavLink } from '@layouts/types'
 import { getComputedNavLinkToProp, getDynamicI18nProps, isNavLinkActive } from '@layouts/utils'
 

@@ -31,6 +31,24 @@
       "@core": [
         "./src/@core"
       ],
+      "@crud/*": [
+        "./src/crudui/*"
+      ],
+      "@crud": [
+        "./src/crudui"
+      ],
+      "@crudui/*": [
+        "./src/crudui/*"
+      ],
+      "@crudui": [
+        "./src/crudui"
+      ],
+      "@modules/*": [
+        "./src/modules/*"
+      ],
+      "@modules": [
+        "./src/modules"
+      ],
       "@images/*": [
         "./src/assets/images/*"
       ],

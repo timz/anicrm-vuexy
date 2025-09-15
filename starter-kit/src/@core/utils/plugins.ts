@@ -41,12 +41,15 @@ import type { App } from 'vue'
  */
 
 export const registerPlugins = (app: App) => {
-  const imports = import.meta.glob<{ default: (app: App) => void }>(['../../plugins/*.{ts,js}', '../../plugins/*/index.{ts,js}'], { eager: true })
+  // Import plugins from both locations
+  const pluginsImports = import.meta.glob<{ default: (app: App) => void }>(['../../plugins/*.{ts,js}', '../../plugins/*/index.{ts,js}'], { eager: true })
+  const cruduiImports = import.meta.glob<{ default: (app: App) => void }>(['../../crudui/plugins/*.{ts,js}', '../../crudui/plugins/*/index.{ts,js}'], { eager: true })
 
-  const importPaths = Object.keys(imports).sort()
+  const allImports = { ...pluginsImports, ...cruduiImports }
+  const importPaths = Object.keys(allImports).sort()
 
   importPaths.forEach(path => {
-    const pluginImportModule = imports[path]
+    const pluginImportModule = allImports[path]
 
     pluginImportModule.default?.(app)
   })

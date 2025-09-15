@@ -5,8 +5,8 @@ import { themeConfig } from '@themeConfig'
 import { api } from '@/services/AxiosService'
 import envService from '@/services/EnvService'
 import { notifications } from '@/services/notification'
-import { saveAbilityRules } from '@/plugins/casl'
-import { ability } from '@/plugins/casl/ability'
+import { saveAbilityRules } from '@/crudui/plugins/casl'
+import { ability } from '@/crudui/plugins/casl/ability'
 
 const router = useRouter()
 
