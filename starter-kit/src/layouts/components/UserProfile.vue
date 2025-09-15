@@ -1,25 +1,26 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import avatar1 from '@images/avatars/avatar-1.png'
 import envService from '@/services/EnvService'
-import { useRouter } from 'vue-router'
 import { notifications } from '@/services/notification'
 import { clearAbilityRules } from '@/plugins/casl'
 import { ability } from '@/plugins/casl/ability'
+import { useMeStore } from '@/stores/meStore'
 
 const router = useRouter()
+const meStore = useMeStore()
 
-const handleLogout = () => {
-  // Очищаем токены
-  envService.removeTokenFromLocalStorage()
-  envService.removeRefreshTokenFromLocalStorage()
-  
+const handleLogout = async () => {
+  // Вызываем logout из meStore (очищает токены и данные пользователя)
+  await meStore.logout()
+
   // Очищаем CASL правила
   clearAbilityRules()
   ability.update([]) // Очищаем текущие правила
-  
+
   // Показываем уведомление
   notifications.info('Вы вышли из системы')
-  
+
   // Перенаправляем на страницу логина
   router.push('/login')
 }
@@ -71,9 +72,9 @@ const handleLogout = () => {
             </template>
 
             <VListItemTitle class="font-weight-semibold">
-              John Doe
+              {{ meStore.username || "qwe@qweq.we" }}
             </VListItemTitle>
-            <VListItemSubtitle>Admin</VListItemSubtitle>
+            <VListItemSubtitle>{{ meStore.role_title }}</VListItemSubtitle>
           </VListItem>
 
           <VDivider class="my-2" />

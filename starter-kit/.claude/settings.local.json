@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//c/work/anicrm/anicrm-vuexy-migrate/spa-vuetify/src/crudui/components/templates/menus/right/**)"
+      "Read(//c/work/anicrm/anicrm-vuexy-migrate/spa-vuetify/src/crudui/components/templates/menus/right/**)",
+      "Read(//c/work/anicrm/anicrm-vuexy-migrate/spa-vuetify/src/crudui/stores/**)"
     ],
     "deny": [],
     "ask": []

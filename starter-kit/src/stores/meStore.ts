@@ -1,0 +1,308 @@
+import { defineStore } from 'pinia'
+import { sortBy } from 'lodash'
+import { toRaw } from 'vue'
+import { secureApi } from '@/services/AxiosService'
+import envService from '@/services/EnvService'
+import type { RouteLocationNormalized } from 'vue-router'
+
+// Локальные типы
+type PermissionsType = Record<string, 'all'>
+
+interface NotifyItemDto {
+  id: number
+  title: string
+  content: string
+  type: string
+  created_at: string
+}
+
+interface MenuItemInterface {
+  name: string
+  title: string
+  path: string
+  icon: string
+  menuSort: number
+  permission: string
+  menuParenName?: string
+  childItems?: MenuItemInterface[]
+}
+
+interface TCrudRouteRecord {
+  name: string
+  path: string
+  meta?: {
+    menuHide?: boolean
+    menuTitle?: string
+    menuIcon?: string
+    menuSort?: number
+    menuParenName?: string
+    permission?: string
+  }
+  children: TCrudRouteRecord[]
+}
+
+// Константы для меню
+const DEFAULT_ICON = 'apps' as const
+const GROUP_PLACEHOLDER_PATH = '#' as const
+const MIN_PERMISSION = 'min_permission' as const
+const DEFAULT_MENU_TITLE = 'Заголовок страницы' as const
+
+// Свободные роуты (не требующие авторизации)
+const freeRoutes = ['login', 'register', 'forgot-password', 'reset-password']
+
+// Конфигурация групп меню
+interface MenuGroupConfig {
+  name: string
+  title: string
+  icon: string
+  menuSort: number
+}
+
+type MenuGroupKey = string
+
+const menuGroups: Record<MenuGroupKey, MenuGroupConfig> = {}
+
+export const useMeStore = defineStore('meStore', {
+  state: () => ({
+    loaded: false,
+    user_id: 0,
+    username: 'Гость',
+    role_title: '',
+    subscription_title: '',
+    subscription_to: '',
+    balance: 0.0,
+    org_not_paid_block: false,
+    timezone: '',
+
+    permissions: <PermissionsType>{},
+    leftMenu: [] as MenuItemInterface[],
+    notifications: [] as NotifyItemDto[],
+
+    // Кэш для проверки прав
+    permissionCache: new Map<string, boolean>(),
+
+    // Кэш для мемоизации меню
+    menuCache: new Map<string, MenuItemInterface[]>(),
+    lastMenuCacheKey: '' as string,
+  }),
+  getters: {
+    // Создание ключа для кэширования меню
+    menuCacheKey: (state) => {
+      const permissionsHash = JSON.stringify(state.permissions)
+      return `menu-${permissionsHash}`
+    }
+  },
+  actions: {
+    // Проверка может ли юзер ходить по роуту
+    userCanRoute(route: RouteLocationNormalized): boolean {
+      if (freeRoutes.includes(<string>route.name)) {
+        return true
+      }
+      const routePerm = <string>route.meta.permission ?? ''
+
+      if (routePerm === MIN_PERMISSION) {
+        return true
+      }
+
+      return this.userCan(routePerm)
+    },
+
+    // Простая проверка может ли юзер выполнять действие (с кэшированием)
+    userCan(checkPermission: string): boolean {
+      if (checkPermission === MIN_PERMISSION) {
+        return true
+      }
+
+      // Проверяем кэш
+      if (this.permissionCache.has(checkPermission)) {
+        return this.permissionCache.get(checkPermission)!
+      }
+
+      const userPerms = toRaw(this.permissions)
+      const hasPermission = !!(userPerms && userPerms[checkPermission])
+
+      // Сохраняем в кэш
+      this.permissionCache.set(checkPermission, hasPermission)
+
+      return hasPermission
+    },
+
+    // Валидация конфигурации группы
+    validateGroupConfig(groupName: string): groupName is MenuGroupKey {
+      return groupName in menuGroups
+    },
+
+    // Извлечение элементов меню из роутов
+    extractMenuItems(routes: TCrudRouteRecord[]): MenuItemInterface[] {
+      const rootRoute = routes.find((route) => route.name === 'root')
+      if (!rootRoute) {
+        console.warn('Корневой роут не обнаружен')
+        return []
+      }
+
+      return rootRoute.children
+        .filter((row) => row.meta && !row.meta.menuHide)
+        .map((row) => <MenuItemInterface>{
+          name: row.name,
+          path: row.path,
+          title: row.meta?.menuTitle || DEFAULT_MENU_TITLE,
+          icon: row.meta?.menuIcon || DEFAULT_ICON,
+          menuSort: row.meta?.menuSort || 0,
+          menuParenName: row.meta?.menuParenName,
+          permission: row.meta?.permission || '',
+        })
+    },
+
+    // Обработка элементов меню в один проход
+    processMenuItems(allMenus: MenuItemInterface[]): {
+      direct: MenuItemInterface[],
+      grouped: Record<string, MenuItemInterface[]>
+    } {
+      const direct: MenuItemInterface[] = []
+      const grouped: Record<string, MenuItemInterface[]> = {}
+
+      for (const item of allMenus) {
+        if (!this.userCan(item.permission)) {
+          continue
+        }
+
+        if (!item.menuParenName) {
+          direct.push(item)
+        } else {
+          const parentName = item.menuParenName
+          if (!grouped[parentName]) {
+            grouped[parentName] = []
+          }
+          grouped[parentName].push(item)
+        }
+      }
+
+      return { direct, grouped }
+    },
+
+    // Создание групп меню
+    createMenuGroups(childrenMap: Record<string, MenuItemInterface[]>): MenuItemInterface[] {
+      const groups: MenuItemInterface[] = []
+
+      Object.entries(childrenMap).forEach(([parentName, children]) => {
+        if (!this.validateGroupConfig(parentName)) {
+          console.warn(`Конфигурация группы "${parentName}" не найдена`)
+          return
+        }
+
+        const groupConfig = menuGroups[parentName]
+
+        if (children.length > 0) {
+          groups.push({
+            name: groupConfig.name,
+            title: groupConfig.title,
+            path: GROUP_PLACEHOLDER_PATH,
+            icon: groupConfig.icon,
+            menuSort: groupConfig.menuSort,
+            permission: '',
+            childItems: sortBy(children, ['menuSort', 'title'])
+          })
+        }
+      })
+
+      return groups
+    },
+
+    // Собираем меню юзера с мемоизацией
+    setMenu(routes: TCrudRouteRecord[]): MenuItemInterface[] {
+      // Создаем ключ для кэша на основе permissions
+      const cacheKey = this.menuCacheKey
+
+      // Проверяем есть ли результат в кэше
+      if (this.lastMenuCacheKey === cacheKey && this.menuCache.has(cacheKey)) {
+        const cachedMenu = this.menuCache.get(cacheKey)!
+        this.leftMenu = cachedMenu
+        return cachedMenu
+      }
+
+      // Очищаем старый кэш если ключ изменился
+      if (this.lastMenuCacheKey !== cacheKey) {
+        this.permissionCache.clear()
+        this.menuCache.clear()
+      }
+
+      // Вычисляем меню
+      const allMenus = this.extractMenuItems(routes)
+      const { direct, grouped } = this.processMenuItems(allMenus)
+      const groups = this.createMenuGroups(grouped)
+      const treeMenu = [...direct, ...groups]
+      const result = sortBy(treeMenu, ['menuSort', 'title'])
+
+      // Сохраняем в кэш
+      this.menuCache.set(cacheKey, result)
+      this.lastMenuCacheKey = cacheKey
+      this.leftMenu = result
+
+      return result
+    },
+
+    // Очистка кэша прав
+    clearPermissionCache(): void {
+      this.permissionCache.clear()
+      this.menuCache.clear()
+      this.lastMenuCacheKey = ''
+    },
+
+    // Подгружаем юзера
+    async loadMe(routes?: TCrudRouteRecord[]): Promise<boolean> {
+      try {
+        this.clearPermissionCache()
+
+        const response = await secureApi.post('/auth/me', {app: 'app'})
+        const responseData = response.data
+        this.username = responseData.content.username
+        this.user_id = responseData.content.user_id
+        this.role_title = responseData.content.role || ''
+        this.subscription_title = responseData.content.subscription_title || ''
+        this.subscription_to = responseData.content.subscription_to || ''
+        this.balance = responseData.content.balance || 0
+        this.org_not_paid_block = responseData.content.org_not_paid_block || false
+        this.timezone = responseData.content.timezone || ''
+
+        this.permissions = responseData.content.permissions
+        this.notifications = responseData.content.notifications || []
+
+        if (routes) {
+          this.leftMenu = this.setMenu(routes)
+        }
+
+        this.loaded = true
+        return true
+      } catch (e) {
+        console.warn('loadMe error', e)
+        return false
+      }
+    },
+
+    // Выход
+    async logout() {
+      try {
+        await secureApi.post('/auth/logout')
+      } catch (e) {
+        console.warn('logout api error', e)
+      }
+
+      this.username = ''
+      this.role_title = ''
+      this.subscription_title = ''
+      this.subscription_to = ''
+      this.balance = 0.0
+      this.org_not_paid_block = false
+      this.timezone = ''
+      this.permissions = {}
+      this.notifications = []
+      this.leftMenu = []
+      this.loaded = false
+
+      this.clearPermissionCache()
+
+      envService.removeTokenFromLocalStorage()
+      envService.removeRefreshTokenFromLocalStorage()
+    },
+  },
+})
