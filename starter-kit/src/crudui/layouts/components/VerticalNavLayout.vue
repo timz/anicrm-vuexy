@@ -45,7 +45,11 @@ watch(windowWidth, () => {
 const verticalNavAttrs = computed(() => {
   const vNavAttrs = toRef(props, 'verticalNavAttrs')
 
-  const { wrapper: verticalNavWrapper, wrapperProps: verticalNavWrapperProps, ...additionalVerticalNavAttrs } = vNavAttrs.value
+  const {
+    wrapper: verticalNavWrapper,
+    wrapperProps: verticalNavWrapperProps,
+    ...additionalVerticalNavAttrs
+  } = vNavAttrs.value
 
   return {
     verticalNavWrapper,
@@ -112,7 +116,7 @@ const verticalNavAttrs = computed(() => {
 </template>
 
 <style lang="scss">
-@use "@configured-variables" as variables;
+@use "../../../assets/styles/variables/template" as variables;
 @use "@layouts/styles/placeholders";
 @use "@layouts/styles/mixins";
 
@@ -146,7 +150,7 @@ const verticalNavAttrs = computed(() => {
           @if variables.$layout-vertical-nav-navbar-is-contained {
             @include mixins.boxed-content;
           }
-          /* stylelint-disable-next-line @stylistic/indentation */
+            /* stylelint-disable-next-line @stylistic/indentation */
           @else {
             .navbar-content-container {
               @include mixins.boxed-content;

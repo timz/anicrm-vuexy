@@ -74,9 +74,11 @@ const hideTitleAndIcon = configStore.isVerticalNavMini(isHovered)
     <!-- 👉 Header -->
     <div class="nav-header">
       <slot name="nav-header">
-        <RouterLink to="/" class="app-logo app-title-wrapper">
+        <RouterLink
+          to="/"
+          class="app-logo app-title-wrapper"
+        >
           <VNodeRenderer :nodes="layoutConfig.app.logo" />
-
         </RouterLink>
         <!-- 👉 Vertical nav actions -->
         <!-- Show toggle collapsible in >md and close button in <md -->
@@ -149,7 +151,7 @@ const hideTitleAndIcon = configStore.isVerticalNavMini(isHovered)
 </style>
 
 <style lang="scss">
-@use "@configured-variables" as variables;
+@use "../../../assets/styles/variables/template" as variables;
 @use "@layouts/styles/mixins";
 
 // 👉 Vertical Nav

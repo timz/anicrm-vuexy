@@ -51,7 +51,7 @@ const configStore = useLayoutConfigStore()
 </template>
 
 <style lang="scss">
-@use "@configured-variables" as variables;
+@use "../../../assets/styles/variables/template" as variables;
 @use "@layouts/styles/placeholders";
 @use "@layouts/styles/mixins";
 

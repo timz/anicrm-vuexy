@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { layoutConfig } from '@layouts'
-import { can } from '@/crudui/plugins/casl'
+import { can } from '@crudui/plugins/casl'
 import { useLayoutConfigStore } from '@layouts/stores/config'
 import type { NavSectionTitle } from '@layouts/types'
 import { getDynamicI18nProps } from '@layouts/utils'

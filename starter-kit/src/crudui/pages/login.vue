@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
-import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
+import { VNodeRenderer } from '@crudui/layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 import { api } from '@crudui/services/AxiosService'
 import envService from '@crudui/services/EnvService'

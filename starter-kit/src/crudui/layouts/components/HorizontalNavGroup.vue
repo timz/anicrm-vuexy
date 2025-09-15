@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { layoutConfig } from '@layouts'
 import { HorizontalNavLink, HorizontalNavPopper } from '@layouts/components'
-import { canViewNavMenuGroup } from '@/crudui/plugins/casl'
+import { canViewNavMenuGroup } from '@crudui/plugins/casl'
 import { useLayoutConfigStore } from '@layouts/stores/config'
 import type { NavGroup } from '@layouts/types'
 import { getDynamicI18nProps, isNavGroupActive } from '@layouts/utils'
