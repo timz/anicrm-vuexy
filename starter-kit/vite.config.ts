@@ -17,6 +17,7 @@ export default defineConfig({
     // Docs: https://github.com/posva/unplugin-vue-router
     // ℹ️ This plugin should be placed before vue plugin
     VueRouter({
+      routesFolder: 'src/crudui/pages',
       getRouteName: routeNode => {
         // Convert pascal case to kebab case
         return getPascalCaseRouteName(routeNode)
@@ -44,13 +45,13 @@ export default defineConfig({
 
     // Docs: https://github.com/dishait/vite-plugin-vue-meta-layouts?tab=readme-ov-file
     MetaLayouts({
-      target: './src/layouts',
+      target: './src/crudui/layouts',
       defaultLayout: 'default',
     }),
 
     // Docs: https://github.com/antfu/unplugin-vue-components#unplugin-vue-components
     Components({
-      dirs: ['src/@core/components', 'src/views/demos', 'src/components'],
+      dirs: ['src/crudui/@core/components', 'src/views/demos', 'src/crudui/components'],
       dts: true,
       resolvers: [
         componentName => {
@@ -65,13 +66,13 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', VueRouterAutoImports, '@vueuse/core', '@vueuse/math', 'vue-i18n', 'pinia'],
       dirs: [
-        './src/@core/utils',
-        './src/@core/composable/',
-        './src/composables/',
+        './src/crudui/@core/utils',
+        './src/crudui/@core/composable/',
+        './src/crudui/composables/',
         './src/crudui/composables/**',
         './src/crudui/providers/**',
-        './src/utils/',
-        './src/plugins/*/composables/*',
+        './src/crudui/utils/',
+        './src/crudui/plugins/*/composables/*',
       ],
       vueTemplate: true,
 
@@ -87,15 +88,15 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@themeConfig': fileURLToPath(new URL('./themeConfig.ts', import.meta.url)),
-      '@core': fileURLToPath(new URL('./src/@core', import.meta.url)),
-      '@layouts': fileURLToPath(new URL('./src/@layouts', import.meta.url)),
+      '@core': fileURLToPath(new URL('./src/crudui/@core', import.meta.url)),
+      '@layouts': fileURLToPath(new URL('./src/crudui/@layouts', import.meta.url)),
       '@crudui': fileURLToPath(new URL('./src/crudui', import.meta.url)),
       '@modules': fileURLToPath(new URL('./src/modules', import.meta.url)),
       '@images': fileURLToPath(new URL('./src/assets/images/', import.meta.url)),
       '@styles': fileURLToPath(new URL('./src/assets/styles/', import.meta.url)),
       '@configured-variables': fileURLToPath(new URL('./src/assets/styles/variables/_template.scss', import.meta.url)),
-      '@db': fileURLToPath(new URL('./src/plugins/fake-api/handlers/', import.meta.url)),
-      '@api-utils': fileURLToPath(new URL('./src/plugins/fake-api/utils/', import.meta.url)),
+      '@db': fileURLToPath(new URL('./src/crudui/plugins/fake-api/handlers/', import.meta.url)),
+      '@api-utils': fileURLToPath(new URL('./src/crudui/plugins/fake-api/utils/', import.meta.url)),
     },
   },
   build: {

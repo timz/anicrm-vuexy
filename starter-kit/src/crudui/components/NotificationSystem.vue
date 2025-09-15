@@ -1,52 +1,62 @@
 <template>
-  <v-snackbar
-    v-if="currentNotification"
-    v-model="showSnackbar"
-    :timeout="currentNotification.timeout"
-    :color="getColor(currentNotification.type)"
-    location="bottom right"
-    variant="elevated"
-  >
-    <div class="d-flex align-center">
-      <v-icon class="me-2">{{ getIcon(currentNotification.type) }}</v-icon>
-      {{ currentNotification.message }}
-    </div>
-    
-    <template #actions>
-      <v-btn
-        icon="mdi-close"
-        size="small"
-        variant="text"
-        @click="closeCurrentNotification"
-      />
-    </template>
-  </v-snackbar>
+  <div>
+    <VSnackbar
+      v-for="notification in visibleNotifications"
+      :key="notification.id"
+      v-model="notification.visible"
+      :timeout="notification.timeout"
+      :color="getColor(notification.type)"
+      location="top right"
+      multi-line
+    >
+      {{ notification.message }}
+      <template #actions>
+        <VBtn
+          variant="text"
+          @click="remove(notification.id)"
+        >
+          Закрыть
+        </VBtn>
+      </template>
+    </VSnackbar>
+  </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import { useNotifications } from '@crudui/composables/useNotifications'
+import { computed, ref, watch } from 'vue'
+import { useNotifications, type NotificationItem } from '@crudui/composables/useNotifications'
+
+interface NotificationWithVisible extends NotificationItem {
+  visible: boolean
+}
 
 const { notifications, remove } = useNotifications()
+const notificationStates = ref<Record<string, boolean>>({})
 
-const showSnackbar = ref(false)
-const currentNotification = computed(() => notifications.value[0] || null)
-
-// Показываем snackbar когда есть уведомления
-watch(currentNotification, (newNotification) => {
-  if (newNotification) {
-    showSnackbar.value = true
-  } else {
-    showSnackbar.value = false
-  }
-}, { immediate: true })
-
-// Когда snackbar закрывается, удаляем текущее уведомление
-watch(showSnackbar, (newValue) => {
-  if (!newValue && currentNotification.value) {
-    remove(currentNotification.value.id)
-  }
+// Создаем вычисляемое свойство для уведомлений с visible
+const visibleNotifications = computed(() => {
+  return notifications.value.map(notification => ({
+    ...notification,
+    visible: notificationStates.value[notification.id] !== false
+  } as NotificationWithVisible))
 })
+
+// Отслеживаем новые уведомления и добавляем их в состояния
+watch(notifications, (newNotifications) => {
+  newNotifications.forEach(notification => {
+    if (!(notification.id in notificationStates.value)) {
+      notificationStates.value[notification.id] = true
+    }
+  })
+  
+  // Удаляем старые состояния
+  const currentIds = newNotifications.map(n => n.id)
+  Object.keys(notificationStates.value).forEach(id => {
+    if (!currentIds.includes(id)) {
+      delete notificationStates.value[id]
+    }
+  })
+}, { deep: true, immediate: true })
 
 const getColor = (type: string) => {
   switch (type) {
@@ -56,19 +66,5 @@ const getColor = (type: string) => {
     case 'info': return 'info'
     default: return 'primary'
   }
-}
-
-const getIcon = (type: string) => {
-  switch (type) {
-    case 'success': return 'mdi-check-circle'
-    case 'error': return 'mdi-alert-circle'
-    case 'warning': return 'mdi-alert'
-    case 'info': return 'mdi-information'
-    default: return 'mdi-bell'
-  }
-}
-
-const closeCurrentNotification = () => {
-  showSnackbar.value = false
 }
 </script>
