@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import navItems from '@crudui/navigation/horizontal'
+import navItems from '@crudui/components/templates/navigation/horizontal'
 
 import { themeConfig } from '@themeConfig'
 

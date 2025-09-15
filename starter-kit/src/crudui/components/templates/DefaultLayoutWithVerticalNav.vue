@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import navItems from '@crudui/navigation/vertical'
+import navItems from '@crudui/components/templates/navigation/vertical'
 
 // Components
 import UserProfile from '@crudui/components/templates/UserProfile.vue'
