@@ -4,8 +4,7 @@ import { defineThemeConfig } from '@core'
 import { Skins } from '@core/enums'
 
 // Logo image import
-
-import { AppContentLayoutNav, ContentWidth, FooterType, NavbarType } from '@layouts/enums'
+import { AppContentLayoutNav, ContentWidth, FooterType, NavbarType } from '@crudui/layouts/enums'
 
 export const { themeConfig, layoutConfig } = defineThemeConfig({
   app: {

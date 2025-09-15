@@ -6,7 +6,7 @@ import { themeConfig } from '@themeConfig'
 // Components
 import UserProfile from '@/crudui/layouts/components/UserProfile.vue'
 import NavBarI18n from '@core/components/I18n.vue'
-import { HorizontalNavLayout } from '@layouts'
+import { HorizontalNavLayout } from '@crudui/layouts'
 import { VNodeRenderer } from '@crudui/layouts/components/VNodeRenderer'
 </script>
 

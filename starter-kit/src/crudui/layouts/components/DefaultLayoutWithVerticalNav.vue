@@ -5,7 +5,7 @@ import navItems from '@/crudui/navigation/vertical'
 import UserProfile from '@/crudui/layouts/components/UserProfile.vue'
 
 // @layouts plugin
-import {VerticalNavLayout} from '@layouts'
+import { VerticalNavLayout } from '@crudui/layouts'
 </script>
 
 <template>
@@ -24,13 +24,12 @@ import {VerticalNavLayout} from '@layouts'
           />
         </IconBtn>
 
-        <VSpacer/>
-        <UserProfile/>
+        <VSpacer />
+        <UserProfile />
       </div>
     </template>
 
     <!-- 👉 Pages -->
-    <slot/>
-
+    <slot />
   </VerticalNavLayout>
 </template>

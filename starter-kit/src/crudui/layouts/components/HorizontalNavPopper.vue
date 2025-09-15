@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ReferenceElement } from '@floating-ui/dom'
 import { computePosition, flip, offset, shift } from '@floating-ui/dom'
-import { useLayoutConfigStore } from '@layouts/stores/config'
+import { useLayoutConfigStore } from '@crudui/layouts/stores/config'
 import { themeConfig } from '@themeConfig'
 
 interface Props {
@@ -66,7 +66,9 @@ const updatePopper = async () => {
 */
 until(() => configStore.horizontalNavType)
   .toMatch(type => type === 'static')
-  .then(() => { useEventListener('scroll', updatePopper) })
+  .then(() => {
+    useEventListener('scroll', updatePopper)
+  })
 
 const isContentShown = ref(false)
 

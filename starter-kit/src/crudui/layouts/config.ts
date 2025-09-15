@@ -1,6 +1,6 @@
 import { breakpointsVuetify } from '@vueuse/core'
-import { AppContentLayoutNav, ContentWidth, FooterType, HorizontalNavType, NavbarType } from '@layouts/enums'
-import type { LayoutConfig } from '@layouts/types'
+import { AppContentLayoutNav, ContentWidth, FooterType, HorizontalNavType, NavbarType } from '@crudui/layouts/enums'
+import type { LayoutConfig } from '@crudui/layouts/types'
 
 export const layoutConfig: LayoutConfig = {
   app: {

@@ -1,16 +1,20 @@
 <script lang="ts" setup>
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import type { Notification } from '@layouts/types'
+import type { Notification } from '@crudui/layouts/types'
 
 interface Props {
   notifications: Notification[]
   badgeProps?: object
   location?: any
 }
+
 interface Emit {
   (e: 'read', value: number[]): void
+
   (e: 'unread', value: number[]): void
+
   (e: 'remove', value: number): void
+
   (e: 'click:notification', value: Notification): void
 }
 

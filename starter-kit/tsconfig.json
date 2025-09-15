@@ -20,10 +20,10 @@
         "./themeConfig.ts"
       ],
       "@layouts/*": [
-        "./src/crudui/@layouts/*"
+        "./src/crudui/layouts/*"
       ],
       "@layouts": [
-        "./src/crudui/@layouts"
+        "./src/crudui/layouts"
       ],
       "@core/*": [
         "./src/crudui/@core/*"
