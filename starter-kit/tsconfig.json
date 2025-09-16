@@ -26,10 +26,10 @@
         "./src/crudui/layouts"
       ],
       "@core/*": [
-        "./src/crudui/@core/*"
+        "./src/crudui/*"
       ],
       "@core": [
-        "./src/crudui/@core"
+        "./src/crudui"
       ],
       "@crudui/*": [
         "./src/crudui/*"
@@ -50,7 +50,7 @@
         "./src/assets/styles/*"
       ],
       "@validators": [
-        "./src/crudui/@core/utils/validators"
+        "./src/crudui/utils/validators"
       ],
       "@db/*": [
         "./src/crudui/plugins/fake-api/handlers/*"

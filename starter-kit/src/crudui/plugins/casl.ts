@@ -7,7 +7,7 @@ import type { NavGroup } from '@crudui/components/templates/helpers/types'
  * We should allow passing string | undefined to can because for admin ability we omit defining action & subject
  *
  * Useful if you don't know if ACL is configured or not
- * Used in @core files to handle absence of ACL without errors
+ * Used in crudui files to handle absence of ACL without errors
  *
  * @param {string} action CASL Actions // https://casl.js.org/v4/en/guide/intro#basics
  * @param {string} subject CASL Subject // https://casl.js.org/v4/en/guide/intro#basics
