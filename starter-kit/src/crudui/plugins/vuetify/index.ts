@@ -8,7 +8,7 @@ import { staticPrimaryColor, staticPrimaryDarkenColor, themes } from './theme'
 import { themeConfig } from '@themeConfig'
 
 // Styles
-import '@core/scss/template/libs/vuetify/index.scss'
+import '@crudui/styles/template/libs/vuetify/index.scss'
 import 'vuetify/styles'
 
 export default function (app: App) {

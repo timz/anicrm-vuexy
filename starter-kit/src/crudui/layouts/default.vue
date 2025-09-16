@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useConfigStore } from '@core/stores/config'
+import { useConfigStore } from '@crudui/stores/config'
 import { AppContentLayoutNav } from '@crudui/components/templates/helpers/enums'
 import { switchToVerticalNavOnLtOverlayNavBreakpoint } from '@crudui/components/templates/helpers/utils'
 

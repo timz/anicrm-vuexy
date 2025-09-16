@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {useGenerateImageVariant} from '@core/composable/useGenerateImageVariant'
+import { useGenerateImageVariant } from '@crudui/composables/useGenerateImageVariant'
 import miscMaskDark from '@images/pages/misc-mask-dark.png'
 import miscMaskLight from '@images/pages/misc-mask-light.png'
 
@@ -38,5 +38,5 @@ definePage({
 </template>
 
 <style lang="scss">
-@use "@core/scss/template/pages/misc.scss";
+@use "@crudui/styles/template/pages/misc.scss";
 </style>

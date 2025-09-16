@@ -1,7 +1,7 @@
 import { breakpointsVuetifyV3 } from '@vueuse/core'
 import { VIcon } from 'vuetify/components/VIcon'
-import { defineThemeConfig } from '@core'
-import { Skins } from '@core/enums'
+import { defineThemeConfig } from '@crudui/utils'
+import { Skins } from '@crudui/utils/enums'
 
 // Logo image import
 import { AppContentLayoutNav, ContentWidth, FooterType, NavbarType } from '@crudui/components/templates/helpers/enums'

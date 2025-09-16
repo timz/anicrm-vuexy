@@ -57,5 +57,5 @@ watch([isFallbackStateActive, refLoadingIndicator], () => {
 </template>
 
 <style lang="scss">
-@use "@core/scss/template/pages/page-auth";
+@use "@crudui/styles/template/pages/page-auth";
 </style>

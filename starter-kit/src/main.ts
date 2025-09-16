@@ -1,10 +1,10 @@
 import { createApp } from 'vue'
 
 import App from '@/App.vue'
-import { registerPlugins } from '@core/utils/plugins'
+import { registerPlugins } from '@crudui/utils/plugins'
 
 // Styles
-import '@core/scss/template/index.scss'
+import '@crudui/styles/template/index.scss'
 import '@styles/styles.scss'
 
 // Create vue app

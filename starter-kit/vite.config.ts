@@ -51,7 +51,7 @@ export default defineConfig({
 
     // Docs: https://github.com/antfu/unplugin-vue-components#unplugin-vue-components
     Components({
-      dirs: ['src/crudui/@core/components', 'src/views/demos', 'src/crudui/components'],
+      dirs: ['src/crudui/components', 'src/views/demos'],
       dts: true,
       resolvers: [
         componentName => {
@@ -66,8 +66,7 @@ export default defineConfig({
     AutoImport({
       imports: ['vue', VueRouterAutoImports, '@vueuse/core', '@vueuse/math', 'vue-i18n', 'pinia'],
       dirs: [
-        './src/crudui/@core/utils',
-        './src/crudui/@core/composable/',
+        './src/crudui/utils',
         './src/crudui/composables/',
         './src/crudui/composables/**',
         './src/crudui/providers/**',
@@ -88,7 +87,7 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),
       '@themeConfig': fileURLToPath(new URL('./themeConfig.ts', import.meta.url)),
-      '@core': fileURLToPath(new URL('./src/crudui/@core', import.meta.url)),
+      '@core': fileURLToPath(new URL('./src/crudui', import.meta.url)),
       '@layouts': fileURLToPath(new URL('./src/crudui/layouts', import.meta.url)),
       '@crudui': fileURLToPath(new URL('./src/crudui', import.meta.url)),
       '@modules': fileURLToPath(new URL('./src/modules', import.meta.url)),

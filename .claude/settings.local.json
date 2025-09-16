@@ -15,7 +15,11 @@
       "Bash(findstr:*)",
       "Bash(grep:*)",
       "Bash(find:*)",
-      "Bash(del \"C:\\work\\anicrm\\anicrm-vuexy-migrate\\starter-kit\\src\\crudui\\@core\\composable\\useCookie.ts\")"
+      "Bash(del \"C:\\work\\anicrm\\anicrm-vuexy-migrate\\starter-kit\\src\\crudui\\@core\\composable\\useCookie.ts\")",
+      "Bash(mkdir:*)",
+      "Bash(mv:*)",
+      "mcp__playwright__browser_navigate",
+      "Bash(pnpm typecheck:*)"
     ],
     "deny": [],
     "ask": []

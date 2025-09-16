@@ -9,20 +9,24 @@ declare global {
   const $api: typeof import('./src/utils/api')['$api']
   const COOKIE_MAX_AGE_1_YEAR: typeof import('./src/crudui/utils/constants')['COOKIE_MAX_AGE_1_YEAR']
   const CreateUrl: typeof import('./src/@core/composable/CreateUrl')['CreateUrl']
+  const Direction: typeof import('./src/crudui/utils/enums')['Direction']
   const EffectScope: typeof import('vue')['EffectScope']
+  const Layout: typeof import('./src/crudui/utils/enums')['Layout']
+  const Skins: typeof import('./src/crudui/utils/enums')['Skins']
+  const Theme: typeof import('./src/crudui/utils/enums')['Theme']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
-  const alphaDashValidator: typeof import('./src/crudui/@core/utils/validators')['alphaDashValidator']
-  const alphaValidator: typeof import('./src/crudui/@core/utils/validators')['alphaValidator']
+  const alphaDashValidator: typeof import('./src/crudui/utils/validators')['alphaDashValidator']
+  const alphaValidator: typeof import('./src/crudui/utils/validators')['alphaValidator']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
-  const avatarText: typeof import('./src/crudui/@core/utils/formatters')['avatarText']
-  const betweenValidator: typeof import('./src/crudui/@core/utils/validators')['betweenValidator']
+  const avatarText: typeof import('./src/crudui/utils/formatters')['avatarText']
+  const betweenValidator: typeof import('./src/crudui/utils/validators')['betweenValidator']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
   const computedInject: typeof import('@vueuse/core')['computedInject']
   const computedWithControl: typeof import('@vueuse/core')['computedWithControl']
-  const confirmedValidator: typeof import('./src/crudui/@core/utils/validators')['confirmedValidator']
+  const confirmedValidator: typeof import('./src/crudui/utils/validators')['confirmedValidator']
   const controlledComputed: typeof import('@vueuse/core')['controlledComputed']
   const controlledRef: typeof import('@vueuse/core')['controlledRef']
   const createApp: typeof import('vue')['createApp']
@@ -37,7 +41,7 @@ declare global {
   const createSharedComposable: typeof import('@vueuse/core')['createSharedComposable']
   const createTemplatePromise: typeof import('@vueuse/core')['createTemplatePromise']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
-  const createUrl: typeof import('./src/crudui/@core/composable/createUrl')['createUrl']
+  const createUrl: typeof import('./src/crudui/composables/createUrl')['createUrl']
   const customRef: typeof import('vue')['customRef']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
@@ -46,34 +50,36 @@ declare global {
   const defineLoader: typeof import('vue-router/auto')['defineLoader']
   const definePage: typeof import('unplugin-vue-router/runtime')['definePage']
   const defineStore: typeof import('pinia')['defineStore']
+  const defineThemeConfig: typeof import('./src/crudui/utils/index')['defineThemeConfig']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
-  const emailValidator: typeof import('./src/crudui/@core/utils/validators')['emailValidator']
+  const emailValidator: typeof import('./src/crudui/utils/validators')['emailValidator']
   const extendRef: typeof import('@vueuse/core')['extendRef']
-  const formatDate: typeof import('./src/crudui/@core/utils/formatters')['formatDate']
-  const formatDateToMonthShort: typeof import('./src/crudui/@core/utils/formatters')['formatDateToMonthShort']
+  const formatDate: typeof import('./src/crudui/utils/formatters')['formatDate']
+  const formatDateToMonthShort: typeof import('./src/crudui/utils/formatters')['formatDateToMonthShort']
   const getActivePinia: typeof import('pinia')['getActivePinia']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const h: typeof import('vue')['h']
-  const hexToRgb: typeof import('./src/crudui/@core/utils/colorConverter')['hexToRgb']
+  const hexToRgb: typeof import('./src/crudui/utils/colorConverter')['hexToRgb']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
+  const initCore: typeof import('./src/crudui/utils/initCore')['default']
   const inject: typeof import('vue')['inject']
   const injectLocal: typeof import('@vueuse/core')['injectLocal']
-  const integerValidator: typeof import('./src/crudui/@core/utils/validators')['integerValidator']
+  const integerValidator: typeof import('./src/crudui/utils/validators')['integerValidator']
   const isDarkPreferred: typeof import('./src/@core/composable/useThemeConfig')['isDarkPreferred']
   const isDefined: typeof import('@vueuse/core')['isDefined']
-  const isEmpty: typeof import('./src/crudui/@core/utils/helpers')['isEmpty']
-  const isEmptyArray: typeof import('./src/crudui/@core/utils/helpers')['isEmptyArray']
-  const isNullOrUndefined: typeof import('./src/crudui/@core/utils/helpers')['isNullOrUndefined']
-  const isObject: typeof import('./src/crudui/@core/utils/helpers')['isObject']
+  const isEmpty: typeof import('./src/crudui/utils/helpers')['isEmpty']
+  const isEmptyArray: typeof import('./src/crudui/utils/helpers')['isEmptyArray']
+  const isNullOrUndefined: typeof import('./src/crudui/utils/helpers')['isNullOrUndefined']
+  const isObject: typeof import('./src/crudui/utils/helpers')['isObject']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
-  const isToday: typeof import('./src/crudui/@core/utils/helpers')['isToday']
-  const kFormatter: typeof import('./src/crudui/@core/utils/formatters')['kFormatter']
-  const lengthValidator: typeof import('./src/crudui/@core/utils/validators')['lengthValidator']
+  const isToday: typeof import('./src/crudui/utils/helpers')['isToday']
+  const kFormatter: typeof import('./src/crudui/utils/formatters')['kFormatter']
+  const lengthValidator: typeof import('./src/crudui/utils/validators')['lengthValidator']
   const logicAnd: typeof import('@vueuse/math')['logicAnd']
   const logicNot: typeof import('@vueuse/math')['logicNot']
   const logicOr: typeof import('@vueuse/math')['logicOr']
@@ -105,10 +111,10 @@ declare global {
   const onUnmounted: typeof import('vue')['onUnmounted']
   const onUpdated: typeof import('vue')['onUpdated']
   const onWatcherCleanup: typeof import('vue')['onWatcherCleanup']
-  const paginationMeta: typeof import('./src/crudui/@core/utils/paginationMeta')['paginationMeta']
-  const passwordValidator: typeof import('./src/crudui/@core/utils/validators')['passwordValidator']
+  const paginationMeta: typeof import('./src/crudui/utils/paginationMeta')['paginationMeta']
+  const passwordValidator: typeof import('./src/crudui/utils/validators')['passwordValidator']
   const pausableWatch: typeof import('@vueuse/core')['pausableWatch']
-  const prefixWithPlus: typeof import('./src/crudui/@core/utils/formatters')['prefixWithPlus']
+  const prefixWithPlus: typeof import('./src/crudui/utils/formatters')['prefixWithPlus']
   const provide: typeof import('vue')['provide']
   const provideLocal: typeof import('@vueuse/core')['provideLocal']
   const reactify: typeof import('@vueuse/core')['reactify']
@@ -124,15 +130,15 @@ declare global {
   const refDefault: typeof import('@vueuse/core')['refDefault']
   const refThrottled: typeof import('@vueuse/core')['refThrottled']
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
-  const regexValidator: typeof import('./src/crudui/@core/utils/validators')['regexValidator']
-  const registerPlugins: typeof import('./src/crudui/@core/utils/plugins')['registerPlugins']
+  const regexValidator: typeof import('./src/crudui/utils/validators')['regexValidator']
+  const registerPlugins: typeof import('./src/crudui/utils/plugins')['registerPlugins']
   const registerPlugins_: typeof import('./src/@core/utils/plugins')['registerPlugins_']
-  const requiredValidator: typeof import('./src/crudui/@core/utils/validators')['requiredValidator']
+  const requiredValidator: typeof import('./src/crudui/utils/validators')['requiredValidator']
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
-  const resolveVuetifyTheme: typeof import('./src/crudui/@core/utils/vuetify')['resolveVuetifyTheme']
-  const rgbaToHex: typeof import('./src/crudui/@core/utils/colorConverter')['rgbaToHex']
+  const resolveVuetifyTheme: typeof import('./src/crudui/utils/vuetify')['resolveVuetifyTheme']
+  const rgbaToHex: typeof import('./src/crudui/utils/colorConverter')['rgbaToHex']
   const setActivePinia: typeof import('pinia')['setActivePinia']
   const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const shallowReactive: typeof import('vue')['shallowReactive']
@@ -158,7 +164,7 @@ declare global {
   const unref: typeof import('vue')['unref']
   const unrefElement: typeof import('@vueuse/core')['unrefElement']
   const until: typeof import('@vueuse/core')['until']
-  const urlValidator: typeof import('./src/crudui/@core/utils/validators')['urlValidator']
+  const urlValidator: typeof import('./src/crudui/utils/validators')['urlValidator']
   const useAbility: typeof import('./src/crudui/plugins/casl/composables/useAbility')['useAbility']
   const useAbs: typeof import('@vueuse/math')['useAbs']
   const useActiveElement: typeof import('@vueuse/core')['useActiveElement']
@@ -239,7 +245,7 @@ declare global {
   const useFps: typeof import('@vueuse/core')['useFps']
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
   const useGamepad: typeof import('@vueuse/core')['useGamepad']
-  const useGenerateImageVariant: typeof import('./src/crudui/@core/composable/useGenerateImageVariant')['useGenerateImageVariant']
+  const useGenerateImageVariant: typeof import('./src/crudui/composables/useGenerateImageVariant')['useGenerateImageVariant']
   const useGeolocation: typeof import('@vueuse/core')['useGeolocation']
   const useGlobalLoading: typeof import('./src/crudui/composables/useGlobalLoading')['useGlobalLoading']
   const useI18n: typeof import('vue-i18n')['useI18n']
@@ -295,7 +301,7 @@ declare global {
   const useRafFn: typeof import('@vueuse/core')['useRafFn']
   const useRefHistory: typeof import('@vueuse/core')['useRefHistory']
   const useResizeObserver: typeof import('@vueuse/core')['useResizeObserver']
-  const useResponsiveLeftSidebar: typeof import('./src/crudui/@core/composable/useResponsiveSidebar')['useResponsiveLeftSidebar']
+  const useResponsiveLeftSidebar: typeof import('./src/crudui/composables/useResponsiveSidebar')['useResponsiveLeftSidebar']
   const useRound: typeof import('@vueuse/math')['useRound']
   const useRoute: typeof import('vue-router/auto')['useRoute']
   const useRouter: typeof import('vue-router/auto')['useRouter']
@@ -306,7 +312,7 @@ declare global {
   const useScrollLock: typeof import('@vueuse/core')['useScrollLock']
   const useSessionStorage: typeof import('@vueuse/core')['useSessionStorage']
   const useShare: typeof import('@vueuse/core')['useShare']
-  const useSkins: typeof import('./src/crudui/@core/composable/useSkins')['useSkins']
+  const useSkins: typeof import('./src/crudui/composables/useSkins')['useSkins']
   const useSlots: typeof import('vue')['useSlots']
   const useSorted: typeof import('@vueuse/core')['useSorted']
   const useSpeechRecognition: typeof import('@vueuse/core')['useSpeechRecognition']
@@ -384,20 +390,24 @@ declare module 'vue' {
   interface GlobalComponents {}
   interface ComponentCustomProperties {
     readonly COOKIE_MAX_AGE_1_YEAR: UnwrapRef<typeof import('./src/crudui/utils/constants')['COOKIE_MAX_AGE_1_YEAR']>
+    readonly Direction: UnwrapRef<typeof import('./src/crudui/utils/enums')['Direction']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly Layout: UnwrapRef<typeof import('./src/crudui/utils/enums')['Layout']>
+    readonly Skins: UnwrapRef<typeof import('./src/crudui/utils/enums')['Skins']>
+    readonly Theme: UnwrapRef<typeof import('./src/crudui/utils/enums')['Theme']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
-    readonly alphaDashValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['alphaDashValidator']>
-    readonly alphaValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['alphaValidator']>
+    readonly alphaDashValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['alphaDashValidator']>
+    readonly alphaValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['alphaValidator']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
-    readonly avatarText: UnwrapRef<typeof import('./src/crudui/@core/utils/formatters')['avatarText']>
-    readonly betweenValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['betweenValidator']>
+    readonly avatarText: UnwrapRef<typeof import('./src/crudui/utils/formatters')['avatarText']>
+    readonly betweenValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['betweenValidator']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
     readonly computedInject: UnwrapRef<typeof import('@vueuse/core')['computedInject']>
     readonly computedWithControl: UnwrapRef<typeof import('@vueuse/core')['computedWithControl']>
-    readonly confirmedValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['confirmedValidator']>
+    readonly confirmedValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['confirmedValidator']>
     readonly controlledComputed: UnwrapRef<typeof import('@vueuse/core')['controlledComputed']>
     readonly controlledRef: UnwrapRef<typeof import('@vueuse/core')['controlledRef']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
@@ -412,7 +422,7 @@ declare module 'vue' {
     readonly createSharedComposable: UnwrapRef<typeof import('@vueuse/core')['createSharedComposable']>
     readonly createTemplatePromise: UnwrapRef<typeof import('@vueuse/core')['createTemplatePromise']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
-    readonly createUrl: UnwrapRef<typeof import('./src/crudui/@core/composable/createUrl')['createUrl']>
+    readonly createUrl: UnwrapRef<typeof import('./src/crudui/composables/createUrl')['createUrl']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
@@ -420,33 +430,35 @@ declare module 'vue' {
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly definePage: UnwrapRef<typeof import('unplugin-vue-router/runtime')['definePage']>
     readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
+    readonly defineThemeConfig: UnwrapRef<typeof import('./src/crudui/utils/index')['defineThemeConfig']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
-    readonly emailValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['emailValidator']>
+    readonly emailValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['emailValidator']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
-    readonly formatDate: UnwrapRef<typeof import('./src/crudui/@core/utils/formatters')['formatDate']>
-    readonly formatDateToMonthShort: UnwrapRef<typeof import('./src/crudui/@core/utils/formatters')['formatDateToMonthShort']>
+    readonly formatDate: UnwrapRef<typeof import('./src/crudui/utils/formatters')['formatDate']>
+    readonly formatDateToMonthShort: UnwrapRef<typeof import('./src/crudui/utils/formatters')['formatDateToMonthShort']>
     readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
-    readonly hexToRgb: UnwrapRef<typeof import('./src/crudui/@core/utils/colorConverter')['hexToRgb']>
+    readonly hexToRgb: UnwrapRef<typeof import('./src/crudui/utils/colorConverter')['hexToRgb']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
+    readonly initCore: UnwrapRef<typeof import('./src/crudui/utils/initCore')['default']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
-    readonly integerValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['integerValidator']>
+    readonly integerValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['integerValidator']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
-    readonly isEmpty: UnwrapRef<typeof import('./src/crudui/@core/utils/helpers')['isEmpty']>
-    readonly isEmptyArray: UnwrapRef<typeof import('./src/crudui/@core/utils/helpers')['isEmptyArray']>
-    readonly isNullOrUndefined: UnwrapRef<typeof import('./src/crudui/@core/utils/helpers')['isNullOrUndefined']>
-    readonly isObject: UnwrapRef<typeof import('./src/crudui/@core/utils/helpers')['isObject']>
+    readonly isEmpty: UnwrapRef<typeof import('./src/crudui/utils/helpers')['isEmpty']>
+    readonly isEmptyArray: UnwrapRef<typeof import('./src/crudui/utils/helpers')['isEmptyArray']>
+    readonly isNullOrUndefined: UnwrapRef<typeof import('./src/crudui/utils/helpers')['isNullOrUndefined']>
+    readonly isObject: UnwrapRef<typeof import('./src/crudui/utils/helpers')['isObject']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
-    readonly isToday: UnwrapRef<typeof import('./src/crudui/@core/utils/helpers')['isToday']>
-    readonly kFormatter: UnwrapRef<typeof import('./src/crudui/@core/utils/formatters')['kFormatter']>
-    readonly lengthValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['lengthValidator']>
+    readonly isToday: UnwrapRef<typeof import('./src/crudui/utils/helpers')['isToday']>
+    readonly kFormatter: UnwrapRef<typeof import('./src/crudui/utils/formatters')['kFormatter']>
+    readonly lengthValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['lengthValidator']>
     readonly logicAnd: UnwrapRef<typeof import('@vueuse/math')['logicAnd']>
     readonly logicNot: UnwrapRef<typeof import('@vueuse/math')['logicNot']>
     readonly logicOr: UnwrapRef<typeof import('@vueuse/math')['logicOr']>
@@ -478,10 +490,10 @@ declare module 'vue' {
     readonly onUnmounted: UnwrapRef<typeof import('vue')['onUnmounted']>
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
-    readonly paginationMeta: UnwrapRef<typeof import('./src/crudui/@core/utils/paginationMeta')['paginationMeta']>
-    readonly passwordValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['passwordValidator']>
+    readonly paginationMeta: UnwrapRef<typeof import('./src/crudui/utils/paginationMeta')['paginationMeta']>
+    readonly passwordValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['passwordValidator']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
-    readonly prefixWithPlus: UnwrapRef<typeof import('./src/crudui/@core/utils/formatters')['prefixWithPlus']>
+    readonly prefixWithPlus: UnwrapRef<typeof import('./src/crudui/utils/formatters')['prefixWithPlus']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly provideLocal: UnwrapRef<typeof import('@vueuse/core')['provideLocal']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>
@@ -497,14 +509,14 @@ declare module 'vue' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
-    readonly regexValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['regexValidator']>
-    readonly registerPlugins: UnwrapRef<typeof import('./src/crudui/@core/utils/plugins')['registerPlugins']>
-    readonly requiredValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['requiredValidator']>
+    readonly regexValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['regexValidator']>
+    readonly registerPlugins: UnwrapRef<typeof import('./src/crudui/utils/plugins')['registerPlugins']>
+    readonly requiredValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['requiredValidator']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
-    readonly resolveVuetifyTheme: UnwrapRef<typeof import('./src/crudui/@core/utils/vuetify')['resolveVuetifyTheme']>
-    readonly rgbaToHex: UnwrapRef<typeof import('./src/crudui/@core/utils/colorConverter')['rgbaToHex']>
+    readonly resolveVuetifyTheme: UnwrapRef<typeof import('./src/crudui/utils/vuetify')['resolveVuetifyTheme']>
+    readonly rgbaToHex: UnwrapRef<typeof import('./src/crudui/utils/colorConverter')['rgbaToHex']>
     readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
     readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
@@ -530,7 +542,7 @@ declare module 'vue' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
-    readonly urlValidator: UnwrapRef<typeof import('./src/crudui/@core/utils/validators')['urlValidator']>
+    readonly urlValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['urlValidator']>
     readonly useAbility: UnwrapRef<typeof import('./src/crudui/plugins/casl/composables/useAbility')['useAbility']>
     readonly useAbs: UnwrapRef<typeof import('@vueuse/math')['useAbs']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>
@@ -608,7 +620,7 @@ declare module 'vue' {
     readonly useFps: UnwrapRef<typeof import('@vueuse/core')['useFps']>
     readonly useFullscreen: UnwrapRef<typeof import('@vueuse/core')['useFullscreen']>
     readonly useGamepad: UnwrapRef<typeof import('@vueuse/core')['useGamepad']>
-    readonly useGenerateImageVariant: UnwrapRef<typeof import('./src/crudui/@core/composable/useGenerateImageVariant')['useGenerateImageVariant']>
+    readonly useGenerateImageVariant: UnwrapRef<typeof import('./src/crudui/composables/useGenerateImageVariant')['useGenerateImageVariant']>
     readonly useGeolocation: UnwrapRef<typeof import('@vueuse/core')['useGeolocation']>
     readonly useGlobalLoading: UnwrapRef<typeof import('./src/crudui/composables/useGlobalLoading')['useGlobalLoading']>
     readonly useI18n: UnwrapRef<typeof import('vue-i18n')['useI18n']>
@@ -663,7 +675,7 @@ declare module 'vue' {
     readonly useRafFn: UnwrapRef<typeof import('@vueuse/core')['useRafFn']>
     readonly useRefHistory: UnwrapRef<typeof import('@vueuse/core')['useRefHistory']>
     readonly useResizeObserver: UnwrapRef<typeof import('@vueuse/core')['useResizeObserver']>
-    readonly useResponsiveLeftSidebar: UnwrapRef<typeof import('./src/crudui/@core/composable/useResponsiveSidebar')['useResponsiveLeftSidebar']>
+    readonly useResponsiveLeftSidebar: UnwrapRef<typeof import('./src/crudui/composables/useResponsiveSidebar')['useResponsiveLeftSidebar']>
     readonly useRound: UnwrapRef<typeof import('@vueuse/math')['useRound']>
     readonly useRoute: UnwrapRef<typeof import('vue-router/auto')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router/auto')['useRouter']>
@@ -674,7 +686,7 @@ declare module 'vue' {
     readonly useScrollLock: UnwrapRef<typeof import('@vueuse/core')['useScrollLock']>
     readonly useSessionStorage: UnwrapRef<typeof import('@vueuse/core')['useSessionStorage']>
     readonly useShare: UnwrapRef<typeof import('@vueuse/core')['useShare']>
-    readonly useSkins: UnwrapRef<typeof import('./src/crudui/@core/composable/useSkins')['useSkins']>
+    readonly useSkins: UnwrapRef<typeof import('./src/crudui/composables/useSkins')['useSkins']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useSorted: UnwrapRef<typeof import('@vueuse/core')['useSorted']>
     readonly useSpeechRecognition: UnwrapRef<typeof import('@vueuse/core')['useSpeechRecognition']>
