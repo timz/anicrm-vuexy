@@ -1,7 +1,9 @@
 # Миграция системы роутинга в starter-kit
 
 ## Задача
-Необходимо модифицировать систему роутинга в starter-kit, взяв лучшие практики из spa-vuetify и современного подхода starter-kit.
+Интегрировать существующую систему роутинга из spa-vuetify (которая уже частично перенесена) с современным подходом starter-kit, используя CASL для всех проверок прав доступа.
+
+**ВАЖНО**: В starter-kit уже есть два роутера и meStore - нужно их объединить и модернизировать.
 
 ## Текущее состояние
 
@@ -13,21 +15,25 @@
 - Загрузка данных пользователя и прав с сервера через `meStore.loadMe()`
 - Проверка оплаты подписки организации
 
-### starter-kit (целевая директория):
-- Роутер в `starter-kit/src/crudui/plugins/2.router/index.ts`
+### starter-kit (целевая директория - УЖЕ ПЕРЕНЕСЕНО):
+- **Роутер УЖЕ ПЕРЕНЕСЕН** в `starter-kit/src/crudui/router/index.ts` (копия из spa-vuetify)
+- **meStore УЖЕ ПЕРЕНЕСЕН** в `starter-kit/src/crudui/stores/meStore.ts` (копия из spa-vuetify)
+- **Динамический импорт модульных роутов УЖЕ РАБОТАЕТ**
+- Роутер в плагинах `starter-kit/src/crudui/plugins/2.router/index.ts` - другая версия с CASL
 - Автогенерация роутов из `src/crudui/pages/` через `unplugin-vue-router`
 - Layouts через `virtual:meta-layouts`
-- CASL для проверки прав через `canNavigate()`
-- Модульные роуты в `src/modules/*/routes.ts` существуют, но НЕ подключаются
 
 ## Требования к реализации
 
-### 1. Динамический импорт модульных роутов
-- В файле `starter-kit/src/crudui/plugins/2.router/index.ts` добавить динамический импорт всех `routes.ts` из модулей
-- Использовать `import.meta.glob('../../modules/*/routes.ts', { eager: true })`
-- Добавлять роуты через `router.addRoute()` после создания роутера
-- Все модульные роуты добавлять плоско (без иерархии)
-- УДАЛИТЬ старый механизм автогенерации из pages, если он конфликтует
+### 1. Объединение двух версий роутера
+**ПРОБЛЕМА**: В starter-kit есть ДВА роутера:
+- `src/crudui/router/index.ts` - перенесенный из spa-vuetify (с meStore проверками)
+- `src/crudui/plugins/2.router/index.ts` - современный с CASL и virtual:meta-layouts
+
+**РЕШЕНИЕ**:
+- Использовать роутер из плагинов как основу (`src/crudui/plugins/2.router/index.ts`)
+- Взять динамический импорт модулей из `src/crudui/router/index.ts`
+- Удалить дублирующийся роутер `src/crudui/router/index.ts`
 
 ### 2. Layouts через virtual:meta-layouts
 - Оставить текущий механизм layouts в starter-kit (через `virtual:meta-layouts`)
@@ -36,12 +42,17 @@
 
 ### 3. Система проверки прав через CASL с загрузкой правил с сервера
 
-#### 3.1. Создать meStore (аналог из spa-vuetify)
-Создать файл `starter-kit/src/crudui/stores/meStore.ts` с функционалом:
-- `loadMe()` - загрузка данных пользователя и CASL правил с сервера
+#### 3.1. Модифицировать существующий meStore
+**meStore УЖЕ СУЩЕСТВУЕТ** в `starter-kit/src/crudui/stores/meStore.ts` и содержит:
+- `loadMe()` - загрузка данных пользователя с сервера
+- `userCanRoute()` и `userCan()` - проверки прав через permissions
 - `logout()` - выход из системы
-- Поля: `loaded`, `user`, `org_not_paid_block`
-- **ВСЕ проверки прав делегировать CASL (не хранить permissions отдельно)**
+- Построение меню на основе прав
+
+**НУЖНО ИЗМЕНИТЬ**:
+- Заменить проверки `userCanRoute()` и `userCan()` на CASL
+- При загрузке в `loadMe()` сохранять CASL rules через `saveAbilityRules()`
+- Удалить хранение `permissions` или конвертировать их в CASL rules
 
 #### 3.2. Модифицировать beforeEach в роутере
 В `starter-kit/src/crudui/plugins/2.router/index.ts`:
@@ -87,18 +98,21 @@ export default <TCrudRouteRecord[]>[
 
 **Важно**: Если в роутах используется старый формат `permission`, нужно конвертировать его в CASL формат `action/subject` при проверке прав.
 
-### 5. Очистка
-- УДАЛИТЬ автогенерацию роутов из pages в vite.config.ts, если она больше не нужна
+### 5. Очистка и рефакторинг
+- УДАЛИТЬ дублирующийся роутер `src/crudui/router/index.ts`
+- ПЕРЕНЕСТИ `freeRoutes` и `menuGroups` в нужное место
+- УДАЛИТЬ автогенерацию роутов из pages в vite.config.ts
 - УДАЛИТЬ неиспользуемые страницы из `src/crudui/pages/`
 - Оставить только системные страницы (login, errors, not-authorized)
 
 ## Файлы для изменения
 
-1. `starter-kit/src/crudui/plugins/2.router/index.ts` - основная логика роутера
-2. `starter-kit/src/crudui/stores/meStore.ts` - создать новый store
-3. `starter-kit/src/crudui/interfaces/CrudRouterInterface.ts` - проверить/обновить интерфейсы
-4. `starter-kit/vite.config.ts` - возможно, удалить/изменить конфигурацию unplugin-vue-router
-5. Модульные `routes.ts` файлы - обновить meta.layout
+1. **ГЛАВНЫЙ**: `starter-kit/src/crudui/plugins/2.router/index.ts` - добавить динамический импорт модулей и проверки из meStore
+2. `starter-kit/src/crudui/stores/meStore.ts` - интегрировать с CASL
+3. `starter-kit/src/crudui/plugins/casl/index.ts` - добавить методы конвертации permissions в CASL rules
+4. **УДАЛИТЬ**: `starter-kit/src/crudui/router/index.ts` - дублирующийся роутер
+5. `starter-kit/vite.config.ts` - удалить/изменить конфигурацию unplugin-vue-router
+6. Модульные `routes.ts` файлы - обновить meta.layout при необходимости
 
 ## Важные моменты
 
