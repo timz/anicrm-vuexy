@@ -98,6 +98,7 @@ const sources: BundleScriptConfig = {
     'mdi:chevron-up',
     'mdi:close',
     'mdi:menu',
+    'mdi:account-child',
     'mdi:dots-vertical',
     'mdi:magnify',
     'mdi:plus',
