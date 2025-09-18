@@ -97,7 +97,7 @@
 
       <!-- Actions column -->
       <template #item.actions="{ item }">
-        <div class="d-flex align-center ga-1">
+        <div class="d-flex align-center justify-end ga-1">
           <v-btn
             icon
             v-for="action in getVisibleActions(item)"
