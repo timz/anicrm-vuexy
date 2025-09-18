@@ -3,7 +3,7 @@
     v-if="type !== 'textarea'"
     v-bind="$props"
     variant="outlined"
-    density="compact"
+    density="comfortable"
     clearable
     hide-details="auto"
     @blur="handleBlur"
@@ -16,7 +16,7 @@
     v-else
     v-bind="$props"
     variant="outlined"
-    density="compact"
+    density="comfortable"
     clearable
     hide-details="auto"
     bg-color="white"

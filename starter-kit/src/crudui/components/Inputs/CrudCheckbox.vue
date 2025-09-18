@@ -1,7 +1,7 @@
 <template>
   <v-checkbox
     v-bind="$props"
-    density="compact"
+    density="comfortable"
     hide-details="auto"
     color="primary"
   />

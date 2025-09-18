@@ -2,7 +2,7 @@
   <v-select
     v-bind="$props"
     variant="outlined"
-    density="compact"
+    density="comfortable"
     hide-details="auto"
     @blur="handleBlur"
     @focus="handleFocus"

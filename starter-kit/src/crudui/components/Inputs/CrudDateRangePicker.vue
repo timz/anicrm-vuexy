@@ -4,7 +4,7 @@
       placeholder="дд.мм.гггг - дд.мм.гггг"
       bg-color="white"
       variant="outlined"
-      density="compact"
+      density="comfortable"
       hide-details="auto"
       :model-value="dateValue"
       @update:model-value="updateDateRange"
