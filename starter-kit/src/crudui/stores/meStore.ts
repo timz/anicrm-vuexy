@@ -2,14 +2,16 @@ import { defineStore } from 'pinia'
 import { sortBy } from 'lodash'
 import { toRaw } from 'vue'
 import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
-import { freeRoutes } from '@crudui/router'
+import { freeRoutes } from '@crudui/plugins/2.router'
 import type { NotifyItemDto } from '@crudui/interfaces/NotifyItemDto'
 import { secureApi } from '@crudui/services/AxiosService'
 import envService from '@crudui/services/EnvService'
 import type { RouteLocationNormalized } from 'vue-router'
 import type { MenuItemInterface } from '@crudui/components/templates/menus/left/MenuItemInterface'
-import { menuGroups, type MenuGroupKey } from '@crudui/router/menuGroups'
-import router from '@crudui/router'
+import { menuGroups, type MenuGroupKey } from '@crudui/configs/menuGroups'
+import { ability } from '@crudui/plugins/casl/ability'
+import { convertPermissionsToCaslRules, saveAbilityRules, clearAbilityRules } from '@crudui/plugins/casl/index'
+import { useAbility } from '@casl/vue'
 
 // Локальные типы для разрешений
 type PermissionsType = Record<string, 'all'>
@@ -51,13 +53,19 @@ export const useMeStore = defineStore('meStore', {
     }
   },
   actions: {
-    // Проверка может ли юзер ходить по роуту
+    // Проверка может ли юзер ходить по роуту (через CASL)
     userCanRoute(route: RouteLocationNormalized): boolean {
       if (freeRoutes.includes(<string>route.name)) {
         return true
       }
-      const routePerm = <string>route.meta.permission ?? ''
 
+      // Проверяем через CASL если есть action и subject в meta
+      if (route.meta.action && route.meta.subject) {
+        return ability.can(route.meta.action as string, route.meta.subject as string)
+      }
+
+      // Для обратной совместимости проверяем старый формат permission
+      const routePerm = <string>route.meta.permission ?? ''
       if (routePerm === MIN_PERMISSION) {
         return true
       }
@@ -65,7 +73,7 @@ export const useMeStore = defineStore('meStore', {
       return this.userCan(routePerm)
     },
 
-    // Простая проверка может ли юзер выполнять действие (с кэшированием)
+    // Простая проверка может ли юзер выполнять действие (через CASL для новой логики)
     userCan(checkPermission: string): boolean {
       if (checkPermission === MIN_PERMISSION) {
         return true
@@ -76,8 +84,15 @@ export const useMeStore = defineStore('meStore', {
         return this.permissionCache.get(checkPermission)!
       }
 
-      const userPerms = toRaw(this.permissions)
-      const hasPermission = !!(userPerms && userPerms[checkPermission])
+      // Сначала проверяем через CASL для известных субъектов
+      // Используем permission как subject для обратной совместимости
+      let hasPermission = ability.can('access', checkPermission)
+
+      // Если CASL не дал доступ, проверяем старую логику для обратной совместимости
+      if (!hasPermission) {
+        const userPerms = toRaw(this.permissions)
+        hasPermission = !!(userPerms && userPerms[checkPermission])
+      }
 
       // Сохраняем в кэш
       this.permissionCache.set(checkPermission, hasPermission)
@@ -225,6 +240,16 @@ export const useMeStore = defineStore('meStore', {
         this.permissions = responseData.content.permissions
         this.notifications = responseData.content.notifications || []
 
+        // Конвертируем permissions в CASL rules и сохраняем
+        if (responseData.content.casl_rules) {
+          // Если сервер уже отдает CASL rules, используем их
+          saveAbilityRules(responseData.content.casl_rules)
+        } else if (this.permissions) {
+          // Иначе конвертируем старые permissions в CASL rules
+          const caslRules = convertPermissionsToCaslRules(this.permissions)
+          saveAbilityRules(caslRules)
+        }
+
         this.leftMenu = this.setMenu(routes)
 
         this.loaded = true
@@ -251,6 +276,9 @@ export const useMeStore = defineStore('meStore', {
       this.loaded = false
 
       this.clearPermissionCache()
+
+      // Очищаем CASL правила
+      clearAbilityRules()
 
       envService.removeTokenFromLocalStorage()
       envService.removeRefreshTokenFromLocalStorage()

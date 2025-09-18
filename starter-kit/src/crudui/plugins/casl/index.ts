@@ -3,6 +3,7 @@ import { createMongoAbility } from '@casl/ability'
 import { abilitiesPlugin, useAbility } from '@casl/vue'
 import type { RouteLocationNormalized } from 'vue-router'
 import type { Rule } from './ability'
+import { ability } from './ability'
 import type { NavGroup } from '@crudui/components/templates/helpers/types'
 
 export default function (app: App) {
@@ -17,14 +18,75 @@ export default function (app: App) {
   })
 }
 
+// Конвертация старых permissions в CASL rules
+export function convertPermissionsToCaslRules(permissions: Record<string, any>): Rule[] {
+  const rules: Rule[] = []
+
+  // Если есть полные права администратора
+  if (permissions['admin'] || permissions['administrator']) {
+    rules.push({ action: 'manage', subject: 'all' })
+    return rules
+  }
+
+  // Маппинг известных permissions в CASL правила
+  const permissionMapping: Record<string, { action: string; subject: string }> = {
+    'users': { action: 'manage', subject: 'User' },
+    'clients': { action: 'manage', subject: 'Client' },
+    'deals': { action: 'manage', subject: 'Deal' },
+    'products': { action: 'manage', subject: 'Product' },
+    'dashboard': { action: 'view', subject: 'Dashboard' },
+    'settings': { action: 'manage', subject: 'Settings' },
+    'subscription': { action: 'manage', subject: 'Subscription' },
+    'organization': { action: 'manage', subject: 'Organization' },
+
+    // Добавляем специфичные права
+    'users_read': { action: 'read', subject: 'User' },
+    'users_create': { action: 'create', subject: 'User' },
+    'users_update': { action: 'update', subject: 'User' },
+    'users_delete': { action: 'delete', subject: 'User' },
+
+    'clients_read': { action: 'read', subject: 'Client' },
+    'clients_create': { action: 'create', subject: 'Client' },
+    'clients_update': { action: 'update', subject: 'Client' },
+    'clients_delete': { action: 'delete', subject: 'Client' },
+
+    'deals_read': { action: 'read', subject: 'Deal' },
+    'deals_create': { action: 'create', subject: 'Deal' },
+    'deals_update': { action: 'update', subject: 'Deal' },
+    'deals_delete': { action: 'delete', subject: 'Deal' },
+  }
+
+  // Конвертируем каждое permission в CASL rule
+  Object.keys(permissions).forEach(permission => {
+    if (permissionMapping[permission]) {
+      rules.push(permissionMapping[permission])
+    } else {
+      // Для неизвестных permissions создаем общее правило
+      // Используем permission как subject для обратной совместимости
+      rules.push({ action: 'access', subject: permission })
+    }
+  })
+
+  // Добавляем базовое правило для доступа к роутам
+  if (rules.length > 0) {
+    rules.push({ action: 'access', subject: 'Route' })
+  }
+
+  return rules
+}
+
 // Вспомогательная функция для сохранения правил после авторизации
 export function saveAbilityRules(rules: Rule[]) {
   localStorage.setItem('userAbilityRules', JSON.stringify(rules))
+  // Обновляем глобальный ability
+  ability.update(rules)
 }
 
 // Функция для очистки правил при выходе
 export function clearAbilityRules() {
   localStorage.removeItem('userAbilityRules')
+  // Очищаем глобальный ability
+  ability.update([])
 }
 
 /**

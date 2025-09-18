@@ -5,6 +5,34 @@ import type { RouteRecordRaw } from 'vue-router/auto'
 import { createRouter, createWebHistory } from 'vue-router/auto'
 import envService from '@crudui/services/EnvService'
 import { canNavigate } from '@/crudui/plugins/casl'
+import { useMeStore } from '@crudui/stores/meStore'
+import { notifications } from '@crudui/boot/notification'
+import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
+
+// Список свободных роутов из spa-vuetify
+export const freeRoutes = [
+  'login',
+  'logout',
+  'register',
+  'errorNetwork',
+  'error500',
+  'errors',
+  'errorDefault',
+  'errorPay',
+  'errorPayOwner'
+]
+
+// Динамический импорт модульных роутов из @modules/*/routes.ts
+const modulesRouteFiles = import.meta.glob('../../../modules/*/routes.ts', { eager: true })
+const modulesRoute: TCrudRouteRecord[] = []
+
+Object.keys(modulesRouteFiles).forEach((key) => {
+  // @ts-expect-error to_do
+  const defaultModule = modulesRouteFiles[key].default
+  if (!defaultModule) return
+  const moduleList = Array.isArray(defaultModule) ? [...defaultModule] : [defaultModule]
+  modulesRoute.push(...moduleList)
+})
 
 function recursiveLayouts(route: RouteRecordRaw): RouteRecordRaw {
   if (route.children) {
@@ -17,6 +45,56 @@ function recursiveLayouts(route: RouteRecordRaw): RouteRecordRaw {
   return setupLayouts([route])[0]
 }
 
+// Подготавливаем все роуты
+const allRoutes = [
+  // Базовые системные роуты
+  {
+    path: '/',
+    name: 'home',
+    redirect: { name: 'dashboardIndex' },
+    meta: {
+      layout: 'default'
+    }
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import('@/modules/auth/LoginPage.vue'),
+    meta: {
+      layout: 'auth',
+      public: true
+    }
+  },
+  {
+    path: '/not-authorized',
+    name: 'not-authorized',
+    component: () => import('@/crudui/pages/DefaultErrorPage.vue'),
+    meta: {
+      layout: 'error',
+      public: true,
+      description: 'У вас нет доступа к этой странице'
+    }
+  },
+  // Модульные роуты
+  ...modulesRoute.map(route => {
+    // Устанавливаем layout через meta для совместимости с virtual:meta-layouts
+    if (route.meta && !route.meta.layout) {
+      route.meta.layout = 'default'
+    }
+    return route as RouteRecordRaw
+  }),
+  // Catch-all должен быть последним
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('@/crudui/pages/DefaultErrorPage.vue'),
+    meta: {
+      layout: 'error',
+      public: true
+    }
+  }
+]
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to) {
@@ -25,40 +103,81 @@ const router = createRouter({
 
     return { top: 0 }
   },
-  extendRoutes: pages => [
-    ...[...pages].map(route => recursiveLayouts(route)),
-  ],
+  extendRoutes: pages => {
+    // Применяем setupLayouts ко всем роутам
+    const routesWithLayouts = setupLayouts(allRoutes as RouteRecordRaw[])
+    // Объединяем с автогенерированными страницами (если они есть)
+    return [
+      ...[...pages].map(route => recursiveLayouts(route)),
+      ...routesWithLayouts
+    ]
+  },
 })
 
 // Защита маршрутов - проверка авторизации и CASL прав
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = !!envService.getAuthToken()
-  const isPublicRoute = to.meta.public === true || to.path === '/login'
+router.beforeEach(async (to, from, next) => {
+  // Установка заголовка страницы
+  window.document.title = 'Приложение ' + (to.meta.title ?? '')
 
-  if (!isAuthenticated && !isPublicRoute) {
-    // Если пользователь не авторизован и пытается зайти на защищенную страницу
-    next('/login')
+  const meStore = useMeStore()
+  const isAuthenticated = !!envService.getAuthToken()
+  const isFreeRoute = freeRoutes.includes(to.name as string)
+
+  // Если данные о юзере не были загружены, и это не свободный роут, то загружаем их
+  if (isAuthenticated && !meStore.loaded && !isFreeRoute) {
+    // Проверяем есть ли нормальный базовый URL
+    if (!envService.BaseUrlIsValid()) {
+      await meStore.logout()
+      return next({ name: 'login' })
+    }
+
+    // Загружаем данные пользователя
+    const result = await meStore.loadMe(router.getRoutes() as unknown as TCrudRouteRecord[])
+
+    // Если что-то пошло не так при загрузке, то logout и на страницу логина
+    if (!result) {
+      await meStore.logout()
+      return next({ name: 'login' })
+    }
   }
-  else if (isAuthenticated && to.path === '/login') {
-    // Если пользователь авторизован и пытается зайти на страницу логина
-    next('/')
+
+  // Проверка для неавторизованных пользователей
+  if (!isAuthenticated && !isFreeRoute) {
+    return next('/login')
   }
-  else if (isAuthenticated) {
-    // Проверяем CASL права для авторизованных пользователей
-    // Если у маршрута есть требования к правам доступа
+
+  // Если авторизован и пытается зайти на login
+  if (isAuthenticated && to.path === '/login') {
+    return next('/')
+  }
+
+  // Проверка оплаты подписки организации (из spa-vuetify)
+  const paymentBlockExcludeRoutes = ['errorPay', 'logout', 'errorPayOwner']
+  if (meStore.org_not_paid_block === true && !paymentBlockExcludeRoutes.includes(to.name as string)) {
+    if (meStore.userCan('subscription')) {
+      return next({ name: 'errorPayOwner' })
+    } else {
+      return next({ name: 'errorPay' })
+    }
+  }
+
+  // Проверка CASL прав для авторизованных пользователей
+  if (isAuthenticated && !isFreeRoute) {
+    // Проверка через CASL если есть action и subject в meta
     if (to.meta.action && to.meta.subject) {
       if (!canNavigate(to)) {
-        // Если нет прав доступа, перенаправляем на страницу 403
-        next({ name: 'not-authorized' })
-
-        return
+        notifications.warning('У вас нет доступа к странице ' + to.fullPath)
+        return next({ name: 'dashboardIndex' })
       }
     }
-    next()
+    // Проверка через старый механизм permissions (для обратной совместимости)
+    else if (to.meta.permission && !meStore.userCan(to.meta.permission as string)) {
+      notifications.warning('У вас нет доступа к странице ' + to.fullPath)
+      return next({ name: 'dashboardIndex' })
+    }
   }
-  else {
-    next()
-  }
+
+  next()
 })
 
 export { router }

@@ -19,7 +19,9 @@
       "Bash(mkdir:*)",
       "Bash(mv:*)",
       "mcp__playwright__browser_navigate",
-      "Bash(pnpm typecheck:*)"
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm:*)",
+      "Bash(npm install:*)"
     ],
     "deny": [],
     "ask": []

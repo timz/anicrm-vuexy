@@ -17,7 +17,10 @@ export default defineConfig({
     // Docs: https://github.com/posva/unplugin-vue-router
     // ℹ️ This plugin should be placed before vue plugin
     VueRouter({
-      routesFolder: 'src/crudui/pages',
+      // Отключаем автогенерацию из pages, так как используем динамический импорт модулей
+      routesFolder: [],
+      // Или указываем только системные страницы
+      // routesFolder: 'src/crudui/pages/auth',
       getRouteName: routeNode => {
         // Convert pascal case to kebab case
         return getPascalCaseRouteName(routeNode)
