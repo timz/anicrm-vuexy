@@ -1,32 +1,31 @@
 <script setup lang="ts">
-import { computed, inject, ref, watch } from "vue";
-import { useRoute } from "vue-router";
-import type { CrudEditPageReturn } from "@crudui/providers/useCrudEditPage";
+import { computed, inject, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import type { CrudEditPageReturn } from '@crudui/providers/useCrudEditPage'
 import type {
   CrudTabInterface,
   TabContext,
-} from "@crudui/components/forms/tabs/TabTypes";
-import CrudButtonSecondary from "@crudui/components/buttons/CrudButtonSecondary.vue";
-import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
+} from '@crudui/components/forms/tabs/TabTypes'
+import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 
 interface Props {
-  providerKey?: string;
-  tabs?: CrudTabInterface[];
-  lazy?: boolean;
+  providerKey?: string
+  tabs?: CrudTabInterface[]
+  lazy?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  providerKey: "editPageProvider",
+  providerKey: 'editPageProvider',
   tabs: () => [],
   lazy: true,
-});
+})
 
-const route = useRoute();
-const editPageProvider = inject<CrudEditPageReturn>(props.providerKey);
+const route = useRoute()
+const editPageProvider = inject<CrudEditPageReturn>(props.providerKey)
 
-if (!editPageProvider) {
-  throw new Error(`Provider with key "${props.providerKey}" not found`);
-}
+if (!editPageProvider)
+  throw new Error(`Provider with key "${props.providerKey}" not found`)
 
 const {
   model,
@@ -38,11 +37,11 @@ const {
   handleSave,
   handleCancel,
   isDataReady,
-} = editPageProvider;
+} = editPageProvider
 
 // Логика табов
-const activeTab = ref<string>("");
-const activeTabIndex = ref(0);
+const activeTab = ref<string>('')
+const activeTabIndex = ref(0)
 
 // Создаем контекст для табов
 const tabContext = computed(
@@ -53,93 +52,111 @@ const tabContext = computed(
     userPermissions: [], // TODO: получить из меню или editPageProvider
     routeParams: route.params,
   }),
-);
+)
 
 // Определяем видимые табы
 const visibleTabs = computed(() =>
-  props.tabs.filter((tab) => {
+  props.tabs.filter(tab => {
     // Проверяем права доступа
     if (tab.permissions?.length) {
-      const hasPermission = tab.permissions.some((permission) =>
+      const hasPermission = tab.permissions.some(permission =>
         tabContext.value.userPermissions?.includes(permission),
-      );
-      if (!hasPermission) return false;
+      )
+
+      if (!hasPermission)
+        return false
     }
 
     // Проверяем кастомное условие видимости
-    if (tab.visible) {
-      return tab.visible(tabContext.value);
-    }
+    if (tab.visible)
+      return tab.visible(tabContext.value)
 
-    return true;
+    return true
   }),
-);
+)
 
 // parentId для передачи в компоненты табов
-const parentId = computed(() => model.value.id);
+const parentId = computed(() => model.value.id)
 
 // Автоматически устанавливаем первую доступную вкладку как активную
 watch(
   visibleTabs,
-  (newTabs) => {
+  newTabs => {
     if (newTabs.length > 0 && !activeTab.value) {
-      activeTab.value = newTabs[0].name;
-      activeTabIndex.value = 0;
+      activeTab.value = newTabs[0].name
+      activeTabIndex.value = 0
     }
+
     // Если текущая активная вкладка стала недоступна
     if (
-      activeTab.value &&
-      !newTabs.find((tab) => tab.name === activeTab.value)
+      activeTab.value
+      && !newTabs.find(tab => tab.name === activeTab.value)
     ) {
-      activeTab.value = newTabs[0]?.name || "";
-      activeTabIndex.value = 0;
+      activeTab.value = newTabs[0]?.name || ''
+      activeTabIndex.value = 0
     }
   },
   { immediate: true },
-);
+)
 
 // Синхронизация activeTabIndex с activeTab
-watch(activeTabIndex, (newIndex) => {
-  if (visibleTabs.value[newIndex]) {
-    activeTab.value = visibleTabs.value[newIndex].name;
-  }
-});
+watch(activeTabIndex, newIndex => {
+  if (visibleTabs.value[newIndex])
+    activeTab.value = visibleTabs.value[newIndex].name
+})
 
 // Следим за изменением parentId для автоматической установки первой вкладки
 watch(
   () => parentId.value,
-  (newParentId) => {
+  newParentId => {
     if (newParentId && visibleTabs.value.length > 0) {
-      if (!activeTab.value) {
-        activeTab.value = visibleTabs.value[0].name;
-      }
+      if (!activeTab.value)
+        activeTab.value = visibleTabs.value[0].name
     }
   },
-);
+)
 
 const shouldRenderTab = (tabName: string): boolean => {
-  if (!props.lazy) return true;
+  if (!props.lazy)
+    return true
+
   // Для lazy loading рендерим только активную вкладку
-  return activeTab.value === tabName;
-};
+  return activeTab.value === tabName
+}
 </script>
 
 <template>
   <v-row>
     <!-- Левая панель с формой -->
-    <v-col cols="12" md="5" lg="4">
+    <v-col
+      cols="12"
+      md="5"
+      lg="4"
+    >
       <v-card>
         <!-- Показываем лоадер пока данные не готовы -->
-        <div v-if="!isDataReady" class="text-center pa-12">
-          <v-progress-circular indeterminate size="40" color="primary" />
-          <div class="text-grey mt-2">Загрузка данных...</div>
+        <div
+          v-if="!isDataReady"
+          class="text-center pa-12"
+        >
+          <v-progress-circular
+            indeterminate
+            size="40"
+            color="primary"
+          />
+          <div class="text-grey mt-2">
+            Загрузка данных...
+          </div>
         </div>
 
         <!-- Показываем форму когда данные готовы -->
         <template v-else>
           <v-card-text>
             <!-- Форма с полями -->
-            <v-form ref="formRef" @submit.prevent="handleSave">
+            <v-form
+              ref="formRef"
+              @submit.prevent="handleSave"
+            >
               <v-row>
                 <slot
                   :model="model"
@@ -165,26 +182,31 @@ const shouldRenderTab = (tabName: string): boolean => {
               :is-edit-mode="!isCreateMode"
             />
             <v-spacer />
-            <crud-button-secondary
+            <CrudButtonSecondary
               :disabled="stateProcessing"
               @click="handleCancel"
             >
               Закрыть
-            </crud-button-secondary>
-            <crud-button-primary
+            </CrudButtonSecondary>
+            <CrudButtonPrimary
               :disabled="stateProcessing"
               :loading="stateProcessing"
               @click="handleSave"
             >
               Сохранить
-            </crud-button-primary>
+            </CrudButtonPrimary>
           </v-card-text>
         </template>
       </v-card>
     </v-col>
 
     <!-- Правая панель с табами -->
-    <v-col v-if="visibleTabs.length > 0" cols="12" md="7" lg="8">
+    <v-col
+      v-if="visibleTabs.length > 0"
+      cols="12"
+      md="7"
+      lg="8"
+    >
       <!-- Табы в стиле pill как в full-version -->
       <v-tabs
         v-model="activeTabIndex"
@@ -223,8 +245,8 @@ const shouldRenderTab = (tabName: string): boolean => {
           :value="index"
         >
           <component
-            v-if="shouldRenderTab(tab.name)"
             :is="tab.tab"
+            v-if="shouldRenderTab(tab.name)"
             :parent-id="parentId"
             v-bind="tab.meta"
           />
