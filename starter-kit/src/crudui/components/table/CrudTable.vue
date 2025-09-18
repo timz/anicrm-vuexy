@@ -1,20 +1,22 @@
 <template>
-  <v-card flat class="soft-shadow rounded-lg">
+  <v-card>
     <!-- Actions Bar -->
-    <v-card-text class="pb-0">
-      <div class="d-flex align-center ga-2">
+    <div class="d-flex flex-wrap gap-4 ma-6">
+      <div class="d-flex align-center gap-2">
         <slot v-if="$slots['actionsSection']" name="actionsSection" />
 
         <template v-if="dataListProvider.selectedIds.value.length > 0">
           <button-batch-delete @confirmDelete="deleteSelected()" />
         </template>
+      </div>
 
-        <v-spacer />
+      <v-spacer />
 
+      <div class="d-flex gap-2 align-center">
         <v-btn
           variant="text"
           icon="mdi-refresh"
-          color="blue-grey"
+          color="default"
           :disabled="loading"
           @click="refresh()"
         />
@@ -23,24 +25,26 @@
           v-if="$slots['filterForm']"
           variant="text"
           icon="mdi-filter-variant"
-          :color="filterPanel ? 'amber-darken-2' : 'blue-grey'"
+          :color="filterPanel ? 'primary' : 'default'"
           @click="filterPanel = !filterPanel"
         />
       </div>
-    </v-card-text>
+    </div>
+
+    <v-divider v-if="$slots['filterForm'] && filterPanel" />
 
     <!-- Filter Panel -->
     <v-expand-transition>
-      <v-card-text
+      <div
         v-if="$slots['filterForm'] && filterPanel"
-        class="bg-grey-lighten-4 mt-2 py-6"
+        class="ma-6"
       >
         <v-form ref="filterFormRef" @submit.prevent="applyFilter">
           <v-row class="v-row-form">
             <slot name="filterForm" />
           </v-row>
 
-          <div class="d-flex mt-4 ga-2">
+          <div class="d-flex mt-4 gap-2">
             <crud-button-primary :disabled="loading" @click="applyFilter()">
               Применить
             </crud-button-primary>
@@ -49,12 +53,13 @@
             </crud-button-secondary>
           </div>
         </v-form>
-      </v-card-text>
+      </div>
     </v-expand-transition>
+
+    <v-divider />
 
     <!-- Data Table Server -->
     <v-data-table-server
-      class="mt-4"
       v-model="selectedItems"
       v-model:page="pagination.page"
       v-model:items-per-page="pagination.rowsPerPage"
@@ -71,7 +76,8 @@
       ]"
       item-value="id"
       show-select
-      density="comfortable"
+      density="default"
+      class="text-no-wrap"
       @update:options="onOptionsUpdate"
       @update:sort-by="onSortByUpdate"
     >
@@ -288,17 +294,61 @@ const resetFilter = async (): Promise<void> => {
 </script>
 
 <style lang="scss" scoped>
+// Применяем стили таблицы из Vuexy
 :deep(.v-data-table) {
+  // Стили для заголовков таблицы
   .v-data-table__th {
+    color: rgba(var(--v-theme-on-surface), var(--v-high-emphasis-opacity)) !important;
+    font-size: 0.8125rem;
     font-weight: 600;
+    letter-spacing: 0.2px;
     text-transform: uppercase;
-    font-size: 0.75rem;
-    color: rgb(var(--v-theme-primary));
+
+    .v-data-table-header__content {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    // Правильные отступы для первой и последней колонки
+    &:first-child {
+      padding-inline-start: 24px !important;
+
+      &:has(.v-checkbox-btn) {
+        padding-inline-start: 13px !important;
+      }
+    }
+
+    &:last-child {
+      padding-inline-end: 24px !important;
+    }
   }
 
+  // Стили для ячеек таблицы
   .v-data-table__td {
-    padding: 8px 16px;
-    height: 40px;
+    padding: 12px 16px;
+
+    // Правильные отступы для первой и последней колонки
+    &:first-child {
+      padding-inline-start: 24px !important;
+
+      &:has(.v-checkbox-btn) {
+        padding-inline-start: 13px !important;
+      }
+    }
+
+    &:last-child {
+      padding-inline-end: 24px !important;
+    }
   }
+
+  // Убираем нижний border у таблицы
+  tbody tr:last-child td {
+    border-bottom: none !important;
+  }
+}
+
+// Класс text-no-wrap для таблицы
+:deep(.text-no-wrap) {
+  white-space: nowrap;
 }
 </style>
