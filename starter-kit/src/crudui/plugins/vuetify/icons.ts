@@ -60,7 +60,7 @@ export const iconify = {
     }
 
     return h(
-      props.tag,
+      props.tag || 'span',
       {
         ...props,
 

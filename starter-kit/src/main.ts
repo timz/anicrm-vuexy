@@ -6,6 +6,7 @@ import { registerPlugins } from '@crudui/utils/plugins'
 // Styles
 import '@crudui/styles/template/index.scss'
 import '@styles/styles.scss'
+import '@/styles/iconify.scss'
 
 // Create vue app
 const app = createApp(App)

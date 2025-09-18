@@ -173,6 +173,9 @@ importers:
       '@iconify-json/tabler':
         specifier: 1.2.18
         version: 1.2.18
+      '@iconify/json':
+        specifier: ^2.2.385
+        version: 2.2.385
       '@iconify/tools':
         specifier: 4.1.2
         version: 4.1.2
@@ -800,6 +803,9 @@ packages:
 
   '@iconify-json/tabler@1.2.18':
     resolution: {integrity: sha512-W+8qiJhJpb4dmBw3P7JSM9QhGsFG8GIS3BJWAmrJ/92rzK6NPGUOPfGmswoO+/MuPzQV96ColY9lcUktUKv0pg==}
+
+  '@iconify/json@2.2.385':
+    resolution: {integrity: sha512-IOUKB/gXgATc76rejBzy+ypG7alDhLxC2jL7unmi+nB4mmztRUTtfF3wsMv2b+j0Zk/qMTB7wlvAhvqKsvdWGA==}
 
   '@iconify/tools@4.1.2':
     resolution: {integrity: sha512-q6NzLQYEN9zkDfcyBqD3vItHcZw97w/s++3H3TBxUORr57EfHxj6tOW6fyufDjMq+Vl56WXWaPx1csBPYlI5CA==}
@@ -5381,6 +5387,11 @@ snapshots:
   '@iconify-json/tabler@1.2.18':
     dependencies:
       '@iconify/types': 2.0.0
+
+  '@iconify/json@2.2.385':
+    dependencies:
+      '@iconify/types': 2.0.0
+      pathe: 1.1.2
 
   '@iconify/tools@4.1.2':
     dependencies:

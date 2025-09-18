@@ -1,0 +1,26 @@
+// Iconify icon styles for mask-based icons
+// Icons need currentColor as background when using CSS masks
+.v-icon {
+  &[class*="mdi-"],
+  &[class*="tabler-"],
+  &[class*="fa-"] {
+    background-color: currentColor !important;
+  }
+}
+
+// Navigation specific icon styles - ensure they're visible
+.layout-vertical-nav {
+  .nav-link {
+    // Icon color for inactive items
+    .nav-item-icon {
+      color: rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity));
+    }
+
+    // Icon color for active items
+    &.router-link-active {
+      .nav-item-icon {
+        color: rgb(var(--v-theme-primary));
+      }
+    }
+  }
+}

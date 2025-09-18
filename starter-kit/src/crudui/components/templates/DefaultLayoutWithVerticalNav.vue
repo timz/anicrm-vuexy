@@ -17,7 +17,8 @@ const navItems = computed(() => {
   return meStore.leftMenu.map(item => {
     const navItem: any = {
       title: item.title,
-      icon: { icon: item.icon }
+      // Для Iconify используем формат как в full-version
+      icon: item.icon ? { icon: `mdi-${item.icon.replace('mdi-', '')}` } : undefined
     }
 
     // Если это группа с дочерними элементами
@@ -25,7 +26,8 @@ const navItems = computed(() => {
       navItem.children = item.childItems.map(child => ({
         title: child.title,
         to: child.name ? { name: child.name } : undefined,
-        icon: { icon: child.icon }
+        // Для Iconify используем формат как в full-version
+        icon: child.icon ? { icon: `mdi-${child.icon.replace('mdi-', '')}` } : undefined
       }))
     }
     // Если это обычный пункт меню
