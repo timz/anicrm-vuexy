@@ -130,9 +130,16 @@ pnpm run build:icons
 - Утилитарные классы и пользовательские стили в `src/@core/scss/`
 
 ### Система иконок
-- Интеграция Iconify с автогенерируемыми компонентами иконок
-- Иконки из Material Design Icons, Font Awesome и Tabler
-- Пользовательская система сборки иконок через `npm run build:icons`
+- **Полностью переведена с MDI шрифтов на Iconify с CSS масками**
+- Конфигурация иконок в `src/plugins/iconify/build-icons.ts`
+- Генерация CSS с масками через `pnpm run build:icons`
+- Иконки используют CSS маски для отображения (mask-image с SVG data URL)
+- Поддерживаются Material Design Icons (mdi:*), Font Awesome (fa:*) и Tabler Icons
+- **ВАЖНО**: При добавлении новых иконок:
+  1. Добавить имя иконки в массив `icons` в `build-icons.ts`
+  2. Выполнить `pnpm run build:icons` для генерации CSS
+  3. Использовать в компонентах как `icon="mdi-name"` или `class="mdi-name"`
+- Стили Iconify подключены в `src/styles/iconify.scss`
 
 ### Качество кода
 - ESLint с пользовательскими правилами и конфигурациями Vue/TypeScript
