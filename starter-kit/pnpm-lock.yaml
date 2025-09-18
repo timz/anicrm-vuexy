@@ -25,9 +25,6 @@ importers:
       '@formkit/drag-and-drop':
         specifier: 0.1.6
         version: 0.1.6
-      '@mdi/font':
-        specifier: ^7.4.47
-        version: 7.4.47
       '@sindresorhus/is':
         specifier: 7.0.1
         version: 7.0.1
@@ -940,9 +937,6 @@ packages:
   '@mapbox/whoots-js@3.1.0':
     resolution: {integrity: sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==}
     engines: {node: '>=6.0.0'}
-
-  '@mdi/font@7.4.47':
-    resolution: {integrity: sha512-43MtGpd585SNzHZPcYowu/84Vz2a2g31TvPMTm9uTiCSWzaheQySUcSyUH/46fPnuPQWof2yd0pGBtzee/IQWw==}
 
   '@mswjs/interceptors@0.37.6':
     resolution: {integrity: sha512-wK+5pLK5XFmgtH3aQ2YVvA3HohS3xqV/OxuVOdNx9Wpnz7VE/fnC+e1A7ln6LFYeck7gOJ/dsZV6OLplOtAJ2w==}
@@ -5545,8 +5539,6 @@ snapshots:
       '@mapbox/point-geometry': 0.1.0
 
   '@mapbox/whoots-js@3.1.0': {}
-
-  '@mdi/font@7.4.47': {}
 
   '@mswjs/interceptors@0.37.6':
     dependencies:

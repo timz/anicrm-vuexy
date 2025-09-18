@@ -106,6 +106,9 @@ const sources: BundleScriptConfig = {
     'mdi:eye',
     'mdi:eye-off',
     'mdi:close-circle-outline',
+    'mdi:refresh',
+    'mdi:filter-variant',
+    'mdi:email',
   ],
 
   json: [
