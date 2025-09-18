@@ -75,7 +75,8 @@ export const useMeStore = defineStore('meStore', {
 
     // Простая проверка может ли юзер выполнять действие (через CASL для новой логики)
     userCan(checkPermission: string): boolean {
-      if (checkPermission === MIN_PERMISSION) {
+      // min_permission всегда доступно для авторизованных пользователей
+      if (!checkPermission || checkPermission === '' || checkPermission === MIN_PERMISSION) {
         return true
       }
 
@@ -237,8 +238,9 @@ export const useMeStore = defineStore('meStore', {
         this.org_not_paid_block = responseData.content.org_not_paid_block || false
         this.timezone = responseData.content.timezone || ''
 
-        this.permissions = responseData.content.permissions
+        this.permissions = responseData.content.permissions || {}
         this.notifications = responseData.content.notifications || []
+
 
         // Конвертируем permissions в CASL rules и сохраняем
         if (responseData.content.casl_rules) {

@@ -1,11 +1,41 @@
 <script lang="ts" setup>
-import navItems from '@crudui/components/templates/navigation/vertical'
+// import navItems from '@crudui/components/templates/navigation/vertical'
+import { useMeStore } from '@crudui/stores/meStore'
+import { computed } from 'vue'
 
 // Components
 import UserProfile from '@crudui/components/templates/UserProfile.vue'
 
 // @layouts plugin
 import { VerticalNavLayout } from '@crudui/components/templates/helpers'
+
+// Используем динамическое меню из meStore
+const meStore = useMeStore()
+
+// Преобразуем меню из meStore в формат для VerticalNavLayout
+const navItems = computed(() => {
+  return meStore.leftMenu.map(item => {
+    const navItem: any = {
+      title: item.title,
+      icon: { icon: item.icon }
+    }
+
+    // Если это группа с дочерними элементами
+    if (item.childItems && item.childItems.length > 0) {
+      navItem.children = item.childItems.map(child => ({
+        title: child.title,
+        to: child.name ? { name: child.name } : undefined,
+        icon: { icon: child.icon }
+      }))
+    }
+    // Если это обычный пункт меню
+    else if (item.path !== '#' && item.name) {
+      navItem.to = { name: item.name }
+    }
+
+    return navItem
+  }).filter(item => item.to || (item.children && item.children.length > 0))
+})
 </script>
 
 <template>

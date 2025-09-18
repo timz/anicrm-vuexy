@@ -45,53 +45,21 @@ function recursiveLayouts(route: RouteRecordRaw): RouteRecordRaw {
   return setupLayouts([route])[0]
 }
 
-// Подготавливаем все роуты
-const allRoutes = [
-  // Базовые системные роуты
+// Подготавливаем модульные роуты
+const modulesRouteFormatted = modulesRoute.map(route => {
+  // Устанавливаем layout через meta
+  if (route.meta && !route.meta.layout) {
+    route.meta.layout = 'default'
+  }
+  return route as RouteRecordRaw
+})
+
+// Создаем структуру роутов для meStore (для построения меню)
+const allRoutesForMenu = [
   {
     path: '/',
-    name: 'home',
-    redirect: { name: 'dashboardIndex' },
-    meta: {
-      layout: 'default'
-    }
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: () => import('@/modules/auth/LoginPage.vue'),
-    meta: {
-      layout: 'auth',
-      public: true
-    }
-  },
-  {
-    path: '/not-authorized',
-    name: 'not-authorized',
-    component: () => import('@/crudui/pages/DefaultErrorPage.vue'),
-    meta: {
-      layout: 'error',
-      public: true,
-      description: 'У вас нет доступа к этой странице'
-    }
-  },
-  // Модульные роуты
-  ...modulesRoute.map(route => {
-    // Устанавливаем layout через meta для совместимости с virtual:meta-layouts
-    if (route.meta && !route.meta.layout) {
-      route.meta.layout = 'default'
-    }
-    return route as RouteRecordRaw
-  }),
-  // Catch-all должен быть последним
-  {
-    path: '/:pathMatch(.*)*',
-    name: 'not-found',
-    component: () => import('@/crudui/pages/DefaultErrorPage.vue'),
-    meta: {
-      layout: 'error',
-      public: true
-    }
+    name: 'root',
+    children: modulesRouteFormatted
   }
 ]
 
@@ -104,12 +72,52 @@ const router = createRouter({
     return { top: 0 }
   },
   extendRoutes: pages => {
-    // Применяем setupLayouts ко всем роутам
-    const routesWithLayouts = setupLayouts(allRoutes as RouteRecordRaw[])
-    // Объединяем с автогенерированными страницами (если они есть)
+    // Системные роуты которые нужны отдельно
+    const systemRoutes = [
+      {
+        path: '/',
+        name: 'home',
+        redirect: { name: 'dashboardIndex' }
+      },
+      {
+        path: '/login',
+        name: 'login',
+        component: () => import('@/modules/auth/LoginPage.vue'),
+        meta: {
+          layout: 'clean',
+          public: true
+        }
+      },
+      {
+        path: '/not-authorized',
+        name: 'not-authorized',
+        component: () => import('@/crudui/pages/DefaultErrorPage.vue'),
+        meta: {
+          layout: 'error',
+          public: true,
+          description: 'У вас нет доступа к этой странице'
+        }
+      },
+      {
+        path: '/:pathMatch(.*)*',
+        name: 'not-found',
+        component: () => import('@/crudui/pages/DefaultErrorPage.vue'),
+        meta: {
+          layout: 'error',
+          public: true
+        }
+      }
+    ]
+
+    // Применяем setupLayouts отдельно к модульным роутам и системным роутам
+    const modulesWithLayouts = setupLayouts(modulesRouteFormatted)
+    const systemWithLayouts = setupLayouts(systemRoutes as RouteRecordRaw[])
+
+    // Объединяем все роуты
     return [
       ...[...pages].map(route => recursiveLayouts(route)),
-      ...routesWithLayouts
+      ...systemWithLayouts,
+      ...modulesWithLayouts
     ]
   },
 })
@@ -131,8 +139,8 @@ router.beforeEach(async (to, from, next) => {
       return next({ name: 'login' })
     }
 
-    // Загружаем данные пользователя
-    const result = await meStore.loadMe(router.getRoutes() as unknown as TCrudRouteRecord[])
+    // Загружаем данные пользователя, передаем структурированные роуты для меню
+    const result = await meStore.loadMe(allRoutesForMenu as unknown as TCrudRouteRecord[])
 
     // Если что-то пошло не так при загрузке, то logout и на страницу логина
     if (!result) {

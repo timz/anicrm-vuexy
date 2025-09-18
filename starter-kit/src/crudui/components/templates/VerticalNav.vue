@@ -23,6 +23,7 @@ const props = withDefaults(defineProps<Props>(), {
   tag: 'aside',
 })
 
+
 const refNav = ref()
 
 const isHovered = useElementHover(refNav)
@@ -36,7 +37,6 @@ const resolveNavItemComponent = (item: NavLink | NavSectionTitle | NavGroup): un
     return VerticalNavSectionTitle
   if ('children' in item)
     return VerticalNavGroup
-
   return VerticalNavLink
 }
 

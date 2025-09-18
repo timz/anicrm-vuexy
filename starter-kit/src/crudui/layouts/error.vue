@@ -7,5 +7,5 @@
 </template>
 
 <script setup lang="ts">
-// Layout для страниц ошибок
+// Error layout for error pages
 </script>

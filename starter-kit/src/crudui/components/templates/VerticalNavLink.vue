@@ -9,7 +9,7 @@ import {
   isNavLinkActive,
 } from '@crudui/components/templates/helpers/utils'
 
-defineProps<{
+const props = defineProps<{
   item: NavLink
 }>()
 
@@ -19,7 +19,7 @@ const hideTitleAndBadge = configStore.isVerticalNavMini()
 
 <template>
   <li
-    v-if="can(item.action, item.subject)"
+    v-if="!item.action || !item.subject || can(item.action, item.subject)"
     class="nav-link"
     :class="{ disabled: item.disable }"
   >
