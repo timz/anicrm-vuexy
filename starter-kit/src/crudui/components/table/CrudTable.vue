@@ -76,8 +76,7 @@
       ]"
       item-value="id"
       show-select
-      density="default"
-      class="text-no-wrap"
+      density="comfortable"
       @update:options="onOptionsUpdate"
       @update:sort-by="onSortByUpdate"
     >
