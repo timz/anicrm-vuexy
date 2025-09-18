@@ -66,14 +66,8 @@ const navItems = computed(() => {
           @click="configStore.isVerticalNavCollapsed = !configStore.isVerticalNavCollapsed"
         >
           <VIcon
-            v-if="configStore.isVerticalNavCollapsed"
             size="26"
-            icon="tabler-circle"
-          />
-          <VIcon
-            v-else
-            size="26"
-            icon="tabler-circle-dot"
+            icon="tabler-menu-2"
           />
         </IconBtn>
 
