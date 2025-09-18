@@ -2,6 +2,8 @@
 // import navItems from '@crudui/components/templates/navigation/vertical'
 import { useMeStore } from '@crudui/stores/meStore'
 import { computed } from 'vue'
+import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
+import { layoutConfig } from '@crudui/components/templates/helpers'
 
 // Components
 import UserProfile from '@crudui/components/templates/UserProfile.vue'
@@ -11,6 +13,7 @@ import { VerticalNavLayout } from '@crudui/components/templates/helpers'
 
 // Используем динамическое меню из meStore
 const meStore = useMeStore()
+const configStore = useLayoutConfigStore()
 
 // Преобразуем меню из meStore в формат для VerticalNavLayout
 const navItems = computed(() => {
@@ -53,6 +56,24 @@ const navItems = computed(() => {
           <VIcon
             size="26"
             icon="tabler-menu-2"
+          />
+        </IconBtn>
+
+        <!-- Кнопка привязки/отвязки меню для десктопа -->
+        <IconBtn
+          id="vertical-nav-pin-btn"
+          class="ms-n3 d-none d-lg-block"
+          @click="configStore.isVerticalNavCollapsed = !configStore.isVerticalNavCollapsed"
+        >
+          <VIcon
+            v-if="configStore.isVerticalNavCollapsed"
+            size="26"
+            icon="tabler-circle"
+          />
+          <VIcon
+            v-else
+            size="26"
+            icon="tabler-circle-dot"
           />
         </IconBtn>
 
