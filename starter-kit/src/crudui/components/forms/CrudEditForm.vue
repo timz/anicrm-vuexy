@@ -12,16 +12,9 @@
         <!-- Показываем форму когда данные готовы -->
         <template v-else>
           <v-card-text>
-            <!-- Заголовок секции -->
-            <h5 class="text-h5 mb-4">
-              {{ props.title }}
-            </h5>
-
-            <v-divider class="mb-4" />
-
             <!-- Форма с полями -->
             <v-form ref="formRef" @submit.prevent="handleSave">
-              <v-row class="mt-2" dense>
+              <v-row>
                 <slot
                   :model="model"
                   :is-create-mode="isCreateMode"
@@ -130,14 +123,12 @@ interface Props {
   providerKey?: string;
   tabs?: CrudTabInterface[];
   lazy?: boolean;
-  title?: string;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   providerKey: "editPageProvider",
   tabs: () => [],
   lazy: true,
-  title: "Детали",
 });
 
 const route = useRoute();
@@ -244,12 +235,6 @@ const shouldRenderTab = (tabName: string): boolean => {
 </script>
 
 <style lang="scss" scoped>
-// Оптимальные отступы для полей формы
-:deep(.v-col) {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
 // Стиль для табов-таблеток как в full-version
 :deep(.v-tabs-pill) {
   .v-tab {
