@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { VerticalNav } from '@crudui/components/templates/helpers/components'
-import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
-import type { VerticalNavItems } from '@crudui/components/templates/helpers/types'
+import { VerticalNav } from '@core/components/templates/helpers/components'
+import { useLayoutConfigStore } from '@core/components/templates/stores/config'
+import type { VerticalNavItems } from '@core/components/templates/helpers/types'
 
 interface Props {
   navItems: VerticalNavItems
@@ -116,9 +116,9 @@ const verticalNavAttrs = computed(() => {
 </template>
 
 <style lang="scss">
-@use "../../../assets/styles/variables/template" as variables;
-@use "@crudui/styles/placeholders";
-@use "@crudui/styles/mixins";
+@use "../../../../../assets/styles/variables/template" as variables;
+@use "../../../../styles/placeholders";
+@use "@core/styles/mixins";
 
 .layout-wrapper.layout-nav-type-vertical {
   // TODO(v2): Check why we need height in vertical nav & min-height in horizontal nav

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { ReferenceElement } from '@floating-ui/dom'
 import { computePosition, flip, offset, shift } from '@floating-ui/dom'
-import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
+import { useLayoutConfigStore } from '@core/components/templates/stores/config'
 import { themeConfig } from '@themeConfig'
 
 interface Props {

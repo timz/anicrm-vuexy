@@ -1,16 +1,16 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { VNodeRenderer } from './helpers/VNodeRenderer'
-import { layoutConfig } from '@crudui/components/templates/helpers'
+import { VNodeRenderer } from '../../helpers/VNodeRenderer'
+import { layoutConfig } from '@core/components/templates/helpers'
 import {
   VerticalNavGroup,
   VerticalNavLink,
   VerticalNavSectionTitle,
-} from '@crudui/components/templates/helpers/components'
-import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
-import { injectionKeyIsVerticalNavHovered } from '@crudui/components/templates/helpers/symbols'
-import type { NavGroup, NavLink, NavSectionTitle, VerticalNavItems } from '@crudui/components/templates/helpers/types'
+} from '@core/components/templates/helpers/components'
+import { useLayoutConfigStore } from '@core/components/templates/stores/config'
+import { injectionKeyIsVerticalNavHovered } from '@core/components/templates/helpers/symbols'
+import type { NavGroup, NavLink, NavSectionTitle, VerticalNavItems } from '@core/components/templates/helpers/types'
 
 interface Props {
   tag?: string | Component
@@ -22,7 +22,6 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   tag: 'aside',
 })
-
 
 const refNav = ref()
 
@@ -37,6 +36,7 @@ const resolveNavItemComponent = (item: NavLink | NavSectionTitle | NavGroup): un
     return VerticalNavSectionTitle
   if ('children' in item)
     return VerticalNavGroup
+
   return VerticalNavLink
 }
 
@@ -139,8 +139,8 @@ const hideTitleAndIcon = configStore.isVerticalNavMini(isHovered)
 </style>
 
 <style lang="scss">
-@use "../../../assets/styles/variables/template" as variables;
-@use "@crudui/styles/mixins";
+@use "../../../../../assets/styles/variables/template" as variables;
+@use "@core/styles/mixins";
 
 // 👉 Vertical Nav
 .layout-vertical-nav {

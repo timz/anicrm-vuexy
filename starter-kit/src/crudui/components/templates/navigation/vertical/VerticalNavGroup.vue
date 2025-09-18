@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { TransitionGroup } from 'vue'
-import { layoutConfig } from '@crudui/components/templates/helpers'
-import { TransitionExpand, VerticalNavLink } from '@crudui/components/templates/helpers/components'
-import { canViewNavMenuGroup } from '@crudui/plugins/casl'
-import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
-import { injectionKeyIsVerticalNavHovered } from '@crudui/components/templates/helpers/symbols'
-import type { NavGroup } from '@crudui/components/templates/helpers/types'
-import { getDynamicI18nProps, isNavGroupActive, openGroups } from '@crudui/components/templates/helpers/utils'
+import { layoutConfig } from '@core/components/templates/helpers'
+import { TransitionExpand, VerticalNavLink } from '@core/components/templates/helpers/components'
+import { canViewNavMenuGroup } from '@core/plugins/casl'
+import { useLayoutConfigStore } from '@core/components/templates/stores/config'
+import { injectionKeyIsVerticalNavHovered } from '@core/components/templates/helpers/symbols'
+import type { NavGroup } from '@core/components/templates/helpers/types'
+import { getDynamicI18nProps, isNavGroupActive, openGroups } from '@core/components/templates/helpers/utils'
 
 defineOptions({
   name: 'VerticalNavGroup',

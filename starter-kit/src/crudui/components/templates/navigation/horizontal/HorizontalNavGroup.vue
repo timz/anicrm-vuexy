@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { layoutConfig } from '@crudui/components/templates/helpers'
-import { HorizontalNavLink, HorizontalNavPopper } from '@crudui/components/templates/helpers/components'
-import { canViewNavMenuGroup } from '@crudui/plugins/casl'
-import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
-import type { NavGroup } from '@crudui/components/templates/helpers/types'
-import { getDynamicI18nProps, isNavGroupActive } from '@crudui/components/templates/helpers/utils'
+import { layoutConfig } from '@core/components/templates/helpers'
+import { HorizontalNavLink, HorizontalNavPopper } from '@core/components/templates/helpers/components'
+import { canViewNavMenuGroup } from '@core/plugins/casl'
+import { useLayoutConfigStore } from '@core/components/templates/stores/config'
+import type { NavGroup } from '@core/components/templates/helpers/types'
+import { getDynamicI18nProps, isNavGroupActive } from '@core/components/templates/helpers/utils'
 
 interface Props {
   item: NavGroup
