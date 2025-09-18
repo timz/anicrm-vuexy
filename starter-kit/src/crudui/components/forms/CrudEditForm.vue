@@ -1,113 +1,3 @@
-<template>
-  <v-row>
-    <!-- Левая панель с формой -->
-    <v-col cols="12" md="5" lg="4">
-      <v-card>
-        <!-- Показываем лоадер пока данные не готовы -->
-        <div v-if="!isDataReady" class="text-center pa-12">
-          <v-progress-circular indeterminate size="40" color="primary" />
-          <div class="text-grey mt-2">Загрузка данных...</div>
-        </div>
-
-        <!-- Показываем форму когда данные готовы -->
-        <template v-else>
-          <v-card-text>
-            <!-- Форма с полями -->
-            <v-form ref="formRef" @submit.prevent="handleSave">
-              <v-row>
-                <slot
-                  :model="model"
-                  :is-create-mode="isCreateMode"
-                  :is-edit-mode="!isCreateMode"
-                  :state-processing="stateProcessing"
-                  :form-ref="formRef"
-                  :version="version"
-                  :forced-save="forcedSave"
-                />
-              </v-row>
-            </v-form>
-          </v-card-text>
-
-          <!-- Кнопки действий -->
-          <v-card-text class="d-flex justify-center gap-x-4">
-            <slot
-              name="actions"
-              :on-save="handleSave"
-              :on-cancel="handleCancel"
-              :state-processing="stateProcessing"
-              :is-create-mode="isCreateMode"
-              :is-edit-mode="!isCreateMode"
-            />
-            <v-spacer />
-            <crud-button-secondary
-              :disabled="stateProcessing"
-              @click="handleCancel"
-            >
-              Закрыть
-            </crud-button-secondary>
-            <crud-button-primary
-              :disabled="stateProcessing"
-              :loading="stateProcessing"
-              @click="handleSave"
-            >
-              Сохранить
-            </crud-button-primary>
-          </v-card-text>
-        </template>
-      </v-card>
-    </v-col>
-
-    <!-- Правая панель с табами -->
-    <v-col v-if="visibleTabs.length > 0" cols="12" md="7" lg="8">
-      <!-- Табы в стиле pill как в full-version -->
-      <v-tabs
-        v-model="activeTabIndex"
-        class="v-tabs-pill mb-2"
-      >
-        <v-tab
-          v-for="(tab, index) in visibleTabs"
-          :key="tab.name"
-          :value="index"
-        >
-          <v-icon
-            v-if="tab.icon"
-            :size="18"
-            :icon="tab.icon"
-            class="me-1"
-          />
-          <span>{{ tab.label }}</span>
-          <v-badge
-            v-if="tab.badge"
-            :content="tab.badge"
-            class="ms-2"
-            inline
-          />
-        </v-tab>
-      </v-tabs>
-
-      <!-- Контент табов -->
-      <v-window
-        v-model="activeTabIndex"
-        class="disable-tab-transition"
-        :touch="false"
-      >
-        <v-window-item
-          v-for="(tab, index) in visibleTabs"
-          :key="tab.name"
-          :value="index"
-        >
-          <component
-            v-if="shouldRenderTab(tab.name)"
-            :is="tab.tab"
-            :parent-id="parentId"
-            v-bind="tab.meta"
-          />
-        </v-window-item>
-      </v-window>
-    </v-col>
-  </v-row>
-</template>
-
 <script setup lang="ts">
 import { computed, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -233,6 +123,116 @@ const shouldRenderTab = (tabName: string): boolean => {
   return activeTab.value === tabName;
 };
 </script>
+
+<template>
+  <v-row>
+    <!-- Левая панель с формой -->
+    <v-col cols="12" md="5" lg="4">
+      <v-card>
+        <!-- Показываем лоадер пока данные не готовы -->
+        <div v-if="!isDataReady" class="text-center pa-12">
+          <v-progress-circular indeterminate size="40" color="primary" />
+          <div class="text-grey mt-2">Загрузка данных...</div>
+        </div>
+
+        <!-- Показываем форму когда данные готовы -->
+        <template v-else>
+          <v-card-text>
+            <!-- Форма с полями -->
+            <v-form ref="formRef" @submit.prevent="handleSave">
+              <v-row>
+                <slot
+                  :model="model"
+                  :is-create-mode="isCreateMode"
+                  :is-edit-mode="!isCreateMode"
+                  :state-processing="stateProcessing"
+                  :form-ref="formRef"
+                  :version="version"
+                  :forced-save="forcedSave"
+                />
+              </v-row>
+            </v-form>
+          </v-card-text>
+
+          <!-- Кнопки действий -->
+          <v-card-text class="d-flex justify-center gap-x-4">
+            <slot
+              name="actions"
+              :on-save="handleSave"
+              :on-cancel="handleCancel"
+              :state-processing="stateProcessing"
+              :is-create-mode="isCreateMode"
+              :is-edit-mode="!isCreateMode"
+            />
+            <v-spacer />
+            <crud-button-secondary
+              :disabled="stateProcessing"
+              @click="handleCancel"
+            >
+              Закрыть
+            </crud-button-secondary>
+            <crud-button-primary
+              :disabled="stateProcessing"
+              :loading="stateProcessing"
+              @click="handleSave"
+            >
+              Сохранить
+            </crud-button-primary>
+          </v-card-text>
+        </template>
+      </v-card>
+    </v-col>
+
+    <!-- Правая панель с табами -->
+    <v-col v-if="visibleTabs.length > 0" cols="12" md="7" lg="8">
+      <!-- Табы в стиле pill как в full-version -->
+      <v-tabs
+        v-model="activeTabIndex"
+        class="v-tabs-pill mb-2"
+      >
+        <v-tab
+          v-for="(tab, index) in visibleTabs"
+          :key="tab.name"
+          :value="index"
+        >
+          <v-icon
+            v-if="tab.icon"
+            :size="18"
+            :icon="tab.icon"
+            class="me-1"
+          />
+          <span>{{ tab.label }}</span>
+          <v-badge
+            v-if="tab.badge"
+            :content="tab.badge"
+            class="ms-2"
+            inline
+          />
+        </v-tab>
+      </v-tabs>
+
+      <!-- Контент табов -->
+      <v-window
+        v-model="activeTabIndex"
+        class="disable-tab-transition"
+        :touch="false"
+      >
+        <v-window-item
+          v-for="(tab, index) in visibleTabs"
+          :key="tab.name"
+          :value="index"
+        >
+          <component
+            v-if="shouldRenderTab(tab.name)"
+            :is="tab.tab"
+            :parent-id="parentId"
+            v-bind="tab.meta"
+          />
+        </v-window-item>
+      </v-window>
+    </v-col>
+  </v-row>
+</template>
 
 <style lang="scss" scoped>
 // Стиль для табов-таблеток как в full-version
