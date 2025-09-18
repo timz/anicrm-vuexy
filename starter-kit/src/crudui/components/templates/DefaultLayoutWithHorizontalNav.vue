@@ -36,13 +36,5 @@ import { VNodeRenderer } from '@crudui/components/templates/helpers/VNodeRendere
 
     <!-- 👉 Pages -->
     <slot />
-
-    <!-- 👉 Footer -->
-    <!--    <template #footer> -->
-    <!--      <Footer /> -->
-    <!--    </template> -->
-
-    <!-- 👉 Customizer -->
-    <!-- <TheCustomizer /> -->
   </HorizontalNavLayout>
 </template>
