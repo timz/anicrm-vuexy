@@ -96,6 +96,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     'vue/component-name-in-template-casing': 'off',
     'vue/block-order': 'off',
+    'vue/max-attributes-per-line': 'off',
 
     'padding-line-between-statements': [
       'error',

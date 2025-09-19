@@ -102,6 +102,7 @@
     "msw": "2.6.8",
     "postcss-html": "1.8.0",
     "postcss-scss": "4.0.9",
+    "prettier": "^3.6.2",
     "sass": "1.76.0",
     "shiki": "1.29.2",
     "stylelint": "16.8.0",

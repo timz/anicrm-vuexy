@@ -3,31 +3,16 @@
 
   <crud-table>
     <template #actionsSection>
-      <crud-button-primary
-        v-if="meStore.userCan('clients_create')"
-        :to="{ name: 'clientCreate' }"
-      >
+      <crud-button-primary v-if="meStore.userCan('clients_create')" :to="{ name: 'clientCreate' }">
         Создать
       </crud-button-primary>
     </template>
     <template #filterForm>
-      <v-col
-        cols="12"
-        md="4"
-      >
-        <crud-input
-          v-model="dataListProvider.filter.value.title"
-          label="Название"
-        />
+      <v-col cols="12" md="4">
+        <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
       </v-col>
-      <v-col
-        cols="12"
-        md="3"
-      >
-        <crud-date-range-picker-2
-          v-model="dataListProvider.filter.value.created"
-          label="Дата создания"
-        />
+      <v-col cols="12" md="3">
+        <crud-date-range-picker-2 v-model="dataListProvider.filter.value.created" label="Дата создания" />
       </v-col>
     </template>
 
@@ -42,18 +27,18 @@
 </template>
 
 <script setup lang="ts">
-import {provide} from 'vue'
-import {useMeStore} from '@crudui/stores/meStore'
+import { provide } from 'vue'
+import { useMeStore } from '@crudui/stores/meStore'
 import CrudTable from '@crudui/components/table/CrudTable.vue'
-import type {UseCrudDataListReturn} from '@crudui/providers/useCrudDataList'
-import {useCrudDataList} from '@crudui/providers/useCrudDataList'
+import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
+import { useCrudDataList } from '@crudui/providers/useCrudDataList'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
-import {createStandardActions} from '@crudui/components/table/buttons/rowActionsFactory'
-import {useTimezone} from '@crudui/composables/useTimezone'
+import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
+import { useTimezone } from '@crudui/composables/useTimezone'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
 
-const {formatTableDate} = useTimezone()
+const { formatTableDate } = useTimezone()
 
 interface ClientItem {
   id: number | null
@@ -91,9 +76,7 @@ const columns = [
   },
 ]
 
-// Создаем dataListProvider
-const dataListProvider: UseCrudDataListReturn<ClientItem>
-  = useCrudDataList<ClientItem>({
+const dataListProvider: UseCrudDataListReturn<ClientItem> = useCrudDataList<ClientItem>({
   mode: 'table',
   urlBase: '/clients',
   columns,
