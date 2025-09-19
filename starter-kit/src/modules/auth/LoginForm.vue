@@ -8,7 +8,7 @@
         <crud-input
           v-model="model.username"
           label="Email или имя пользователя"
-          :rules="[r.required(), r.strMinLength(2)]"
+          :rules="[rules.required(), rules.minLength(2)]"
           :disabled="crudForm.stateProcessing.value"
         />
       </div>
@@ -17,7 +17,7 @@
           v-model="model.password"
           label="Пароль"
           type="password"
-          :rules="[r.required(), r.strMinLength(6)]"
+          :rules="[rules.required(), rules.minLength(6)]"
           :disabled="crudForm.stateProcessing.value"
         />
       </div>
@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import r from '@crudui/services/RulesService'
+import { rules } from '@crudui/utils/rules'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import envService from '@crudui/services/EnvService'
 import { notifications } from '@crudui/boot/notification'
