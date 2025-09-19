@@ -39,7 +39,8 @@
       "WebSearch",
       "WebFetch(domain:vuetifyjs.com)",
       "mcp__playwright__browser_network_requests",
-      "Bash(timeout 10 pnpm run dev)"
+      "Bash(timeout 10 pnpm run dev)",
+      "mcp__playwright__browser_type"
     ],
     "deny": [],
     "ask": []

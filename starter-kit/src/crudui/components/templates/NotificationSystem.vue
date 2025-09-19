@@ -6,14 +6,17 @@
       v-model="notification.show"
       :timeout="notification.timeout"
       :color="getColor(notification.type)"
-      location="top right"
+      location="bottom center"
       multi-line
       @update:model-value="val => !val && remove(index)"
     >
+      <div class="text-subtitle-1">
       {{ notification.message }}
+      </div>
       <template #actions>
         <VBtn
-          variant="text"
+          color="secondary"
+          variant="flat"
           @click="notification.show = false"
         >
           Закрыть
