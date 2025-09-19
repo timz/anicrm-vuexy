@@ -1,12 +1,12 @@
 <template>
   <v-dialog v-model="dialogProvider.isOpen.value" persistent max-width="480px">
-    <v-card class="pa-2">
+    <v-card class="pa-2 pt-0">
       <VCardItem>
-        <v-card-title class="bg-blue-grey-darken-3 text-blue-grey-lighten-4">
+        <div class="text-h4 font-weight-bold text-secondary">
           {{ dialogProvider.isCreateMode.value ? 'Создание записи' : 'Редактирование записи' }}
-        </v-card-title>
+        </div>
       </VCardItem>
-      <v-card-text class="pt-4">
+      <v-card-text class="pt-6">
         <v-form ref="formRef" @submit.prevent="handleSubmit">
           <v-row no-gutters class="gap-4">
             <slot

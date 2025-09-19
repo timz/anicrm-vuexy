@@ -38,7 +38,8 @@
       "mcp__vuetify__get_component_api_by_version",
       "WebSearch",
       "WebFetch(domain:vuetifyjs.com)",
-      "mcp__playwright__browser_network_requests"
+      "mcp__playwright__browser_network_requests",
+      "Bash(timeout 10 pnpm run dev)"
     ],
     "deny": [],
     "ask": []
