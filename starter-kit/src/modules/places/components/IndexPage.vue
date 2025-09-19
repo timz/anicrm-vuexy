@@ -39,8 +39,8 @@
     </template>
 
     <!-- Custom formatting for work_hours column -->
-    <template #body-cell-work_hours="{ value }">
-      {{ getWorkHours(value?.value || value) }}
+    <template #body-cell-work_hours="{ row }">
+      {{ getWorkHours(row) }}
     </template>
   </crud-table>
 
@@ -147,19 +147,16 @@ interface PlaceItem {
 const meStore = useMeStore()
 
 const getWorkHours = (item: any): string => {
-  console.warn(item)
-
-  const placeItem = item?.value || item
   if (
-    placeItem?.work_from !== null &&
-    placeItem?.work_from !== undefined &&
-    placeItem?.work_to !== null &&
-    placeItem?.work_to !== undefined
+    item?.work_from !== null &&
+    item?.work_from !== undefined &&
+    item?.work_to !== null &&
+    item?.work_to !== undefined
   ) {
-    return `${placeItem.work_from}:00 - ${placeItem.work_to}:00`
+    return `${String(item.work_from).padStart(2, '0')}:00 - ${String(item.work_to).padStart(2, '0')}:00`
   }
 
-  return ''
+  return '-'
 }
 
 const columns = [
@@ -193,7 +190,6 @@ const columns = [
     required: false,
     label: 'Часы работы',
     align: 'left',
-    field: 'work_hours',
     sortable: false,
     headerStyle: 'width: 150px',
   },
