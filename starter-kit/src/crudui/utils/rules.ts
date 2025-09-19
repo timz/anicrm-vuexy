@@ -148,8 +148,16 @@ export const rules = {
     }
   },
 
-  min: (min: number, message?: string): ValidationRule => {
-    const defaultMessage = `Value must be at least ${min}`
+  number: (message = 'Field must be a number'): ValidationRule => {
+    return (value: unknown) => {
+      if (isEmpty(value)) return true
+
+      return (typeof Number(value) === 'number' && !Number.isNaN(value)) || message
+    }
+  },
+
+  numberMin: (min: number, message?: string): ValidationRule => {
+    const defaultMessage = `Field must be greater than ${min}`
 
     return (value: unknown) => {
       if (isEmpty(value)) return true
@@ -158,13 +166,35 @@ export const rules = {
     }
   },
 
-  max: (max: number, message?: string): ValidationRule => {
-    const defaultMessage = `Value must be no more than ${max}`
+  numberMax: (max: number, message?: string): ValidationRule => {
+    const defaultMessage = `Field must be less than ${max}`
 
     return (value: unknown) => {
       if (isEmpty(value)) return true
 
       return Number(value) <= max || message || defaultMessage
+    }
+  },
+
+  numberMaxInt: (message?: string): ValidationRule => {
+    const max = 2147483647
+    const defaultMessage = `Field must be less than ${max}`
+
+    return (value: unknown) => {
+      if (isEmpty(value)) return true
+
+      return Number(value) <= max || message || defaultMessage
+    }
+  },
+
+  numberOrArray: (message = 'Field must be a number or array of numbers'): ValidationRule => {
+    return (value: unknown) => {
+      if (isEmpty(value)) return true
+
+      const isValidNumber = (v: unknown) => typeof Number(v) === 'number' && !Number.isNaN(v)
+      const isValidArray = (arr: unknown) => Array.isArray(arr) && arr.every(isValidNumber)
+
+      return isValidNumber(value) || isValidArray(value) || message
     }
   },
 
