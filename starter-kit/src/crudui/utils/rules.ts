@@ -7,7 +7,7 @@ const isEmpty = (value: unknown): boolean => {
     return true
   }
 
-  return !!(Array.isArray(value) && value.length === 0)
+  return Array.isArray(value) && value.length === 0
 }
 
 const isNullOrUndefined = (value: unknown): value is undefined | null => {

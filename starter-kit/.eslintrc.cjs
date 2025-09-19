@@ -98,6 +98,7 @@ module.exports = {
     'vue/block-order': 'off',
     'vue/max-attributes-per-line': 'off',
     'curly': 'off',
+    '@stylistic/js/operator-linebreak': 'off',
 
     'padding-line-between-statements': [
       'error',
