@@ -19,7 +19,7 @@ const isEmptyArray = (arr: unknown): boolean => {
 }
 
 export const rules = {
-  required: (message = 'This field is required'): ValidationRule => {
+  required: (message = 'Обязательное поле'): ValidationRule => {
     return (value: unknown) => {
       if (isNullOrUndefined(value) || isEmptyArray(value) || value === false) {
         return message
@@ -29,7 +29,7 @@ export const rules = {
     }
   },
 
-  email: (message = 'The Email field must be a valid email'): ValidationRule => {
+  email: (message = 'Введите корректный email'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -47,7 +47,7 @@ export const rules = {
   },
 
   password: (
-    message = 'Field must contain at least one uppercase, lowercase, special character and digit with min 8 chars',
+    message = 'Пароль должен содержать минимум 8 символов, включая заглавную и строчную буквы, цифру и спецсимвол',
   ): ValidationRule => {
     return (value: string) => {
       if (isEmpty(value)) {
@@ -61,7 +61,7 @@ export const rules = {
     }
   },
 
-  confirmed: (target: string, message = 'The field confirmation does not match'): ValidationRule => {
+  confirmed: (target: string, message = 'Поля не совпадают'): ValidationRule => {
     return (value: string) => {
       return value === target || message
     }
@@ -69,7 +69,7 @@ export const rules = {
 
   between: (min: number, max: number, message?: string): ValidationRule => {
     return (value: unknown) => {
-      const defaultMessage = `Enter number between ${min} and ${max}`
+      const defaultMessage = `Введите число от ${min} до ${max}`
       if (isEmpty(value)) {
         return true
       }
@@ -80,7 +80,7 @@ export const rules = {
     }
   },
 
-  integer: (message = 'This field must be an integer'): ValidationRule => {
+  integer: (message = 'Поле должно быть целым числом'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -94,7 +94,7 @@ export const rules = {
     }
   },
 
-  regex: (pattern: RegExp | string, message = 'The field format is invalid'): ValidationRule => {
+  regex: (pattern: RegExp | string, message = 'Неверный формат поля'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -113,7 +113,7 @@ export const rules = {
     }
   },
 
-  alpha: (message = 'The field may only contain alphabetic characters'): ValidationRule => {
+  alpha: (message = 'Поле может содержать только буквы'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -123,7 +123,7 @@ export const rules = {
     }
   },
 
-  url: (message = 'URL is invalid'): ValidationRule => {
+  url: (message = 'Некорректный URL'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -137,7 +137,7 @@ export const rules = {
 
   length: (length: number, message?: string): ValidationRule => {
     return (value: unknown) => {
-      const defaultMessage = `The length of the field must be ${length} characters`
+      const defaultMessage = `Длина поля должна быть ${length} символов`
       if (isEmpty(value)) {
         return true
       }
@@ -146,7 +146,7 @@ export const rules = {
     }
   },
 
-  alphaDash: (message = 'All characters are not valid'): ValidationRule => {
+  alphaDash: (message = 'Недопустимые символы'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -159,7 +159,7 @@ export const rules = {
   },
 
   minLength: (min: number, message?: string): ValidationRule => {
-    const defaultMessage = `Field must be at least ${min} characters`
+    const defaultMessage = `Минимум ${min} символов`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -171,7 +171,7 @@ export const rules = {
   },
 
   maxLength: (max: number, message?: string): ValidationRule => {
-    const defaultMessage = `Field must be no more than ${max} characters`
+    const defaultMessage = `Максимум ${max} символов`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -182,7 +182,7 @@ export const rules = {
     }
   },
 
-  number: (message = 'Field must be a number'): ValidationRule => {
+  number: (message = 'Поле должно быть числом'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -193,7 +193,7 @@ export const rules = {
   },
 
   numberMin: (min: number, message?: string): ValidationRule => {
-    const defaultMessage = `Field must be greater than ${min}`
+    const defaultMessage = `Значение должно быть больше ${min}`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -205,7 +205,7 @@ export const rules = {
   },
 
   numberMax: (max: number, message?: string): ValidationRule => {
-    const defaultMessage = `Field must be less than ${max}`
+    const defaultMessage = `Значение должно быть меньше ${max}`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -218,7 +218,7 @@ export const rules = {
 
   numberMaxInt: (message?: string): ValidationRule => {
     const max = 2147483647
-    const defaultMessage = `Field must be less than ${max}`
+    const defaultMessage = `Значение должно быть меньше ${max}`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -229,7 +229,7 @@ export const rules = {
     }
   },
 
-  numberOrArray: (message = 'Field must be a number or array of numbers'): ValidationRule => {
+  numberOrArray: (message = 'Поле должно быть числом или массивом чисел'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -244,7 +244,7 @@ export const rules = {
   },
 
   decimal: (decimals = 2, message?: string): ValidationRule => {
-    const defaultMessage = `Field must be a valid decimal with up to ${decimals} decimal places`
+    const defaultMessage = `Число должно иметь не более ${decimals} знаков после запятой`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -256,7 +256,7 @@ export const rules = {
     }
   },
 
-  phone: (message = 'Phone number is invalid'): ValidationRule => {
+  phone: (message = 'Некорректный номер телефона'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -268,7 +268,7 @@ export const rules = {
     }
   },
 
-  date: (message = 'Date is invalid'): ValidationRule => {
+  date: (message = 'Некорректная дата'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
@@ -280,7 +280,7 @@ export const rules = {
   },
 
   dateAfter: (afterDate: string | Date, message?: string): ValidationRule => {
-    const defaultMessage = `Date must be after ${afterDate}`
+    const defaultMessage = `Дата должна быть после ${afterDate}`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -294,7 +294,7 @@ export const rules = {
   },
 
   dateBefore: (beforeDate: string | Date, message?: string): ValidationRule => {
-    const defaultMessage = `Date must be before ${beforeDate}`
+    const defaultMessage = `Дата должна быть до ${beforeDate}`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -308,7 +308,7 @@ export const rules = {
   },
 
   oneOf: (options: any[], message?: string): ValidationRule => {
-    const defaultMessage = `Value must be one of: ${options.join(', ')}`
+    const defaultMessage = `Значение должно быть одним из: ${options.join(', ')}`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -320,7 +320,7 @@ export const rules = {
   },
 
   notOneOf: (options: any[], message?: string): ValidationRule => {
-    const defaultMessage = `Value must not be one of: ${options.join(', ')}`
+    const defaultMessage = `Значение не должно быть одним из: ${options.join(', ')}`
 
     return (value: unknown) => {
       if (isEmpty(value)) {
@@ -331,7 +331,7 @@ export const rules = {
     }
   },
 
-  custom: (validator: (value: any) => boolean, message = 'Field is invalid'): ValidationRule => {
+  custom: (validator: (value: any) => boolean, message = 'Некорректное значение'): ValidationRule => {
     return (value: unknown) => {
       if (isEmpty(value)) {
         return true
