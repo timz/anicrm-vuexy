@@ -94,6 +94,8 @@ module.exports = {
     'array-bracket-newline': ['error', 'consistent'],
 
     'vue/multi-word-component-names': 'off',
+    'vue/component-name-in-template-casing': 'off',
+    'vue/block-order': 'off',
 
     'padding-line-between-statements': [
       'error',

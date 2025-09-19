@@ -11,18 +11,23 @@
       </crud-button-primary>
     </template>
     <template #filterForm>
-      <v-col cols="12" md="4">
+      <v-col
+        cols="12"
+        md="4"
+      >
         <crud-input
           v-model="dataListProvider.filter.value.title"
           label="Название"
         />
       </v-col>
-      <v-col cols="12" md="3">
+      <v-col
+        cols="12"
+        md="3"
+      >
         <crud-date-range-picker-2
           v-model="dataListProvider.filter.value.created"
           label="Дата создания"
         />
-
       </v-col>
     </template>
 
@@ -37,79 +42,76 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from "vue";
-import { useMeStore } from "@crudui/stores/meStore";
-import CrudTable from "@crudui/components/table/CrudTable.vue";
-import type { UseCrudDataListReturn } from "@crudui/providers/useCrudDataList";
-import { useCrudDataList } from "@crudui/providers/useCrudDataList";
-import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
-import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
-import { createStandardActions } from "@crudui/components/table/buttons/rowActionsFactory";
-import { useTimezone } from "@crudui/composables/useTimezone";
-import PageTitle from "@crudui/components/templates/PageTitle.vue";
-import CrudDatePicker from "@crudui/components/Inputs/CrudDatePicker.vue";
-import CrudDateRangePicker from "@crudui/components/Inputs/CrudDateRangePicker.vue";
-import CrudDateRangePicker2 from "@crudui/components/Inputs/CrudDateRangePicker2.vue";
+import {provide} from 'vue'
+import {useMeStore} from '@crudui/stores/meStore'
+import CrudTable from '@crudui/components/table/CrudTable.vue'
+import type {UseCrudDataListReturn} from '@crudui/providers/useCrudDataList'
+import {useCrudDataList} from '@crudui/providers/useCrudDataList'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import {createStandardActions} from '@crudui/components/table/buttons/rowActionsFactory'
+import {useTimezone} from '@crudui/composables/useTimezone'
+import PageTitle from '@crudui/components/templates/PageTitle.vue'
 
-const { formatTableDate } = useTimezone();
+const {formatTableDate} = useTimezone()
 
 interface ClientItem {
-  id: number | null;
-  title: string;
-  created: string;
-  edited: string;
+  id: number | null
+  title: string
+  created: string
+  edited: string
 }
 
-const meStore = useMeStore();
+const meStore = useMeStore()
 
 const columns = [
   {
-    name: "title",
+    name: 'title',
     required: true,
-    label: "Название",
-    align: "left",
-    field: "title",
+    label: 'Название',
+    align: 'left',
+    field: 'title',
     sortable: true,
   },
   {
-    name: "created",
-    label: "Создан",
-    align: "left",
-    field: "created",
+    name: 'created',
+    label: 'Создан',
+    align: 'left',
+    field: 'created',
     sortable: true,
-    style: "width: 120px",
+    style: 'width: 120px',
   },
   {
-    name: "edited",
-    label: "Правки",
-    align: "left",
-    field: "edited",
+    name: 'edited',
+    label: 'Правки',
+    align: 'left',
+    field: 'edited',
     sortable: true,
-    style: "width: 120px",
+    style: 'width: 120px',
   },
-];
+]
 
 // Создаем dataListProvider
-const dataListProvider: UseCrudDataListReturn<ClientItem> =
-  useCrudDataList<ClientItem>({
-    mode: "table",
-    urlBase: "/clients",
-    columns,
-    rowActions: [
-      ...createStandardActions<ClientItem>({
-        edit: {
-          routeName: "clientEdit",
-          show: () => meStore.userCan("clients_update"),
+const dataListProvider: UseCrudDataListReturn<ClientItem>
+  = useCrudDataList<ClientItem>({
+  mode: 'table',
+  urlBase: '/clients',
+  columns,
+  rowActions: [
+    ...createStandardActions<ClientItem>({
+      edit: {
+        routeName: 'clientEdit',
+        show: () => meStore.userCan('clients_update'),
+      },
+      delete: {
+        show: () => meStore.userCan('clients_delete'),
+        onDelete: (item: ClientItem) => {
+          console.log('Delete item:', item.id)
         },
-        delete: {
-          show: () => meStore.userCan("clients_delete"),
-          onDelete: (item: ClientItem) => {
-            console.log("Delete item:", item.id);
-          },
-        },
-      }),
-    ],
-  });
+      },
+    }),
+  ],
+})
 
-provide("dataListProvider", dataListProvider);
+provide('dataListProvider', dataListProvider)
 </script>
