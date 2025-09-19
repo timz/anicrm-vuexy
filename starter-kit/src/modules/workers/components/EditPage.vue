@@ -3,67 +3,47 @@
 
   <CrudEditForm>
     <template #actions>
-      <crud-button-secondary prepend-icon="mdi-email" @click="showInviteDialog">
-        Пригласить
-      </crud-button-secondary>
+      <crud-button-secondary prepend-icon="mdi-email" @click="showInviteDialog"> Пригласить </crud-button-secondary>
     </template>
     <template #default="{ stateProcessing }">
-      <v-row>
-        <v-col cols="12">
-          <crud-input
-            v-model="model.name"
-            label="Имя"
-            :disabled="stateProcessing"
-            :rules="[rules.required(), rules.minLength(1), rules.maxLength(255)]"
-          />
-        </v-col>
-        <v-col cols="6">
-          <crud-input
-            v-model="model.mobile"
-            label="Мобильный телефон"
-            :disabled="stateProcessing"
-            :rules="[rules.required()]"
-          />
-        </v-col>
-        <v-col cols="6">
-          <crud-date-picker
-            v-model="model.birthday"
-            label="Дата рождения"
-            :disabled="stateProcessing"
-          />
-        </v-col>
-        <v-col cols="6">
-          <crud-date-picker
-            v-model="model.med_book"
-            label="Медицинская книжка"
-            :disabled="stateProcessing"
-          />
-        </v-col>
-        <v-col cols="6">
-          <crud-date-picker
-            v-model="model.sud_sprav"
-            label="Судебная справка"
-            :disabled="stateProcessing"
-          />
-        </v-col>
-        <v-col cols="12">
-          <crud-input
-            v-model="model.description"
-            type="textarea"
-            label="Описание"
-            :disabled="stateProcessing"
-            :rules="[rules.maxLength(1000)]"
-          />
-        </v-col>
-      </v-row>
+      <v-col cols="12">
+        <crud-input
+          v-model="model.name"
+          label="Имя"
+          :disabled="stateProcessing"
+          :rules="[rules.required(), rules.minLength(1), rules.maxLength(255)]"
+        />
+      </v-col>
+      <v-col cols="6">
+        <crud-input
+          v-model="model.mobile"
+          label="Мобильный телефон"
+          :disabled="stateProcessing"
+          :rules="[rules.required()]"
+        />
+      </v-col>
+      <v-col cols="6">
+        <crud-date-picker v-model="model.birthday" label="Дата рождения" :disabled="stateProcessing" />
+      </v-col>
+      <v-col cols="6">
+        <crud-date-picker v-model="model.med_book" label="Медицинская книжка" :disabled="stateProcessing" />
+      </v-col>
+      <v-col cols="6">
+        <crud-date-picker v-model="model.sud_sprav" label="Судебная справка" :disabled="stateProcessing" />
+      </v-col>
+      <v-col cols="12">
+        <crud-input
+          v-model="model.description"
+          type="textarea"
+          label="Описание"
+          :disabled="stateProcessing"
+          :rules="[rules.maxLength(1000)]"
+        />
+      </v-col>
     </template>
   </CrudEditForm>
 
-  <InviteDialog
-    v-model="inviteDialogVisible"
-    :worker-id="model.id"
-    @success="onInviteSuccess"
-  />
+  <InviteDialog v-model="inviteDialogVisible" :worker-id="model.id" @success="onInviteSuccess" />
 </template>
 
 <script setup lang="ts">

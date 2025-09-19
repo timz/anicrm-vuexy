@@ -124,7 +124,7 @@ const shouldRenderTab = (tabName: string): boolean => {
           <v-card-text class="pt-6">
             <!-- Форма с полями -->
             <v-form ref="formRef" @submit.prevent="handleSave">
-              <v-row no-gutters class="gap-4">
+              <v-row>
                 <slot
                   :model="model"
                   :is-create-mode="isCreateMode"

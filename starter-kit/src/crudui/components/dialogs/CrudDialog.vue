@@ -8,7 +8,7 @@
       </VCardItem>
       <v-card-text class="pt-6">
         <v-form ref="formRef" @submit.prevent="handleSubmit">
-          <v-row no-gutters class="gap-4">
+          <v-row>
             <slot
               :model="model"
               :is-create-mode="dialogProvider.isCreateMode.value"
