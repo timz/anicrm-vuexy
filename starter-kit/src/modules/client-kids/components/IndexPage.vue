@@ -3,8 +3,8 @@
     <crud-table>
       <template #actionsSection>
         <crud-button-primary
-          label="Создать"
           v-if="meStore.userCan('clients_update')"
+          label="Создать"
           @click="dialogProvider.openCreateDialog"
         >
           Создать
@@ -27,10 +27,9 @@
           <crud-select
             v-model="model.sex"
             label="Пол"
-            :items="[{title: 'Мальчик', value: 'm'}, {title: 'Девочка', value: 'f'}]"
+            :items="[{ title: 'Мальчик', value: 'm' }, { title: 'Девочка', value: 'f' }]"
             :rules="[r.required()]"
           />
-
         </v-col>
         <v-col cols="12">
           <crud-date-picker
@@ -45,83 +44,84 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref, computed } from "vue";
-import { useMeStore } from "@crudui/stores/meStore";
-import CrudTable from "@crudui/components/table/CrudTable.vue";
-import type { UseCrudDataListReturn } from "@crudui/providers/useCrudDataList";
-import { useCrudDataList } from "@crudui/providers/useCrudDataList";
-import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
-import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
-import { createStandardActions } from "@crudui/components/table/buttons/rowActionsFactory";
-import { useCrudDialogProvider } from "@crudui/providers/useCrudDialogProvider";
-import CrudDialog from "@crudui/components/dialogs/CrudDialog.vue";
-import { useTabParentProvider } from "@crudui/components/forms/tabs/useTabParentProvider";
-import CrudSelect from "@crudui/components/Inputs/CrudSelect.vue";
-import r from "@crudui/services/RulesService";
-import CrudDatePicker from "@crudui/components/Inputs/CrudDatePicker.vue";
-import { useTimezone } from "@crudui/composables/useTimezone";
-const { parseDateISOToLocal } = useTimezone();
+import { computed, provide, ref } from 'vue'
+import { useMeStore } from '@crudui/stores/meStore'
+import CrudTable from '@crudui/components/table/CrudTable.vue'
+import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
+import { useCrudDataList } from '@crudui/providers/useCrudDataList'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
+import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
+import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'
+import { useTabParentProvider } from '@crudui/components/forms/tabs/useTabParentProvider'
+import CrudSelect from '@crudui/components/Inputs/CrudSelect.vue'
+import r from '@crudui/services/RulesService'
+import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
+import { useTimezone } from '@crudui/composables/useTimezone'
+
+const { parseDateISOToLocal } = useTimezone()
 
 interface ClientKidItem {
-  id: number | null;
-  name: string;
-  sex: string;
-  birthday: string;
+  id: number | null
+  name: string
+  sex: string
+  birthday: string
 }
 
-const meStore = useMeStore();
+const meStore = useMeStore()
 
 // Используем композабл для получения данных родительской модели
-const { parentId } = useTabParentProvider();
+const { parentId } = useTabParentProvider()
 
 const columns = [
   {
-    name: "name",
+    name: 'name',
     required: true,
-    label: "Имя",
-    align: "left",
-    field: "name",
+    label: 'Имя',
+    align: 'left',
+    field: 'name',
     sortable: true,
   },
   {
-    name: "birthday",
+    name: 'birthday',
     required: true,
-    label: "День рождения",
-    align: "left",
-    field: "birthday",
+    label: 'День рождения',
+    align: 'left',
+    field: 'birthday',
     sortable: true,
-    headerStyle: "width: 150px",
+    headerStyle: 'width: 150px',
   },
-];
+]
 
 // Создаем dataListProvider
 const dataListProvider: UseCrudDataListReturn<ClientKidItem> =
   useCrudDataList<ClientKidItem>({
-    mode: "table",
-    urlBase: "/client-kids",
+    mode: 'table',
+    urlBase: '/client-kids',
     columns,
     persistentFilter: computed(() => ({ parent_id: parentId.value })),
     rowActions: [
       ...createStandardActions<ClientKidItem>({
         editDialog: {
-          show: () => meStore.userCan("clients_view"),
+          show: () => meStore.userCan('clients_view'),
           handler: (item: ClientKidItem) =>
             dialogProvider.openEditDialog(item.id),
         },
         delete: {
-          show: () => meStore.userCan("clients_update"),
+          show: () => meStore.userCan('clients_update'),
           onDelete: (item: ClientKidItem) => {
-            console.log("Delete item:", item.id);
+            console.log('Delete item:', item.id)
           },
         },
       }),
     ],
-  });
+  })
 
 // Создаем dialogProvider с колбеком
 const dialogProvider = useCrudDialogProvider<ClientKidItem>({
   formConfig: {
-    prefixUrl: "/client-kids",
+    prefixUrl: '/client-kids',
     model: ref({
       id: null,
       name: null,
@@ -134,12 +134,12 @@ const dialogProvider = useCrudDialogProvider<ClientKidItem>({
     }),
   },
   onItemSaved: () => {
-    void dataListProvider.refresh();
+    void dataListProvider.refresh()
   },
-});
+})
 
-const model = dialogProvider.model;
+const model = dialogProvider.model
 
-provide("dataListProvider", dataListProvider);
-provide("dialogProvider", dialogProvider);
+provide('dataListProvider', dataListProvider)
+provide('dialogProvider', dialogProvider)
 </script>

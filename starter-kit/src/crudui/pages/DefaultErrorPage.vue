@@ -15,17 +15,17 @@
             </p>
           </v-card-text>
           <v-card-actions class="justify-center pa-6">
-            <v-btn 
-              color="primary" 
-              @click="goHome"
+            <v-btn
+              color="primary"
               prepend-icon="mdi-home"
+              @click="goHome"
             >
               На главную
             </v-btn>
-            <v-btn 
-              variant="outlined" 
-              @click="goBack"
+            <v-btn
+              variant="outlined"
               prepend-icon="mdi-arrow-left"
+              @click="goBack"
             >
               Назад
             </v-btn>

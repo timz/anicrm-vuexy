@@ -1,11 +1,11 @@
-import type { Component, AsyncComponentLoader } from 'vue'
+import type { AsyncComponentLoader, Component } from 'vue'
 import type { CrudTabInterface, TabContext } from './TabTypes'
 
 // Создать тип специально для асинхронных компонентов табов
 export type CrudTabComponent =
-  | Component                              // Обычный Vue компонент
-  | AsyncComponentLoader                   // Асинхронный загрузчик
-  | (() => Promise<Component>)             // Функция возвращающая Promise компонента
+  | Component // Обычный Vue компонент
+  | AsyncComponentLoader // Асинхронный загрузчик
+  | (() => Promise<Component>) // Функция возвращающая Promise компонента
   | (() => Promise<{ default: Component }>) // ES module import
 
 // Стандартные функции видимости для вкладок
@@ -29,7 +29,7 @@ export const TabVisibilityHelpers = {
 
   // Проверка наличия определенного поля в formData
   requiresFormField: (fieldName: string) => (context: TabContext): boolean =>
-    Boolean(context.formData?.[fieldName])
+    Boolean(context.formData?.[fieldName]),
 }
 
 // Хелперы для создания стандартных конфигураций вкладок
@@ -43,7 +43,7 @@ export const TabConfigHelpers = {
       hideOnNew?: boolean
       permissions?: string[]
       meta?: Record<string, unknown>
-    } = {}
+    } = {},
   ): CrudTabInterface {
     return {
       name,
@@ -52,7 +52,7 @@ export const TabConfigHelpers = {
       visible: options.hideOnNew ? TabVisibilityHelpers.hideOnNew : undefined,
       permissions: options.permissions,
       meta: options.meta,
-      lazy: true
+      lazy: true,
     }
   },
 
@@ -62,7 +62,7 @@ export const TabConfigHelpers = {
     label: string,
     component: CrudTabComponent,
     permissions: string[],
-    meta?: Record<string, unknown>
+    meta?: Record<string, unknown>,
   ): CrudTabInterface {
     return {
       name,
@@ -70,7 +70,7 @@ export const TabConfigHelpers = {
       tab: component,
       permissions,
       meta,
-      lazy: true
+      lazy: true,
     }
   },
 
@@ -80,7 +80,7 @@ export const TabConfigHelpers = {
     label: string,
     component: CrudTabComponent,
     visibilityFn: (context: TabContext) => boolean,
-    meta?: Record<string, unknown>
+    meta?: Record<string, unknown>,
   ): CrudTabInterface {
     return {
       name,
@@ -88,9 +88,9 @@ export const TabConfigHelpers = {
       tab: component,
       visible: visibilityFn,
       meta,
-      lazy: true
+      lazy: true,
     }
-  }
+  },
 }
 
 // Валидация конфигурации вкладок

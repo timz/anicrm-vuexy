@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 
 const activeRequests = ref(0)
 const loadingMessage = ref<string>('')
@@ -33,6 +33,6 @@ export const useGlobalLoading = () => {
     startLoading,
     stopLoading,
     resetLoading,
-    activeRequests: computed(() => activeRequests.value)
+    activeRequests: computed(() => activeRequests.value),
   }
 }

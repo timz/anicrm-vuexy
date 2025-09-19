@@ -39,7 +39,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useCrudForm } from '@crudui/providers/useCrudForm'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
@@ -66,7 +66,7 @@ const emit = defineEmits<Emits>()
 
 const dialog = computed({
   get: () => props.modelValue,
-  set: (value) => emit('update:modelValue', value)
+  set: value => emit('update:modelValue', value),
 })
 
 const formRef = ref()
@@ -75,13 +75,13 @@ const {
   model,
   stateProcessing,
   submit,
-  validate
+  validate,
 } = useCrudForm<InviteForm>({
   model: ref({
     email: '',
-    worker_id: props.workerId
+    worker_id: props.workerId,
   }),
-  url: `/workers/invite`,
+  url: '/workers/invite',
   method: 'post',
   onSuccess: () => {
     notifications.success('Приглашение успешно отправлено')
@@ -90,13 +90,14 @@ const {
   },
   onError: () => {
     notifications.error('Ошибка при отправке приглашения')
-  }
+  },
 })
 
 const onSubmit = async () => {
   const isValid = await validate()
-  if (!isValid) return
-  
+  if (!isValid)
+    return
+
   await submit()
 }
 

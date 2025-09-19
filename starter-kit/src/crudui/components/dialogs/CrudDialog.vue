@@ -40,22 +40,22 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref, watch } from "vue";
-import { useCrudDataForm } from "@crudui/providers/useCrudDataForm";
-import type { CrudDialogProviderReturn } from "@crudui/providers/useCrudDialogProvider";
-import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
-import CrudButtonSecondary from "@crudui/components/buttons/CrudButtonSecondary.vue";
+import { inject, ref, watch } from 'vue'
+import { useCrudDataForm } from '@crudui/providers/useCrudDataForm'
+import type { CrudDialogProviderReturn } from '@crudui/providers/useCrudDialogProvider'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
 
 interface Props {
-  providerKey?: string;
+  providerKey?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  providerKey: "dialogProvider",
-});
+  providerKey: 'dialogProvider',
+})
 
-const dialogProvider = inject<CrudDialogProviderReturn>(props.providerKey);
-const loading = ref(false);
+const dialogProvider = inject<CrudDialogProviderReturn>(props.providerKey)
+const loading = ref(false)
 
 const {
   stateProcessing,
@@ -66,58 +66,63 @@ const {
   load,
   submit,
   reset,
-} = useCrudDataForm(dialogProvider.formConfig);
+} = useCrudDataForm(dialogProvider.formConfig)
 
 // Управляем состоянием загрузки
 watch([stateLoading, stateSubmitting], ([loadingState, submittingState]) => {
-  loading.value = loadingState || submittingState;
-});
+  loading.value = loadingState || submittingState
+})
 
 // Загружаем данные при открытии диалога
 watch(
   () => dialogProvider.isOpen.value,
-  async (isOpen) => {
+  async isOpen => {
     if (isOpen) {
       if (dialogProvider.editId.value === null) {
         // Режим создания - полностью очищаем модель
-        dialogProvider.formConfig.model.value = {} as any;
-      } else {
-        // Режим редактирования - загружаем данные
-        const primaryKey = dialogProvider.formConfig.primaryKey ?? "id";
-        dialogProvider.formConfig.model.value[primaryKey] =
-          dialogProvider.editId.value;
-        await load();
+        dialogProvider.formConfig.model.value = {} as any
       }
-    } else {
+      else {
+        // Режим редактирования - загружаем данные
+        const primaryKey = dialogProvider.formConfig.primaryKey ?? 'id'
+
+        dialogProvider.formConfig.model.value[primaryKey] =
+          dialogProvider.editId.value
+        await load()
+      }
+    }
+    else {
       // При закрытии сбрасываем только валидацию
-      formRef.value?.resetValidation();
+      formRef.value?.resetValidation()
     }
   },
-);
+)
 
 const handleSubmit = async (): Promise<void> => {
   // Сначала явно проверяем валидацию формы
-  const { valid } = await formRef.value?.validate();
+  const { valid } = await formRef.value?.validate()
   if (!valid) {
     // Если валидация не прошла, прерываем выполнение
     // Ошибки валидации уже отображены в полях формы
-    return;
+    return
   }
 
   try {
-    await submit();
+    await submit()
 
     if (dialogProvider.isCreateMode.value) {
       // При создании - переключаемся в режим редактирования с новым ID
-      const primaryKey = dialogProvider.formConfig.primaryKey ?? "id";
-      const newId = model.value[primaryKey] as string | number;
-      dialogProvider.editId.value = newId;
+      const primaryKey = dialogProvider.formConfig.primaryKey ?? 'id'
+      const newId = model.value[primaryKey] as string | number
+
+      dialogProvider.editId.value = newId
     }
 
     // Отмечаем что данные были сохранены
-    dialogProvider.wasSaved.value = true;
-  } catch (error) {
-    console.error("Ошибка сохранения:", error);
+    dialogProvider.wasSaved.value = true
   }
-};
+  catch (error) {
+    console.error('Ошибка сохранения:', error)
+  }
+}
 </script>

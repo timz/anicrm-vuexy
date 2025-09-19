@@ -1,12 +1,12 @@
 <template>
   <v-select
     v-bind="$props"
+    ref="selectRef"
     variant="outlined"
     density="comfortable"
     hide-details="auto"
     @blur="handleBlur"
     @focus="handleFocus"
-    ref="selectRef"
   />
 </template>
 
@@ -29,7 +29,7 @@ defineProps({
 const selectRef = ref()
 const hasBeenFocused = ref(false)
 
-const items = ref([{title: '', value: null}, {title: 'Да', value: true}, {title: 'Нет', value: false}])
+const items = ref([{ title: '', value: null }, { title: 'Да', value: true }, { title: 'Нет', value: false }])
 
 const handleFocus = () => {
   hasBeenFocused.value = true

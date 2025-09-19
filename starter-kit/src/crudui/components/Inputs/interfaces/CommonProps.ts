@@ -3,7 +3,7 @@ export default {
     type: Boolean,
     default: true,
   },
-  'bgColor':{
+  bgColor: {
     type: String,
     default: 'white',
   },
@@ -18,5 +18,5 @@ export default {
   hideBottomSpace: {
     type: Boolean,
     default: true,
-  }
+  },
 }

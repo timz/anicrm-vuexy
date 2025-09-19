@@ -3,10 +3,10 @@
     <v-card-text class="px-0">
       <v-expand-transition mode="out-in">
         <div v-if="!showResetForm">
-          <login-form @goResetForm="showResetForm = true" />
+          <login-form @go-reset-form="showResetForm = true" />
         </div>
         <div v-else>
-          <reset-pass-form @goLoginForm="showResetForm = false" />
+          <reset-pass-form @go-login-form="showResetForm = false" />
         </div>
       </v-expand-transition>
     </v-card-text>

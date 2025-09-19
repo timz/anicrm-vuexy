@@ -12,7 +12,7 @@ export interface CrudEditPageReturn<T extends FormModel = FormModel> extends Cru
 }
 
 export function useCrudEditPage<T extends FormModel = FormModel>(
-  config: CrudEditPageConfig<T>
+  config: CrudEditPageConfig<T>,
 ): CrudEditPageReturn<T> {
   const route = useRoute()
   const router = useRouter()
@@ -38,11 +38,13 @@ export function useCrudEditPage<T extends FormModel = FormModel>(
     if (crudForm.isCreateMode.value) {
       // Режим создания - очищаем модель
       config.model.value = {} as any
-    } else {
+    }
+    else {
       // Режим редактирования - загружаем данные
       try {
         await crudForm.load()
-      } catch (error) {
+      }
+      catch (error) {
         console.error('Ошибка загрузки данных:', error)
       }
     }
@@ -73,7 +75,8 @@ export function useCrudEditPage<T extends FormModel = FormModel>(
 
         await router.replace(editPath)
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Ошибка сохранения:', error)
     }
   }
@@ -82,7 +85,8 @@ export function useCrudEditPage<T extends FormModel = FormModel>(
   const handleCancel = (): void => {
     if (config.backRoute) {
       void router.push(config.backRoute)
-    } else {
+    }
+    else {
       router.back()
     }
   }
@@ -90,6 +94,6 @@ export function useCrudEditPage<T extends FormModel = FormModel>(
   return {
     ...crudForm,
     handleSave,
-    handleCancel
+    handleCancel,
   }
 }

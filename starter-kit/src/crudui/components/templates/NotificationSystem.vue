@@ -24,7 +24,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useNotifications, type NotificationItem } from '@crudui/composables/useNotifications'
+import { type NotificationItem, useNotifications } from '@crudui/composables/useNotifications'
 
 interface NotificationWithVisible extends NotificationItem {
   visible: boolean
@@ -37,20 +37,21 @@ const notificationStates = ref<Record<string, boolean>>({})
 const visibleNotifications = computed(() => {
   return notifications.value.map(notification => ({
     ...notification,
-    visible: notificationStates.value[notification.id] !== false
+    visible: notificationStates.value[notification.id] !== false,
   } as NotificationWithVisible))
 })
 
 // Отслеживаем новые уведомления и добавляем их в состояния
-watch(notifications, (newNotifications) => {
+watch(notifications, newNotifications => {
   newNotifications.forEach(notification => {
     if (!(notification.id in notificationStates.value)) {
       notificationStates.value[notification.id] = true
     }
   })
-  
+
   // Удаляем старые состояния
   const currentIds = newNotifications.map(n => n.id)
+
   Object.keys(notificationStates.value).forEach(id => {
     if (!currentIds.includes(id)) {
       delete notificationStates.value[id]

@@ -7,9 +7,9 @@
     density="comfortable"
     hide-details="auto"
     :model-value="dateValue"
-    @update:model-value="updateDate"
     clearable
     v-bind="$attrs"
+    @update:model-value="updateDate"
   />
 </template>
 
@@ -28,12 +28,14 @@ const emit = defineEmits<{
 
 // Computed для отображения даты в компоненте
 const dateValue = computed(() => {
-  if (!props.modelValue || props.modelValue === undefined) return null
-  
+  if (!props.modelValue || props.modelValue === undefined)
+    return null
+
   // Если приходит дата в ISO формате, конвертируем в Date объект
   try {
     return new Date(props.modelValue)
-  } catch {
+  }
+  catch {
     return null
   }
 })
@@ -42,14 +44,15 @@ const dateValue = computed(() => {
 const updateDate = (date: Date | null) => {
   if (!date) {
     emit('update:modelValue', null)
+
     return
   }
-  
+
   // Конвертируем Date в ISO строку (YYYY-MM-DD)
   const year = date.getFullYear()
   const month = String(date.getMonth() + 1).padStart(2, '0')
   const day = String(date.getDate()).padStart(2, '0')
-  
+
   emit('update:modelValue', `${year}-${month}-${day}`)
 }
 </script>

@@ -1,8 +1,8 @@
-import type { Ref} from 'vue';
-import { toRaw, watch, nextTick, ref, computed } from 'vue'
+import type { Ref } from 'vue'
+import { computed, nextTick, ref, toRaw, watch } from 'vue'
 import type { AxiosInstance } from 'axios'
 import { api, secureApi } from '@crudui/services/AxiosService'
-import type { FormModel, CrudResponse, HttpConfig, ModelConfig } from '@crudui/types'
+import type { CrudResponse, FormModel, HttpConfig, ModelConfig } from '@crudui/types'
 
 // Интерфейс формы для совместимости с Vuetify
 export interface VForm {
@@ -13,7 +13,7 @@ export interface VForm {
 // Конечный интерфейс через пересечение
 export type QFormConfig<T extends FormModel = FormModel> = HttpConfig & ModelConfig<T> & {
   url: string
-  requestKey?: string | false  // false = корень, string = кастомный ключ, undefined = 'model'
+  requestKey?: string | false // false = корень, string = кастомный ключ, undefined = 'model'
 }
 
 export interface UseCrudFormReturn<T extends FormModel = FormModel> {
@@ -41,9 +41,11 @@ export function useCrudForm<T extends FormModel = FormModel>(cfg: QFormConfig<T>
   let requestKey: string | null
   if (cfg.requestKey === undefined) {
     requestKey = 'model' // По умолчанию 'model'
-  } else if (cfg.requestKey === false) {
+  }
+  else if (cfg.requestKey === false) {
     requestKey = null // false = поля в корне
-  } else {
+  }
+  else {
     requestKey = cfg.requestKey // string = кастомный ключ
   }
 
@@ -63,7 +65,9 @@ export function useCrudForm<T extends FormModel = FormModel>(cfg: QFormConfig<T>
     }
     const result = await formRef.value?.validate()
     const isValid = result?.valid ?? true
+
     stateValid.value = isValid
+
     return isValid
   }
 
@@ -73,31 +77,34 @@ export function useCrudForm<T extends FormModel = FormModel>(cfg: QFormConfig<T>
     () => {
       // Отмечаем что было взаимодействие с формой
       hasUserInteraction.value = true
+
       // Убираем автоматическую валидацию при изменении
       // void performValidation()
     },
-    { deep: true }
+    { deep: true },
   )
 
   // Отслеживание готовности formRef - без немедленной валидации
   watch(
     formRef,
-    async (newFormRef) => {
+    async newFormRef => {
       if (newFormRef) {
         await nextTick()
+
         // Сбрасываем валидацию при инициализации формы
         newFormRef.resetValidation()
+
         // Не валидируем при инициализации
         stateValid.value = true
         hasUserInteraction.value = false
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   // Computed для общего статуса обработки
   const stateProcessing = computed<boolean>(() =>
-    stateLoading.value || stateSubmitting.value
+    stateLoading.value || stateSubmitting.value,
   )
 
   // Общая логика обновления модели из ответа сервера
@@ -108,6 +115,7 @@ export function useCrudForm<T extends FormModel = FormModel>(cfg: QFormConfig<T>
     }
     await nextTick()
     formRef.value?.resetValidation()
+
     // При загрузке данных с сервера не показываем ошибки валидации
     stateValid.value = true
   }
@@ -116,10 +124,13 @@ export function useCrudForm<T extends FormModel = FormModel>(cfg: QFormConfig<T>
     stateLoading.value = true
     try {
       const { data } = await http.post(cfg.url, additionalData ?? {})
+
       await updateModelFromResponse(data)
       isLoaded.value = true
+
       return data
-    } finally {
+    }
+    finally {
       stateLoading.value = false
     }
   }
@@ -127,6 +138,7 @@ export function useCrudForm<T extends FormModel = FormModel>(cfg: QFormConfig<T>
   async function validate(): Promise<boolean> {
     // При явном вызове validate() всегда выполняем валидацию
     hasUserInteraction.value = true
+
     return await performValidation()
   }
 
@@ -145,14 +157,17 @@ export function useCrudForm<T extends FormModel = FormModel>(cfg: QFormConfig<T>
       if (requestKey === null) {
         // Если requestKey = null, поля идут в корень
         payload = { ...(modelData as Record<string, unknown>), ...additionalData }
-      } else {
+      }
+      else {
         // Иначе оборачиваем в указанный ключ
         payload = { [requestKey]: modelData, ...additionalData }
       }
 
       const { data } = await http.post(cfg.url, payload)
+
       return data
-    } finally {
+    }
+    finally {
       stateSubmitting.value = false
     }
   }

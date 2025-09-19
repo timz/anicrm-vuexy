@@ -1,4 +1,4 @@
-import type { Ref } from 'vue';
+import type { Ref } from 'vue'
 import { inject } from 'vue'
 import { useRoute } from 'vue-router'
 import type { ICrudRouteMeta } from '@crudui/interfaces/CrudRouterInterface'
@@ -20,6 +20,7 @@ export function setPageTitleFromMenuTitle() {
   const pageTitle: Ref<string> | undefined = inject('pageTitle')
   if (pageTitle) {
     const meta = currentRoute.meta as ICrudRouteMeta
+
     pageTitle.value = meta.menuTitle || 'meta.menuTitle не указано'
   }
 }

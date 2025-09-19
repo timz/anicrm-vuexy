@@ -1,17 +1,16 @@
 import { defineStore } from 'pinia'
 import { sortBy } from 'lodash'
 import { toRaw } from 'vue'
+import type { RouteLocationNormalized } from 'vue-router'
+import type { MenuItemInterface } from '@crudui/components/templates/menus/left/MenuItemInterface'
 import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
 import { freeRoutes } from '@crudui/plugins/2.router'
 import type { NotifyItemDto } from '@crudui/interfaces/NotifyItemDto'
 import { secureApi } from '@crudui/services/AxiosService'
 import envService from '@crudui/services/EnvService'
-import type { RouteLocationNormalized } from 'vue-router'
-import type { MenuItemInterface } from '@crudui/components/templates/menus/left/MenuItemInterface'
-import { menuGroups, type MenuGroupKey } from '@crudui/configs/menuGroups'
+import { type MenuGroupKey, menuGroups } from '@crudui/configs/menuGroups'
 import { ability } from '@crudui/plugins/casl/ability'
-import { convertPermissionsToCaslRules, saveAbilityRules, clearAbilityRules } from '@crudui/plugins/casl/index'
-import { useAbility } from '@casl/vue'
+import { clearAbilityRules, convertPermissionsToCaslRules, saveAbilityRules } from '@crudui/plugins/casl/index'
 
 // Локальные типы для разрешений
 type PermissionsType = Record<string, 'all'>
@@ -47,10 +46,11 @@ export const useMeStore = defineStore('meStore', {
   }),
   getters: {
     // Создание ключа для кэширования меню
-    menuCacheKey: (state) => {
+    menuCacheKey: state => {
       const permissionsHash = JSON.stringify(state.permissions)
+
       return `menu-${permissionsHash}`
-    }
+    },
   },
   actions: {
     // Проверка может ли юзер ходить по роуту (через CASL)
@@ -92,6 +92,7 @@ export const useMeStore = defineStore('meStore', {
       // Если CASL не дал доступ, проверяем старую логику для обратной совместимости
       if (!hasPermission) {
         const userPerms = toRaw(this.permissions)
+
         hasPermission = !!(userPerms && userPerms[checkPermission])
       }
 
@@ -108,15 +109,16 @@ export const useMeStore = defineStore('meStore', {
 
     // Извлечение элементов меню из роутов
     extractMenuItems(routes: TCrudRouteRecord[]): MenuItemInterface[] {
-      const rootRoute = routes.find((route) => route.name === 'root')
+      const rootRoute = routes.find(route => route.name === 'root')
       if (!rootRoute) {
         console.warn('Корневой роут не обнаружен')
+
         return []
       }
 
       return rootRoute.children
-        .filter((row) => row.meta && !row.meta.menuHide)
-        .map((row) => <MenuItemInterface>{
+        .filter(row => row.meta && !row.meta.menuHide)
+        .map(row => <MenuItemInterface>{
           name: row.name,
           path: row.path,
           title: row.meta?.menuTitle || DEFAULT_MENU_TITLE,
@@ -129,7 +131,7 @@ export const useMeStore = defineStore('meStore', {
 
     // Обработка элементов меню в один проход
     processMenuItems(allMenus: MenuItemInterface[]): {
-      direct: MenuItemInterface[],
+      direct: MenuItemInterface[]
       grouped: Record<string, MenuItemInterface[]>
     } {
       const direct: MenuItemInterface[] = []
@@ -142,7 +144,8 @@ export const useMeStore = defineStore('meStore', {
 
         if (!item.menuParenName) {
           direct.push(item)
-        } else {
+        }
+        else {
           const parentName = item.menuParenName
           if (!grouped[parentName]) {
             grouped[parentName] = []
@@ -161,6 +164,7 @@ export const useMeStore = defineStore('meStore', {
       Object.entries(childrenMap).forEach(([parentName, children]) => {
         if (!this.validateGroupConfig(parentName)) {
           console.warn(`Конфигурация группы "${parentName}" не найдена`)
+
           return
         }
 
@@ -174,7 +178,7 @@ export const useMeStore = defineStore('meStore', {
             icon: groupConfig.icon,
             menuSort: groupConfig.menuSort,
             permission: '',
-            childItems: sortBy(children, ['menuSort', 'title'])
+            childItems: sortBy(children, ['menuSort', 'title']),
           })
         }
       })
@@ -190,7 +194,9 @@ export const useMeStore = defineStore('meStore', {
       // Проверяем есть ли результат в кэше
       if (this.lastMenuCacheKey === cacheKey && this.menuCache.has(cacheKey)) {
         const cachedMenu = this.menuCache.get(cacheKey)!
+
         this.leftMenu = cachedMenu
+
         return cachedMenu
       }
 
@@ -227,8 +233,9 @@ export const useMeStore = defineStore('meStore', {
       try {
         this.clearPermissionCache()
 
-        const response = await secureApi.post('/auth/me', {app: 'app'})
+        const response = await secureApi.post('/auth/me', { app: 'app' })
         const responseData = response.data
+
         this.username = responseData.content.username
         this.user_id = responseData.content.user_id
         this.role_title = responseData.content.role || ''
@@ -241,23 +248,27 @@ export const useMeStore = defineStore('meStore', {
         this.permissions = responseData.content.permissions || {}
         this.notifications = responseData.content.notifications || []
 
-
         // Конвертируем permissions в CASL rules и сохраняем
         if (responseData.content.casl_rules) {
           // Если сервер уже отдает CASL rules, используем их
           saveAbilityRules(responseData.content.casl_rules)
-        } else if (this.permissions) {
+        }
+        else if (this.permissions) {
           // Иначе конвертируем старые permissions в CASL rules
           const caslRules = convertPermissionsToCaslRules(this.permissions)
+
           saveAbilityRules(caslRules)
         }
 
         this.leftMenu = this.setMenu(routes)
 
         this.loaded = true
+
         return true
-      } catch (e) {
+      }
+      catch (e) {
         console.warn('loadMe error', e)
+
         return false
       }
     },

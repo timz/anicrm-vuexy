@@ -3,8 +3,8 @@
   <crud-table>
     <template #actionsSection>
       <crud-button-primary
-        label="Создать"
         v-if="meStore.userCan('rejection_reasons_create')"
+        label="Создать"
         @click="dialogProvider.openCreateDialog"
       >
         Создать
@@ -13,8 +13,8 @@
     <template #filterForm>
       <v-col cols="12" md="6">
         <crud-input
-          type="number"
           v-model="dataListProvider.filter.value.id"
+          type="number"
           label="Ид"
         />
       </v-col>
@@ -44,73 +44,73 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
-import { useMeStore } from "@crudui/stores/meStore";
-import CrudTable from "@crudui/components/table/CrudTable.vue";
-import type { UseCrudDataListReturn } from "@crudui/providers/useCrudDataList";
-import { useCrudDataList } from "@crudui/providers/useCrudDataList";
-import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
-import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
-import { createStandardActions } from "@crudui/components/table/buttons/rowActionsFactory";
-import { useCrudDialogProvider } from "@crudui/providers/useCrudDialogProvider";
-import CrudDialog from "@crudui/components/dialogs/CrudDialog.vue";
-import PageTitle from "@crudui/components/templates/PageTitle.vue";
+import { provide, ref } from 'vue'
+import { useMeStore } from '@crudui/stores/meStore'
+import CrudTable from '@crudui/components/table/CrudTable.vue'
+import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
+import { useCrudDataList } from '@crudui/providers/useCrudDataList'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
+import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
+import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'
+import PageTitle from '@crudui/components/templates/PageTitle.vue'
 
 interface RejectionReasonItem {
-  id: number | null;
-  title: string;
+  id: number | null
+  title: string
 }
 
-const meStore = useMeStore();
+const meStore = useMeStore()
 
 const columns = [
   {
-    name: "title",
+    name: 'title',
     required: true,
-    label: "Название",
-    align: "left",
-    field: "title",
+    label: 'Название',
+    align: 'left',
+    field: 'title',
     sortable: true,
   },
-];
+]
 
 // Создаем dataListProvider
 const dataListProvider: UseCrudDataListReturn<RejectionReasonItem> =
   useCrudDataList<RejectionReasonItem>({
-    mode: "table",
-    urlBase: "/rejection-reasons",
-    pk: "id",
+    mode: 'table',
+    urlBase: '/rejection-reasons',
+    pk: 'id',
     columns,
     rowActions: [
       ...createStandardActions<RejectionReasonItem>({
         editDialog: {
-          show: () => meStore.userCan("rejection_reasons_update"),
+          show: () => meStore.userCan('rejection_reasons_update'),
           handler: (item: RejectionReasonItem) =>
             dialogProvider.openEditDialog(item.id),
         },
         delete: {
-          show: () => meStore.userCan("rejection_reasons_delete"),
+          show: () => meStore.userCan('rejection_reasons_delete'),
           onDelete: (item: RejectionReasonItem) => {
-            console.log("Delete item:", item.id);
+            console.log('Delete item:', item.id)
           },
         },
       }),
     ],
-  });
+  })
 
 // Создаем dialogProvider с колбеком
 const dialogProvider = useCrudDialogProvider<RejectionReasonItem>({
   formConfig: {
-    prefixUrl: "/rejection-reasons",
-    model: ref({ id: null, title: "" }),
+    prefixUrl: '/rejection-reasons',
+    model: ref({ id: null, title: '' }),
   },
   onItemSaved: () => {
-    void dataListProvider.refresh();
+    void dataListProvider.refresh()
   },
-});
+})
 
-const model = dialogProvider.model;
+const model = dialogProvider.model
 
-provide("dataListProvider", dataListProvider);
-provide("dialogProvider", dialogProvider);
+provide('dataListProvider', dataListProvider)
+provide('dialogProvider', dialogProvider)
 </script>

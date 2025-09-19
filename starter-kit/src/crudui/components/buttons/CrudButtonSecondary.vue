@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, computed, type ComputedRef } from 'vue'
+import { type ComputedRef, computed, inject } from 'vue'
 
 const isLoading: boolean = inject('isLoading', false)
 const globalIsLoading = inject<ComputedRef<boolean>>('globalIsLoading', computed(() => false))

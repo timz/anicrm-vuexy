@@ -1,6 +1,6 @@
-import type { CrudRowAction } from '@crudui/providers/useCrudDataList'
 import { useRouter } from 'vue-router'
 import type { RouteParamValueRaw } from 'vue-router'
+import type { CrudRowAction } from '@crudui/providers/useCrudDataList'
 import type { FormModel } from '@crudui/types'
 
 export interface StandardActionConfig {
@@ -33,12 +33,13 @@ function getRouteParam(value: unknown): RouteParamValueRaw {
   if (typeof value === 'string' || typeof value === 'number') {
     return String(value)
   }
+
   // Для остальных типов возвращаем пустую строку
   return ''
 }
 
 export function createEditAction<T extends FormModel>(
-  config: EditActionConfig
+  config: EditActionConfig,
 ): CrudRowAction<T> {
   const router = useRouter()
 
@@ -52,16 +53,17 @@ export function createEditAction<T extends FormModel>(
     handler: (item: T) => {
       const paramName = config.paramName || 'id'
       const paramValue = item[paramName]
+
       void router.push({
         name: config.routeName,
-        params: { [paramName]: getRouteParam(paramValue) }
+        params: { [paramName]: getRouteParam(paramValue) },
       })
-    }
+    },
   }
 }
 
 export function createEditDialogAction<T extends FormModel>(
-  config: EditDialogActionConfig
+  config: EditDialogActionConfig,
 ): CrudRowAction<T> {
   return {
     name: 'edit-dialog',
@@ -70,12 +72,12 @@ export function createEditDialogAction<T extends FormModel>(
     class: config.class || 'text-blue-600',
     label: 'Изменить',
     show: config.show,
-    handler: config.handler
+    handler: config.handler,
   }
 }
 
 export function createDeleteAction<T extends FormModel>(
-  config: DeleteActionConfig
+  config: DeleteActionConfig,
 ): CrudRowAction<T> {
   return {
     name: 'delete',
@@ -84,12 +86,12 @@ export function createDeleteAction<T extends FormModel>(
     class: config.class || 'text-red-600',
     label: 'Удалить',
     show: config.show,
-    handler: config.onDelete
+    handler: config.onDelete,
   }
 }
 
 export function createViewAction<T extends FormModel>(
-  config: ViewActionConfig
+  config: ViewActionConfig,
 ): CrudRowAction<T> {
   const router = useRouter()
 
@@ -103,11 +105,12 @@ export function createViewAction<T extends FormModel>(
     handler: (item: T) => {
       const paramName = config.paramName || 'id'
       const paramValue = item[paramName]
+
       void router.push({
         name: config.routeName,
-        params: { [paramName]: getRouteParam(paramValue) }
+        params: { [paramName]: getRouteParam(paramValue) },
       })
-    }
+    },
   }
 }
 

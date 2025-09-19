@@ -1,9 +1,9 @@
-export type AvailableTypesForInputsType = 
-  | 'text' 
-  | 'password' 
-  | 'email' 
-  | 'number' 
-  | 'tel' 
-  | 'url' 
-  | 'search' 
+export type AvailableTypesForInputsType =
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'number'
+  | 'tel'
+  | 'url'
+  | 'search'
   | 'textarea'

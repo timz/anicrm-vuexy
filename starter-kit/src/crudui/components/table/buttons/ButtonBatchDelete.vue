@@ -40,9 +40,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const showConfirmDialog = ref(false)
-
 const emit = defineEmits(['confirmDelete'])
+
+const showConfirmDialog = ref(false)
 
 const confirmDelete = () => {
   emit('confirmDelete')

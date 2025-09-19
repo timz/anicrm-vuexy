@@ -1,6 +1,8 @@
 <template>
   <div>
-    <h4 class="text-h4 text-center mb-6 text-blue-grey-darken-2">Вход</h4>
+    <h4 class="text-h4 text-center mb-6 text-blue-grey-darken-2">
+      Вход
+    </h4>
     <v-form ref="formRef" @submit.prevent="onSubmit">
       <div class="mb-6">
         <crud-input
@@ -20,19 +22,19 @@
         />
       </div>
       <div class="d-flex flex-column ga-3">
-        <crud-button-primary 
+        <crud-button-primary
           size="large"
           block
-          @click="onSubmit()"
           :loading="crudForm.stateProcessing.value"
+          @click="onSubmit"
         >
           Войти
         </crud-button-primary>
-        <v-btn 
-          variant="text" 
+        <v-btn
+          variant="text"
           color="primary"
           size="small"
-          @click="navigateResetForm()"
+          @click="navigateResetForm"
         >
           Забыли пароль?
         </v-btn>
@@ -42,15 +44,17 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import r from '@crudui/services/RulesService'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
-import {ref} from 'vue'
 import envService from '@crudui/services/EnvService'
-import {notifications} from '@crudui/boot/notification'
+import { notifications } from '@crudui/boot/notification'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
-import {useCrudForm, type QFormConfig} from '@crudui/providers/useCrudForm'
+import { type QFormConfig, useCrudForm } from '@crudui/providers/useCrudForm'
 import type { FormModel } from '@crudui/types'
-import { useRouter } from 'vue-router'
+
+const emits = defineEmits(['goResetForm'])
 
 const router = useRouter()
 
@@ -69,28 +73,27 @@ const model = ref<LoginModel>({
 const crudForm = useCrudForm({
   requestKey: false,
   url: '/auth/login',
-  model: model,
+  model,
   isSecure: false,
 } as QFormConfig<LoginModel>)
 
 const formRef = crudForm.formRef
 
-const emits = defineEmits(['goResetForm'])
-
 function navigateResetForm() {
   emits('goResetForm')
 }
-
 
 const onSubmit = async (): Promise<void> => {
   try {
     const result = await crudForm.submit()
     const content = result.content
+
     envService.saveTokenInLocalStorage(content.access_token)
     envService.saveRefreshTokenInLocalStorage(content.refresh_token)
     notifications.positive('Добро пожаловать!')
     await router.push({ name: 'home' })
-  } catch (error) {
+  }
+  catch (error) {
     // Ошибки обрабатываются в AxiosService interceptors
     // Здесь можем добавить специфичную для логина логику, если нужно
     console.warn('Login failed:', error)

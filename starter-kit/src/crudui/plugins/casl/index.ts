@@ -25,42 +25,44 @@ export function convertPermissionsToCaslRules(permissions: Record<string, any>):
   // Если есть полные права администратора
   if (permissions['admin'] || permissions['administrator']) {
     rules.push({ action: 'manage', subject: 'all' })
+
     return rules
   }
 
   // Маппинг известных permissions в CASL правила
   const permissionMapping: Record<string, { action: string; subject: string }> = {
-    'users': { action: 'manage', subject: 'User' },
-    'clients': { action: 'manage', subject: 'Client' },
-    'deals': { action: 'manage', subject: 'Deal' },
-    'products': { action: 'manage', subject: 'Product' },
-    'dashboard': { action: 'view', subject: 'Dashboard' },
-    'settings': { action: 'manage', subject: 'Settings' },
-    'subscription': { action: 'manage', subject: 'Subscription' },
-    'organization': { action: 'manage', subject: 'Organization' },
+    users: { action: 'manage', subject: 'User' },
+    clients: { action: 'manage', subject: 'Client' },
+    deals: { action: 'manage', subject: 'Deal' },
+    products: { action: 'manage', subject: 'Product' },
+    dashboard: { action: 'view', subject: 'Dashboard' },
+    settings: { action: 'manage', subject: 'Settings' },
+    subscription: { action: 'manage', subject: 'Subscription' },
+    organization: { action: 'manage', subject: 'Organization' },
 
     // Добавляем специфичные права
-    'users_read': { action: 'read', subject: 'User' },
-    'users_create': { action: 'create', subject: 'User' },
-    'users_update': { action: 'update', subject: 'User' },
-    'users_delete': { action: 'delete', subject: 'User' },
+    users_read: { action: 'read', subject: 'User' },
+    users_create: { action: 'create', subject: 'User' },
+    users_update: { action: 'update', subject: 'User' },
+    users_delete: { action: 'delete', subject: 'User' },
 
-    'clients_read': { action: 'read', subject: 'Client' },
-    'clients_create': { action: 'create', subject: 'Client' },
-    'clients_update': { action: 'update', subject: 'Client' },
-    'clients_delete': { action: 'delete', subject: 'Client' },
+    clients_read: { action: 'read', subject: 'Client' },
+    clients_create: { action: 'create', subject: 'Client' },
+    clients_update: { action: 'update', subject: 'Client' },
+    clients_delete: { action: 'delete', subject: 'Client' },
 
-    'deals_read': { action: 'read', subject: 'Deal' },
-    'deals_create': { action: 'create', subject: 'Deal' },
-    'deals_update': { action: 'update', subject: 'Deal' },
-    'deals_delete': { action: 'delete', subject: 'Deal' },
+    deals_read: { action: 'read', subject: 'Deal' },
+    deals_create: { action: 'create', subject: 'Deal' },
+    deals_update: { action: 'update', subject: 'Deal' },
+    deals_delete: { action: 'delete', subject: 'Deal' },
   }
 
   // Конвертируем каждое permission в CASL rule
   Object.keys(permissions).forEach(permission => {
     if (permissionMapping[permission]) {
       rules.push(permissionMapping[permission])
-    } else {
+    }
+    else {
       // Для неизвестных permissions создаем общее правило
       // Используем permission как subject для обратной совместимости
       rules.push({ action: 'access', subject: permission })
@@ -78,6 +80,7 @@ export function convertPermissionsToCaslRules(permissions: Record<string, any>):
 // Вспомогательная функция для сохранения правил после авторизации
 export function saveAbilityRules(rules: Rule[]) {
   localStorage.setItem('userAbilityRules', JSON.stringify(rules))
+
   // Обновляем глобальный ability
   ability.update(rules)
 }
@@ -85,6 +88,7 @@ export function saveAbilityRules(rules: Rule[]) {
 // Функция для очистки правил при выходе
 export function clearAbilityRules() {
   localStorage.removeItem('userAbilityRules')
+
   // Очищаем глобальный ability
   ability.update([])
 }

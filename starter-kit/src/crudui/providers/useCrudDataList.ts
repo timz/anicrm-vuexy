@@ -1,7 +1,7 @@
-import type {ComputedRef, Ref} from 'vue'
-import {computed, ref, shallowRef, unref} from 'vue'
-import type {AxiosInstance} from 'axios'
-import {secureApi} from '@crudui/services/AxiosService'
+import type { ComputedRef, Ref } from 'vue'
+import { computed, ref, shallowRef, unref } from 'vue'
+import type { AxiosInstance } from 'axios'
+import { secureApi } from '@crudui/services/AxiosService'
 
 export interface CrudDataListPagination {
   page: number
@@ -84,7 +84,7 @@ export interface UseCrudDataListReturn<T extends Record<string, unknown>> {
 }
 
 export function useCrudDataList<T extends Record<string, unknown>>(
-  config: CrudDataListConfig<T>
+  config: CrudDataListConfig<T>,
 ): UseCrudDataListReturn<T> {
   const http: AxiosInstance = secureApi
   const pkField = config.pk ?? 'id'
@@ -101,12 +101,12 @@ export function useCrudDataList<T extends Record<string, unknown>>(
     page: config.defaultPage ?? 1,
     rowsPerPage: config.defaultRowsPerPage ?? 12,
     sortBy: '',
-    descending: false
+    descending: false,
   })
 
   // Computed
   const selectedIds = computed<unknown[]>(() =>
-    selectedItems.value.map(item => item[pkField])
+    selectedItems.value.map(item => item[pkField]),
   )
 
   // URLs
@@ -137,7 +137,8 @@ export function useCrudDataList<T extends Record<string, unknown>>(
 
     if (index >= 0) {
       selectedItems.value.splice(index, 1)
-    } else {
+    }
+    else {
       selectedItems.value.push(item)
     }
   }
@@ -159,16 +160,16 @@ export function useCrudDataList<T extends Record<string, unknown>>(
       const requestData: CrudDataListRequest = {
         filter: {
           ...persistentFilterValue,
-          ...(customFilter ?? filter.value)
+          ...(customFilter ?? filter.value),
         },
         sorting: {
           sortBy: pagination.value.sortBy,
-          descending: pagination.value.descending
+          descending: pagination.value.descending,
         },
-        pagination: pagination.value
+        pagination: pagination.value,
       }
 
-      const {data} = await http.post<CrudDataListResponse<T>>(getListUrl(), requestData)
+      const { data } = await http.post<CrudDataListResponse<T>>(getListUrl(), requestData)
 
       if (data.success && data.content) {
         listItems.value = data.content.items
@@ -179,7 +180,8 @@ export function useCrudDataList<T extends Record<string, unknown>>(
       }
 
       return data
-    } finally {
+    }
+    finally {
       loadingOff()
     }
   }
@@ -191,17 +193,19 @@ export function useCrudDataList<T extends Record<string, unknown>>(
   async function deleteRecords(ids: unknown[]): Promise<unknown> {
     loadingOn()
     try {
-      const {data} = await http.post(getDeleteUrl(), {ids})
+      const { data } = await http.post(getDeleteUrl(), { ids })
 
       // Обновляем список после удаления
       await refresh()
       clearSelection()
 
       return data
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Delete operation failed:', error)
       throw error
-    } finally {
+    }
+    finally {
       loadingOff()
     }
   }
@@ -210,17 +214,19 @@ export function useCrudDataList<T extends Record<string, unknown>>(
     loadingOn()
     try {
       // TODO: уточнить структуру параметров для unlink
-      const {data} = await http.post(getUnlinkUrl(), {id, linkId})
+      const { data } = await http.post(getUnlinkUrl(), { id, linkId })
 
       // Обновляем список после отвязки
       await refresh()
       clearSelection()
 
       return data
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Unlink operation failed:', error)
       throw error
-    } finally {
+    }
+    finally {
       loadingOff()
     }
   }
@@ -228,12 +234,14 @@ export function useCrudDataList<T extends Record<string, unknown>>(
   function download(fileURL: string): void {
     try {
       const link = document.createElement('a')
+
       link.href = fileURL
       link.download = ''
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-    } catch (error) {
+    }
+    catch (error) {
       console.error('Download failed:', error)
       throw error
     }
@@ -261,6 +269,6 @@ export function useCrudDataList<T extends Record<string, unknown>>(
     isSelected,
     toggleSelection,
     updatePagination,
-    updateSorting
+    updateSorting,
   } as const
 }

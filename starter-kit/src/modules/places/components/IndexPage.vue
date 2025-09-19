@@ -3,8 +3,8 @@
   <crud-table>
     <template #actionsSection>
       <crud-button-primary
-        label="Создать"
         v-if="meStore.userCan('places_create')"
+        label="Создать"
         @click="dialogProvider.openCreateDialog"
       >
         Создать
@@ -61,8 +61,8 @@
 
       <v-col cols="12">
         <crud-input
-          type="textarea"
           v-model="model.address"
+          type="textarea"
           label="Адрес"
           :disabled="stateProcessing"
         />
@@ -75,10 +75,10 @@
           type="number"
           :rules="[
             (val) =>
-              val === null ||
-              val === undefined ||
-              (val >= 0 && val <= 23) ||
-              'Час от 0 до 23',
+              val === null
+              || val === undefined
+              || (val >= 0 && val <= 23)
+              || 'Час от 0 до 23',
           ]"
           :disabled="stateProcessing"
         />
@@ -91,10 +91,10 @@
           type="number"
           :rules="[
             (val) =>
-              val === null ||
-              val === undefined ||
-              (val >= 0 && val <= 23) ||
-              'Час от 0 до 23',
+              val === null
+              || val === undefined
+              || (val >= 0 && val <= 23)
+              || 'Час от 0 до 23',
           ]"
           :disabled="stateProcessing"
         />
@@ -121,125 +121,126 @@
 </template>
 
 <script setup lang="ts">
-import { provide, ref } from "vue";
-import { useMeStore } from "@crudui/stores/meStore";
-import CrudTable from "@crudui/components/table/CrudTable.vue";
-import type { UseCrudDataListReturn } from "@crudui/providers/useCrudDataList";
-import { useCrudDataList } from "@crudui/providers/useCrudDataList";
-import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
-import CrudCheckbox from "@crudui/components/Inputs/CrudCheckbox.vue";
-import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
-import { createStandardActions } from "@crudui/components/table/buttons/rowActionsFactory";
-import { useCrudDialogProvider } from "@crudui/providers/useCrudDialogProvider";
-import CrudDialog from "@crudui/components/dialogs/CrudDialog.vue";
-import PageTitle from "@crudui/components/templates/PageTitle.vue";
+import { provide, ref } from 'vue'
+import { useMeStore } from '@crudui/stores/meStore'
+import CrudTable from '@crudui/components/table/CrudTable.vue'
+import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
+import { useCrudDataList } from '@crudui/providers/useCrudDataList'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudCheckbox from '@crudui/components/Inputs/CrudCheckbox.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
+import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
+import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'
+import PageTitle from '@crudui/components/templates/PageTitle.vue'
 
 interface PlaceItem {
-  id: number | null;
-  title: string;
-  description: string;
-  address: string;
-  is_available: boolean;
-  work_from: number | null;
-  work_to: number | null;
+  id: number | null
+  title: string
+  description: string
+  address: string
+  is_available: boolean
+  work_from: number | null
+  work_to: number | null
 }
 
-const meStore = useMeStore();
+const meStore = useMeStore()
 
 const getWorkHours = (item: any): string => {
-  const placeItem = item?.value || item;
+  const placeItem = item?.value || item
   if (
     placeItem?.work_from !== null &&
     placeItem?.work_from !== undefined &&
     placeItem?.work_to !== null &&
     placeItem?.work_to !== undefined
   ) {
-    return `${placeItem.work_from}:00 - ${placeItem.work_to}:00`;
+    return `${placeItem.work_from}:00 - ${placeItem.work_to}:00`
   }
-  return "";
-};
+
+  return ''
+}
 
 const columns = [
   {
-    name: "title",
+    name: 'title',
     required: true,
-    label: "Название",
-    align: "left",
-    field: "title",
+    label: 'Название',
+    align: 'left',
+    field: 'title',
     sortable: true,
   },
   {
-    name: "address",
+    name: 'address',
     required: false,
-    label: "Адрес",
-    align: "left",
-    field: "address",
+    label: 'Адрес',
+    align: 'left',
+    field: 'address',
     sortable: true,
   },
   {
-    name: "is_available",
+    name: 'is_available',
     required: false,
-    label: "Доступно",
-    align: "center",
-    field: "is_available",
+    label: 'Доступно',
+    align: 'center',
+    field: 'is_available',
     sortable: true,
-    headerStyle: "width: 100px",
+    headerStyle: 'width: 100px',
   },
   {
-    name: "work_hours",
+    name: 'work_hours',
     required: false,
-    label: "Часы работы",
-    align: "left",
-    field: "work_hours",
+    label: 'Часы работы',
+    align: 'left',
+    field: 'work_hours',
     sortable: false,
-    headerStyle: "width: 150px",
+    headerStyle: 'width: 150px',
   },
-];
+]
 
 // Создаем dataListProvider
 const dataListProvider: UseCrudDataListReturn<PlaceItem> =
   useCrudDataList<PlaceItem>({
-    mode: "table",
-    urlBase: "/places",
-    pk: "id",
+    mode: 'table',
+    urlBase: '/places',
+    pk: 'id',
     columns,
     rowActions: [
       ...createStandardActions<PlaceItem>({
         editDialog: {
-          show: () => meStore.userCan("places_update"),
+          show: () => meStore.userCan('places_update'),
           handler: (item: PlaceItem) => dialogProvider.openEditDialog(item.id),
         },
         delete: {
-          show: () => meStore.userCan("places_delete"),
+          show: () => meStore.userCan('places_delete'),
           onDelete: (item: PlaceItem) => {
-            console.log("Delete item:", item.id);
+            console.log('Delete item:', item.id)
           },
         },
       }),
     ],
-  });
+  })
 
 // Создаем dialogProvider с колбеком
 const dialogProvider = useCrudDialogProvider<PlaceItem>({
   formConfig: {
-    prefixUrl: "/places",
+    prefixUrl: '/places',
     model: ref({
       id: null,
-      title: "",
-      description: "",
-      address: "",
+      title: '',
+      description: '',
+      address: '',
       is_available: true,
       work_from: null,
       work_to: null,
     }),
   },
   onItemSaved: () => {
-    void dataListProvider.refresh();
+    void dataListProvider.refresh()
   },
-});
+})
 
-const model = dialogProvider.model;
+const model = dialogProvider.model
 
-provide("dataListProvider", dataListProvider);
-provide("dialogProvider", dialogProvider);
+provide('dataListProvider', dataListProvider)
+provide('dialogProvider', dialogProvider)
 </script>

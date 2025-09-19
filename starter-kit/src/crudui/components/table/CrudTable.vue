@@ -316,5 +316,4 @@ const resetFilter = async (): Promise<void> => {
     font-weight: 600;
   }
 }
-
 </style>

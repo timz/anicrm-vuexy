@@ -1,4 +1,4 @@
-import { inject, computed, type ComputedRef } from 'vue'
+import { type ComputedRef, computed, inject } from 'vue'
 import type { CrudEditPageReturn } from '@crudui/providers/useCrudEditPage'
 import type { FormModel } from '@crudui/types'
 
@@ -14,7 +14,7 @@ export interface TabParentReturn<T extends FormModel = FormModel> {
 }
 
 export function useTabParentProvider<T extends FormModel = FormModel>(
-  providerKey = 'editPageProvider'
+  providerKey = 'editPageProvider',
 ): TabParentReturn<T> {
   const editPageProvider = inject<CrudEditPageReturn<T>>(providerKey)
 
@@ -48,6 +48,6 @@ export function useTabParentProvider<T extends FormModel = FormModel>(
     isParentDataReady,
     refreshParent,
     saveParent,
-    editPageProvider
+    editPageProvider,
   }
 }
