@@ -13,11 +13,8 @@
       <v-col cols="12">
         <crud-input v-model="model.mobile" label="Мобильный" :disable="stateProcessing" />
       </v-col>
-      <v-col cols="6">
+      <v-col cols="12">
         <crud-date-picker v-model="model.birthday" label="Дата рождения" />
-      </v-col>
-      <v-col cols="6">
-        <crud-input v-model="model.start_on" label="Начало" :disable="stateProcessing" />
       </v-col>
       <v-col cols="12">
         <crud-input v-model="model.description" type="textarea" label="Заметки" :disable="stateProcessing" />

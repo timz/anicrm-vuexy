@@ -39,8 +39,8 @@
     </template>
 
     <!-- Custom formatting for work_hours column -->
-    <template #body-cell-work_hours="{ item }">
-      {{ getWorkHours(item?.value || item) }}
+    <template #body-cell-work_hours="{ value }">
+      {{ getWorkHours(value?.value || value) }}
     </template>
   </crud-table>
 
@@ -147,6 +147,8 @@ interface PlaceItem {
 const meStore = useMeStore()
 
 const getWorkHours = (item: any): string => {
+  console.warn(item)
+
   const placeItem = item?.value || item
   if (
     placeItem?.work_from !== null &&
