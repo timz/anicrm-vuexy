@@ -2,38 +2,39 @@
   <div class="d-flex" style="min-width: 350px">
     <v-menu v-if="isRange" v-model="menu" :close-on-content-click="false" location="bottom start" origin="auto">
       <template #activator="{ props: menuProps }">
-        <crud-input :model-value="displayValue" :label="props.label" placeholder="дд.мм.гггг - дд.мм.гггг" readonly v-bind="menuProps" />
+        <crud-input
+          :model-value="displayValue"
+          :label="props.label"
+          placeholder="дд.мм.гггг - дд.мм.гггг"
+          readonly
+          v-bind="menuProps"
+        />
       </template>
-      <div class="bg-white soft-shadow px-4 pt-4 pb-4 rounded">
+      <v-card class="pa-4">
         <div class="d-flex">
-          <div class="flex-column" style="max-width: 120px">
+          <div class="flex-column me-4" style="max-width: 120px">
             <v-btn
+              color="secondary"
               v-for="preset in datePresets"
               :key="preset.key"
               class="mt-1 px-2 text-caption"
               block
               size="small"
               flat
-              color="blue-grey"
               @click="applyPreset(preset)"
             >
               {{ preset.label }}
             </v-btn>
           </div>
-          <v-divider vertical class="ml-2 mr-1" />
-          <div style="width: 100%;min-width: 190px;">
-            <crud-date-picker v-model="startDate" style="margin-left: 2px" class="mt-2 " label="С даты" />
-            <crud-date-picker v-model="endDate" style="margin-left: 2px" class="mt-4 " label="По дату" />
+          <div style="width: 100%; min-width: 190px">
+            <crud-date-picker v-model="startDate" style="margin-left: 2px" class="mt-2" label="С даты" />
+            <crud-date-picker v-model="endDate" style="margin-left: 2px" class="mt-4" label="По дату" />
           </div>
         </div>
-      </div>
+      </v-card>
     </v-menu>
-    <crud-date-picker
-      v-else
-      v-model="viewDate"
-      :label="props.label || 'дата'"
-    />
-    <crud-checkbox v-model="isRange" class="ml-1" label="Диапазон" />
+    <crud-date-picker v-else v-model="viewDate" :label="props.label || 'дата'" />
+    <crud-checkbox v-model="isRange" class="ms-1" label="Диапазон" />
   </div>
 </template>
 
@@ -198,44 +199,52 @@ watch(isRange, newVal => {
 })
 
 // Отслеживание изменений и эмит значений
-watch([viewDate, startDate, endDate, isRange], () => {
-  if (!isRange.value) {
-    // Режим одной даты
-    emit('update:modelValue', viewDate.value)
-  }
-  else {
-    // Режим диапазона дат
-    if (startDate.value && endDate.value) {
-      const dates = [startDate.value, endDate.value]
-
-      // Сортируем даты по возрастанию
-      dates.sort((a, b) => compareDates(a, b))
-      emit('update:modelValue', dates)
+watch(
+  [viewDate, startDate, endDate, isRange],
+  () => {
+    if (!isRange.value) {
+      // Режим одной даты
+      emit('update:modelValue', viewDate.value)
     }
     else {
-      emit('update:modelValue', null)
+      // Режим диапазона дат
+      if (startDate.value && endDate.value) {
+        const dates = [startDate.value, endDate.value]
+
+        // Сортируем даты по возрастанию
+        dates.sort((a, b) => compareDates(a, b))
+        emit('update:modelValue', dates)
+      }
+      else {
+        emit('update:modelValue', null)
+      }
     }
-  }
-}, { deep: true })
+  },
+  { deep: true },
+)
 
 // Инициализация значений из props
-watch(() => props.modelValue, newValue => {
-  if (!newValue) {
-    viewDate.value = null
-    startDate.value = null
-    endDate.value = null
+watch(
+  () => props.modelValue,
+  newValue => {
+    if (!newValue) {
+      viewDate.value = null
+      startDate.value = null
+      endDate.value = null
 
-    return
-  }
+      return
+    }
 
-  if (Array.isArray(newValue)) {
-    isRange.value = true
-    startDate.value = newValue[0] || null
-    endDate.value = newValue[1] || null
-  }
-  else {
-    isRange.value = false
-    viewDate.value = newValue
-  }
-}, { immediate: true })
+    if (Array.isArray(newValue)) {
+      isRange.value = true
+      startDate.value = newValue[0] || null
+      endDate.value = newValue[1] || null
+    }
+    else {
+      isRange.value = false
+      viewDate.value = newValue
+    }
+  },
+  { immediate: true },
+)
 </script>

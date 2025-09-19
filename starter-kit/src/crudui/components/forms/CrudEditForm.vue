@@ -21,7 +21,9 @@ const props = withDefaults(defineProps<Props>(), {
 const route = useRoute()
 const editPageProvider = inject<CrudEditPageReturn>(props.providerKey)
 
-if (!editPageProvider) throw new Error(`Provider with key "${props.providerKey}" not found`)
+if (!editPageProvider) {
+  throw new Error(`Provider with key "${props.providerKey}" not found`)
+}
 
 const { model, isCreateMode, stateProcessing, formRef, version, forcedSave, handleSave, handleCancel, isDataReady } =
   editPageProvider
@@ -81,21 +83,25 @@ watch(
 
 // Синхронизация activeTabIndex с activeTab
 watch(activeTabIndex, newIndex => {
-  if (visibleTabs.value[newIndex]) activeTab.value = visibleTabs.value[newIndex].name
+  if (visibleTabs.value[newIndex]) {
+    activeTab.value = visibleTabs.value[newIndex].name
+  }
 })
 
 // Следим за изменением parentId для автоматической установки первой вкладки
 watch(
   () => parentId.value,
   newParentId => {
-    if (newParentId && visibleTabs.value.length > 0) {
-      if (!activeTab.value) activeTab.value = visibleTabs.value[0].name
+    if (newParentId && visibleTabs.value.length > 0 && !activeTab.value) {
+      activeTab.value = visibleTabs.value[0].name
     }
   },
 )
 
 const shouldRenderTab = (tabName: string): boolean => {
-  if (!props.lazy) return true
+  if (!props.lazy) {
+    return true
+  }
 
   // Для lazy loading рендерим только активную вкладку
   return activeTab.value === tabName
@@ -115,10 +121,10 @@ const shouldRenderTab = (tabName: string): boolean => {
 
         <!-- Показываем форму когда данные готовы -->
         <template v-else>
-          <v-card-text>
+          <v-card-text class="pt-6">
             <!-- Форма с полями -->
             <v-form ref="formRef" @submit.prevent="handleSave">
-              <v-row>
+              <v-row no-gutters class="gap-4">
                 <slot
                   :model="model"
                   :is-create-mode="isCreateMode"
@@ -155,9 +161,9 @@ const shouldRenderTab = (tabName: string): boolean => {
     <!-- Правая панель с табами -->
     <v-col v-if="visibleTabs.length > 0" cols="12" md="7" lg="7">
       <!-- Табы в стиле pill как в full-version -->
-      <v-tabs v-model="activeTabIndex" class="v-tabs-pill mb-2">
+      <v-tabs v-model="activeTabIndex" class="v-tabs-pill mb-2" density="compact">
         <v-tab v-for="(tab, index) in visibleTabs" :key="tab.name" :value="index">
-          <v-icon v-if="tab.icon" :size="18" :icon="tab.icon" class="me-1" />
+          <v-icon v-if="tab.icon" :icon="tab.icon" class="me-1" />
           <span>{{ tab.label }}</span>
           <v-badge v-if="tab.badge" :content="tab.badge" class="ms-2" inline />
         </v-tab>

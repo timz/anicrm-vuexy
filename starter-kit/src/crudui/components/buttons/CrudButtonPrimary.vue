@@ -2,7 +2,6 @@
   <v-btn
     variant="flat"
     color="primary"
-    rounded="xs"
     :loading="isLoading || globalIsLoading"
     :disabled="globalIsLoading"
     v-bind="$attrs"
