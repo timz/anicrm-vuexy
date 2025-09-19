@@ -14,7 +14,7 @@
             v-model="model.name"
             label="Имя"
             :disabled="stateProcessing"
-            :rules="[r.required(), r.strMinLength(1), r.strMaxLength(255)]"
+            :rules="[rules.required(), rules.minLength(1), rules.maxLength(255)]"
           />
         </v-col>
         <v-col cols="6">
@@ -22,7 +22,7 @@
             v-model="model.mobile"
             label="Мобильный телефон"
             :disabled="stateProcessing"
-            :rules="[r.required()]"
+            :rules="[rules.required()]"
           />
         </v-col>
         <v-col cols="6">
@@ -52,7 +52,7 @@
             type="textarea"
             label="Описание"
             :disabled="stateProcessing"
-            :rules="[r.strMaxLength(1000)]"
+            :rules="[rules.maxLength(1000)]"
           />
         </v-col>
       </v-row>
@@ -74,7 +74,7 @@ import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
 import { useCrudEditPage } from '@crudui/providers/useCrudEditPage'
 import type { FormModel } from '@crudui/types'
-import r from '@crudui/services/RulesService'
+import { rules } from '@crudui/utils/rules'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
 

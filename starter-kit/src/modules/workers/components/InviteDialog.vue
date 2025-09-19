@@ -15,7 +15,7 @@
                 v-model="model.email"
                 label="Email сотрудника"
                 :disabled="stateProcessing"
-                :rules="[r.required(), r.email()]"
+                :rules="[rules.required(), rules.email()]"
               />
             </v-col>
           </v-row>
@@ -43,7 +43,7 @@ import { computed, ref } from 'vue'
 import { useCrudForm } from '@crudui/providers/useCrudForm'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
-import r from '@crudui/services/RulesService'
+import { rules } from '@crudui/utils/rules'
 import { notifications } from '@crudui/boot/notification'
 
 interface InviteForm {
@@ -84,12 +84,12 @@ const {
   url: '/workers/invite',
   method: 'post',
   onSuccess: () => {
-    notifications.success('Приглашение успешно отправлено')
+    notifications.positive('Приглашение успешно отправлено')
     emit('success')
     dialog.value = false
   },
   onError: () => {
-    notifications.error('Ошибка при отправке приглашения')
+    notifications.negative('Ошибка при отправке приглашения')
   },
 })
 

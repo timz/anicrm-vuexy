@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex align-center ga-1">
-    <v-date-input
+    <VDateInput
       placeholder="дд.мм.гггг - дд.мм.гггг"
       bg-color="white"
       variant="outlined"
@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { VDateInput } from 'vuetify/labs/VDateInput'
 import CrudCheckbox from '@crudui/components/Inputs/CrudCheckbox.vue'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
 

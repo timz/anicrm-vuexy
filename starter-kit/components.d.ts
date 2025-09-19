@@ -82,7 +82,6 @@ declare module 'vue' {
     ShareProjectDialog: typeof import('./src/crudui/components/dialogs/ShareProjectDialog.vue')['default']
     Shortcuts: typeof import('./src/crudui/components/Shortcuts.vue')['default']
     TablePagination: typeof import('./src/crudui/components/TablePagination.vue')['default']
-    TheCustomizer: typeof import('./src/crudui/components/TheCustomizer.vue')['default']
     ThemeSwitcher: typeof import('./src/crudui/components/ThemeSwitcher.vue')['default']
     TiptapEditor: typeof import('./src/crudui/components/TiptapEditor.vue')['default']
     TransitionExpand: typeof import('./src/crudui/components/templates/TransitionExpand.vue')['default']

@@ -1,5 +1,5 @@
 <template>
-  <v-date-input
+  <VDateInput
     prepend-icon=""
     placeholder="дд.мм.гггг"
     bg-color="white"
@@ -15,6 +15,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { VDateInput } from 'vuetify/labs/VDateInput'
 
 interface Props {
   modelValue?: string | null | undefined

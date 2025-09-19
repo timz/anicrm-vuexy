@@ -20,7 +20,7 @@
           <crud-input
             v-model="model.name"
             label="Имя"
-            :rules="[r.required(), r.strMinLength(3), r.strMaxLength(100)]"
+            :rules="[rules.required(), rules.minLength(3), rules.maxLength(100)]"
           />
         </v-col>
         <v-col cols="12">
@@ -28,7 +28,7 @@
             v-model="model.sex"
             label="Пол"
             :items="[{ title: 'Мальчик', value: 'm' }, { title: 'Девочка', value: 'f' }]"
-            :rules="[r.required()]"
+            :rules="[rules.required()]"
           />
         </v-col>
         <v-col cols="12">
@@ -56,7 +56,7 @@ import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
 import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'
 import { useTabParentProvider } from '@crudui/components/forms/tabs/useTabParentProvider'
 import CrudSelect from '@crudui/components/Inputs/CrudSelect.vue'
-import r from '@crudui/services/RulesService'
+import { rules } from '@crudui/utils/rules'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
 import { useTimezone } from '@crudui/composables/useTimezone'
 
