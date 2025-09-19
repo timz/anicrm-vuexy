@@ -3,7 +3,9 @@ export interface ValidationRule {
 }
 
 const isEmpty = (value: unknown): boolean => {
-  if (value === null || value === undefined || value === '') return true
+  if (value === null || value === undefined || value === '') {
+    return true
+  }
 
   return !!(Array.isArray(value) && value.length === 0)
 }
@@ -19,7 +21,9 @@ const isEmptyArray = (arr: unknown): boolean => {
 export const rules = {
   required: (message = 'This field is required'): ValidationRule => {
     return (value: unknown) => {
-      if (isNullOrUndefined(value) || isEmptyArray(value) || value === false) return message
+      if (isNullOrUndefined(value) || isEmptyArray(value) || value === false) {
+        return message
+      }
 
       return !!String(value).trim().length || message
     }
@@ -27,12 +31,16 @@ export const rules = {
 
   email: (message = 'The Email field must be a valid email'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       const re =
         /^(?:[^<>()[\]\\.,;:\s@"]+(?:\.[^<>()[\]\\.,;:\s@"]+)*|".+")@(?:\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]|(?:[a-z\-\d]+\.)+[a-z]{2,})$/i
 
-      if (Array.isArray(value)) return value.every(val => re.test(String(val))) || message
+      if (Array.isArray(value)) {
+        return value.every(val => re.test(String(val))) || message
+      }
 
       return re.test(String(value)) || message
     }
@@ -42,7 +50,9 @@ export const rules = {
     message = 'Field must contain at least one uppercase, lowercase, special character and digit with min 8 chars',
   ): ValidationRule => {
     return (value: string) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       const regExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()]).{8,}/
       const validPassword = regExp.test(value)
@@ -60,7 +70,9 @@ export const rules = {
   between: (min: number, max: number, message?: string): ValidationRule => {
     return (value: unknown) => {
       const defaultMessage = `Enter number between ${min} and ${max}`
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       const valueAsNumber = Number(value)
 
@@ -70,9 +82,13 @@ export const rules = {
 
   integer: (message = 'This field must be an integer'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
-      if (Array.isArray(value)) return value.every(val => /^-?\d+$/.test(String(val))) || message
+      if (Array.isArray(value)) {
+        return value.every(val => /^-?\d+$/.test(String(val))) || message
+      }
 
       return /^-?\d+$/.test(String(value)) || message
     }
@@ -80,12 +96,18 @@ export const rules = {
 
   regex: (pattern: RegExp | string, message = 'The field format is invalid'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       let regeX = pattern
-      if (typeof regeX === 'string') regeX = new RegExp(regeX)
+      if (typeof regeX === 'string') {
+        regeX = new RegExp(regeX)
+      }
 
-      if (Array.isArray(value)) return value.every(val => regeX.test(String(val))) || message
+      if (Array.isArray(value)) {
+        return value.every(val => regeX.test(String(val))) || message
+      }
 
       return regeX.test(String(value)) || message
     }
@@ -93,7 +115,9 @@ export const rules = {
 
   alpha: (message = 'The field may only contain alphabetic characters'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return /^[A-Z]*$/i.test(String(value)) || message
     }
@@ -101,7 +125,9 @@ export const rules = {
 
   url: (message = 'URL is invalid'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       const re = /^https?:\/\/[^\s$.?#].\S*$/
 
@@ -112,7 +138,9 @@ export const rules = {
   length: (length: number, message?: string): ValidationRule => {
     return (value: unknown) => {
       const defaultMessage = `The length of the field must be ${length} characters`
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return String(value).length === length || message || defaultMessage
     }
@@ -120,7 +148,9 @@ export const rules = {
 
   alphaDash: (message = 'All characters are not valid'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       const valueAsString = String(value)
 
@@ -132,7 +162,9 @@ export const rules = {
     const defaultMessage = `Field must be at least ${min} characters`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return String(value).length >= min || message || defaultMessage
     }
@@ -142,7 +174,9 @@ export const rules = {
     const defaultMessage = `Field must be no more than ${max} characters`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return String(value).length <= max || message || defaultMessage
     }
@@ -150,7 +184,9 @@ export const rules = {
 
   number: (message = 'Field must be a number'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return (typeof Number(value) === 'number' && !Number.isNaN(value)) || message
     }
@@ -160,7 +196,9 @@ export const rules = {
     const defaultMessage = `Field must be greater than ${min}`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return Number(value) >= min || message || defaultMessage
     }
@@ -170,7 +208,9 @@ export const rules = {
     const defaultMessage = `Field must be less than ${max}`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return Number(value) <= max || message || defaultMessage
     }
@@ -181,7 +221,9 @@ export const rules = {
     const defaultMessage = `Field must be less than ${max}`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return Number(value) <= max || message || defaultMessage
     }
@@ -189,9 +231,12 @@ export const rules = {
 
   numberOrArray: (message = 'Field must be a number or array of numbers'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       const isValidNumber = (v: unknown) => typeof Number(v) === 'number' && !Number.isNaN(v)
+
       const isValidArray = (arr: unknown) => Array.isArray(arr) && arr.every(isValidNumber)
 
       return isValidNumber(value) || isValidArray(value) || message
@@ -202,7 +247,9 @@ export const rules = {
     const defaultMessage = `Field must be a valid decimal with up to ${decimals} decimal places`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
       const regex = new RegExp(`^-?\\d+(\\.\\d{1,${decimals}})?$`)
 
       return regex.test(String(value)) || message || defaultMessage
@@ -211,7 +258,10 @@ export const rules = {
 
   phone: (message = 'Phone number is invalid'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
+
       const phoneRegex = /^\+?\(?\d{1,3}\)?[-\s.]?\(?\d{1,4}\)?[-\s.]?\d{1,4}[-\s.]?\d{1,9}$/
 
       return phoneRegex.test(String(value)) || message
@@ -220,7 +270,9 @@ export const rules = {
 
   date: (message = 'Date is invalid'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
       const date = new Date(String(value))
 
       return !Number.isNaN(date.getTime()) || message
@@ -231,7 +283,9 @@ export const rules = {
     const defaultMessage = `Date must be after ${afterDate}`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
       const date = new Date(String(value))
       const after = new Date(afterDate)
 
@@ -243,7 +297,9 @@ export const rules = {
     const defaultMessage = `Date must be before ${beforeDate}`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
       const date = new Date(String(value))
       const before = new Date(beforeDate)
 
@@ -255,7 +311,9 @@ export const rules = {
     const defaultMessage = `Value must be one of: ${options.join(', ')}`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return options.includes(value) || message || defaultMessage
     }
@@ -265,7 +323,9 @@ export const rules = {
     const defaultMessage = `Value must not be one of: ${options.join(', ')}`
 
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return !options.includes(value) || message || defaultMessage
     }
@@ -273,7 +333,9 @@ export const rules = {
 
   custom: (validator: (value: any) => boolean, message = 'Field is invalid'): ValidationRule => {
     return (value: unknown) => {
-      if (isEmpty(value)) return true
+      if (isEmpty(value)) {
+        return true
+      }
 
       return validator(value) || message
     }
