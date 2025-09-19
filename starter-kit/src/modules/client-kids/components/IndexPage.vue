@@ -1,46 +1,43 @@
 <template>
-  <div>
-    <crud-table>
-      <template #actionsSection>
-        <crud-button-primary
-          v-if="meStore.userCan('clients_update')"
-          label="Создать"
-          @click="dialogProvider.openCreateDialog"
-        >
-          Создать
-        </crud-button-primary>
-      </template>
-      <template #body-cell-birthday="{ value }">
-        {{ parseDateISOToLocal(value) }}
-      </template>
-    </crud-table>
-    <crud-dialog>
-      <template #default="{ stateProcessing }">
-        <v-col cols="12">
-          <crud-input
-            v-model="model.name"
-            label="Имя"
-            :rules="[rules.required(), rules.minLength(3), rules.maxLength(100)]"
-          />
-        </v-col>
-        <v-col cols="12">
-          <crud-select
-            v-model="model.sex"
-            label="Пол"
-            :items="[{ title: 'Мальчик', value: 'm' }, { title: 'Девочка', value: 'f' }]"
-            :rules="[rules.required()]"
-          />
-        </v-col>
-        <v-col cols="12">
-          <crud-date-picker
-            v-model="model.birthday"
-            label="Дата рождения"
-            :disable="stateProcessing"
-          />
-        </v-col>
-      </template>
-    </crud-dialog>
-  </div>
+  <crud-table>
+    <template #actionsSection>
+      <crud-button-primary
+        v-if="meStore.userCan('clients_update')"
+        label="Создать"
+        @click="dialogProvider.openCreateDialog"
+      >
+        Создать
+      </crud-button-primary>
+    </template>
+    <template #body-cell-birthday="{ value }">
+      {{ parseDateISOToLocal(value) }}
+    </template>
+  </crud-table>
+  <crud-dialog>
+    <template #default="{ stateProcessing }">
+      <v-col cols="12">
+        <crud-input
+          v-model="model.name"
+          label="Имя"
+          :rules="[rules.required(), rules.minLength(3), rules.maxLength(100)]"
+        />
+      </v-col>
+      <v-col cols="12">
+        <crud-select
+          v-model="model.sex"
+          label="Пол"
+          :items="[
+            { title: 'Мальчик', value: 'm' },
+            { title: 'Девочка', value: 'f' },
+          ]"
+          :rules="[rules.required()]"
+        />
+      </v-col>
+      <v-col cols="12">
+        <crud-date-picker v-model="model.birthday" label="Дата рождения" :disable="stateProcessing" />
+      </v-col>
+    </template>
+  </crud-dialog>
 </template>
 
 <script setup lang="ts">
@@ -95,28 +92,26 @@ const columns = [
 ]
 
 // Создаем dataListProvider
-const dataListProvider: UseCrudDataListReturn<ClientKidItem> =
-  useCrudDataList<ClientKidItem>({
-    mode: 'table',
-    urlBase: '/client-kids',
-    columns,
-    persistentFilter: computed(() => ({ parent_id: parentId.value })),
-    rowActions: [
-      ...createStandardActions<ClientKidItem>({
-        editDialog: {
-          show: () => meStore.userCan('clients_view'),
-          handler: (item: ClientKidItem) =>
-            dialogProvider.openEditDialog(item.id),
+const dataListProvider: UseCrudDataListReturn<ClientKidItem> = useCrudDataList<ClientKidItem>({
+  mode: 'table',
+  urlBase: '/client-kids',
+  columns,
+  persistentFilter: computed(() => ({ parent_id: parentId.value })),
+  rowActions: [
+    ...createStandardActions<ClientKidItem>({
+      editDialog: {
+        show: () => meStore.userCan('clients_view'),
+        handler: (item: ClientKidItem) => dialogProvider.openEditDialog(item.id),
+      },
+      delete: {
+        show: () => meStore.userCan('clients_update'),
+        onDelete: (item: ClientKidItem) => {
+          console.log('Delete item:', item.id)
         },
-        delete: {
-          show: () => meStore.userCan('clients_update'),
-          onDelete: (item: ClientKidItem) => {
-            console.log('Delete item:', item.id)
-          },
-        },
-      }),
-    ],
-  })
+      },
+    }),
+  ],
+})
 
 // Создаем dialogProvider с колбеком
 const dialogProvider = useCrudDialogProvider<ClientKidItem>({

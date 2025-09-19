@@ -1,21 +1,14 @@
 <template>
-  <v-dialog
-    v-model="dialogProvider.isOpen.value"
-    persistent
-    max-width="480px"
-  >
-    <v-card>
-      <v-card-title class="bg-blue-grey-darken-3 text-blue-grey-lighten-4">
-        {{
-          dialogProvider.isCreateMode.value
-            ? "Создание записи"
-            : "Редактирование записи"
-        }}
-      </v-card-title>
-
-      <v-card-text class="pa-6">
+  <v-dialog v-model="dialogProvider.isOpen.value" persistent max-width="480px">
+    <v-card class="pa-2">
+      <VCardItem>
+        <v-card-title class="bg-blue-grey-darken-3 text-blue-grey-lighten-4">
+          {{ dialogProvider.isCreateMode.value ? 'Создание записи' : 'Редактирование записи' }}
+        </v-card-title>
+      </VCardItem>
+      <v-card-text class="pt-4">
         <v-form ref="formRef" @submit.prevent="handleSubmit">
-          <v-row class="v-row-form">
+          <v-row no-gutters class="gap-4">
             <slot
               :model="model"
               :is-create-mode="dialogProvider.isCreateMode.value"
@@ -28,11 +21,9 @@
 
       <v-card-actions class="pt-0 px-5 pb-5 ga-2">
         <v-spacer />
-        <crud-button-secondary @click="dialogProvider.closeDialog">
-          Закрыть
-        </crud-button-secondary>
+        <crud-button-secondary @click="dialogProvider.closeDialog"> Закрыть </crud-button-secondary>
         <crud-button-primary :loading="stateProcessing" @click="handleSubmit">
-          {{ dialogProvider.isCreateMode.value ? "Создать" : "Сохранить" }}
+          {{ dialogProvider.isCreateMode.value ? 'Создать' : 'Сохранить' }}
         </crud-button-primary>
       </v-card-actions>
     </v-card>
@@ -57,16 +48,9 @@ const props = withDefaults(defineProps<Props>(), {
 const dialogProvider = inject<CrudDialogProviderReturn>(props.providerKey)
 const loading = ref(false)
 
-const {
-  stateProcessing,
-  stateSubmitting,
-  stateLoading,
-  formRef,
-  model,
-  load,
-  submit,
-  reset,
-} = useCrudDataForm(dialogProvider.formConfig)
+const { stateProcessing, stateSubmitting, stateLoading, formRef, model, load, submit, reset } = useCrudDataForm(
+  dialogProvider.formConfig,
+)
 
 // Управляем состоянием загрузки
 watch([stateLoading, stateSubmitting], ([loadingState, submittingState]) => {
@@ -81,17 +65,14 @@ watch(
       if (dialogProvider.editId.value === null) {
         // Режим создания - полностью очищаем модель
         dialogProvider.formConfig.model.value = {} as any
-      }
-      else {
+      } else {
         // Режим редактирования - загружаем данные
         const primaryKey = dialogProvider.formConfig.primaryKey ?? 'id'
 
-        dialogProvider.formConfig.model.value[primaryKey] =
-          dialogProvider.editId.value
+        dialogProvider.formConfig.model.value[primaryKey] = dialogProvider.editId.value
         await load()
       }
-    }
-    else {
+    } else {
       // При закрытии сбрасываем только валидацию
       formRef.value?.resetValidation()
     }
@@ -120,8 +101,7 @@ const handleSubmit = async (): Promise<void> => {
 
     // Отмечаем что данные были сохранены
     dialogProvider.wasSaved.value = true
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Ошибка сохранения:', error)
   }
 }
