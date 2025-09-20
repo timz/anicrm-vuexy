@@ -52,6 +52,11 @@ body,
   opacity: 0.65;
 }
 
+// Remove text-transform for all buttons
+.v-btn {
+  text-transform: none !important;
+}
+
 @if variables.$vuetify-reduce-default-compact-button-icon-size {
   .v-btn--density-compact.v-btn--size-default {
     .v-btn__content > svg {

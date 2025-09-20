@@ -4,7 +4,6 @@
     color="primary"
     :loading="isLoading || globalIsLoading"
     :disabled="globalIsLoading"
-    v-bind="$attrs"
     class="px-4"
   >
     <slot />
