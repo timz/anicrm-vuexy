@@ -6,7 +6,7 @@ export default <TCrudRouteRecord[]>[
     name: 'settingsIndex',
     component: () => import('./components/IndexPage.vue'),
     meta: {
-      permission: 'settings_index',
+      // Убрали permission - теперь доступно всем авторизованным
       menuTitle: 'Настройки',
       menuIcon: 'mdi-cog',
       menuSort: 100,

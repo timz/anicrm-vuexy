@@ -42,7 +42,6 @@ declare module 'vue' {
     CustomCheckboxes: typeof import('./src/crudui/components/app-form-elements/CustomCheckboxes.vue')['default']
     CustomCheckboxesWithIcon: typeof import('./src/crudui/components/app-form-elements/CustomCheckboxesWithIcon.vue')['default']
     CustomCheckboxesWithImage: typeof import('./src/crudui/components/app-form-elements/CustomCheckboxesWithImage.vue')['default']
-    CustomizerSection: typeof import('./src/crudui/components/CustomizerSection.vue')['default']
     CustomRadios: typeof import('./src/crudui/components/app-form-elements/CustomRadios.vue')['default']
     CustomRadiosWithIcon: typeof import('./src/crudui/components/app-form-elements/CustomRadiosWithIcon.vue')['default']
     CustomRadiosWithImage: typeof import('./src/crudui/components/app-form-elements/CustomRadiosWithImage.vue')['default']
