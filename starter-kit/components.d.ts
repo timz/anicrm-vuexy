@@ -39,6 +39,7 @@ declare module 'vue' {
     CrudButtonPrimary: typeof import('./src/crudui/components/buttons/CrudButtonPrimary.vue')['default']
     CrudButtonSecondary: typeof import('./src/crudui/components/buttons/CrudButtonSecondary.vue')['default']
     CrudCheckbox: typeof import('./src/crudui/components/Inputs/CrudCheckbox.vue')['default']
+    CrudConfirmDialog: typeof import('./src/crudui/components/dialogs/CrudConfirmDialog.vue')['default']
     CrudDatePicker: typeof import('./src/crudui/components/Inputs/CrudDatePicker.vue')['default']
     CrudDateRangePicker: typeof import('./src/crudui/components/Inputs/CrudDateRangePicker.vue')['default']
     CrudDateRangePicker2: typeof import('./src/crudui/components/Inputs/CrudDateRangePicker2.vue')['default']

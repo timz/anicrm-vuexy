@@ -4,6 +4,7 @@ import type { CrudRowAction, UseCrudDataListReturn } from '@crudui/providers/use
 import ButtonBatchDelete from '@crudui/components/table/buttons/ButtonBatchDelete.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
+import CrudConfirmDialog from '@crudui/components/dialogs/CrudConfirmDialog.vue'
 
 const filterPanel = ref(false)
 const slots = useSlots()
@@ -112,6 +113,10 @@ const cancelDelete = () => {
   deleteDialog.value = false
   itemToDelete.value = null
   deleteAction.value = null
+}
+
+const handleDeleteConfirm = async () => {
+  await confirmDelete()
 }
 
 const onOptionsUpdate = async (options: any) => {
@@ -297,25 +302,16 @@ const resetFilter = async (): Promise<void> => {
   </v-card>
 
   <!-- Delete Confirmation Dialog -->
-  <v-dialog v-model="deleteDialog" max-width="400">
-    <v-card class="pa-2">
-      <v-card-title class="text-h5">
-        Подтверждение удаления
-      </v-card-title>
-      <v-card-text>
-        Вы уверены, что хотите удалить эту запись? Это действие необратимо.
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <crud-button-secondary @click="cancelDelete">
-          Отмена
-        </crud-button-secondary>
-        <v-btn class="px-4" color="error" variant="flat" @click="confirmDelete">
-          Подтвердить
-        </v-btn>
-      </v-card-actions>
-    </v-card>
-  </v-dialog>
+  <crud-confirm-dialog
+    v-model="deleteDialog"
+    title="Подтверждение удаления"
+    message="Вы уверены, что хотите удалить эту запись? Это действие необратимо."
+    confirm-text="Подтвердить"
+    confirm-color="error"
+    cancel-text="Отмена"
+    @confirm="handleDeleteConfirm"
+    @cancel="cancelDelete"
+  />
 </template>
 
 <style lang="scss" scoped>
