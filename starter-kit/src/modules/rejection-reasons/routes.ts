@@ -10,6 +10,7 @@ export default <TCrudRouteRecord[]>[
       menuTitle: 'Причины отказов',
       menuIcon: 'mdi-cancel',
       menuSort: 80,
+      menuHide: true,
     },
   },
   {

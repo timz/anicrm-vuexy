@@ -10,6 +10,7 @@ export default <TCrudRouteRecord[]>[
       menuTitle: 'Типы событий',
       menuIcon: 'mdi-calendar-clock',
       menuSort: 60,
+      menuHide: true,
     },
   },
   {

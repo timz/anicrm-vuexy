@@ -10,6 +10,7 @@ export default <TCrudRouteRecord[]>[
       menuTitle: 'Источники рекламы',
       menuIcon: 'mdi-bullhorn',
       menuSort: 70,
+      menuHide: true,
     },
   },
   {

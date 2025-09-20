@@ -91,6 +91,7 @@ const sources: BundleScriptConfig = {
     'mdi:ruler',
 
     // Дополнительные иконки для UI
+    'mdi:cog', // Иконка для настроек
     'mdi:login',
     'mdi:logout',
     'mdi:chevron-left',

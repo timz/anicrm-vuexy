@@ -10,6 +10,7 @@ export default <TCrudRouteRecord[]>[
       menuTitle: 'Единицы измерения',
       menuIcon: 'mdi-ruler',
       menuSort: 90,
+      menuHide: true,
     },
   },
   {
