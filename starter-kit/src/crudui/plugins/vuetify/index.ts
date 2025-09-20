@@ -2,6 +2,7 @@ import { deepMerge } from '@antfu/utils'
 import type { App } from 'vue'
 import { createVuetify } from 'vuetify'
 import { VBtn } from 'vuetify/components/VBtn'
+import { VDateInput } from 'vuetify/labs/VDateInput'
 import { ru } from 'vuetify/locale'
 import defaults from './defaults'
 import { icons } from './icons'
@@ -36,6 +37,9 @@ export default function (app: App) {
   const vuetify = createVuetify({
     aliases: {
       IconBtn: VBtn,
+    },
+    components: {
+      VDateInput,
     },
     defaults,
     icons,

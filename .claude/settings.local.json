@@ -28,7 +28,9 @@
       "mcp__playwright__browser_click",
       "mcp__playwright__browser_hover",
       "mcp__playwright__browser_wait_for",
-      "mcp__playwright__browser_take_screenshot"
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__vuetify__get_component_api_by_version",
+      "WebFetch(domain:vuetifyjs.com)"
     ],
     "deny": [],
     "ask": []
