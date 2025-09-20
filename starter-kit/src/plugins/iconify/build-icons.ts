@@ -83,12 +83,13 @@ const sources: BundleScriptConfig = {
     'mdi:account',
     'mdi:handshake',
     'mdi:map-marker',
-    'mdi:account-group',  // Исправлено с account-tie
-    'mdi:package-variant',  // Исправлено с package
-    'mdi:calendar-clock',  // Исправлено с calendar
+    'mdi:account-group', // Исправлено с account-tie
+    'mdi:package-variant', // Исправлено с package
+    'mdi:calendar-clock', // Исправлено с calendar
     'mdi:bullhorn',
-    'mdi:cancel',  // Добавлено вместо close-circle-outline
+    'mdi:cancel', // Добавлено вместо close-circle-outline
     'mdi:ruler',
+
     // Дополнительные иконки для UI
     'mdi:login',
     'mdi:logout',

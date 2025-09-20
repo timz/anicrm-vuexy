@@ -5,9 +5,9 @@ const { positive, negative, warning, info } = useNotifications()
 
 export const notifications = {
   positive,
-  negative, 
+  negative,
   warning,
-  info
+  info,
 }
 
 export default notifications

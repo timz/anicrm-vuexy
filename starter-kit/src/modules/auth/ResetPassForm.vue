@@ -9,24 +9,24 @@
           v-model="model.email"
           label="Email учетной записи"
           type="email"
-          :rules="[r.required(), r.email(), r.strMinLength(5)]"
+          :rules="[rules.required(), rules.email(), rules.minLength(5)]"
           :disabled="crudForm.stateProcessing.value"
         />
       </div>
       <div class="d-flex flex-column ga-3">
-        <crud-button-primary 
+        <crud-button-primary
           size="large"
           block
-          @click="onSubmit()"
           :loading="crudForm.stateProcessing.value"
+          @click="onSubmit"
         >
           Отправить инструкции
         </crud-button-primary>
-        <v-btn 
-          variant="text" 
+        <v-btn
+          variant="text"
           color="primary"
           size="small"
-          @click="navigateLoginForm()"
+          @click="navigateLoginForm"
         >
           ← Вернуться к входу
         </v-btn>
@@ -36,26 +36,26 @@
 </template>
 
 <script setup lang="ts">
-import r from '@crudui/services/RulesService'
+import { ref } from 'vue'
+import { rules } from '@crudui/utils/rules'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
-import {ref} from 'vue'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
-import {useCrudForm} from '@crudui/providers/useCrudForm'
-import {notifications} from '@crudui/boot/notification'
+import { useCrudForm } from '@crudui/providers/useCrudForm'
+import { notifications } from '@crudui/boot/notification'
+
+const emits = defineEmits(['goLoginForm'])
 
 const model = ref({
-  email: ''
+  email: '',
 })
 
 const crudForm = useCrudForm({
   url: '/auth/reset-password',
-  model: model,
+  model,
   isSecure: false,
 })
 
 const formRef = crudForm.formRef
-const emits = defineEmits(['goLoginForm'])
-
 function navigateLoginForm() {
   emits('goLoginForm')
 }

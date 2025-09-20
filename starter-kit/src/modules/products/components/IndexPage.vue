@@ -3,8 +3,8 @@
   <crud-table>
     <template #actionsSection>
       <crud-button-primary
-        label="Создать"
         v-if="meStore.userCan('products_create')"
+        label="Создать"
         :to="{ name: 'productCreate' }"
       >
         Создать
@@ -32,7 +32,9 @@
     <!-- Custom title column with icon -->
     <template #body-cell-title="{ value }">
       <div class="d-flex align-center ga-2">
-        <v-icon color="primary" size="small">mdi-package-variant</v-icon>
+        <v-icon color="primary" size="small">
+          mdi-package-variant
+        </v-icon>
         <span>{{ value }}</span>
       </div>
     </template>
@@ -40,67 +42,67 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from "vue";
-import { useMeStore } from "@crudui/stores/meStore";
-import CrudTable from "@crudui/components/table/CrudTable.vue";
-import type { UseCrudDataListReturn } from "@crudui/providers/useCrudDataList";
-import { useCrudDataList } from "@crudui/providers/useCrudDataList";
-import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
-import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
-import { createStandardActions } from "@crudui/components/table/buttons/rowActionsFactory";
-import PageTitle from "@crudui/components/templates/PageTitle.vue";
+import { provide } from 'vue'
+import { useMeStore } from '@crudui/stores/meStore'
+import CrudTable from '@crudui/components/table/CrudTable.vue'
+import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
+import { useCrudDataList } from '@crudui/providers/useCrudDataList'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
+import PageTitle from '@crudui/components/templates/PageTitle.vue'
 
 interface ProductItem {
-  id: number | null;
-  title: string;
-  measure_id: number | null;
-  measure_title?: string;
-  description?: string;
+  id: number | null
+  title: string
+  measure_id: number | null
+  measure_title?: string
+  description?: string
 }
 
-const meStore = useMeStore();
+const meStore = useMeStore()
 
 const columns = [
   {
-    name: "title",
+    name: 'title',
     required: true,
-    label: "Название",
-    align: "left",
-    field: "title",
+    label: 'Название',
+    align: 'left',
+    field: 'title',
     sortable: true,
   },
   {
-    name: "measure_title",
+    name: 'measure_title',
     required: false,
-    label: "Единица измерения",
-    align: "left",
-    field: "measure_title",
+    label: 'Единица измерения',
+    align: 'left',
+    field: 'measure_title',
     sortable: true,
   },
-];
+]
 
 // Создаем dataListProvider
 const dataListProvider: UseCrudDataListReturn<ProductItem> =
   useCrudDataList<ProductItem>({
-    mode: "table",
-    urlBase: "/products",
-    pk: "id",
+    mode: 'table',
+    urlBase: '/products',
+    pk: 'id',
     columns,
     rowActions: [
       ...createStandardActions<ProductItem>({
         edit: {
-          routeName: "productEdit",
-          show: () => meStore.userCan("products_update"),
+          routeName: 'productEdit',
+          show: () => meStore.userCan('products_update'),
         },
         delete: {
-          show: () => meStore.userCan("products_delete"),
+          show: () => meStore.userCan('products_delete'),
           onDelete: (item: ProductItem) => {
-            console.log("Delete item:", item.id);
+            console.log('Delete item:', item.id)
           },
         },
       }),
     ],
-  });
+  })
 
-provide("dataListProvider", dataListProvider);
+provide('dataListProvider', dataListProvider)
 </script>

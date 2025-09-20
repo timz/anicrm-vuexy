@@ -2,13 +2,13 @@ import type { Ref } from 'vue'
 import type { RouteLocationRaw } from 'vue-router'
 
 // Базовые типы для CRUD операций
-export type FormModel = {
+export interface FormModel {
   id?: string | number | null
   [key: string]: unknown
 }
 
 export type CrudMode = 'create' | 'edit'
-export type CrudResponse = { content?: Record<string, unknown> }
+export interface CrudResponse { content?: Record<string, unknown> }
 
 // Блоки конфигурации для композиции
 export interface HttpConfig {

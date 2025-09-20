@@ -19,18 +19,20 @@ export const freeRoutes = [
   'errors',
   'errorDefault',
   'errorPay',
-  'errorPayOwner'
+  'errorPayOwner',
 ]
 
 // Динамический импорт модульных роутов из @modules/*/routes.ts
 const modulesRouteFiles = import.meta.glob('../../../modules/*/routes.ts', { eager: true })
 const modulesRoute: TCrudRouteRecord[] = []
 
-Object.keys(modulesRouteFiles).forEach((key) => {
+Object.keys(modulesRouteFiles).forEach(key => {
   // @ts-expect-error to_do
   const defaultModule = modulesRouteFiles[key].default
-  if (!defaultModule) return
+  if (!defaultModule)
+    return
   const moduleList = Array.isArray(defaultModule) ? [...defaultModule] : [defaultModule]
+
   modulesRoute.push(...moduleList)
 })
 
@@ -51,6 +53,7 @@ const modulesRouteFormatted = modulesRoute.map(route => {
   if (route.meta && !route.meta.layout) {
     route.meta.layout = 'default'
   }
+
   return route as RouteRecordRaw
 })
 
@@ -59,8 +62,8 @@ const allRoutesForMenu = [
   {
     path: '/',
     name: 'root',
-    children: modulesRouteFormatted
-  }
+    children: modulesRouteFormatted,
+  },
 ]
 
 const router = createRouter({
@@ -77,7 +80,7 @@ const router = createRouter({
       {
         path: '/',
         name: 'home',
-        redirect: { name: 'dashboardIndex' }
+        redirect: { name: 'dashboardIndex' },
       },
       {
         path: '/login',
@@ -85,8 +88,8 @@ const router = createRouter({
         component: () => import('@/modules/auth/LoginPage.vue'),
         meta: {
           layout: 'clean',
-          public: true
-        }
+          public: true,
+        },
       },
       {
         path: '/not-authorized',
@@ -95,8 +98,8 @@ const router = createRouter({
         meta: {
           layout: 'error',
           public: true,
-          description: 'У вас нет доступа к этой странице'
-        }
+          description: 'У вас нет доступа к этой странице',
+        },
       },
       {
         path: '/:pathMatch(.*)*',
@@ -104,9 +107,9 @@ const router = createRouter({
         component: () => import('@/crudui/pages/DefaultErrorPage.vue'),
         meta: {
           layout: 'error',
-          public: true
-        }
-      }
+          public: true,
+        },
+      },
     ]
 
     // Применяем setupLayouts отдельно к модульным роутам и системным роутам
@@ -117,7 +120,7 @@ const router = createRouter({
     return [
       ...[...pages].map(route => recursiveLayouts(route)),
       ...systemWithLayouts,
-      ...modulesWithLayouts
+      ...modulesWithLayouts,
     ]
   },
 })
@@ -125,7 +128,7 @@ const router = createRouter({
 // Защита маршрутов - проверка авторизации и CASL прав
 router.beforeEach(async (to, from, next) => {
   // Установка заголовка страницы
-  window.document.title = 'Приложение ' + (to.meta.title ?? '')
+  window.document.title = `Приложение ${to.meta.title ?? ''}`
 
   const meStore = useMeStore()
   const isAuthenticated = !!envService.getAuthToken()
@@ -136,6 +139,7 @@ router.beforeEach(async (to, from, next) => {
     // Проверяем есть ли нормальный базовый URL
     if (!envService.BaseUrlIsValid()) {
       await meStore.logout()
+
       return next({ name: 'login' })
     }
 
@@ -145,6 +149,7 @@ router.beforeEach(async (to, from, next) => {
     // Если что-то пошло не так при загрузке, то logout и на страницу логина
     if (!result) {
       await meStore.logout()
+
       return next({ name: 'login' })
     }
   }
@@ -164,7 +169,8 @@ router.beforeEach(async (to, from, next) => {
   if (meStore.org_not_paid_block === true && !paymentBlockExcludeRoutes.includes(to.name as string)) {
     if (meStore.userCan('subscription')) {
       return next({ name: 'errorPayOwner' })
-    } else {
+    }
+    else {
       return next({ name: 'errorPay' })
     }
   }
@@ -174,13 +180,16 @@ router.beforeEach(async (to, from, next) => {
     // Проверка через CASL если есть action и subject в meta
     if (to.meta.action && to.meta.subject) {
       if (!canNavigate(to)) {
-        notifications.warning('У вас нет доступа к странице ' + to.fullPath)
+        notifications.warning(`У вас нет доступа к странице ${to.fullPath}`)
+
         return next({ name: 'dashboardIndex' })
       }
     }
+
     // Проверка через старый механизм permissions (для обратной совместимости)
     else if (to.meta.permission && !meStore.userCan(to.meta.permission as string)) {
-      notifications.warning('У вас нет доступа к странице ' + to.fullPath)
+      notifications.warning(`У вас нет доступа к странице ${to.fullPath}`)
+
       return next({ name: 'dashboardIndex' })
     }
   }

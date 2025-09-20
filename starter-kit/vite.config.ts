@@ -19,6 +19,7 @@ export default defineConfig({
     VueRouter({
       // Отключаем автогенерацию из pages, так как используем динамический импорт модулей
       routesFolder: [],
+
       // Или указываем только системные страницы
       // routesFolder: 'src/crudui/pages/auth',
       getRouteName: routeNode => {

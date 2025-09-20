@@ -1,12 +1,12 @@
 <template>
   <v-select
     v-bind="$props"
+    ref="selectRef"
     variant="outlined"
     density="comfortable"
     hide-details="auto"
     @blur="handleBlur"
     @focus="handleFocus"
-    ref="selectRef"
   />
 </template>
 

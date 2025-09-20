@@ -3,8 +3,8 @@
   <crud-table>
     <template #actionsSection>
       <crud-button-primary
-        label="Создать"
         v-if="meStore.userCan('workers_create')"
+        label="Создать"
         :to="{ name: 'workerCreate' }"
       >
         Создать
@@ -40,88 +40,88 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from "vue";
-import { useMeStore } from "@crudui/stores/meStore";
-import CrudTable from "@crudui/components/table/CrudTable.vue";
-import type { UseCrudDataListReturn } from "@crudui/providers/useCrudDataList";
-import { useCrudDataList } from "@crudui/providers/useCrudDataList";
-import CrudInput from "@crudui/components/Inputs/CrudInput.vue";
-import CrudButtonPrimary from "@crudui/components/buttons/CrudButtonPrimary.vue";
-import { createStandardActions } from "@crudui/components/table/buttons/rowActionsFactory";
-import { useTimezone } from "@crudui/composables/useTimezone";
-import CrudSelect from "@crudui/components/Inputs/CrudSelect.vue";
-import PageTitle from "@crudui/components/templates/PageTitle.vue";
+import { provide } from 'vue'
+import { useMeStore } from '@crudui/stores/meStore'
+import CrudTable from '@crudui/components/table/CrudTable.vue'
+import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
+import { useCrudDataList } from '@crudui/providers/useCrudDataList'
+import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
+import { useTimezone } from '@crudui/composables/useTimezone'
+import CrudSelect from '@crudui/components/Inputs/CrudSelect.vue'
+import PageTitle from '@crudui/components/templates/PageTitle.vue'
 
 interface WorkerItem {
-  id: number | null;
-  mobile: string;
-  is_outside: boolean;
-  name: string;
-  created: string;
+  id: number | null
+  mobile: string
+  is_outside: boolean
+  name: string
+  created: string
 }
 
-const meStore = useMeStore();
-const { formatTableDate } = useTimezone();
+const meStore = useMeStore()
+const { formatTableDate } = useTimezone()
 
 const columns = [
   {
-    name: "name",
+    name: 'name',
     required: true,
-    label: "ФИО",
-    align: "left",
-    field: "name",
+    label: 'ФИО',
+    align: 'left',
+    field: 'name',
     sortable: true,
   },
   {
-    name: "mobile",
+    name: 'mobile',
     required: false,
-    label: "Телефон",
-    align: "left",
-    field: "mobile",
+    label: 'Телефон',
+    align: 'left',
+    field: 'mobile',
     sortable: true,
   },
   {
-    name: "is_outside",
+    name: 'is_outside',
     required: false,
-    label: "Внешний",
-    align: "center",
-    field: "is_outside",
+    label: 'Внешний',
+    align: 'center',
+    field: 'is_outside',
     sortable: true,
-    headerStyle: "width: 100px",
+    headerStyle: 'width: 100px',
   },
   {
-    name: "created",
+    name: 'created',
     required: false,
-    label: "Создан",
-    align: "center",
-    field: "created",
+    label: 'Создан',
+    align: 'center',
+    field: 'created',
     sortable: true,
-    headerStyle: "width: 150px",
+    headerStyle: 'width: 150px',
   },
-];
+]
 
 // Создаем dataListProvider
 const dataListProvider: UseCrudDataListReturn<WorkerItem> =
   useCrudDataList<WorkerItem>({
-    mode: "table",
-    urlBase: "/workers",
-    pk: "id",
+    mode: 'table',
+    urlBase: '/workers',
+    pk: 'id',
     columns,
     rowActions: [
       ...createStandardActions<WorkerItem>({
         edit: {
-          routeName: "workerEdit",
-          show: () => meStore.userCan("workers_update"),
+          routeName: 'workerEdit',
+          show: () => meStore.userCan('workers_update'),
         },
         delete: {
-          show: () => meStore.userCan("workers_delete"),
+          show: () => meStore.userCan('workers_delete'),
           onDelete: (item: WorkerItem) => {
-            console.log("Delete item:", item.id);
+            console.log('Delete item:', item.id)
           },
         },
       }),
     ],
-  });
+  })
 
-provide("dataListProvider", dataListProvider);
+provide('dataListProvider', dataListProvider)
 </script>

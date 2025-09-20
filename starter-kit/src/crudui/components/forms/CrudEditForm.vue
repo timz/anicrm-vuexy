@@ -2,10 +2,7 @@
 import { computed, inject, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import type { CrudEditPageReturn } from '@crudui/providers/useCrudEditPage'
-import type {
-  CrudTabInterface,
-  TabContext,
-} from '@crudui/components/forms/tabs/TabTypes'
+import type { CrudTabInterface, TabContext } from '@crudui/components/forms/tabs/TabTypes'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 
@@ -24,20 +21,12 @@ const props = withDefaults(defineProps<Props>(), {
 const route = useRoute()
 const editPageProvider = inject<CrudEditPageReturn>(props.providerKey)
 
-if (!editPageProvider)
+if (!editPageProvider) {
   throw new Error(`Provider with key "${props.providerKey}" not found`)
+}
 
-const {
-  model,
-  isCreateMode,
-  stateProcessing,
-  formRef,
-  version,
-  forcedSave,
-  handleSave,
-  handleCancel,
-  isDataReady,
-} = editPageProvider
+const { model, isCreateMode, stateProcessing, formRef, version, forcedSave, handleSave, handleCancel, isDataReady } =
+  editPageProvider
 
 // Логика табов
 const activeTab = ref<string>('')
@@ -59,17 +48,13 @@ const visibleTabs = computed(() =>
   props.tabs.filter(tab => {
     // Проверяем права доступа
     if (tab.permissions?.length) {
-      const hasPermission = tab.permissions.some(permission =>
-        tabContext.value.userPermissions?.includes(permission),
-      )
+      const hasPermission = tab.permissions.some(permission => tabContext.value.userPermissions?.includes(permission))
 
-      if (!hasPermission)
-        return false
+      if (!hasPermission) return false
     }
 
     // Проверяем кастомное условие видимости
-    if (tab.visible)
-      return tab.visible(tabContext.value)
+    if (tab.visible) return tab.visible(tabContext.value)
 
     return true
   }),
@@ -88,10 +73,7 @@ watch(
     }
 
     // Если текущая активная вкладка стала недоступна
-    if (
-      activeTab.value
-      && !newTabs.find(tab => tab.name === activeTab.value)
-    ) {
+    if (activeTab.value && !newTabs.find(tab => tab.name === activeTab.value)) {
       activeTab.value = newTabs[0]?.name || ''
       activeTabIndex.value = 0
     }
@@ -101,24 +83,25 @@ watch(
 
 // Синхронизация activeTabIndex с activeTab
 watch(activeTabIndex, newIndex => {
-  if (visibleTabs.value[newIndex])
+  if (visibleTabs.value[newIndex]) {
     activeTab.value = visibleTabs.value[newIndex].name
+  }
 })
 
 // Следим за изменением parentId для автоматической установки первой вкладки
 watch(
   () => parentId.value,
   newParentId => {
-    if (newParentId && visibleTabs.value.length > 0) {
-      if (!activeTab.value)
-        activeTab.value = visibleTabs.value[0].name
+    if (newParentId && visibleTabs.value.length > 0 && !activeTab.value) {
+      activeTab.value = visibleTabs.value[0].name
     }
   },
 )
 
 const shouldRenderTab = (tabName: string): boolean => {
-  if (!props.lazy)
+  if (!props.lazy) {
     return true
+  }
 
   // Для lazy loading рендерим только активную вкладку
   return activeTab.value === tabName
@@ -128,35 +111,19 @@ const shouldRenderTab = (tabName: string): boolean => {
 <template>
   <v-row>
     <!-- Левая панель с формой -->
-    <v-col
-      cols="12"
-      md="5"
-      lg="4"
-    >
+    <v-col cols="12" md="5" lg="5">
       <v-card>
         <!-- Показываем лоадер пока данные не готовы -->
-        <div
-          v-if="!isDataReady"
-          class="text-center pa-12"
-        >
-          <v-progress-circular
-            indeterminate
-            size="40"
-            color="primary"
-          />
-          <div class="text-grey mt-2">
-            Загрузка данных...
-          </div>
+        <div v-if="!isDataReady" class="text-center pa-12">
+          <v-progress-circular indeterminate size="40" color="primary" />
+          <div class="text-grey mt-2">Загрузка данных...</div>
         </div>
 
         <!-- Показываем форму когда данные готовы -->
         <template v-else>
-          <v-card-text>
+          <v-card-text class="pt-6">
             <!-- Форма с полями -->
-            <v-form
-              ref="formRef"
-              @submit.prevent="handleSave"
-            >
+            <v-form ref="formRef" @submit.prevent="handleSave">
               <v-row>
                 <slot
                   :model="model"
@@ -182,17 +149,8 @@ const shouldRenderTab = (tabName: string): boolean => {
               :is-edit-mode="!isCreateMode"
             />
             <v-spacer />
-            <CrudButtonSecondary
-              :disabled="stateProcessing"
-              @click="handleCancel"
-            >
-              Закрыть
-            </CrudButtonSecondary>
-            <CrudButtonPrimary
-              :disabled="stateProcessing"
-              :loading="stateProcessing"
-              @click="handleSave"
-            >
+            <CrudButtonSecondary :disabled="stateProcessing" @click="handleCancel"> Закрыть </CrudButtonSecondary>
+            <CrudButtonPrimary :disabled="stateProcessing" :loading="stateProcessing" @click="handleSave">
               Сохранить
             </CrudButtonPrimary>
           </v-card-text>
@@ -201,55 +159,20 @@ const shouldRenderTab = (tabName: string): boolean => {
     </v-col>
 
     <!-- Правая панель с табами -->
-    <v-col
-      v-if="visibleTabs.length > 0"
-      cols="12"
-      md="7"
-      lg="8"
-    >
+    <v-col v-if="visibleTabs.length > 0" cols="12" md="7" lg="7">
       <!-- Табы в стиле pill как в full-version -->
-      <v-tabs
-        v-model="activeTabIndex"
-        class="v-tabs-pill mb-2"
-      >
-        <v-tab
-          v-for="(tab, index) in visibleTabs"
-          :key="tab.name"
-          :value="index"
-        >
-          <v-icon
-            v-if="tab.icon"
-            :size="18"
-            :icon="tab.icon"
-            class="me-1"
-          />
+      <v-tabs v-model="activeTabIndex" class="v-tabs-pill mb-2" density="compact">
+        <v-tab v-for="(tab, index) in visibleTabs" :key="tab.name" :value="index">
+          <v-icon v-if="tab.icon" :icon="tab.icon" class="me-1" />
           <span>{{ tab.label }}</span>
-          <v-badge
-            v-if="tab.badge"
-            :content="tab.badge"
-            class="ms-2"
-            inline
-          />
+          <v-badge v-if="tab.badge" :content="tab.badge" class="ms-2" inline />
         </v-tab>
       </v-tabs>
 
       <!-- Контент табов -->
-      <v-window
-        v-model="activeTabIndex"
-        class="disable-tab-transition"
-        :touch="false"
-      >
-        <v-window-item
-          v-for="(tab, index) in visibleTabs"
-          :key="tab.name"
-          :value="index"
-        >
-          <component
-            :is="tab.tab"
-            v-if="shouldRenderTab(tab.name)"
-            :parent-id="parentId"
-            v-bind="tab.meta"
-          />
+      <v-window v-model="activeTabIndex" class="disable-tab-transition" :touch="false">
+        <v-window-item v-for="(tab, index) in visibleTabs" :key="tab.name" :value="index">
+          <component :is="tab.tab" v-if="shouldRenderTab(tab.name)" v-bind="tab.meta" />
         </v-window-item>
       </v-window>
     </v-col>

@@ -2,19 +2,20 @@
   <crud-table>
     <template #actionsSection>
       <crud-button-primary
-        label="Создать"
         v-if="meStore.userCan('equipment_create')"
-        @click="dialogProvider.openCreateDialog"/>
+        label="Создать"
+        @click="dialogProvider.openCreateDialog"
+      />
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.title" label="Название"/>
+        <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
       </v-col>
       <v-col cols="12" md="2">
         <crud-boolean-select v-model="dataListProvider.filter.value.is_available" label="Доступно" />
       </v-col>
       <v-col cols="12" md="6">
-        <crud-input type="number" v-model="dataListProvider.filter.value.state_id" label="Статус"/>
+        <crud-input v-model="dataListProvider.filter.value.state_id" type="number" label="Статус" />
       </v-col>
     </template>
 
@@ -22,7 +23,7 @@
     <template #body-cell-created="{ value }">
       {{ formatTableDate(value) }}
     </template>
-    
+
     <template #body-cell-edited="{ value }">
       {{ formatTableDate(value) }}
     </template>
@@ -33,21 +34,27 @@
     <template #default="{ stateProcessing }">
       <v-row>
         <v-col cols="12">
-          <crud-input v-model="model.title" label="Название"
-                      :rules="[(val) => !!val || 'Название обязательно', (val) => val && val.length >= 2 || 'Минимум 2 символа']"
-                      :disabled="stateProcessing"/>
+          <crud-input
+            v-model="model.title" label="Название"
+            :rules="[(val) => !!val || 'Название обязательно', (val) => val && val.length >= 2 || 'Минимум 2 символа']"
+            :disabled="stateProcessing"
+          />
         </v-col>
 
         <v-col cols="12">
-          <crud-input v-model.number="model.state_id" label="Статус"
-                      type="number"
-                      :disabled="stateProcessing"/>
+          <crud-input
+            v-model.number="model.state_id" label="Статус"
+            type="number"
+            :disabled="stateProcessing"
+          />
         </v-col>
 
         <v-col cols="12">
-          <crud-input v-model="model.description" label="Описание"
-                      type="textarea"
-                      :disabled="stateProcessing"/>
+          <crud-input
+            v-model="model.description" label="Описание"
+            type="textarea"
+            :disabled="stateProcessing"
+          />
         </v-col>
       </v-row>
     </template>
@@ -55,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, provide, ref } from 'vue'
+import { provide, ref } from 'vue'
 import { useMeStore } from '@crudui/stores/meStore'
 import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
@@ -145,7 +152,7 @@ const dataListProvider: UseCrudDataListReturn<EquipmentItem> = useCrudDataList<E
           console.log('Delete item:', item.id)
         },
       },
-    })
+    }),
   ],
 })
 
@@ -159,7 +166,7 @@ const dialogProvider = useCrudDialogProvider<EquipmentItem>({
       state_id: null,
       description: '',
       created: '',
-      edited: ''
+      edited: '',
     }),
   },
   onItemSaved: () => {
@@ -171,5 +178,4 @@ const model = dialogProvider.model
 
 provide('dataListProvider', dataListProvider)
 provide('dialogProvider', dialogProvider)
-
 </script>

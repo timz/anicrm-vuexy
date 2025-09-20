@@ -9,6 +9,6 @@ export default {
   add: 'Add',
   search: 'Search',
   validation: {
-    required: 'Field is required'
-  }
+    required: 'Field is required',
+  },
 }

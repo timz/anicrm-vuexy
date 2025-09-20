@@ -21,14 +21,14 @@ const handleGoBack = () => {
       <h1 class="text-h1 mb-3">
         403 - Доступ запрещен
       </h1>
-      
+
       <p class="text-body-1 mb-6">
         У вас нет прав для просмотра этой страницы
       </p>
-      
-      <VBtn 
-        @click="handleGoBack"
+
+      <VBtn
         color="primary"
+        @click="handleGoBack"
       >
         Вернуться на главную
       </VBtn>

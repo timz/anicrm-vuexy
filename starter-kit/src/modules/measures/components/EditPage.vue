@@ -4,7 +4,9 @@
       <v-col>
         <v-card>
           <v-card-title>
-            <h1 class="text-h4">Редактирование единицы измерения</h1>
+            <h1 class="text-h4">
+              Редактирование единицы измерения
+            </h1>
           </v-card-title>
           <v-card-text>
             <v-form @submit.prevent="saveMeasure">
@@ -91,7 +93,7 @@ const measure = ref({
   type: null,
   coefficient: 1.0,
   description: '',
-  isActive: true
+  isActive: true,
 })
 
 const measureTypes = [
@@ -100,11 +102,12 @@ const measureTypes = [
   { text: 'Длина', value: 'length' },
   { text: 'Площадь', value: 'area' },
   { text: 'Количество', value: 'count' },
-  { text: 'Время', value: 'time' }
+  { text: 'Время', value: 'time' },
 ]
 
 const saveMeasure = () => {
   console.log('Saving measure:', measure.value)
+
   // Здесь будет логика сохранения через API
 }
 </script>

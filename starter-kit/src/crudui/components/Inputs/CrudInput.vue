@@ -2,19 +2,18 @@
   <v-text-field
     v-if="type !== 'textarea'"
     v-bind="$props"
+    ref="inputRef"
     variant="outlined"
     density="comfortable"
     clearable
     hide-details="auto"
     @blur="handleBlur"
     @focus="handleFocus"
-    ref="inputRef"
-  >
-
-  </v-text-field>
+  />
   <v-textarea
     v-else
     v-bind="$props"
+    ref="inputRef"
     variant="outlined"
     density="comfortable"
     clearable
@@ -24,7 +23,6 @@
     rows="2"
     @blur="handleBlur"
     @focus="handleFocus"
-    ref="inputRef"
   />
 </template>
 

@@ -29,8 +29,18 @@
       "mcp__playwright__browser_hover",
       "mcp__playwright__browser_wait_for",
       "mcp__playwright__browser_take_screenshot",
+      "Bash(npx eslint:*)",
+      "Bash(cat:*)",
+      "Bash(for file in src/modules/client-kids/components/IndexPage.vue src/modules/workers/components/EditPage.vue src/modules/workers/components/InviteDialog.vue src/modules/clients/components/EditPage.vue)",
+      "Bash(do sed -i \"s/import r from ''@crudui\\/services\\/RulesService''/import { rules } from ''@crudui\\/utils\\/rules''/\" \"$file\")",
+      "Bash(done)",
+      "Bash(timeout 5 pnpm run dev)",
       "mcp__vuetify__get_component_api_by_version",
-      "WebFetch(domain:vuetifyjs.com)"
+      "WebSearch",
+      "WebFetch(domain:vuetifyjs.com)",
+      "mcp__playwright__browser_network_requests",
+      "Bash(timeout 10 pnpm run dev)",
+      "mcp__playwright__browser_type"
     ],
     "deny": [],
     "ask": []

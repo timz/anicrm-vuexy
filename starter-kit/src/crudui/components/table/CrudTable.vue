@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, ref, useSlots } from 'vue'
-import type {
-  CrudRowAction,
-  UseCrudDataListReturn,
-} from '@crudui/providers/useCrudDataList'
+import type { CrudRowAction, UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import ButtonBatchDelete from '@crudui/components/table/buttons/ButtonBatchDelete.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
@@ -13,8 +10,7 @@ const slots = useSlots()
 
 const dataListProvider = inject<UseCrudDataListReturn>('dataListProvider')
 
-if (!dataListProvider)
-  throw new Error('dataListProvider not provided')
+if (!dataListProvider) throw new Error('dataListProvider not provided')
 
 const {
   listItems,
@@ -98,8 +94,7 @@ const onSortByUpdate = async (newSortBy: any) => {
       if (!pagination.value.descending) {
         // Currently ascending, switch to descending
         isDescending = true
-      }
-      else {
+      } else {
         // Currently descending, remove sorting
         updateSorting('', false)
         sortBy.value = []
@@ -107,8 +102,7 @@ const onSortByUpdate = async (newSortBy: any) => {
 
         return
       }
-    }
-    else {
+    } else {
       // Different column, start with ascending
       isDescending = false
     }
@@ -123,8 +117,7 @@ const onSortByUpdate = async (newSortBy: any) => {
     ]
 
     await loadList()
-  }
-  else {
+  } else {
     // Clear sorting if no sort specified
     updateSorting('', false)
     sortBy.value = []
@@ -133,40 +126,34 @@ const onSortByUpdate = async (newSortBy: any) => {
 }
 
 const deleteSelected = async (): Promise<void> => {
-  if (selectedIds.value.length === 0)
-    return
+  if (selectedIds.value.length === 0) return
 
   try {
     await remove(selectedIds.value)
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Failed to delete items:', error)
   }
 }
 
 const applyFilter = async (): Promise<void> => {
-  if (!filterFormRef.value)
-    return
+  if (!filterFormRef.value) return
 
   const { valid } = await filterFormRef.value.validate()
-  if (!valid)
-    return
+  if (!valid) return
 
   // Get filter data from form elements
   const formElement = filterFormRef.value.$el as HTMLFormElement
   const formData = new FormData(formElement)
   const filterData: Record<string, unknown> = {}
 
-  for (const [key, value] of formData.entries())
-    filterData[key] = value
+  for (const [key, value] of formData.entries()) filterData[key] = value
 
   // Also collect data from v-model fields
   const inputs = formElement.querySelectorAll('input, select, textarea')
 
   inputs.forEach((input: Element) => {
     const htmlInput = input as HTMLInputElement
-    if (htmlInput.name && htmlInput.value !== undefined)
-      filterData[htmlInput.name] = htmlInput.value
+    if (htmlInput.name && htmlInput.value !== undefined) filterData[htmlInput.name] = htmlInput.value
   })
 
   Object.assign(filter.value, filterData)
@@ -174,8 +161,7 @@ const applyFilter = async (): Promise<void> => {
 }
 
 const resetFilter = async (): Promise<void> => {
-  if (filterFormRef.value)
-    filterFormRef.value.reset()
+  if (filterFormRef.value) filterFormRef.value.reset()
 
   filter.value = {}
   await loadList()
@@ -187,10 +173,7 @@ const resetFilter = async (): Promise<void> => {
     <!-- Actions Bar -->
     <div class="d-flex flex-wrap gap-4 ma-6">
       <div class="d-flex align-center gap-2">
-        <slot
-          v-if="$slots.actionsSection"
-          name="actionsSection"
-        />
+        <slot v-if="$slots.actionsSection" name="actionsSection" />
 
         <template v-if="dataListProvider.selectedIds.value.length > 0">
           <ButtonBatchDelete @confirm-delete="deleteSelected" />
@@ -200,13 +183,7 @@ const resetFilter = async (): Promise<void> => {
       <v-spacer />
 
       <div class="d-flex gap-2 align-center">
-        <v-btn
-          variant="text"
-          icon="mdi-refresh"
-          color="default"
-          :disabled="loading"
-          @click="refresh"
-        />
+        <v-btn variant="text" icon="mdi-refresh" color="default" :disabled="loading" @click="refresh" />
 
         <v-btn
           v-if="$slots.filterForm"
@@ -222,31 +199,15 @@ const resetFilter = async (): Promise<void> => {
 
     <!-- Filter Panel -->
     <v-expand-transition>
-      <div
-        v-if="$slots.filterForm && filterPanel"
-        class="ma-6"
-      >
-        <v-form
-          ref="filterFormRef"
-          @submit.prevent="applyFilter"
-        >
-          <v-row class="v-row-form">
+      <div v-if="$slots.filterForm && filterPanel" class="ma-6">
+        <v-form ref="filterFormRef" @submit.prevent="applyFilter">
+          <v-row no-gutters class="gap-4">
             <slot name="filterForm" />
           </v-row>
 
           <div class="d-flex mt-4 gap-2">
-            <CrudButtonPrimary
-              :disabled="loading"
-              @click="applyFilter"
-            >
-              Применить
-            </CrudButtonPrimary>
-            <CrudButtonSecondary
-              :disabled="loading"
-              @click="resetFilter"
-            >
-              Сброс
-            </CrudButtonSecondary>
+            <CrudButtonPrimary :disabled="loading" @click="applyFilter"> Применить </CrudButtonPrimary>
+            <CrudButtonSecondary :disabled="loading" @click="resetFilter"> Сброс </CrudButtonSecondary>
           </div>
         </v-form>
       </div>
@@ -276,31 +237,15 @@ const resetFilter = async (): Promise<void> => {
       @update:sort-by="onSortByUpdate"
     >
       <!-- Custom column slots -->
-      <template
-        v-for="col in columnsWithSlots"
-        :key="col.name"
-        #[`item.${col.name}`]="{ item, value }"
-      >
-        <slot
-          :name="`body-cell-${col.name}`"
-          :row="item"
-          :value="value"
-          :col="col"
-        />
+      <template v-for="col in columnsWithSlots" :key="col.name" #[`item.${col.name}`]="{ item, value }">
+        <slot :name="`body-cell-${col.name}`" :row="item" :value="value" :col="col" />
       </template>
 
       <!-- Actions column -->
       <template #item.actions="{ item }">
-        <div class="d-flex  justify-end gap-x-1 ">
-          <IconBtn
-            v-for="action in getVisibleActions(item)"
-            :key="action.name"
-            @click="action.handler(item)"
-          >
-            <VIcon
-              :icon="action.icon"
-              :color="action.color"
-            />
+        <div class="d-flex justify-end gap-x-1">
+          <IconBtn v-for="action in getVisibleActions(item)" :key="action.name" @click="action.handler(item)">
+            <VIcon :icon="action.icon" :color="action.color" />
           </IconBtn>
         </div>
       </template>
@@ -316,5 +261,4 @@ const resetFilter = async (): Promise<void> => {
     font-weight: 600;
   }
 }
-
 </style>

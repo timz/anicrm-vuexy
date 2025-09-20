@@ -1,11 +1,11 @@
-import type { Ref, ComputedRef} from 'vue';
-import { ref, computed } from 'vue'
-import type { AxiosInstance } from 'axios'
-import type { AxiosError } from 'axios'
+import type { ComputedRef, Ref } from 'vue'
+import { computed, ref } from 'vue'
+import type { AxiosError, AxiosInstance } from 'axios'
+
+import { type QFormConfig, type UseCrudFormReturn, useCrudForm } from './useCrudForm'
 import { api, secureApi } from '@crudui/services/AxiosService'
-import { useCrudForm, type QFormConfig, type UseCrudFormReturn } from './useCrudForm'
 import { notifications } from '@crudui/boot/notification'
-import type { FormModel, CrudResponse, HttpConfig, ModelConfig, UrlConfig, FormConfig } from '@crudui/types'
+import type { CrudResponse, FormConfig, FormModel, HttpConfig, ModelConfig, UrlConfig } from '@crudui/types'
 
 interface ValidationErrorResponse {
   error: string | Record<string, string>
@@ -19,15 +19,19 @@ function formatValidationError(errorData: string | Record<string, string>): stri
   const errorsList = Object.values(errorData)
     .map(error => `<li>${error}</li>`)
     .join('')
+
   return `<div class="q-mb-sm">При отправке данных возникли ошибки:</div><ol style="margin: 0; padding-left: 20px;">${errorsList}</ol>`
 }
 
 function handleSubmitError(error: AxiosError<ValidationErrorResponse>): never {
   if (error.response?.status === 422 && error.response.data?.error) {
     const errorMessage = formatValidationError(error.response.data.error)
+
     notifications.warning(errorMessage)
-  } else {
+  }
+  else {
     const errorMessage = (error.response?.data?.error as string) || 'Произошла ошибка при сохранении'
+
     notifications.warning(errorMessage)
   }
   throw error
@@ -45,7 +49,7 @@ export interface CrudDataFormReturn<T extends FormModel = FormModel> extends Use
 }
 
 export function useCrudDataForm<T extends FormModel = FormModel>(
-  cfg: CrudDataFormConfig<T>
+  cfg: CrudDataFormConfig<T>,
 ): CrudDataFormReturn<T> {
   const version = ref<string | null>(null)
   const forcedSave = ref<boolean>(false)
@@ -60,6 +64,7 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
   // Определяем режим создания на основе наличия PK
   const isCreateMode = computed<boolean>(() => {
     const pkValue = cfg.model.value[primaryKey as keyof T] as string | number | null | undefined
+
     return !pkValue
   })
 
@@ -67,7 +72,7 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
   const currentUrl = computed<string>(() =>
     isCreateMode.value
       ? `${cfg.prefixUrl}${createUrl}`
-      : `${cfg.prefixUrl}${updateUrl}`
+      : `${cfg.prefixUrl}${updateUrl}`,
   )
 
   // URL для загрузки данных
@@ -78,7 +83,7 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
     ...cfg,
     url: currentUrl.value,
     requestKey: 'model', // Всегда используем 'model' для useCrudDataForm
-    transformIn: cfg.transformIn || ((raw: unknown) => raw as T)
+    transformIn: cfg.transformIn || ((raw: unknown) => raw as T),
   }
 
   // Создаем базовый форм
@@ -87,7 +92,8 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
   // Единая логика готовности данных
   const isDataReady = computed<boolean>(() => {
     // Для создания данные всегда готовы
-    if (isCreateMode.value) return true
+    if (isCreateMode.value)
+      return true
 
     // Для редактирования данные готовы если загружены
     return baseForm.isLoaded.value
@@ -114,7 +120,8 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
       }
 
       return result
-    } finally {
+    }
+    finally {
       // Восстанавливаем оригинальный URL
       baseConfig.url = originalUrl
     }
@@ -139,13 +146,13 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
 
       const payload = {
         ...additionalData,
-        ...versionData
+        ...versionData,
       }
 
       // Логика для режима создания
       if (wasCreateMode) {
         // При создании исключаем primaryKey из payload
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
         const { [primaryKey]: _, ...modelWithoutPK } = cfg.model.value
 
         // Применяем transformOut к модели БЕЗ primaryKey
@@ -161,6 +168,7 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
         // Обрабатываем результат - обновляем ОРИГИНАЛЬНУЮ модель с новым ID
         if (data && typeof data === 'object' && 'content' in data) {
           const responseData = data as CrudResponse
+
           await baseForm.updateModelFromResponse(responseData)
 
           // Извлекаем версию из ответа после успешного сохранения
@@ -189,6 +197,7 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
       // Обновляем модель из ответа сервера (используем функцию из useCrudForm)
       if (result && typeof result === 'object' && 'content' in result) {
         const data = result as CrudResponse
+
         await baseForm.updateModelFromResponse(data)
 
         // Извлекаем версию из ответа после успешного сохранения
@@ -204,7 +213,8 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
       notifications.positive(successMessage)
 
       return result
-    } catch (error) {
+    }
+    catch (error) {
       handleSubmitError(error as AxiosError<ValidationErrorResponse>)
     }
   }
@@ -217,6 +227,6 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
     currentUrl,
     version,
     forcedSave,
-    isDataReady
+    isDataReady,
   }
 }

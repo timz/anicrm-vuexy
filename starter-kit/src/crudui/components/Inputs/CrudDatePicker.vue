@@ -1,19 +1,21 @@
 <template>
-  <v-date-input
+  <VDateInput
     prepend-icon=""
     placeholder="дд.мм.гггг"
+    bg-color="white"
     variant="outlined"
     density="comfortable"
     hide-details="auto"
     :model-value="dateValue"
-    @update:model-value="updateDate"
     clearable
     v-bind="$attrs"
+    @update:model-value="updateDate"
   />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { VDateInput } from 'vuetify/labs/VDateInput'
 
 interface Props {
   modelValue?: string | null | undefined
@@ -27,12 +29,14 @@ const emit = defineEmits<{
 
 // Computed для отображения даты в компоненте
 const dateValue = computed(() => {
-  if (!props.modelValue || props.modelValue === undefined) return null
+  if (!props.modelValue || props.modelValue === undefined)
+    return null
 
   // Если приходит дата в ISO формате, конвертируем в Date объект
   try {
     return new Date(props.modelValue)
-  } catch {
+  }
+  catch {
     return null
   }
 })
@@ -41,6 +45,7 @@ const dateValue = computed(() => {
 const updateDate = (date: Date | null) => {
   if (!date) {
     emit('update:modelValue', null)
+
     return
   }
 

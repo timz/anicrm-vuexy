@@ -1,6 +1,6 @@
 import { ref } from 'vue'
-import type { Ref, ComputedRef } from 'vue'
-import { useCrudDataForm, type CrudDataFormConfig } from './useCrudDataForm'
+import type { ComputedRef, Ref } from 'vue'
+import { type CrudDataFormConfig, useCrudDataForm } from './useCrudDataForm'
 import type { FormModel } from '@crudui/types'
 
 export interface CrudDialogConfig<T extends FormModel = FormModel> {
@@ -24,7 +24,7 @@ export interface CrudDialogProviderReturn<T extends FormModel = FormModel> {
 }
 
 export function useCrudDialogProvider<T extends FormModel = FormModel>(
-  config: CrudDialogConfig<T>
+  config: CrudDialogConfig<T>,
 ): CrudDialogProviderReturn<T> {
   const isOpen = ref(false)
   const editId = ref<string | number | null>(null)
@@ -42,6 +42,7 @@ export function useCrudDialogProvider<T extends FormModel = FormModel>(
 
     // Устанавливаем режим создания через модель (источник истины)
     const primaryKey = config.formConfig.primaryKey ?? 'id'
+
     config.formConfig.model.value[primaryKey as keyof T] = null
 
     isOpen.value = true
@@ -54,6 +55,7 @@ export function useCrudDialogProvider<T extends FormModel = FormModel>(
 
     // Устанавливаем режим редактирования через модель (источник истины)
     const primaryKey = config.formConfig.primaryKey ?? 'id'
+
     config.formConfig.model.value[primaryKey as keyof T] = id as T[keyof T]
 
     isOpen.value = true
@@ -84,6 +86,6 @@ export function useCrudDialogProvider<T extends FormModel = FormModel>(
     openCreateDialog,
     openEditDialog,
     closeDialog,
-    handleItemSaved
+    handleItemSaved,
   }
 }

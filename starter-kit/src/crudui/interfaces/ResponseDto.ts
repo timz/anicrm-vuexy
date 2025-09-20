@@ -1,6 +1,6 @@
 export interface ResponseDto {
   status: {
-    code: number,
+    code: number
     error?: string
   }
 }
