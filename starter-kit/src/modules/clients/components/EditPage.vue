@@ -77,6 +77,13 @@ const tabs: CrudTabInterface[] = [
     tab: ClientKidsIndexPage,
     visible: TabVisibilityHelpers.hideOnNew,
   },
+  {
+    name: 'client-kids2',
+    label: 'Дети клиента sda',
+    icon: 'mdi-account-child',
+    tab: ClientKidsIndexPage,
+    visible: TabVisibilityHelpers.hideOnNew,
+  },
 ]
 
 // Правила валидации

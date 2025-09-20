@@ -8,6 +8,11 @@ import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.
 const filterPanel = ref(false)
 const slots = useSlots()
 
+// Delete confirmation dialog state
+const deleteDialog = ref(false)
+const itemToDelete = ref<unknown | null>(null)
+const deleteAction = ref<CrudRowAction<unknown> | null>(null)
+
 const dataListProvider = inject<UseCrudDataListReturn>('dataListProvider')
 
 if (!dataListProvider) throw new Error('dataListProvider not provided')
@@ -68,6 +73,45 @@ const columnsWithSlots = computed(() => {
 
 const getVisibleActions = (item: unknown): CrudRowAction<unknown>[] => {
   return rowActions.filter(action => !action.show || action.show(item))
+}
+
+const handleActionClick = (action: CrudRowAction<unknown>, item: unknown) => {
+  if (action.name === 'delete') {
+    // Show confirmation dialog for delete action
+    itemToDelete.value = item
+    deleteAction.value = action
+    deleteDialog.value = true
+  } else {
+    // Execute other actions directly
+    action.handler(item)
+  }
+}
+
+const confirmDelete = async () => {
+  if (!itemToDelete.value || !deleteAction.value) return
+
+  try {
+    // Call original handler if provided
+    if (deleteAction.value.handler) {
+      await deleteAction.value.handler(itemToDelete.value)
+    }
+
+    // Call dataListProvider remove method
+    const itemId = (itemToDelete.value as any)[pk]
+    if (itemId) {
+      await remove([itemId])
+    }
+  } catch (error) {
+    console.error('Failed to delete item:', error)
+  } finally {
+    cancelDelete()
+  }
+}
+
+const cancelDelete = () => {
+  deleteDialog.value = false
+  itemToDelete.value = null
+  deleteAction.value = null
 }
 
 const onOptionsUpdate = async (options: any) => {
@@ -244,13 +288,34 @@ const resetFilter = async (): Promise<void> => {
       <!-- Actions column -->
       <template #item.actions="{ item }">
         <div class="d-flex justify-end gap-x-1">
-          <IconBtn v-for="action in getVisibleActions(item)" :key="action.name" @click="action.handler(item)">
+          <IconBtn v-for="action in getVisibleActions(item)" :key="action.name" @click="handleActionClick(action, item)">
             <VIcon :icon="action.icon" :color="action.color" />
           </IconBtn>
         </div>
       </template>
     </v-data-table-server>
   </v-card>
+
+  <!-- Delete Confirmation Dialog -->
+  <v-dialog v-model="deleteDialog" max-width="400">
+    <v-card class="pa-2">
+      <v-card-title class="text-h5">
+        Подтверждение удаления
+      </v-card-title>
+      <v-card-text>
+        Вы уверены, что хотите удалить эту запись? Это действие необратимо.
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer />
+        <crud-button-secondary @click="cancelDelete">
+          Отмена
+        </crud-button-secondary>
+        <v-btn class="px-4" color="error" variant="flat" @click="confirmDelete">
+          Подтвердить
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <style lang="scss" scoped>

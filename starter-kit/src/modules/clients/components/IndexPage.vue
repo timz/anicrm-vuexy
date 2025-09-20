@@ -45,6 +45,7 @@ interface ClientItem {
   title: string
   created: string
   edited: string
+  [key: string]: unknown
 }
 
 const meStore = useMeStore()
@@ -88,8 +89,10 @@ const dataListProvider: UseCrudDataListReturn<ClientItem> = useCrudDataList<Clie
       },
       delete: {
         show: () => meStore.userCan('clients_delete'),
-        onDelete: (item: ClientItem) => {
-          console.log('Delete item:', item.id)
+        onDelete: async (item: ClientItem) => {
+          // The actual deletion is handled by CrudTable component
+          // This handler can be used for additional logic if needed
+          console.log('Deleting item:', item.id)
         },
       },
     }),
