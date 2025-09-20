@@ -2,30 +2,14 @@
   <PageTitle>Единицы измерения</PageTitle>
   <crud-table>
     <template #actionsSection>
-      <crud-button-primary v-if="meStore.userCan('measures_create')" :to="{ name: 'measureCreate' }">
-        Создать
-      </crud-button-primary>
       <crud-button-primary v-if="meStore.userCan('measures_create')" @click="dialogProvider.openCreateDialog">
-        Создать в диалоге
+        Создать
       </crud-button-primary>
     </template>
     <template #filterForm>
       <v-col cols="12" md="6">
-        <crud-input v-model="dataListProvider.filter.value.id" label="Ид" />
-      </v-col>
-      <v-col cols="12" md="6">
         <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
       </v-col>
-    </template>
-
-    <!-- Кастомная верстка для колонки title с иконкой -->
-    <template #body-cell-title="{ value }">
-      <div class="d-flex align-center ga-2">
-        <v-icon color="primary" size="small">
-          mdi-ruler
-        </v-icon>
-        <span>{{ value }}</span>
-      </div>
     </template>
   </crud-table>
 
@@ -64,15 +48,6 @@ const meStore = useMeStore()
 
 const columns = [
   {
-    name: 'id',
-    required: true,
-    label: 'Ид',
-    align: 'left',
-    field: 'id',
-    sortable: true,
-    headerStyle: 'width: 50px',
-  },
-  {
     name: 'title',
     required: true,
     label: 'Название',
@@ -90,10 +65,6 @@ const dataListProvider: UseCrudDataListReturn<MeasureItem> = useCrudDataList<Mea
   columns,
   rowActions: [
     ...createStandardActions<MeasureItem>({
-      edit: {
-        routeName: 'measureEdit',
-        show: () => meStore.userCan('measures_update'),
-      },
       editDialog: {
         show: () => meStore.userCan('measures_update'),
         handler: (item: MeasureItem) => dialogProvider.openEditDialog(item.id),
@@ -105,18 +76,6 @@ const dataListProvider: UseCrudDataListReturn<MeasureItem> = useCrudDataList<Mea
         },
       },
     }),
-    {
-      name: 'custom-print',
-      icon: 'mdi-printer',
-      color: 'grey-darken-1',
-      class: 'text-orange-600',
-      label: 'Печать',
-      show: () => meStore.userCan('measures_view'),
-      handler: (item: MeasureItem) => {
-        // Кастомная логика печати
-        console.log('Custom print for:', item.title)
-      },
-    },
   ],
 })
 
