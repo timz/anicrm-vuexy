@@ -74,7 +74,6 @@ export default defineConfig({
         './src/crudui/composables/',
         './src/crudui/composables/**',
         './src/crudui/providers/**',
-        './src/crudui/utils/',
         './src/crudui/plugins/*/composables/*',
       ],
       vueTemplate: true,

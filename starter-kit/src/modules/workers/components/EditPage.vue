@@ -54,7 +54,7 @@ import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
 import { useCrudEditPage } from '@crudui/providers/useCrudEditPage'
 import type { FormModel } from '@crudui/types'
-import { rules } from '@crudui/utils/rules'
+import { rules } from '@crudui/utils/validation/rules'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
 

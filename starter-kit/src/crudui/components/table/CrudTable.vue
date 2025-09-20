@@ -2,11 +2,18 @@
 import { computed, inject, ref, useSlots } from 'vue'
 import type { CrudRowAction, UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import ButtonBatchDelete from '@crudui/components/table/buttons/ButtonBatchDelete.vue'
+import ButtonAction from '@crudui/components/table/buttons/ButtonAction.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
+import CrudConfirmDialog from '@crudui/components/dialogs/CrudConfirmDialog.vue'
 
 const filterPanel = ref(false)
 const slots = useSlots()
+
+// Delete confirmation dialog state
+const deleteDialog = ref(false)
+const itemToDelete = ref<unknown | null>(null)
+const deleteAction = ref<CrudRowAction<unknown> | null>(null)
 
 const dataListProvider = inject<UseCrudDataListReturn>('dataListProvider')
 
@@ -68,6 +75,49 @@ const columnsWithSlots = computed(() => {
 
 const getVisibleActions = (item: unknown): CrudRowAction<unknown>[] => {
   return rowActions.filter(action => !action.show || action.show(item))
+}
+
+const handleActionClick = (action: CrudRowAction<unknown>, item: unknown) => {
+  if (action.name === 'delete') {
+    // Show confirmation dialog for delete action
+    itemToDelete.value = item
+    deleteAction.value = action
+    deleteDialog.value = true
+  } else {
+    // Execute other actions directly
+    action.handler(item)
+  }
+}
+
+const confirmDelete = async () => {
+  if (!itemToDelete.value || !deleteAction.value) return
+
+  try {
+    // Call original handler if provided
+    if (deleteAction.value.handler) {
+      await deleteAction.value.handler(itemToDelete.value)
+    }
+
+    // Call dataListProvider remove method
+    const itemId = (itemToDelete.value as any)[pk]
+    if (itemId) {
+      await remove([itemId])
+    }
+  } catch (error) {
+    console.error('Failed to delete item:', error)
+  } finally {
+    cancelDelete()
+  }
+}
+
+const cancelDelete = () => {
+  deleteDialog.value = false
+  itemToDelete.value = null
+  deleteAction.value = null
+}
+
+const handleDeleteConfirm = async () => {
+  await confirmDelete()
 }
 
 const onOptionsUpdate = async (options: any) => {
@@ -244,13 +294,30 @@ const resetFilter = async (): Promise<void> => {
       <!-- Actions column -->
       <template #item.actions="{ item }">
         <div class="d-flex justify-end gap-x-1">
-          <IconBtn v-for="action in getVisibleActions(item)" :key="action.name" @click="action.handler(item)">
-            <VIcon :icon="action.icon" :color="action.color" />
-          </IconBtn>
+          <ButtonAction
+            v-for="action in getVisibleActions(item)"
+            :key="action.name"
+            :icon="action.icon"
+            :color="action.color"
+            :tooltip="action.tooltip"
+            @click="handleActionClick(action, item)"
+          />
         </div>
       </template>
     </v-data-table-server>
   </v-card>
+
+  <!-- Delete Confirmation Dialog -->
+  <crud-confirm-dialog
+    v-model="deleteDialog"
+    title="Подтверждение удаления"
+    message="Вы уверены, что хотите удалить эту запись? Это действие необратимо."
+    confirm-text="Подтвердить"
+    confirm-color="error"
+    cancel-text="Отмена"
+    @confirm="handleDeleteConfirm"
+    @cancel="cancelDelete"
+  />
 </template>
 
 <style lang="scss" scoped>

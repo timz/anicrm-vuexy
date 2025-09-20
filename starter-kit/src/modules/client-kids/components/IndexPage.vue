@@ -53,7 +53,7 @@ import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
 import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'
 import { useTabParentProvider } from '@crudui/components/forms/tabs/useTabParentProvider'
 import CrudSelect from '@crudui/components/Inputs/CrudSelect.vue'
-import { rules } from '@crudui/utils/rules'
+import { rules } from '@crudui/utils/validation/rules'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
 import { useTimezone } from '@crudui/composables/useTimezone'
 

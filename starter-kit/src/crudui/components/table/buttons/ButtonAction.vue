@@ -1,26 +1,15 @@
 <template>
-  <v-btn
-    v-bind="$attrs"
-    variant="text"
-    rounded
-    :color="color"
-    :class="buttonClass"
-    @click="$emit('click', $event)"
-  >
-    <v-icon>{{ icon }}</v-icon>
-    <v-tooltip
-      v-if="tooltip"
-      activator="parent"
-      location="top"
-    >
+  <IconBtn :class="buttonClass" :color="color || 'primary'" @click="$emit('click', $event)">
+    <VIcon :icon="icon" />
+    <v-tooltip v-if="tooltip" activator="parent" location="top">
       {{ tooltip }}
     </v-tooltip>
-  </v-btn>
+  </IconBtn>
 </template>
 
 <script setup lang="ts">
 interface Props {
-  icon: string
+  icon?: string
   color?: string
   tooltip?: string
   buttonClass?: string
