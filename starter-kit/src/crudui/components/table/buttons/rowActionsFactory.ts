@@ -45,8 +45,8 @@ export function createEditAction<T extends FormModel>(
 
   return {
     name: 'edit',
-    icon: 'mdi-pencil',
-    color: 'secondary',
+    icon: 'tabler-edit',
+    color: 'primary',
     class: config.class || 'text-blue-600',
     label: 'Изменить',
     show: config.show,
@@ -67,7 +67,7 @@ export function createEditDialogAction<T extends FormModel>(
 ): CrudRowAction<T> {
   return {
     name: 'edit-dialog',
-    icon: 'mdi-pencil',
+    icon: 'tabler-edit',
     color: 'primary',
     class: config.class || 'text-blue-600',
     label: 'Изменить',
@@ -81,8 +81,8 @@ export function createDeleteAction<T extends FormModel>(
 ): CrudRowAction<T> {
   return {
     name: 'delete',
-    icon: 'mdi-delete',
-    color: 'error',
+    icon: 'tabler-trash',
+    color: 'primary',
     class: config.class || 'text-red-600',
     label: 'Удалить',
     show: config.show,

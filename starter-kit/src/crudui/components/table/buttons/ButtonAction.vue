@@ -1,5 +1,5 @@
 <template>
-  <IconBtn :class="buttonClass" :color="color || 'secondary'" @click="$emit('click', $event)">
+  <IconBtn :class="buttonClass" :color="color || 'primary'" @click="$emit('click', $event)">
     <VIcon :icon="icon" />
     <v-tooltip v-if="tooltip" activator="parent" location="top">
       {{ tooltip }}

@@ -1,12 +1,11 @@
 <template>
   <v-dialog v-model="dialogProvider.isOpen.value" persistent max-width="480px">
-    <v-card class="pa-2 pt-0">
-      <VCardItem>
-        <div class="text-h4 font-weight-bold text-secondary">
+    <v-card class="pa-3">
+      <div class="px-3">
+        <div class="pb-4 text-h4 font-weight-bold text-secondary">
           {{ dialogProvider.isCreateMode.value ? 'Создание записи' : 'Редактирование записи' }}
         </div>
-      </VCardItem>
-      <v-card-text class="pt-6">
+
         <v-form ref="formRef" @submit.prevent="handleSubmit">
           <v-row>
             <slot
@@ -17,9 +16,8 @@
             />
           </v-row>
         </v-form>
-      </v-card-text>
-
-      <v-card-actions class="pt-0 px-5 pb-5 ga-2">
+      </div>
+      <v-card-actions class="ga-2 pt-6">
         <v-spacer />
         <crud-button-secondary @click="dialogProvider.closeDialog"> Закрыть </crud-button-secondary>
         <crud-button-primary :loading="stateProcessing" @click="handleSubmit">
