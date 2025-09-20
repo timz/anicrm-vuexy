@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { rules } from '@crudui/utils/rules'
+import { rules } from '@crudui/utils/validation/rules'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import envService from '@crudui/services/EnvService'
 import { notifications } from '@crudui/boot/notification'

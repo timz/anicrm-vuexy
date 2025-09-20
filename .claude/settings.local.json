@@ -40,7 +40,8 @@
       "WebFetch(domain:vuetifyjs.com)",
       "mcp__playwright__browser_network_requests",
       "Bash(timeout 10 pnpm run dev)",
-      "mcp__playwright__browser_type"
+      "mcp__playwright__browser_type",
+      "Bash(xargs sed:*)"
     ],
     "deny": [],
     "ask": []

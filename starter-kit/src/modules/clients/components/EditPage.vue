@@ -33,7 +33,7 @@ import { useCrudEditPage } from '@crudui/providers/useCrudEditPage'
 import type { FormModel } from '@crudui/types'
 import type { CrudTabInterface } from '@crudui/components/forms/tabs/TabTypes'
 import { TabVisibilityHelpers } from '@crudui/components/forms/tabs/TabHelpers'
-import { rules } from '@crudui/utils/rules'
+import { rules } from '@crudui/utils/validation/rules'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
 
 interface ClientItem extends FormModel {

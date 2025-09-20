@@ -43,7 +43,7 @@ import { computed, ref } from 'vue'
 import { useCrudForm } from '@crudui/providers/useCrudForm'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
-import { rules } from '@crudui/utils/rules'
+import { rules } from '@crudui/utils/validation/rules'
 import { notifications } from '@crudui/boot/notification'
 
 interface InviteForm {

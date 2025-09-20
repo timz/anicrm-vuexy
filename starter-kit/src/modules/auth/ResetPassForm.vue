@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { rules } from '@crudui/utils/rules'
+import { rules } from '@crudui/utils/validation/rules'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import { useCrudForm } from '@crudui/providers/useCrudForm'
