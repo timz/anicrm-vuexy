@@ -12,17 +12,7 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="6">
-        <crud-input
-          v-model="dataListProvider.filter.value.id"
-          type="number"
-          label="Ид"
-        />
-      </v-col>
-      <v-col cols="12" md="6">
-        <crud-input
-          v-model="dataListProvider.filter.value.title"
-          label="Название"
-        />
+        <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
       </v-col>
     </template>
   </crud-table>
@@ -30,15 +20,14 @@
   <!-- Диалог редактирования -->
   <crud-dialog>
     <template #default="{ stateProcessing }">
-      <crud-input
-        v-model="model.title"
-        label="Название"
-        :rules="[
-          (val) => !!val || 'Название обязательно',
-          (val) => val.length >= 2 || 'Минимум 2 символа',
-        ]"
-        :disabled="stateProcessing"
-      />
+      <v-col cols="12">
+        <crud-input
+          v-model="model.title"
+          label="Название"
+          :rules="[val => !!val || 'Название обязательно', val => val.length >= 2 || 'Минимум 2 символа']"
+          :disabled="stateProcessing"
+        />
+      </v-col>
     </template>
   </crud-dialog>
 </template>
@@ -75,28 +64,26 @@ const columns = [
 ]
 
 // Создаем dataListProvider
-const dataListProvider: UseCrudDataListReturn<RejectionReasonItem> =
-  useCrudDataList<RejectionReasonItem>({
-    mode: 'table',
-    urlBase: '/rejection-reasons',
-    pk: 'id',
-    columns,
-    rowActions: [
-      ...createStandardActions<RejectionReasonItem>({
-        editDialog: {
-          show: () => meStore.userCan('rejection_reasons_update'),
-          handler: (item: RejectionReasonItem) =>
-            dialogProvider.openEditDialog(item.id),
+const dataListProvider: UseCrudDataListReturn<RejectionReasonItem> = useCrudDataList<RejectionReasonItem>({
+  mode: 'table',
+  urlBase: '/rejection-reasons',
+  pk: 'id',
+  columns,
+  rowActions: [
+    ...createStandardActions<RejectionReasonItem>({
+      editDialog: {
+        show: () => meStore.userCan('rejection_reasons_update'),
+        handler: (item: RejectionReasonItem) => dialogProvider.openEditDialog(item.id),
+      },
+      delete: {
+        show: () => meStore.userCan('rejection_reasons_delete'),
+        onDelete: (item: RejectionReasonItem) => {
+          console.log('Delete item:', item.id)
         },
-        delete: {
-          show: () => meStore.userCan('rejection_reasons_delete'),
-          onDelete: (item: RejectionReasonItem) => {
-            console.log('Delete item:', item.id)
-          },
-        },
-      }),
-    ],
-  })
+      },
+    }),
+  ],
+})
 
 // Создаем dialogProvider с колбеком
 const dialogProvider = useCrudDialogProvider<RejectionReasonItem>({

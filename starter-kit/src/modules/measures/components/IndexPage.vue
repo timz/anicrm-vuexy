@@ -16,12 +16,14 @@
   <!-- Диалог редактирования -->
   <crud-dialog>
     <template #default="{ stateProcessing }">
-      <crud-input
-        v-model="model.title"
-        label="Название"
-        :rules="[val => !!val || 'Название обязательно', val => val.length >= 2 || 'Минимум 2 символа']"
-        :disabled="stateProcessing"
-      />
+      <v-col cols="12">
+        <crud-input
+          v-model="model.title"
+          label="Название"
+          :rules="[val => !!val || 'Название обязательно', val => val.length >= 2 || 'Минимум 2 символа']"
+          :disabled="stateProcessing"
+        />
+      </v-col>
     </template>
   </crud-dialog>
 </template>

@@ -12,9 +12,6 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="6">
-        <crud-input v-model="dataListProvider.filter.value.id" type="number" label="Ид" />
-      </v-col>
-      <v-col cols="12" md="6">
         <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
       </v-col>
     </template>
