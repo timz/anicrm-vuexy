@@ -2,6 +2,7 @@
 import { computed, inject, ref, useSlots } from 'vue'
 import type { CrudRowAction, UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import ButtonBatchDelete from '@crudui/components/table/buttons/ButtonBatchDelete.vue'
+import ButtonAction from '@crudui/components/table/buttons/ButtonAction.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
 import CrudConfirmDialog from '@crudui/components/dialogs/CrudConfirmDialog.vue'
@@ -293,9 +294,14 @@ const resetFilter = async (): Promise<void> => {
       <!-- Actions column -->
       <template #item.actions="{ item }">
         <div class="d-flex justify-end gap-x-1">
-          <IconBtn v-for="action in getVisibleActions(item)" :key="action.name" @click="handleActionClick(action, item)">
-            <VIcon :icon="action.icon" :color="action.color" />
-          </IconBtn>
+          <ButtonAction
+            v-for="action in getVisibleActions(item)"
+            :key="action.name"
+            :icon="action.icon"
+            :color="action.color"
+            :tooltip="action.tooltip"
+            @click="handleActionClick(action, item)"
+          />
         </div>
       </template>
     </v-data-table-server>

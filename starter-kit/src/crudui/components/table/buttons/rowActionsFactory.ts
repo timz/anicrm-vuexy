@@ -46,7 +46,7 @@ export function createEditAction<T extends FormModel>(
   return {
     name: 'edit',
     icon: 'mdi-pencil',
-    color: 'primary',
+    color: 'secondary',
     class: config.class || 'text-blue-600',
     label: 'Изменить',
     show: config.show,
