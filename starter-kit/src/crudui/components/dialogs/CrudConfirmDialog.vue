@@ -50,14 +50,13 @@ const handleCancel = () => {
 <template>
   <v-dialog v-model="dialog" :max-width="maxWidth">
     <v-card class="pa-2">
-      <v-card-title class="text-h5">
+      <v-card-title >
         {{ title }}
       </v-card-title>
       <v-card-text>
         {{ message }}
       </v-card-text>
       <v-card-actions>
-        <v-spacer />
         <crud-button-secondary @click="handleCancel">
           {{ cancelText }}
         </crud-button-secondary>
