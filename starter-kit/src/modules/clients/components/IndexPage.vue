@@ -11,8 +11,16 @@
       <v-col cols="12" md="4">
         <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
       </v-col>
-      <v-col cols="12" md="3">
+      <v-col cols="12" md="4">
         <crud-date-range-picker-2 v-model="dataListProvider.filter.value.created" label="Дата создания" />
+      </v-col>
+      <v-col cols="12" md="4">
+        <CrudSelector
+          multiple
+          v-model="dataListProvider.filter.value.adv_id"
+          data-url="/adv-sources/list"
+          label="Источник рекламы"
+        />
       </v-col>
     </template>
 
@@ -37,6 +45,7 @@ import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
 import { useTimezone } from '@crudui/composables/useTimezone'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
+import CrudSelector from "@core/components/Inputs/CrudSelector.vue";
 
 const { formatTableDate } = useTimezone()
 
