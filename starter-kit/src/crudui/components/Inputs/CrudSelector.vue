@@ -6,7 +6,7 @@
     :rules="rules"
     :multiple="multiple"
     :chips="multiple"
-    :disabled="isDisabled"
+    :disabled="disabled"
     :loading="isLoading"
     clearable
     variant="outlined"
@@ -17,20 +17,37 @@
     item-value="value"
     :return-object="false"
     @update:search="onSearch"
-    @update:model-value="updateValue"
+    @update:model-value="value => emit('update:modelValue', value)"
     @click:clear="onClear"
   />
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import type { PropType } from 'vue'
 import { debounce } from 'lodash'
 import type { CrudSelectorOptionsList } from '@crudui/components/Inputs/interfaces/CrudSelectorTypes'
 import { secureApi } from '@crudui/services/AxiosService'
+import { useNotifications } from '@crudui/composables/useNotifications'
+
+// Интерфейсы для типизации
+interface CrudSelectorRequest {
+  filter?: string
+  id?: string | number | Array<string | number>
+  [key: string]: unknown
+}
+
+interface CrudSelectorResponse {
+  data: {
+    content: {
+      list: CrudSelectorOptionsList
+    }
+  }
+}
 
 const props = defineProps({
   disabled: Boolean,
-  modelValue: [String, Number, Array],
+  modelValue: [String, Number, Array] as PropType<string | number | string[] | number[] | null>,
   label: {
     type: String,
     default: undefined,
@@ -59,25 +76,29 @@ const emit = defineEmits<{
   'update:modelValue': [value: string | number | string[] | number[] | null]
 }>()
 
+const { showError } = useNotifications()
+
 const listOptions = ref<CrudSelectorOptionsList>([])
 const listOptionsFiltered = ref<CrudSelectorOptionsList>([])
-const internalLoading = ref(false)
+const isLoading = ref(false)
 
-// Обновление значения
-const updateValue = (value: string | number | string[] | number[] | null) => {
-  emit('update:modelValue', value)
+
+// Установка опций
+const setOptions = (options: CrudSelectorOptionsList) => {
+  listOptions.value = options
+  listOptionsFiltered.value = options
 }
 
 // Загрузка списка
 const getList = async (filterStr?: string) => {
   if (props.dataOptions) {
-    listOptions.value = listOptionsFiltered.value = props.dataOptions
+    setOptions(props.dataOptions)
   }
   else if (props.dataUrl) {
     try {
-      internalLoading.value = true
+      isLoading.value = true
 
-      const requestData: any = {}
+      const requestData: CrudSelectorRequest = {}
 
       if (filterStr) {
         requestData.filter = filterStr
@@ -93,17 +114,18 @@ const getList = async (filterStr?: string) => {
         Object.assign(requestData, props.extraRequestData)
       }
 
-      const response = await secureApi.post(props.dataUrl, requestData)
+      const response = await secureApi.post<CrudSelectorResponse['data']>(props.dataUrl, requestData)
 
       if (response?.data?.content?.list) {
-        listOptions.value = listOptionsFiltered.value = response.data.content.list
+        setOptions(response.data.content.list)
       }
     }
     catch (e) {
-      console.error(`Ошибка при получении списка "${props.label}"`, e)
+      showError(`Ошибка при загрузке списка ${props.label || ''}`)
+      console.error(e)
     }
     finally {
-      internalLoading.value = false
+      isLoading.value = false
     }
   }
   else {
@@ -117,19 +139,19 @@ const modelValue = computed({
     return props.modelValue || null
   },
   set(value: string | number | string[] | number[] | null) {
-    updateValue(value)
+    emit('update:modelValue', value)
   },
 })
 
-// Проверка состояния disabled
-const isDisabled = computed(() => {
-  return props.disabled || false
-})
 
-// Проверка состояния loading
-const isLoading = computed(() => {
-  return internalLoading.value || false
-})
+// Получение текущих label(ов) для выбранных значений
+const getCurrentLabels = () => {
+  const value = modelValue.value
+  if (!value) return []
+
+  const values = Array.isArray(value) ? value : [value]
+  return values.map(v => listOptions.value.find(opt => opt.value === v)?.label).filter(Boolean)
+}
 
 // Поиск с debounce
 const onSearch = debounce(async (query: string) => {
@@ -139,8 +161,8 @@ const onSearch = debounce(async (query: string) => {
 
   // Игнорируем поисковый запрос, если он совпадает с текущим выбранным значением
   // (это происходит при открытии селектора)
-  const currentLabel = listOptions.value.find(opt => opt.value === modelValue.value)?.label
-  if (query && query === currentLabel) {
+  const currentLabels = getCurrentLabels()
+  if (query && currentLabels.includes(query)) {
     return
   }
 
