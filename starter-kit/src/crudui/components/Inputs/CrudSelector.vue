@@ -17,7 +17,7 @@
     item-value="value"
     :return-object="false"
     @update:search="onSearch"
-    @update:model-value="value => emit('update:modelValue', value)"
+    @update:model-value="onModelValueUpdate"
     @click:clear="onClear"
   />
 </template>
@@ -81,6 +81,7 @@ const { showError } = useNotifications()
 const listOptions = ref<CrudSelectorOptionsList>([])
 const listOptionsFiltered = ref<CrudSelectorOptionsList>([])
 const isLoading = ref(false)
+const lastSearchQuery = ref<string>('')
 
 
 // Установка опций
@@ -159,6 +160,9 @@ const onSearch = debounce(async (query: string) => {
     return
   }
 
+  // Сохраняем последний поисковый запрос
+  lastSearchQuery.value = query || ''
+
   // Игнорируем поисковый запрос, если он совпадает с текущим выбранным значением
   // (это происходит при открытии селектора)
   const currentLabels = getCurrentLabels()
@@ -187,8 +191,30 @@ const onSearch = debounce(async (query: string) => {
   }
 }, 300)
 
+// Обработчик изменения значения
+const onModelValueUpdate = async (value: string | number | string[] | number[] | null) => {
+  // Эмитим новое значение
+  emit('update:modelValue', value)
+
+  // Если был активный фильтр и выбрано значение, очищаем фильтр и перезагружаем список
+  if (lastSearchQuery.value && value !== null) {
+    lastSearchQuery.value = ''
+
+    // Перезагружаем полный список без фильтрации
+    if (props.dataUrl) {
+      await getList()
+    } else if (props.dataOptions) {
+      // Для локальных данных просто сбрасываем фильтр
+      listOptionsFiltered.value = listOptions.value
+    }
+  }
+}
+
 // Обработчик очистки поля
 const onClear = async () => {
+  // Сбрасываем последний поисковый запрос
+  lastSearchQuery.value = ''
+
   // При очистке загружаем список без фильтрации
   if (props.dataUrl) {
     await getList()
