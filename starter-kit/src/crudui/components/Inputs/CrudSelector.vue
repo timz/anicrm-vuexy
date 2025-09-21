@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { debounce } from 'lodash'
 import type { CrudSelectorOptionsList } from '@crudui/components/Inputs/interfaces/CrudSelectorTypes'
 import { secureApi } from '@crudui/services/AxiosService'
@@ -70,8 +70,6 @@ const updateValue = (value: string | number | string[] | number[] | null) => {
 
 // Загрузка списка
 const getList = async (filterStr?: string) => {
-  await nextTick()
-
   if (props.dataOptions) {
     listOptions.value = listOptionsFiltered.value = props.dataOptions
   }
