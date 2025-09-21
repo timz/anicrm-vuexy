@@ -10,20 +10,9 @@ const scrollToTop = () => {
 </script>
 
 <template>
-  <VScaleTransition
-    style="transform-origin: center;"
-    class="scroll-to-top d-print-none"
-  >
-    <VBtn
-      v-show="y > 200"
-      icon
-      density="comfortable"
-      @click="scrollToTop"
-    >
-      <VIcon
-        size="22"
-        icon="tabler-arrow-up"
-      />
+  <VScaleTransition style="transform-origin: center" class="scroll-to-top d-print-none">
+    <VBtn v-show="y > 200" icon density="comfortable" @click="scrollToTop">
+      <VIcon size="22" icon="tabler-arrow-up" />
     </VBtn>
   </VScaleTransition>
 </template>
@@ -34,7 +23,7 @@ const scrollToTop = () => {
 
   // To keep button on top of v-layout. E.g. Email app
   z-index: 999;
-  inset-block-end: 5%;
+  inset-block-end: 3%;
   inset-inline-end: 25px;
 }
 </style>
