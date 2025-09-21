@@ -18,10 +18,9 @@
       </v-col>
       <v-col cols="12">
         <CrudSelector
-          field="adv_id"
+          v-model="model.adv_id"
           data-url="/adv-sources/list"
           label="Источник рекламы"
-          provider-name="editPageProvider"
         />
       </v-col>
       <v-col cols="12">

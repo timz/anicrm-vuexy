@@ -90,29 +90,26 @@ const getList = async (filterStr?: string) => {
     try {
       internalLoading.value = true
 
-      const filterData: any = {}
+      const requestData: any = {}
 
       if (filterStr) {
-        filterData.filterStr = filterStr
+        requestData.filter = filterStr
       }
 
       // Добавляем текущее значение для загрузки
       const currentValue = modelValue.value
       if (currentValue) {
-        // eslint-disable-next-line sonarjs/no-all-duplicated-branches
-        filterData.id = Array.isArray(currentValue) ? currentValue : currentValue
+        requestData.id = Array.isArray(currentValue) ? currentValue : currentValue
       }
 
       if (props.extraRequestData) {
-        Object.assign(filterData, props.extraRequestData)
+        Object.assign(requestData, props.extraRequestData)
       }
 
-      const response = await secureApi.post(props.dataUrl, {
-        filter: filterData,
-      })
+      const response = await secureApi.post(props.dataUrl, requestData)
 
-      if (response?.data?.result?.list) {
-        listOptions.value = listOptionsFiltered.value = response.data.result.list
+      if (response?.data?.content?.list) {
+        listOptions.value = listOptionsFiltered.value = response.data.content.list
       }
     }
     catch (e) {
