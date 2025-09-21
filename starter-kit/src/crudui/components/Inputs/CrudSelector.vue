@@ -138,21 +138,31 @@ const onSearch = debounce(async (query: string) => {
     return
   }
 
-  if (props.dataOptions) {
-    // Фильтрация локальных данных
-    if (!query) {
-      listOptionsFiltered.value = listOptions.value
+  // Игнорируем поисковый запрос, если он совпадает с текущим выбранным значением
+  // (это происходит при открытии селектора)
+  const currentLabel = listOptions.value.find(opt => opt.value === modelValue.value)?.label
+  if (query && query === currentLabel) {
+    return
+  }
 
+  if (props.dataOptions) {
+    // Фильтрация локальных данных - начинаем с 3 символов
+    if (!query || query.length < 3) {
+      listOptionsFiltered.value = listOptions.value
       return
     }
 
     const needle = query.toLowerCase()
-
     listOptionsFiltered.value = listOptions.value.filter(option => option.label.toLowerCase().includes(needle))
   }
-  else if (props.dataUrl && query) {
-    // Загрузка данных с сервера при поиске
-    await getList(query)
+  else if (props.dataUrl) {
+    // Загрузка данных с сервера только если введено минимум 3 символа
+    if (query && query.trim().length >= 3) {
+      await getList(query)
+    } else {
+      // При недостаточной длине или очистке поиска возвращаем исходный список
+      listOptionsFiltered.value = listOptions.value
+    }
   }
 }, 300)
 
