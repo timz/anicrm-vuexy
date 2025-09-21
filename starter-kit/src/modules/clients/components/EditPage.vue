@@ -17,6 +17,14 @@
         <crud-date-picker v-model="model.birthday" label="Дата рождения" />
       </v-col>
       <v-col cols="12">
+        <CrudSelector
+          field="adv_id"
+          data-url="/adv-sources/list"
+          label="Источник рекламы"
+          provider-name="editPageProvider"
+        />
+      </v-col>
+      <v-col cols="12">
         <crud-input v-model="model.description" type="textarea" label="Заметки" :disable="stateProcessing" />
       </v-col>
     </template>
@@ -29,6 +37,7 @@ import ClientKidsIndexPage from '../../client-kids/components/IndexPage.vue'
 import CrudEditForm from '@crudui/components/forms/CrudEditForm.vue'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
+import CrudSelector from '@crudui/components/Inputs/CrudSelector.vue'
 import { useCrudEditPage } from '@crudui/providers/useCrudEditPage'
 import type { FormModel } from '@crudui/types'
 import type { CrudTabInterface } from '@crudui/components/forms/tabs/TabTypes'
@@ -43,6 +52,7 @@ interface ClientItem extends FormModel {
   birthday: string | null
   start_on: string | null
   test_time: string | null
+  adv_id: number | null
 }
 
 // Конфигурация формы через композицию блоков
@@ -55,6 +65,7 @@ const editFormConfig = {
     birthday: null,
     start_on: null,
     test_time: null,
+    adv_id: null,
   }),
   prefixUrl: '/clients',
   backRoute: { name: 'clientsIndex' },
