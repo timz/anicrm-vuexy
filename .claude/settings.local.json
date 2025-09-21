@@ -42,7 +42,10 @@
       "Bash(timeout 10 pnpm run dev)",
       "mcp__playwright__browser_type",
       "Bash(xargs sed:*)",
-      "Bash(npx vue-tsc:*)"
+      "Bash(npx vue-tsc:*)",
+      "Bash(ForEach-Object { $_atches })",
+      "Bash(ForEach-Object { $_alue })",
+      "Bash(Sort-Object -Unique \")"
     ],
     "deny": [],
     "ask": []
