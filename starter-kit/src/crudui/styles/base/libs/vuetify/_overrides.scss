@@ -46,6 +46,22 @@ body,
   }
 }
 
+// 👉 Form Row
+// Кастомный класс для форм с отступами 8px
+.v-row.form-row {
+  margin: -8px !important;
+}
+
+.v-row.form-row > .v-col,
+.v-row.form-row > [class*="v-col-"] {
+  padding: 8px !important;
+}
+
+// Отступ между form-row строками
+.v-row + .v-row.form-row {
+  margin-top: 8px !important;
+}
+
 // 👉 Button
 // Update tonal variant disabled opacity
 .v-btn--disabled {

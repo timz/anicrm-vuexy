@@ -251,7 +251,7 @@ const resetFilter = async (): Promise<void> => {
     <v-expand-transition>
       <div v-if="$slots.filterForm && filterPanel" class="ma-6">
         <v-form ref="filterFormRef" @submit.prevent="applyFilter">
-          <v-row dense>
+          <v-row class="form-row">
             <slot name="filterForm" />
           </v-row>
 

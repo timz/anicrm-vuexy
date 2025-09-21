@@ -7,7 +7,7 @@
         </div>
 
         <v-form ref="formRef" @submit.prevent="handleSubmit">
-          <v-row>
+          <v-row class="form-row">
             <slot
               :model="model"
               :is-create-mode="dialogProvider.isCreateMode.value"
