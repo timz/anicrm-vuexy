@@ -10,7 +10,7 @@
     :loading="isLoading"
     clearable
     variant="outlined"
-    density="compact"
+    density="comfortable"
     hide-details="auto"
     bg-color="surface"
     item-title="label"
@@ -22,10 +22,9 @@
 </template>
 
 <script setup lang="ts">
-import { inject, nextTick, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { debounce } from 'lodash'
 import type { CrudSelectorOptionsList } from '@crudui/components/Inputs/interfaces/CrudSelectorTypes'
-import type { UseCrudFormReturn } from '@crudui/providers/useCrudForm'
 import { secureApi } from '@crudui/services/AxiosService'
 
 const props = defineProps({
@@ -53,19 +52,11 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  field: String,
-  providerName: {
-    type: String,
-    default: 'formProvider',
-  },
 })
 
 const emit = defineEmits<{
   'update:modelValue': [value: string | number | string[] | number[] | null]
 }>()
-
-// Инжектируем провайдер формы
-const formProvider = inject<UseCrudFormReturn>(props.providerName)
 
 const listOptions = ref<CrudSelectorOptionsList>([])
 const listOptionsFiltered = ref<CrudSelectorOptionsList>([])
@@ -73,9 +64,6 @@ const internalLoading = ref(false)
 
 // Обновление значения
 const updateValue = (value: string | number | string[] | number[] | null) => {
-  if (formProvider && props.field) {
-    formProvider.model.value[props.field] = value
-  }
   emit('update:modelValue', value)
 }
 
@@ -127,11 +115,7 @@ const getList = async (filterStr?: string) => {
 // Вычисляемое свойство для v-model
 const modelValue = computed({
   get(): string | number | string[] | number[] | null {
-    if (!formProvider || !props.field) {
-      return props.modelValue || null
-    }
-
-    return formProvider.model.value[props.field] as string | number | string[] | number[] | null
+    return props.modelValue || null
   },
   set(value: string | number | string[] | number[] | null) {
     updateValue(value)
@@ -140,12 +124,12 @@ const modelValue = computed({
 
 // Проверка состояния disabled
 const isDisabled = computed(() => {
-  return props.disabled || formProvider?.stateProcessing?.value || false
+  return props.disabled || false
 })
 
 // Проверка состояния loading
 const isLoading = computed(() => {
-  return internalLoading.value || formProvider?.stateLoading?.value || false
+  return internalLoading.value || false
 })
 
 // Поиск с debounce
