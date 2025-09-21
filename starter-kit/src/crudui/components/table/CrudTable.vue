@@ -15,7 +15,7 @@ const deleteDialog = ref(false)
 const itemToDelete = ref<unknown | null>(null)
 const deleteAction = ref<CrudRowAction<unknown> | null>(null)
 
-const dataListProvider = inject<UseCrudDataListReturn>('dataListProvider')
+const dataListProvider = inject<UseCrudDataListReturn<Record<string, unknown>>>('dataListProvider')
 
 if (!dataListProvider)
   throw new Error('dataListProvider not provided')
