@@ -41,7 +41,8 @@
       "mcp__playwright__browser_network_requests",
       "Bash(timeout 10 pnpm run dev)",
       "mcp__playwright__browser_type",
-      "Bash(xargs sed:*)"
+      "Bash(xargs sed:*)",
+      "Bash(npx vue-tsc:*)"
     ],
     "deny": [],
     "ask": []
