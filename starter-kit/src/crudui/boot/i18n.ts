@@ -3,9 +3,9 @@ import messages from '@crudui/i18n'
 
 export const i18n = createI18n({
   legacy: false,
-  locale: 'ru',
-  fallbackLocale: 'en-US',
-  globalInjection: false,
+  locale: 'en-US',
+  fallbackLocale: 'ru',
+  globalInjection: true,
   messages,
 })
 

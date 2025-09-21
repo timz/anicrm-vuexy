@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(for file in src/modules/*/components/IndexPage.vue)",
+      "Bash(do sed -i \"s/label=\"\"Создать\"\"/label=\"\"{{ $t(''common.create'') }}\"\"/g; s/>Создать</>{{ $t(''common.create'') }}</g\" \"$file\")"
     ],
     "deny": [],
     "ask": []

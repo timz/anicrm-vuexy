@@ -4,7 +4,7 @@
     <template #actionsSection>
       <crud-button-primary
         v-if="meStore.userCan('products_create')"
-        label="Создать"
+        label="{{ ('common.create') }}"
         :to="{ name: 'productCreate' }"
       >
         Создать

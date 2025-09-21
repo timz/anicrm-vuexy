@@ -20,10 +20,10 @@
       <v-card-actions class="ga-2 pt-6">
         <v-spacer />
         <crud-button-secondary @click="dialogProvider.closeDialog">
-          Закрыть
+          {{ $t('common.close') }}
         </crud-button-secondary>
         <crud-button-primary :loading="stateProcessing" @click="handleSubmit">
-          {{ dialogProvider.isCreateMode.value ? 'Создать' : 'Сохранить' }}
+          {{ dialogProvider.isCreateMode.value ? $t('common.create') : $t('common.save') }}
         </crud-button-primary>
       </v-card-actions>
     </v-card>

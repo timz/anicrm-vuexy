@@ -6,6 +6,7 @@ import { type QFormConfig, type UseCrudFormReturn, useCrudForm } from './useCrud
 import { api, secureApi } from '@crudui/services/AxiosService'
 import { notifications } from '@crudui/boot/notification'
 import type { CrudResponse, FormConfig, FormModel, HttpConfig, ModelConfig, UrlConfig } from '@crudui/types'
+import { i18n } from '@crudui/boot/i18n'
 
 interface ValidationErrorResponse {
   error: string | Record<string, string>
@@ -13,14 +14,14 @@ interface ValidationErrorResponse {
 
 function formatValidationError(errorData: string | Record<string, string>): string {
   if (typeof errorData === 'string') {
-    return `<div class="q-mb-sm">При отправке данных возникла ошибка:</div>${errorData}`
+    return `<div class="q-mb-sm">${i18n.global.t('errors.server')}:</div>${errorData}`
   }
 
   const errorsList = Object.values(errorData)
     .map(error => `<li>${error}</li>`)
     .join('')
 
-  return `<div class="q-mb-sm">При отправке данных возникли ошибки:</div><ol style="margin: 0; padding-left: 20px;">${errorsList}</ol>`
+  return `<div class="q-mb-sm">${i18n.global.t('errors.server')}:</div><ol style="margin: 0; padding-left: 20px;">${errorsList}</ol>`
 }
 
 function handleSubmitError(error: AxiosError<ValidationErrorResponse>): never {
@@ -30,7 +31,7 @@ function handleSubmitError(error: AxiosError<ValidationErrorResponse>): never {
     notifications.warning(errorMessage)
   }
   else {
-    const errorMessage = (error.response?.data?.error as string) || 'Произошла ошибка при сохранении'
+    const errorMessage = (error.response?.data?.error as string) || i18n.global.t('errors.unknown')
 
     notifications.warning(errorMessage)
   }
@@ -59,7 +60,7 @@ export function useCrudDataForm<T extends FormModel = FormModel>(
   const loadUrl = cfg.loadUrl ?? '/view'
   const createUrl = cfg.createUrl ?? '/create'
   const updateUrl = cfg.updateUrl ?? '/update'
-  const successMessage = cfg.successMessage ?? 'Запись успешно сохранена'
+  const successMessage = cfg.successMessage ?? i18n.global.t('notifications.success.saved')
 
   // Определяем режим создания на основе наличия PK
   const isCreateMode = computed<boolean>(() => {

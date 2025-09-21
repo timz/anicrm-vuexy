@@ -154,10 +154,10 @@ const shouldRenderTab = (tabName: string): boolean => {
             />
             <v-spacer />
             <CrudButtonSecondary :disabled="stateProcessing" @click="handleCancel">
-              Закрыть
+              {{ $t('common.close') }}
             </CrudButtonSecondary>
             <CrudButtonPrimary :disabled="stateProcessing" :loading="stateProcessing" @click="handleSave">
-              Сохранить
+              {{ $t('common.save') }}
             </CrudButtonPrimary>
           </v-card-text>
         </template>

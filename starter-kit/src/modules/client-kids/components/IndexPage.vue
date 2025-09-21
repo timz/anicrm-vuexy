@@ -3,10 +3,10 @@
     <template #actionsSection>
       <crud-button-primary
         v-if="meStore.userCan('clients_update')"
-        label="Создать"
+        :label="$t('common.create')"
         @click="dialogProvider.openCreateDialog"
       >
-        Создать
+        {{ $t('common.create') }}
       </crud-button-primary>
     </template>
     <template #body-cell-birthday="{ value }">

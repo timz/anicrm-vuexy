@@ -4,7 +4,7 @@
     <template #actionsSection>
       <crud-button-primary
         v-if="meStore.userCan('places_create')"
-        label="Создать"
+        label="{{ ('common.create') }}"
         @click="dialogProvider.openCreateDialog"
       >
         Создать

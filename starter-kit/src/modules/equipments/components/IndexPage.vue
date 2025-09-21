@@ -3,7 +3,7 @@
     <template #actionsSection>
       <crud-button-primary
         v-if="meStore.userCan('equipment_create')"
-        label="Создать"
+        label="{{ ('common.create') }}"
         @click="dialogProvider.openCreateDialog"
       />
     </template>
