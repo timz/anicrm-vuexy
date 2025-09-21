@@ -18,6 +18,7 @@
     :return-object="false"
     @update:search="onSearch"
     @update:model-value="updateValue"
+    @click:clear="onClear"
   />
 </template>
 
@@ -165,6 +166,14 @@ const onSearch = debounce(async (query: string) => {
     }
   }
 }, 300)
+
+// Обработчик очистки поля
+const onClear = async () => {
+  // При очистке загружаем список без фильтрации
+  if (props.dataUrl) {
+    await getList()
+  }
+}
 
 onMounted(async () => {
   await getList()
