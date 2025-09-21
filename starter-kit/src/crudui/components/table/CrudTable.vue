@@ -17,7 +17,8 @@ const deleteAction = ref<CrudRowAction<unknown> | null>(null)
 
 const dataListProvider = inject<UseCrudDataListReturn>('dataListProvider')
 
-if (!dataListProvider) throw new Error('dataListProvider not provided')
+if (!dataListProvider)
+  throw new Error('dataListProvider not provided')
 
 const {
   listItems,
@@ -83,14 +84,16 @@ const handleActionClick = (action: CrudRowAction<unknown>, item: unknown) => {
     itemToDelete.value = item
     deleteAction.value = action
     deleteDialog.value = true
-  } else {
+  }
+  else {
     // Execute other actions directly
     action.handler(item)
   }
 }
 
 const confirmDelete = async () => {
-  if (!itemToDelete.value || !deleteAction.value) return
+  if (!itemToDelete.value || !deleteAction.value)
+    return
 
   try {
     // Call original handler if provided
@@ -103,9 +106,11 @@ const confirmDelete = async () => {
     if (itemId) {
       await remove([itemId])
     }
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Failed to delete item:', error)
-  } finally {
+  }
+  finally {
     cancelDelete()
   }
 }
@@ -144,7 +149,8 @@ const onSortByUpdate = async (newSortBy: any) => {
       if (!pagination.value.descending) {
         // Currently ascending, switch to descending
         isDescending = true
-      } else {
+      }
+      else {
         // Currently descending, remove sorting
         updateSorting('', false)
         sortBy.value = []
@@ -152,7 +158,8 @@ const onSortByUpdate = async (newSortBy: any) => {
 
         return
       }
-    } else {
+    }
+    else {
       // Different column, start with ascending
       isDescending = false
     }
@@ -167,7 +174,8 @@ const onSortByUpdate = async (newSortBy: any) => {
     ]
 
     await loadList()
-  } else {
+  }
+  else {
     // Clear sorting if no sort specified
     updateSorting('', false)
     sortBy.value = []
@@ -176,20 +184,24 @@ const onSortByUpdate = async (newSortBy: any) => {
 }
 
 const deleteSelected = async (): Promise<void> => {
-  if (selectedIds.value.length === 0) return
+  if (selectedIds.value.length === 0)
+    return
 
   try {
     await remove(selectedIds.value)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Failed to delete items:', error)
   }
 }
 
 const applyFilter = async (): Promise<void> => {
-  if (!filterFormRef.value) return
+  if (!filterFormRef.value)
+    return
 
   const { valid } = await filterFormRef.value.validate()
-  if (!valid) return
+  if (!valid)
+    return
 
   // Get filter data from form elements
   const formElement = filterFormRef.value.$el as HTMLFormElement
@@ -203,7 +215,8 @@ const applyFilter = async (): Promise<void> => {
 
   inputs.forEach((input: Element) => {
     const htmlInput = input as HTMLInputElement
-    if (htmlInput.name && htmlInput.value !== undefined) filterData[htmlInput.name] = htmlInput.value
+    if (htmlInput.name && htmlInput.value !== undefined)
+      filterData[htmlInput.name] = htmlInput.value
   })
 
   Object.assign(filter.value, filterData)
@@ -211,7 +224,8 @@ const applyFilter = async (): Promise<void> => {
 }
 
 const resetFilter = async (): Promise<void> => {
-  if (filterFormRef.value) filterFormRef.value.reset()
+  if (filterFormRef.value)
+    filterFormRef.value.reset()
 
   filter.value = {}
   await loadList()
@@ -256,8 +270,12 @@ const resetFilter = async (): Promise<void> => {
           </v-row>
 
           <div class="d-flex mt-4 gap-2">
-            <CrudButtonPrimary :disabled="loading" @click="applyFilter"> Применить </CrudButtonPrimary>
-            <CrudButtonSecondary :disabled="loading" @click="resetFilter"> Сброс </CrudButtonSecondary>
+            <CrudButtonPrimary :disabled="loading" @click="applyFilter">
+              Применить
+            </CrudButtonPrimary>
+            <CrudButtonSecondary :disabled="loading" @click="resetFilter">
+              Сброс
+            </CrudButtonSecondary>
           </div>
         </v-form>
       </div>
@@ -270,6 +288,7 @@ const resetFilter = async (): Promise<void> => {
       v-model="selectedItems"
       v-model:page="pagination.page"
       v-model:items-per-page="pagination.rowsPerPage"
+      class="pb-2"
       :sort-by="sortBy"
       :headers="tableHeaders"
       :items="listItems"
