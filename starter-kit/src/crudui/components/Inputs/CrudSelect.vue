@@ -1,21 +1,11 @@
 <template>
-  <v-select
-    v-bind="$props"
-    ref="selectRef"
-    variant="outlined"
-    density="comfortable"
-    hide-details="auto"
-    @blur="handleBlur"
-    @focus="handleFocus"
-  />
+  <v-select ref="selectRef" variant="outlined" density="comfortable" hide-details="auto" />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import commonProps from '@crudui/components/Inputs/interfaces/CommonProps'
 
 defineProps({
-  ...commonProps,
   items: {
     type: Array,
     default: () => [],
@@ -31,15 +21,4 @@ defineProps({
 })
 
 const selectRef = ref()
-const hasBeenFocused = ref(false)
-
-const handleFocus = () => {
-  hasBeenFocused.value = true
-}
-
-const handleBlur = () => {
-  if (hasBeenFocused.value && selectRef.value) {
-    selectRef.value.validate()
-  }
-}
 </script>
