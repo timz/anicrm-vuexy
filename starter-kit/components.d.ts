@@ -38,6 +38,7 @@ declare module 'vue' {
     CrudEditForm: typeof import('./src/crudui/components/forms/CrudEditForm.vue')['default']
     CrudInput: typeof import('./src/crudui/components/Inputs/CrudInput.vue')['default']
     CrudSelect: typeof import('./src/crudui/components/Inputs/CrudSelect.vue')['default']
+    CrudSelector: typeof import('./src/crudui/components/Inputs/CrudSelector.vue')['default']
     CrudTable: typeof import('./src/crudui/components/table/CrudTable.vue')['default']
     CustomCheckboxes: typeof import('./src/crudui/components/app-form-elements/CustomCheckboxes.vue')['default']
     CustomCheckboxesWithIcon: typeof import('./src/crudui/components/app-form-elements/CustomCheckboxesWithIcon.vue')['default']
