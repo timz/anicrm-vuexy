@@ -2,6 +2,7 @@ import { useRouter } from 'vue-router'
 import type { RouteParamValueRaw } from 'vue-router'
 import type { CrudRowAction } from '@crudui/providers/useCrudDataList'
 import type { FormModel } from '@crudui/types'
+import { i18n } from '@crudui/boot/i18n'
 
 export interface StandardActionConfig {
   show?: (item: unknown) => boolean
@@ -48,7 +49,7 @@ export function createEditAction<T extends FormModel>(
     icon: 'tabler-edit',
     color: 'primary',
     class: config.class || 'text-blue-600',
-    label: 'Изменить',
+    label: i18n.global.t('common.update'),
     show: config.show,
     handler: (item: T) => {
       const paramName = config.paramName || 'id'
@@ -70,7 +71,7 @@ export function createEditDialogAction<T extends FormModel>(
     icon: 'tabler-edit',
     color: 'primary',
     class: config.class || 'text-blue-600',
-    label: 'Изменить',
+    label: i18n.global.t('common.update'),
     show: config.show,
     handler: config.handler,
   }
@@ -84,7 +85,7 @@ export function createDeleteAction<T extends FormModel>(
     icon: 'tabler-trash',
     color: 'primary',
     class: config.class || 'text-red-600',
-    label: 'Удалить',
+    label: i18n.global.t('common.delete'),
     show: config.show,
     handler: config.onDelete,
   }
@@ -100,7 +101,7 @@ export function createViewAction<T extends FormModel>(
     icon: 'mdi-eye',
     color: 'grey-darken-1',
     class: config.class || 'text-grey-600',
-    label: 'Просмотр',
+    label: i18n.global.t('common.view'),
     show: config.show,
     handler: (item: T) => {
       const paramName = config.paramName || 'id'

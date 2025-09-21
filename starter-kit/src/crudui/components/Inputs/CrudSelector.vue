@@ -83,7 +83,6 @@ const listOptionsFiltered = ref<CrudSelectorOptionsList>([])
 const isLoading = ref(false)
 const lastSearchQuery = ref<string>('')
 
-
 // Установка опций
 const setOptions = (options: CrudSelectorOptionsList) => {
   listOptions.value = options
@@ -144,13 +143,14 @@ const modelValue = computed({
   },
 })
 
-
 // Получение текущих label(ов) для выбранных значений
 const getCurrentLabels = () => {
   const value = modelValue.value
-  if (!value) return []
+  if (!value)
+    return []
 
   const values = Array.isArray(value) ? value : [value]
+
   return values.map(v => listOptions.value.find(opt => opt.value === v)?.label).filter(Boolean)
 }
 
@@ -174,17 +174,20 @@ const onSearch = debounce(async (query: string) => {
     // Фильтрация локальных данных - начинаем с 3 символов
     if (!query || query.length < 3) {
       listOptionsFiltered.value = listOptions.value
+
       return
     }
 
     const needle = query.toLowerCase()
+
     listOptionsFiltered.value = listOptions.value.filter(option => option.label.toLowerCase().includes(needle))
   }
   else if (props.dataUrl) {
     // Загрузка данных с сервера только если введено минимум 3 символа
     if (query && query.trim().length >= 3) {
       await getList(query)
-    } else {
+    }
+    else {
       // При недостаточной длине или очистке поиска возвращаем исходный список
       listOptionsFiltered.value = listOptions.value
     }
@@ -203,7 +206,8 @@ const onModelValueUpdate = async (value: string | number | string[] | number[] |
     // Перезагружаем полный список без фильтрации
     if (props.dataUrl) {
       await getList()
-    } else if (props.dataOptions) {
+    }
+    else if (props.dataOptions) {
       // Для локальных данных просто сбрасываем фильтр
       listOptionsFiltered.value = listOptions.value
     }

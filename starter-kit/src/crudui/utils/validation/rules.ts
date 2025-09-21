@@ -1,3 +1,5 @@
+import { i18n } from '@crudui/boot/i18n'
+
 export interface ValidationRule {
   (value: any): boolean | string
 }
@@ -18,19 +20,23 @@ const isEmptyArray = (arr: unknown): boolean => {
   return Array.isArray(arr) && arr.length === 0
 }
 
+const { t } = i18n.global
+
 export const rules = {
-  required: (message = 'Обязательное поле'): ValidationRule => {
+  required: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.required')
       if (isNullOrUndefined(value) || isEmptyArray(value) || value === false) {
-        return message
+        return msg
       }
 
-      return !!String(value).trim().length || message
+      return !!String(value).trim().length || msg
     }
   },
 
-  email: (message = 'Введите корректный email'): ValidationRule => {
+  email: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.email')
       if (isEmpty(value)) {
         return true
       }
@@ -39,17 +45,16 @@ export const rules = {
         /^(?:[^<>()[\]\\.,;:\s@"]+(?:\.[^<>()[\]\\.,;:\s@"]+)*|".+")@(?:\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]|(?:[a-z\-\d]+\.)+[a-z]{2,})$/i
 
       if (Array.isArray(value)) {
-        return value.every(val => re.test(String(val))) || message
+        return value.every(val => re.test(String(val))) || msg
       }
 
-      return re.test(String(value)) || message
+      return re.test(String(value)) || msg
     }
   },
 
-  password: (
-    message = 'Пароль должен содержать минимум 8 символов, включая заглавную и строчную буквы, цифру и спецсимвол',
-  ): ValidationRule => {
+  password: (message?: string): ValidationRule => {
     return (value: string) => {
+      const msg = message || t('validation.password')
       if (isEmpty(value)) {
         return true
       }
@@ -57,45 +62,49 @@ export const rules = {
       const regExp = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()]).{8,}/
       const validPassword = regExp.test(value)
 
-      return validPassword || message
+      return validPassword || msg
     }
   },
 
-  confirmed: (target: string, message = 'Поля не совпадают'): ValidationRule => {
+  confirmed: (target: string, message?: string): ValidationRule => {
     return (value: string) => {
-      return value === target || message
+      const msg = message || t('validation.confirmed')
+
+      return value === target || msg
     }
   },
 
   between: (min: number, max: number, message?: string): ValidationRule => {
     return (value: unknown) => {
-      const defaultMessage = `Введите число от ${min} до ${max}`
+      const msg = message || t('validation.between', { min, max })
       if (isEmpty(value)) {
         return true
       }
 
       const valueAsNumber = Number(value)
 
-      return (Number(min) <= valueAsNumber && Number(max) >= valueAsNumber) || message || defaultMessage
+      return (Number(min) <= valueAsNumber && Number(max) >= valueAsNumber) || msg
     }
   },
 
-  integer: (message = 'Поле должно быть целым числом'): ValidationRule => {
+  integer: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.integer')
       if (isEmpty(value)) {
         return true
       }
 
       if (Array.isArray(value)) {
-        return value.every(val => /^-?\d+$/.test(String(val))) || message
+        return value.every(val => /^-?\d+$/.test(String(val))) || msg
       }
 
-      return /^-?\d+$/.test(String(value)) || message
+      return /^-?\d+$/.test(String(value)) || msg
     }
   },
 
-  regex: (pattern: RegExp | string, message = 'Неверный формат поля'): ValidationRule => {
+  regex: (pattern: RegExp | string, message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.regex')
       if (isEmpty(value)) {
         return true
       }
@@ -106,131 +115,132 @@ export const rules = {
       }
 
       if (Array.isArray(value)) {
-        return value.every(val => regeX.test(String(val))) || message
+        return value.every(val => regeX.test(String(val))) || msg
       }
 
-      return regeX.test(String(value)) || message
+      return regeX.test(String(value)) || msg
     }
   },
 
-  alpha: (message = 'Поле может содержать только буквы'): ValidationRule => {
+  alpha: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.alpha')
       if (isEmpty(value)) {
         return true
       }
 
-      return /^[A-Z]*$/i.test(String(value)) || message
+      return /^[A-Z]*$/i.test(String(value)) || msg
     }
   },
 
-  url: (message = 'Некорректный URL'): ValidationRule => {
+  url: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.url')
       if (isEmpty(value)) {
         return true
       }
 
       const re = /^https?:\/\/[^\s$.?#].\S*$/
 
-      return re.test(String(value)) || message
+      return re.test(String(value)) || msg
     }
   },
 
   length: (length: number, message?: string): ValidationRule => {
     return (value: unknown) => {
-      const defaultMessage = `Длина поля должна быть ${length} символов`
+      const msg = message || t('validation.length', { length })
       if (isEmpty(value)) {
         return true
       }
 
-      return String(value).length === length || message || defaultMessage
+      return String(value).length === length || msg
     }
   },
 
-  alphaDash: (message = 'Недопустимые символы'): ValidationRule => {
+  alphaDash: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.alphaDash')
       if (isEmpty(value)) {
         return true
       }
 
       const valueAsString = String(value)
 
-      return /^[\w-]*$/.test(valueAsString) || message
+      return /^[\w-]*$/.test(valueAsString) || msg
     }
   },
 
   minLength: (min: number, message?: string): ValidationRule => {
-    const defaultMessage = `Минимум ${min} символов`
-
     return (value: unknown) => {
+      const msg = message || t('validation.minLength', { min })
       if (isEmpty(value)) {
         return true
       }
 
-      return String(value).length >= min || message || defaultMessage
+      return String(value).length >= min || msg
     }
   },
 
   maxLength: (max: number, message?: string): ValidationRule => {
-    const defaultMessage = `Максимум ${max} символов`
-
     return (value: unknown) => {
+      const msg = message || t('validation.maxLength', { max })
       if (isEmpty(value)) {
         return true
       }
 
-      return String(value).length <= max || message || defaultMessage
+      return String(value).length <= max || msg
     }
   },
 
-  number: (message = 'Поле должно быть числом'): ValidationRule => {
+  number: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.number')
       if (isEmpty(value)) {
         return true
       }
 
-      return (typeof Number(value) === 'number' && !Number.isNaN(value)) || message
+      return (typeof Number(value) === 'number' && !Number.isNaN(value)) || msg
     }
   },
 
   numberMin: (min: number, message?: string): ValidationRule => {
-    const defaultMessage = `Значение должно быть больше ${min}`
-
     return (value: unknown) => {
+      const msg = message || t('validation.numberMin', { min })
       if (isEmpty(value)) {
         return true
       }
 
-      return Number(value) >= min || message || defaultMessage
+      return Number(value) >= min || msg
     }
   },
 
   numberMax: (max: number, message?: string): ValidationRule => {
-    const defaultMessage = `Значение должно быть меньше ${max}`
-
     return (value: unknown) => {
+      const msg = message || t('validation.numberMax', { max })
       if (isEmpty(value)) {
         return true
       }
 
-      return Number(value) <= max || message || defaultMessage
+      return Number(value) <= max || msg
     }
   },
 
   numberMaxInt: (message?: string): ValidationRule => {
     const max = 2147483647
-    const defaultMessage = `Значение должно быть меньше ${max}`
 
     return (value: unknown) => {
+      const msg = message || t('validation.numberMaxInt', { max })
       if (isEmpty(value)) {
         return true
       }
 
-      return Number(value) <= max || message || defaultMessage
+      return Number(value) <= max || msg
     }
   },
 
-  numberOrArray: (message = 'Поле должно быть числом или массивом чисел'): ValidationRule => {
+  numberOrArray: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.numberOrArray')
       if (isEmpty(value)) {
         return true
       }
@@ -239,105 +249,103 @@ export const rules = {
 
       const isValidArray = (arr: unknown) => Array.isArray(arr) && arr.every(isValidNumber)
 
-      return isValidNumber(value) || isValidArray(value) || message
+      return isValidNumber(value) || isValidArray(value) || msg
     }
   },
 
   decimal: (decimals = 2, message?: string): ValidationRule => {
-    const defaultMessage = `Число должно иметь не более ${decimals} знаков после запятой`
-
     return (value: unknown) => {
+      const msg = message || t('validation.decimal', { decimals })
       if (isEmpty(value)) {
         return true
       }
       const regex = new RegExp(`^-?\\d+(\\.\\d{1,${decimals}})?$`)
 
-      return regex.test(String(value)) || message || defaultMessage
+      return regex.test(String(value)) || msg
     }
   },
 
-  phone: (message = 'Некорректный номер телефона'): ValidationRule => {
+  phone: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.phone')
       if (isEmpty(value)) {
         return true
       }
 
       const phoneRegex = /^\+?\(?\d{1,3}\)?[-\s.]?\(?\d{1,4}\)?[-\s.]?\d{1,4}[-\s.]?\d{1,9}$/
 
-      return phoneRegex.test(String(value)) || message
+      return phoneRegex.test(String(value)) || msg
     }
   },
 
-  date: (message = 'Некорректная дата'): ValidationRule => {
+  date: (message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.date')
       if (isEmpty(value)) {
         return true
       }
       const date = new Date(String(value))
 
-      return !Number.isNaN(date.getTime()) || message
+      return !Number.isNaN(date.getTime()) || msg
     }
   },
 
   dateAfter: (afterDate: string | Date, message?: string): ValidationRule => {
-    const defaultMessage = `Дата должна быть после ${afterDate}`
-
     return (value: unknown) => {
+      const msg = message || t('validation.dateAfter', { afterDate: afterDate.toString() })
       if (isEmpty(value)) {
         return true
       }
       const date = new Date(String(value))
       const after = new Date(afterDate)
 
-      return date > after || message || defaultMessage
+      return date > after || msg
     }
   },
 
   dateBefore: (beforeDate: string | Date, message?: string): ValidationRule => {
-    const defaultMessage = `Дата должна быть до ${beforeDate}`
-
     return (value: unknown) => {
+      const msg = message || t('validation.dateBefore', { beforeDate: beforeDate.toString() })
       if (isEmpty(value)) {
         return true
       }
       const date = new Date(String(value))
       const before = new Date(beforeDate)
 
-      return date < before || message || defaultMessage
+      return date < before || msg
     }
   },
 
   oneOf: (options: any[], message?: string): ValidationRule => {
-    const defaultMessage = `Значение должно быть одним из: ${options.join(', ')}`
-
     return (value: unknown) => {
+      const msg = message || t('validation.oneOf', { options: options.join(', ') })
       if (isEmpty(value)) {
         return true
       }
 
-      return options.includes(value) || message || defaultMessage
+      return options.includes(value) || msg
     }
   },
 
   notOneOf: (options: any[], message?: string): ValidationRule => {
-    const defaultMessage = `Значение не должно быть одним из: ${options.join(', ')}`
-
     return (value: unknown) => {
+      const msg = message || t('validation.notOneOf', { options: options.join(', ') })
       if (isEmpty(value)) {
         return true
       }
 
-      return !options.includes(value) || message || defaultMessage
+      return !options.includes(value) || msg
     }
   },
 
-  custom: (validator: (value: any) => boolean, message = 'Некорректное значение'): ValidationRule => {
+  custom: (validator: (value: any) => boolean, message?: string): ValidationRule => {
     return (value: unknown) => {
+      const msg = message || t('validation.custom')
       if (isEmpty(value)) {
         return true
       }
 
-      return validator(value) || message
+      return validator(value) || msg
     }
   },
 }

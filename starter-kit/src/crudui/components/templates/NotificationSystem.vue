@@ -11,7 +11,7 @@
       @update:model-value="val => !val && remove(index)"
     >
       <div class="text-subtitle-1">
-      {{ notification.message }}
+        {{ notification.message }}
       </div>
       <template #actions>
         <VBtn
@@ -19,7 +19,7 @@
           variant="flat"
           @click="notification.show = false"
         >
-          Закрыть
+          {{ $t('common.close') }}
         </VBtn>
       </template>
     </VSnackbar>

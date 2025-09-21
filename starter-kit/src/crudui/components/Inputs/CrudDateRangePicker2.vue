@@ -14,9 +14,9 @@
         <div class="d-flex">
           <div class="flex-column me-4" style="max-width: 120px">
             <v-btn
-              color="secondary"
               v-for="preset in datePresets"
               :key="preset.key"
+              color="secondary"
               class="mt-1 px-2 text-caption"
               block
               size="small"

@@ -1,3 +1,8 @@
+import validation from './validation'
+import errors from './errors'
+import common from './common'
+import notifications from './notifications'
+
 export default {
   welcome: 'Добро пожаловать',
   login: 'Вход',
@@ -8,7 +13,8 @@ export default {
   delete: 'Удалить',
   add: 'Добавить',
   search: 'Поиск',
-  validation: {
-    required: 'Поле обязательно для заполнения',
-  },
+  validation,
+  errors,
+  common,
+  notifications,
 }

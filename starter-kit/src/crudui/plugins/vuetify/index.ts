@@ -8,9 +8,11 @@ import defaults from './defaults'
 import { icons } from './icons'
 import { staticPrimaryColor, staticPrimaryDarkenColor, themes } from './theme'
 import { themeConfig } from '@themeConfig'
+
 // Styles
 import '@crudui/styles/template/libs/vuetify/index.scss'
 import 'vuetify/styles'
+
 export default function (app: App) {
   const cookieThemeValues = {
     defaultTheme: resolveVuetifyTheme(themeConfig.app.theme),
@@ -29,7 +31,9 @@ export default function (app: App) {
       },
     },
   }
+
   const optionTheme = deepMerge({ themes }, cookieThemeValues)
+
   const vuetify = createVuetify({
     aliases: {
       IconBtn: VBtn,
@@ -46,5 +50,6 @@ export default function (app: App) {
       messages: { ru },
     },
   })
+
   app.use(vuetify)
 }

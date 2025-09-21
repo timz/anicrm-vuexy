@@ -1,3 +1,8 @@
+import validation from './validation'
+import errors from './errors'
+import common from './common'
+import notifications from './notifications'
+
 export default {
   welcome: 'Welcome',
   login: 'Login',
@@ -8,7 +13,8 @@ export default {
   delete: 'Delete',
   add: 'Add',
   search: 'Search',
-  validation: {
-    required: 'Field is required',
-  },
+  validation,
+  errors,
+  common,
+  notifications,
 }

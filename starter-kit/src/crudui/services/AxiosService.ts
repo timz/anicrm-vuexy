@@ -4,6 +4,7 @@ import envService from '@crudui/services/EnvService'
 import { notifications } from '@crudui/boot/notification'
 import type { ResponseDto } from '@crudui/interfaces/ResponseDto'
 import { useGlobalLoading } from '@crudui/composables/useGlobalLoading'
+import { i18n } from '@crudui/boot/i18n'
 
 export const secureApi = getAxiosInstance(true)
 export const api = getAxiosInstance(false)
@@ -43,7 +44,7 @@ async function refreshToken(): Promise<string> {
     return accessToken
   }
   catch (error) {
-    // notifications.warning('Ваша сессия авторизации устарела. Авторизуйтесь повторно')
+    // notifications.warning(i18n.global.t('errors.sessionExpired'))
     window.location.href = '/#/auth/login'
     window.location.reload()
 
@@ -86,7 +87,7 @@ function getAxiosInstance(secure = true): AxiosInstance {
         // Останавливаем загрузку при ошибке запроса
         stopLoading()
       }
-      notifications.negative('Ошибка при обращении к серверу')
+      notifications.negative(i18n.global.t('errors.server'))
 
       return Promise.reject(error)
     },
@@ -147,7 +148,7 @@ function getAxiosInstance(secure = true): AxiosInstance {
             notifications.warning(data.status.error)
           }
           else {
-            notifications.warning('Ошибка на сервере. Обратитесь в поддержку')
+            notifications.warning(i18n.global.t('errors.serverError'))
           }
           console.warn(data, 'Ошибка на сервере')
         }

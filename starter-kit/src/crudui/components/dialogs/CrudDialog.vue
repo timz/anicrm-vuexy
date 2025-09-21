@@ -19,7 +19,9 @@
       </div>
       <v-card-actions class="ga-2 pt-6">
         <v-spacer />
-        <crud-button-secondary @click="dialogProvider.closeDialog"> Закрыть </crud-button-secondary>
+        <crud-button-secondary @click="dialogProvider.closeDialog">
+          Закрыть
+        </crud-button-secondary>
         <crud-button-primary :loading="stateProcessing" @click="handleSubmit">
           {{ dialogProvider.isCreateMode.value ? 'Создать' : 'Сохранить' }}
         </crud-button-primary>
@@ -63,14 +65,16 @@ watch(
       if (dialogProvider.editId.value === null) {
         // Режим создания - полностью очищаем модель
         dialogProvider.formConfig.model.value = {} as any
-      } else {
+      }
+      else {
         // Режим редактирования - загружаем данные
         const primaryKey = dialogProvider.formConfig.primaryKey ?? 'id'
 
         dialogProvider.formConfig.model.value[primaryKey] = dialogProvider.editId.value
         await load()
       }
-    } else {
+    }
+    else {
       // При закрытии сбрасываем только валидацию
       formRef.value?.resetValidation()
     }
@@ -99,7 +103,8 @@ const handleSubmit = async (): Promise<void> => {
 
     // Отмечаем что данные были сохранены
     dialogProvider.wasSaved.value = true
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Ошибка сохранения:', error)
   }
 }

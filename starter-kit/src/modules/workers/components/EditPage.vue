@@ -3,7 +3,9 @@
 
   <CrudEditForm>
     <template #actions>
-      <crud-button-secondary prepend-icon="mdi-email" @click="showInviteDialog"> Пригласить </crud-button-secondary>
+      <crud-button-secondary prepend-icon="mdi-email" @click="showInviteDialog">
+        Пригласить
+      </crud-button-secondary>
     </template>
     <template #default="{ stateProcessing }">
       <v-col cols="12">

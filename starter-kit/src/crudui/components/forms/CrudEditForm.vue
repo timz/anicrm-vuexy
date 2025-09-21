@@ -50,11 +50,13 @@ const visibleTabs = computed(() =>
     if (tab.permissions?.length) {
       const hasPermission = tab.permissions.some(permission => tabContext.value.userPermissions?.includes(permission))
 
-      if (!hasPermission) return false
+      if (!hasPermission)
+        return false
     }
 
     // Проверяем кастомное условие видимости
-    if (tab.visible) return tab.visible(tabContext.value)
+    if (tab.visible)
+      return tab.visible(tabContext.value)
 
     return true
   }),
@@ -116,7 +118,9 @@ const shouldRenderTab = (tabName: string): boolean => {
         <!-- Показываем лоадер пока данные не готовы -->
         <div v-if="!isDataReady" class="text-center pa-12">
           <v-progress-circular indeterminate size="40" color="primary" />
-          <div class="text-grey mt-2">Загрузка данных...</div>
+          <div class="text-grey mt-2">
+            Загрузка данных...
+          </div>
         </div>
 
         <!-- Показываем форму когда данные готовы -->
@@ -149,7 +153,9 @@ const shouldRenderTab = (tabName: string): boolean => {
               :is-edit-mode="!isCreateMode"
             />
             <v-spacer />
-            <CrudButtonSecondary :disabled="stateProcessing" @click="handleCancel"> Закрыть </CrudButtonSecondary>
+            <CrudButtonSecondary :disabled="stateProcessing" @click="handleCancel">
+              Закрыть
+            </CrudButtonSecondary>
             <CrudButtonPrimary :disabled="stateProcessing" :loading="stateProcessing" @click="handleSave">
               Сохранить
             </CrudButtonPrimary>

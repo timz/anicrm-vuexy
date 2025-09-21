@@ -2,6 +2,21 @@
 import { computed } from 'vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
 
+const props = withDefaults(defineProps<Props>(), {
+  title: undefined,
+  message: undefined,
+  confirmText: undefined,
+  confirmColor: 'primary',
+  cancelText: undefined,
+  maxWidth: 400,
+})
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void
+  (e: 'confirm'): void
+  (e: 'cancel'): void
+}>()
+
 interface Props {
   modelValue: boolean
   title?: string
@@ -11,21 +26,6 @@ interface Props {
   cancelText?: string
   maxWidth?: string | number
 }
-
-const props = withDefaults(defineProps<Props>(), {
-  title: 'Подтверждение',
-  message: 'Вы уверены, что хотите выполнить это действие?',
-  confirmText: 'Подтвердить',
-  confirmColor: 'primary',
-  cancelText: 'Отмена',
-  maxWidth: 400,
-})
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
-  (e: 'confirm'): void
-  (e: 'cancel'): void
-}>()
 
 const dialog = computed({
   get() {
@@ -50,18 +50,18 @@ const handleCancel = () => {
 <template>
   <v-dialog v-model="dialog" :max-width="maxWidth">
     <v-card class="pa-2">
-      <v-card-title >
-        {{ title }}
+      <v-card-title>
+        {{ title || $t('common.confirmation') }}
       </v-card-title>
       <v-card-text>
-        {{ message }}
+        {{ message || $t('common.confirmAction') }}
       </v-card-text>
       <v-card-actions>
         <crud-button-secondary @click="handleCancel">
-          {{ cancelText }}
+          {{ cancelText || $t('common.cancel') }}
         </crud-button-secondary>
         <v-btn class="px-4" :color="confirmColor" variant="flat" @click="handleConfirm">
-          {{ confirmText }}
+          {{ confirmText || $t('common.confirm') }}
         </v-btn>
       </v-card-actions>
     </v-card>

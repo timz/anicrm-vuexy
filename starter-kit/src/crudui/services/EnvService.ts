@@ -11,8 +11,8 @@ export const parseEnv = <K extends keyof EnvType, T extends EnvType[K]>(val: str
     case 'number':
       return Number.parseInt(val, 10) as unknown as T
     case 'boolean':
-      // '0' or '1'
-      // 'false' or 'true'
+    // '0' or '1'
+    // 'false' or 'true'
       if (val === '0' || val === 'false') {
         return false as T
       }
@@ -76,7 +76,8 @@ export default {
 
         return false
       }
-    } else {
+    }
+    else {
       if (url.includes('BASE_URL_NOT_DEFINED_IN_ENV_FILE')) {
         console.warn('В файле окружения не указан сервер')
 
