@@ -33,10 +33,9 @@
       </v-col>
 
       <v-col cols="6">
-        <crud-input
+        <crud-money
           v-model="model.amount"
           :label="$t('modules.deals.fields.amount')"
-          type="number"
           :disabled="stateProcessing"
           :rules="[rules.required(), rules.numberMin(0)]"
         />
@@ -134,6 +133,7 @@ import { provide, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import CrudEditForm from '@crudui/components/forms/CrudEditForm.vue'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
+import CrudMoney from '@crudui/components/Inputs/CrudMoney.vue'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
 import CrudSelector from '@crudui/components/Inputs/CrudSelector.vue'
 import { useCrudEditPage } from '@crudui/providers/useCrudEditPage'
