@@ -173,7 +173,14 @@ export default {
         birthday: 'Date of Birth',
         medBook: 'Medical Book',
         sudSprav: 'Criminal Record Certificate',
-        description: 'Description'
+        description: 'Description',
+        position: 'Position',
+        isOutside: 'External Employee'
+      },
+      filter: {
+        all: 'All',
+        yes: 'Yes',
+        no: 'No'
       },
       actions: {
         invite: 'Invite'
@@ -187,11 +194,56 @@ export default {
     },
     products: {
       title: 'Products',
-      single: 'Product'
+      single: 'Product',
+      table: {
+        title: 'Title',
+        price: 'Price',
+        category: 'Category',
+        created: 'Created',
+        measure: 'Unit of Measure'
+      },
+      form: {
+        title: 'Title',
+        price: 'Price',
+        category: 'Category',
+        description: 'Description',
+        measure: 'Unit of Measure'
+      },
+      filter: {
+        id: 'ID',
+        title: 'Title',
+        measure: 'Measure'
+      },
+      validation: {
+        titleRequired: 'Title is required',
+        titleMinLength: 'Minimum 2 characters'
+      }
     },
     places: {
       title: 'Places',
-      single: 'Place'
+      single: 'Place',
+      table: {
+        title: 'Title',
+        address: 'Address',
+        capacity: 'Capacity',
+        created: 'Created',
+        isAvailable: 'Available',
+        workHours: 'Working Hours'
+      },
+      form: {
+        title: 'Title',
+        address: 'Address',
+        capacity: 'Capacity',
+        description: 'Description',
+        isAvailable: 'Available',
+        workFrom: 'Working From (hour)',
+        workTo: 'Working To (hour)'
+      },
+      validation: {
+        titleRequired: 'Title is required',
+        titleMinLength: 'Minimum 2 characters',
+        hourRange: 'Hour from 0 to 23'
+      }
     },
     settings: {
       title: 'Settings'
@@ -265,10 +317,13 @@ export default {
       title: 'Units of Measure',
       single: 'Unit of Measure',
       table: {
-        title: 'Title'
+        title: 'Title',
+        symbol: 'Symbol',
+        created: 'Created'
       },
       form: {
         title: 'Title',
+        symbol: 'Symbol',
         shortName: 'Abbreviation',
         type: 'Measurement Type',
         coefficient: 'Coefficient',
@@ -297,7 +352,17 @@ export default {
     },
     rejectionReasons: {
       title: 'Rejection Reasons',
-      single: 'Rejection Reason'
+      single: 'Rejection Reason',
+      table: {
+        title: 'Title'
+      },
+      form: {
+        title: 'Title'
+      },
+      validation: {
+        titleRequired: 'Title is required',
+        titleMinLength: 'Minimum 2 characters'
+      }
     },
     subscriptions: {
       title: 'Subscriptions',

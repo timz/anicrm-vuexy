@@ -14,13 +14,6 @@ export default {
   add: 'Додати',
   search: 'Пошук',
 
-  // Common translations
-  common: {
-    all: 'Всі',
-    yes: 'Так',
-    no: 'Ні'
-  },
-
   // Authentication
   auth: {
     title: 'Вхід',
@@ -160,13 +153,27 @@ export default {
     workers: {
       title: 'Співробітники',
       single: 'Співробітник',
+      table: {
+        name: 'ПІБ',
+        mobile: 'Телефон',
+        isOutside: 'Зовнішній',
+        created: 'Створено'
+      },
       form: {
-        name: 'Ім’я',
+        name: 'Ім\'я',
         mobile: 'Мобільний телефон',
         birthday: 'Дата народження',
         medBook: 'Медична книжка',
         sudSprav: 'Довідка про судимість',
-        description: 'Опис'
+        description: 'Опис',
+        position: 'Посада',
+        isOutside: 'Зовнішній співробітник',
+        email: 'Email'
+      },
+      filter: {
+        all: 'Всі',
+        yes: 'Так',
+        no: 'Ні'
       },
       actions: {
         invite: 'Запросити'
@@ -180,14 +187,61 @@ export default {
     },
     products: {
       title: 'Продукти',
-      single: 'Продукт'
+      single: 'Продукт',
+      table: {
+        title: 'Назва',
+        price: 'Ціна',
+        category: 'Категорія',
+        created: 'Створено',
+        measure: 'Одиниця виміру'
+      },
+      form: {
+        title: 'Назва',
+        price: 'Ціна',
+        category: 'Категорія',
+        description: 'Опис',
+        measure: 'Одиниця виміру'
+      },
+      filter: {
+        id: 'Ід',
+        title: 'Назва',
+        measure: 'Міра'
+      },
+      validation: {
+        titleRequired: 'Назва обов\'язкова',
+        titleMinLength: 'Мінімум 2 символи'
+      }
     },
     places: {
       title: 'Місця',
-      single: 'Місце'
+      single: 'Місце',
+      table: {
+        title: 'Назва',
+        address: 'Адреса',
+        capacity: 'Місткість',
+        created: 'Створено',
+        isAvailable: 'Доступно',
+        workHours: 'Години роботи'
+      },
+      form: {
+        title: 'Назва',
+        address: 'Адреса',
+        capacity: 'Місткість',
+        description: 'Опис',
+        isAvailable: 'Доступно',
+        workFrom: 'Працює з (година)',
+        workTo: 'Працює до (година)'
+      },
+      validation: {
+        titleRequired: 'Назва обов\'язкова',
+        titleMinLength: 'Мінімум 2 символи',
+        hourRange: 'Година від 0 до 23'
+      }
     },
     settings: {
-      title: 'Налаштування'
+      title: 'Налаштування',
+      companyResources: 'Ресурси компанії',
+      crm: 'CRM'
     },
     advSources: {
       title: 'Джерела реклами',
@@ -222,19 +276,88 @@ export default {
     },
     equipments: {
       title: 'Обладнання',
-      single: 'Обладнання'
+      single: 'Обладнання',
+      table: {
+        title: 'Назва',
+        stateId: 'Статус',
+        description: 'Опис',
+        created: 'Створено',
+        edited: 'Змінено'
+      },
+      form: {
+        title: 'Назва',
+        stateId: 'Статус',
+        description: 'Опис'
+      },
+      validation: {
+        titleRequired: 'Назва обов\'язкова',
+        titleMinLength: 'Мінімум 2 символи'
+      }
     },
     eventTypes: {
       title: 'Типи подій',
-      single: 'Тип події'
+      single: 'Тип події',
+      table: {
+        title: 'Назва'
+      },
+      form: {
+        title: 'Назва'
+      },
+      validation: {
+        titleRequired: 'Назва обов\'язкова',
+        titleMinLength: 'Мінімум 2 символи'
+      }
     },
     measures: {
       title: 'Одиниці виміру',
-      single: 'Одиниця виміру'
+      single: 'Одиниця виміру',
+      table: {
+        title: 'Назва',
+        symbol: 'Позначення',
+        created: 'Створено'
+      },
+      form: {
+        title: 'Назва',
+        symbol: 'Позначення',
+        description: 'Опис',
+        shortName: 'Скорочення',
+        type: 'Тип вимірювання',
+        coefficient: 'Коефіцієнт',
+        isActive: 'Активна одиниця вимірювання',
+        titlePlaceholder: 'Наприклад: Кілограм',
+        shortNamePlaceholder: 'Наприклад: кг',
+        coefficientPlaceholder: '1.0',
+        descriptionPlaceholder: 'Додаткова інформація про одиницю вимірювання'
+      },
+      types: {
+        weight: 'Вага',
+        volume: 'Об\'єм',
+        length: 'Довжина',
+        area: 'Площа',
+        count: 'Кількість',
+        time: 'Час'
+      },
+      edit: {
+        title: 'Редагування одиниці вимірювання'
+      },
+      validation: {
+        titleRequired: 'Назва обов\'язкова',
+        titleMinLength: 'Мінімум 2 символи'
+      }
     },
     rejectionReasons: {
       title: 'Причини відмови',
-      single: 'Причина відмови'
+      single: 'Причина відмови',
+      table: {
+        title: 'Назва'
+      },
+      form: {
+        title: 'Назва'
+      },
+      validation: {
+        titleRequired: 'Назва обов\'язкова',
+        titleMinLength: 'Мінімум 2 символи'
+      }
     },
     subscriptions: {
       title: 'Підписки',
