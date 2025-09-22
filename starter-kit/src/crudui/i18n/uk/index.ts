@@ -282,7 +282,7 @@ export default {
         title: 'Назва',
       },
       validation: {
-        titleRequired: 'Назва обов’язкова',
+        titleRequired: 'Назва обов\'язкова',
         titleMinLength: 'Мінімум 2 символи',
       },
     },
@@ -290,11 +290,11 @@ export default {
       title: 'Діти клієнтів',
       single: 'Дитина клієнта',
       table: {
-        name: 'Ім’я',
+        name: 'Ім\'я',
         birthday: 'День народження',
       },
       form: {
-        name: 'Ім’я',
+        name: 'Ім\'я',
         sex: 'Стать',
         birthday: 'Дата народження',
       },

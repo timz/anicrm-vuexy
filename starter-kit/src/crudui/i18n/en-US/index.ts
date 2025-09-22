@@ -259,6 +259,8 @@ export default {
     },
     settings: {
       title: 'Settings',
+      companyResources: 'Company Resources',
+      crm: 'CRM',
     },
     advSources: {
       title: 'Advertising Sources',
