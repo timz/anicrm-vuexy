@@ -119,6 +119,7 @@
 
 <script setup lang="ts">
 import { provide, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useMeStore } from '@crudui/stores/meStore'
 import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
@@ -142,6 +143,7 @@ interface PlaceItem {
 }
 
 const meStore = useMeStore()
+const { t } = useI18n()
 
 const getWorkHours = (item: any): string => {
   if (
@@ -160,7 +162,7 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: 'modules.places.table.title',
+    label: t('modules.places.table.title'),
     align: 'left',
     field: 'title',
     sortable: true,
@@ -168,7 +170,7 @@ const columns = [
   {
     name: 'address',
     required: false,
-    label: 'modules.places.table.address',
+    label: t('modules.places.table.address'),
     align: 'left',
     field: 'address',
     sortable: true,
@@ -176,7 +178,7 @@ const columns = [
   {
     name: 'is_available',
     required: false,
-    label: 'modules.places.table.isAvailable',
+    label: t('modules.places.table.isAvailable'),
     align: 'center',
     field: 'is_available',
     sortable: true,
@@ -185,7 +187,7 @@ const columns = [
   {
     name: 'work_hours',
     required: false,
-    label: 'modules.places.table.workHours',
+    label: t('modules.places.table.workHours'),
     align: 'left',
     sortable: false,
     headerStyle: 'width: 150px',

@@ -38,6 +38,7 @@
 
 <script setup lang="ts">
 import { provide } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useMeStore } from '@crudui/stores/meStore'
 import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'

@@ -1,14 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(pnpm run dev:*)",
-      "WebFetch(domain:localhost)",
-      "Bash(pnpm run:*)",
-      "Bash(curl:*)",
-      "Bash(dir:*)",
-      "Bash(find:*)",
-      "Bash(npm run typecheck:*)",
-      "Bash(git add:*)"
+      "Bash(for file in starter-kit/src/modules/*/components/*.vue)",
+      "Bash(do if grep -q \"const { t } = useI18n()\" \"$file\")",
+      "Bash(! grep -q \"import.*useI18n\" \"$file\")",
+      "Bash(then echo \"$file\")",
+      "Bash(fi)"
     ],
     "deny": [],
     "ask": []

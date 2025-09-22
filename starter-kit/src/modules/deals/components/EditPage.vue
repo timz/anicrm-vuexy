@@ -131,6 +131,7 @@
 
 <script setup lang="ts">
 import { provide, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import CrudEditForm from '@crudui/components/forms/CrudEditForm.vue'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'

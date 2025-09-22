@@ -40,6 +40,7 @@
 
 <script setup lang="ts">
 import { provide } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useMeStore } from '@crudui/stores/meStore'
 import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
@@ -58,12 +59,13 @@ interface ProductItem {
 }
 
 const meStore = useMeStore()
+const { t } = useI18n()
 
 const columns = [
   {
     name: 'title',
     required: true,
-    label: 'modules.products.table.title',
+    label: t('modules.products.table.title'),
     align: 'left',
     field: 'title',
     sortable: true,
@@ -71,7 +73,7 @@ const columns = [
   {
     name: 'measure_title',
     required: false,
-    label: 'modules.products.table.measure',
+    label: t('modules.products.table.measure'),
     align: 'left',
     field: 'measure_title',
     sortable: true,

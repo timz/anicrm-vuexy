@@ -65,6 +65,7 @@
 
 <script setup lang="ts">
 import { provide, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useMeStore } from '@crudui/stores/meStore'
 import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
@@ -89,12 +90,13 @@ interface EquipmentItem {
 }
 
 const meStore = useMeStore()
+const { t } = useI18n()
 
 const columns = [
   {
     name: 'title',
     required: true,
-    label: 'modules.equipments.table.title',
+    label: t('modules.equipments.table.title'),
     align: 'left',
     field: 'title',
     sortable: true,
@@ -102,7 +104,7 @@ const columns = [
   {
     name: 'state_id',
     required: false,
-    label: 'modules.equipments.table.stateId',
+    label: t('modules.equipments.table.stateId'),
     align: 'left',
     field: 'state_id',
     sortable: true,
@@ -111,7 +113,7 @@ const columns = [
   {
     name: 'description',
     required: false,
-    label: 'modules.equipments.table.description',
+    label: t('modules.equipments.table.description'),
     align: 'left',
     field: 'description',
     sortable: false,
@@ -119,7 +121,7 @@ const columns = [
   {
     name: 'created',
     required: false,
-    label: 'modules.equipments.table.created',
+    label: t('modules.equipments.table.created'),
     align: 'left',
     field: 'created',
     sortable: true,
@@ -128,7 +130,7 @@ const columns = [
   {
     name: 'edited',
     required: false,
-    label: 'modules.equipments.table.edited',
+    label: t('modules.equipments.table.edited'),
     align: 'left',
     field: 'edited',
     sortable: true,

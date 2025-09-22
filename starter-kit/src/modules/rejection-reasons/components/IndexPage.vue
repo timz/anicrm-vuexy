@@ -31,6 +31,7 @@
 
 <script setup lang="ts">
 import { provide, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useMeStore } from '@crudui/stores/meStore'
 import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
@@ -48,12 +49,13 @@ interface RejectionReasonItem {
 }
 
 const meStore = useMeStore()
+const { t } = useI18n()
 
 const columns = [
   {
     name: 'title',
     required: true,
-    label: 'modules.rejectionReasons.table.title',
+    label: t('modules.rejectionReasons.table.title'),
     align: 'left',
     field: 'title',
     sortable: true,
