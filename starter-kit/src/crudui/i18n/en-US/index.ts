@@ -412,4 +412,13 @@ export default {
   Employees: 'Employees',
   Products: 'Products',
   Settings: 'Settings',
+
+  // Ukrainian text as keys (for fixing warnings)
+  'Головна': 'Home',
+  'Клієнти': 'Clients',
+  'Угоди': 'Deals',
+  'Місця': 'Places',
+  'Співробітники': 'Employees',
+  'Продукти': 'Products',
+  'Налаштування': 'Settings',
 }

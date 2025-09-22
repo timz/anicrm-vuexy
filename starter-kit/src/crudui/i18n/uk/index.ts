@@ -8,6 +8,7 @@ export default {
   login: 'Вхід',
   logout: 'Вихід',
   save: 'Зберегти',
+  // Temporary backwards compatibility keys
   Home: 'Головна',
   Clients: 'Клієнти',
   Deals: 'Угоди',
@@ -16,6 +17,15 @@ export default {
   Employees: 'Співробітники',
   Products: 'Продукти',
   Settings: 'Налаштування',
+
+  // Ukrainian text as keys (for fixing warnings)
+  'Головна': 'Головна',
+  'Клієнти': 'Клієнти',
+  'Угоди': 'Угоди',
+  'Місця': 'Місця',
+  'Співробітники': 'Співробітники',
+  'Продукти': 'Продукти',
+  'Налаштування': 'Налаштування',
 
   // User Profile Menu
   userProfile: {
