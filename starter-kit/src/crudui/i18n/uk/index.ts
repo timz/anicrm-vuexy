@@ -15,6 +15,14 @@ export default {
     sales: 'Продажі',
     company: 'Компанія',
   },
+
+  // User Profile Menu
+  userProfile: {
+    profile: 'Профіль',
+    settings: 'Налаштування',
+    pricing: 'Тарифи',
+    faq: 'Часті питання',
+  },
   cancel: 'Скасувати',
   edit: 'Редагувати',
   delete: 'Видалити',

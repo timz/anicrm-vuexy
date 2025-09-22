@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useMeStore } from '@crudui/stores/meStore'
 import { useLayoutConfigStore } from '@crudui/components/templates/stores/config'
 
@@ -13,13 +14,14 @@ import LanguageSwitcher from '@crudui/components/LanguageSwitcher.vue'
 // Используем динамическое меню из meStore
 const meStore = useMeStore()
 const configStore = useLayoutConfigStore()
+const { t } = useI18n()
 
 // Преобразуем меню из meStore в формат для VerticalNavLayout
 const navItems = computed(() => {
   return meStore.leftMenu
     .map(item => {
       const navItem: any = {
-        title: item.title,
+        title: t(item.title),
 
         // Для Iconify используем формат как в full-version
         icon: item.icon ? { icon: `mdi-${item.icon.replace('mdi-', '')}` } : undefined,
@@ -28,7 +30,7 @@ const navItems = computed(() => {
       // Если это группа с дочерними элементами
       if (item.childItems && item.childItems.length > 0) {
         navItem.children = item.childItems.map(child => ({
-          title: child.title,
+          title: t(child.title),
           to: child.name ? { name: child.name } : undefined,
 
           // Для Iconify используем формат как в full-version

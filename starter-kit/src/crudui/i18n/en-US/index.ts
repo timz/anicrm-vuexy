@@ -15,6 +15,14 @@ export default {
     sales: 'Sales',
     company: 'Company',
   },
+
+  // User Profile Menu
+  userProfile: {
+    profile: 'Profile',
+    settings: 'Settings',
+    pricing: 'Pricing',
+    faq: 'FAQ',
+  },
   cancel: 'Cancel',
   edit: 'Edit',
   delete: 'Delete',

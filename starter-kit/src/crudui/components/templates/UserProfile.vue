@@ -90,7 +90,7 @@ const handleLogout = async () => {
               />
             </template>
 
-            <VListItemTitle>Profile</VListItemTitle>
+            <VListItemTitle>{{ $t('userProfile.profile') }}</VListItemTitle>
           </VListItem>
 
           <!-- 👉 Settings -->
@@ -103,7 +103,7 @@ const handleLogout = async () => {
               />
             </template>
 
-            <VListItemTitle>Settings</VListItemTitle>
+            <VListItemTitle>{{ $t('userProfile.settings') }}</VListItemTitle>
           </VListItem>
 
           <!-- 👉 Pricing -->
@@ -116,7 +116,7 @@ const handleLogout = async () => {
               />
             </template>
 
-            <VListItemTitle>Pricing</VListItemTitle>
+            <VListItemTitle>{{ $t('userProfile.pricing') }}</VListItemTitle>
           </VListItem>
 
           <!-- 👉 FAQ -->
@@ -129,7 +129,7 @@ const handleLogout = async () => {
               />
             </template>
 
-            <VListItemTitle>FAQ</VListItemTitle>
+            <VListItemTitle>{{ $t('userProfile.faq') }}</VListItemTitle>
           </VListItem>
 
           <!-- Divider -->
