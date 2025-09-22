@@ -30,6 +30,14 @@
       <v-col cols="12">
         <crud-date-picker v-model="model.birthday" :label="$t('common.fields.birthday')" :disable="stateProcessing" />
       </v-col>
+      <v-col cols="12">
+        <crud-input
+          v-model="model.description"
+          type="textarea"
+          :label="$t('modules.clients.fields.description')"
+          :disable="stateProcessing"
+        />
+      </v-col>
     </template>
   </crud-dialog>
 </template>
@@ -59,6 +67,7 @@ interface ClientKidItem {
   name: string
   sex: string
   birthday: string
+  description: string
 }
 
 const meStore = useMeStore()
