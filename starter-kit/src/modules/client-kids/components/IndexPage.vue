@@ -66,8 +66,9 @@ interface ClientKidItem {
   id: number | null
   name: string
   sex: string
-  birthday: string
-  description: string
+  birthday?: string
+  description?: string
+  [key: string]: unknown
 }
 
 const meStore = useMeStore()
@@ -96,7 +97,27 @@ const columns = [
   },
 ]
 
-// Создаем dataListProvider
+const dialogProvider = useCrudDialogProvider<ClientKidItem>({
+  formConfig: {
+    prefixUrl: '/client-kids',
+    model: ref({
+      id: null,
+      name: null,
+      sex: null,
+      birthday: null,
+      description: null,
+    }),
+    transformOut: (model: ClientKidItem) => ({
+      ...model,
+      parent_id: parentId.value,
+    }),
+  },
+  onItemSaved: () => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    dataListProvider.refresh()
+  },
+})
+
 const dataListProvider: UseCrudDataListReturn<ClientKidItem> = useCrudDataList<ClientKidItem>({
   mode: 'table',
   urlBase: '/client-kids',
@@ -106,36 +127,16 @@ const dataListProvider: UseCrudDataListReturn<ClientKidItem> = useCrudDataList<C
     ...createStandardActions<ClientKidItem>({
       editDialog: {
         show: () => meStore.userCan('clients_view'),
-        handler: (item: ClientKidItem) => dialogProvider.openEditDialog(item.id),
+        handler: item => dialogProvider.openEditDialog(item.id),
       },
       delete: {
         show: () => meStore.userCan('clients_update'),
-        onDelete: (item: ClientKidItem) => {
+        onDelete: item => {
           console.log('Delete item:', item.id)
         },
       },
     }),
   ],
-})
-
-// Создаем dialogProvider с колбеком
-const dialogProvider = useCrudDialogProvider<ClientKidItem>({
-  formConfig: {
-    prefixUrl: '/client-kids',
-    model: ref({
-      id: null,
-      name: null,
-      sex: null,
-      birthday: null,
-    }),
-    transformOut: (model: ClientKidItem) => ({
-      ...model,
-      parent_id: parentId.value,
-    }),
-  },
-  onItemSaved: () => {
-    void dataListProvider.refresh()
-  },
 })
 
 const model = dialogProvider.model

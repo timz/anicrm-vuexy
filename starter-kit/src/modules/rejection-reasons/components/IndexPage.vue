@@ -2,10 +2,7 @@
   <PageTitle>{{ $t('modules.rejectionReasons.pageTitle') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
-      <create-button
-        v-if="meStore.userCan('rejection_reasons_create')"
-        @click="dialogProvider.openCreateDialog"
-      />
+      <create-button v-if="meStore.userCan('rejection_reasons_create')" @click="dialogProvider.openCreateDialog" />
     </template>
     <template #filterForm>
       <v-col cols="12" md="6">
@@ -21,7 +18,10 @@
         <crud-input
           v-model="model.title"
           :label="$t('common.fields.title')"
-          :rules="[val => !!val || $t('common.validationFields.titleRequired'), val => val.length >= 2 || $t('common.validationFields.titleMinLength')]"
+          :rules="[
+            val => !!val || $t('common.validationFields.titleRequired'),
+            val => val.length >= 2 || $t('common.validationFields.titleMinLength'),
+          ]"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -44,8 +44,9 @@ import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
 
 interface RejectionReasonItem {
-  id: number | null
+  id: number
   title: string
+  [key: string]: unknown
 }
 
 const meStore = useMeStore()
@@ -61,6 +62,18 @@ const columns = [
     sortable: true,
   },
 ]
+
+// Создаем dialogProvider с колбеком
+const dialogProvider = useCrudDialogProvider<RejectionReasonItem>({
+  formConfig: {
+    prefixUrl: '/rejection-reasons',
+    model: ref({ id: null, title: '' }),
+  },
+  onItemSaved: () => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    dataListProvider.refresh()
+  },
+})
 
 // Создаем dataListProvider
 const dataListProvider: UseCrudDataListReturn<RejectionReasonItem> = useCrudDataList<RejectionReasonItem>({
@@ -82,17 +95,6 @@ const dataListProvider: UseCrudDataListReturn<RejectionReasonItem> = useCrudData
       },
     }),
   ],
-})
-
-// Создаем dialogProvider с колбеком
-const dialogProvider = useCrudDialogProvider<RejectionReasonItem>({
-  formConfig: {
-    prefixUrl: '/rejection-reasons',
-    model: ref({ id: null, title: '' }),
-  },
-  onItemSaved: () => {
-    void dataListProvider.refresh()
-  },
 })
 
 const model = dialogProvider.model
