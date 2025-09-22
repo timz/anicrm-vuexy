@@ -1,13 +1,13 @@
 <template>
   <div>
     <h4 class="text-h4 text-center mb-6 text-blue-grey-darken-2">
-      Вход
+      {{ $t('auth.title') }}
     </h4>
     <v-form ref="formRef" @submit.prevent="onSubmit">
       <div class="mb-6">
         <crud-input
           v-model="model.username"
-          label="Email или имя пользователя"
+          :label="$t('auth.username')"
           :rules="[rules.required(), rules.minLength(2)]"
           :disabled="crudForm.stateProcessing.value"
         />
@@ -15,7 +15,7 @@
       <div class="mb-6">
         <crud-input
           v-model="model.password"
-          label="Пароль"
+          :label="$t('auth.password')"
           type="password"
           :rules="[rules.required(), rules.minLength(6)]"
           :disabled="crudForm.stateProcessing.value"
@@ -28,7 +28,7 @@
           :loading="crudForm.stateProcessing.value"
           @click="onSubmit"
         >
-          Войти
+          {{ $t('auth.loginButton') }}
         </crud-button-primary>
         <v-btn
           variant="text"
@@ -36,7 +36,7 @@
           size="small"
           @click="navigateResetForm"
         >
-          Забыли пароль?
+          {{ $t('auth.forgotPassword') }}
         </v-btn>
       </div>
     </v-form>

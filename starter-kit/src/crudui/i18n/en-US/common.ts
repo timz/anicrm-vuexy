@@ -23,4 +23,7 @@ export default {
   previous: 'Previous',
   finish: 'Finish',
   actions: 'Actions',
+  deleteSelected: 'Delete Selected',
+  deleteConfirmation: 'Delete Confirmation',
+  deleteConfirmMessage: 'Are you sure you want to delete the selected items?\nThis action cannot be undone.',
 }

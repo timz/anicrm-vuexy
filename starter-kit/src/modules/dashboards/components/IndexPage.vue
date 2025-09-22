@@ -1,9 +1,9 @@
 <template>
   <div class="pa-4">
     <h1 class="text-h4 mb-4">
-      Главная панель
+      {{ $t('modules.dashboards.title') }}
     </h1>
-    <p>Добро пожаловать в AniCRM!</p>
+    <p>{{ $t('welcome') }} AniCRM!</p>
   </div>
 </template>
 

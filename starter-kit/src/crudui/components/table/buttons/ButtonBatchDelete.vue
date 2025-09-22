@@ -6,17 +6,16 @@
     @click="showConfirmDialog = true"
   >
     <v-icon>mdi-delete</v-icon>
-    Удалить выбранные
+    {{ $t('common.deleteSelected') }}
   </v-btn>
 
   <v-dialog v-model="showConfirmDialog" max-width="400">
     <v-card>
       <v-card-title class="text-h6">
-        Подтверждение удаления
+        {{ $t('common.deleteConfirmation') }}
       </v-card-title>
       <v-card-text>
-        Вы действительно хотите удалить выбранные элементы?
-        Это действие нельзя отменить.
+        {{ $t('common.deleteConfirmMessage') }}
       </v-card-text>
       <v-card-actions>
         <v-spacer />
@@ -24,13 +23,13 @@
           text
           @click="showConfirmDialog = false"
         >
-          Отмена
+          {{ $t('common.cancel') }}
         </v-btn>
         <v-btn
           color="error"
           @click="confirmDelete"
         >
-          Удалить
+          {{ $t('common.delete') }}
         </v-btn>
       </v-card-actions>
     </v-card>

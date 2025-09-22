@@ -1,30 +1,30 @@
 <template>
-  <PageTitle>Клиент</PageTitle>
+  <PageTitle>{{ $t('modules.clients.single') }}</PageTitle>
   <CrudEditForm :tabs="tabs">
     <template #default="{ stateProcessing }">
       <v-col cols="12">
         <crud-input
           v-model="model.name"
-          label="Название"
+          :label="$t('modules.clients.form.name')"
           :disable="stateProcessing"
           :rules="[rules.required(), rules.minLength(3), rules.maxLength(100)]"
         />
       </v-col>
       <v-col cols="12">
-        <crud-input v-model="model.mobile" label="Мобильный" :disable="stateProcessing" />
+        <crud-input v-model="model.mobile" :label="$t('modules.clients.form.mobile')" :disable="stateProcessing" />
       </v-col>
       <v-col cols="12">
-        <crud-date-picker v-model="model.birthday" label="Дата рождения" />
+        <crud-date-picker v-model="model.birthday" :label="$t('modules.clients.form.birthday')" />
       </v-col>
       <v-col cols="12">
         <CrudSelector
           v-model="model.adv_id"
           data-url="/adv-sources/list"
-          label="Источник рекламы"
+          :label="$t('modules.clients.form.advSource')"
         />
       </v-col>
       <v-col cols="12">
-        <crud-input v-model="model.description" type="textarea" label="Заметки" :disable="stateProcessing" />
+        <crud-input v-model="model.description" type="textarea" :label="$t('modules.clients.form.description')" :disable="stateProcessing" />
       </v-col>
     </template>
   </CrudEditForm>
@@ -82,14 +82,14 @@ provide('editPageProvider', editPageProvider)
 const tabs: CrudTabInterface[] = [
   {
     name: 'client-kids',
-    label: 'Дети клиента',
+    label: t('modules.clients.tabs.clientKids'),
     icon: 'mdi-account-child',
     tab: ClientKidsIndexPage,
     visible: TabVisibilityHelpers.hideOnNew,
   },
   {
     name: 'client-kids2',
-    label: 'Дети клиента sda',
+    label: t('modules.clients.tabs.clientKids') + ' sda',
     icon: 'mdi-account-child',
     tab: ClientKidsIndexPage,
     visible: TabVisibilityHelpers.hideOnNew,
@@ -97,8 +97,10 @@ const tabs: CrudTabInterface[] = [
 ]
 
 // Правила валидации
+const { t } = useI18n()
+
 const titleRules = [
-  (val: string) => !!val || 'Название обязательно',
-  (val: string) => val.length >= 2 || 'Минимум 2 символа',
+  (val: string) => !!val || t('modules.clients.validation.nameRequired'),
+  (val: string) => val.length >= 2 || t('modules.clients.validation.nameMinLength'),
 ]
 </script>

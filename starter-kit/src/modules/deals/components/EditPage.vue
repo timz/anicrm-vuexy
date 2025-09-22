@@ -1,12 +1,12 @@
 <template>
-  <PageTitle>Сделка</PageTitle>
+  <PageTitle>{{ $t('modules.deals.single') }}</PageTitle>
 
   <CrudEditForm>
     <template #default="{ stateProcessing }">
       <v-col cols="12">
         <crud-input
           v-model="model.title"
-          label="Название сделки"
+          :label="$t('modules.deals.form.title')"
           :disabled="stateProcessing"
           :rules="[rules.required(), rules.minLength(3), rules.maxLength(255)]"
         />
@@ -16,7 +16,7 @@
         <CrudSelector
           v-model="model.client_id"
           data-url="/clients/list"
-          label="Клиент"
+          :label="$t('modules.deals.form.client')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
@@ -26,7 +26,7 @@
         <CrudSelector
           v-model="model.status"
           :items="statusOptions"
-          label="Статус"
+          :label="$t('modules.deals.form.status')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
@@ -35,7 +35,7 @@
       <v-col cols="6">
         <crud-input
           v-model="model.amount"
-          label="Сумма"
+          :label="$t('modules.deals.form.amount')"
           type="number"
           :disabled="stateProcessing"
           :rules="[rules.required(), rules.numberMin(0)]"
@@ -46,7 +46,7 @@
         <CrudSelector
           v-model="model.currency"
           :items="currencyOptions"
-          label="Валюта"
+          :label="$t('modules.deals.form.currency')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
@@ -55,7 +55,7 @@
       <v-col cols="6">
         <crud-date-picker
           v-model="model.start_date"
-          label="Дата начала"
+          :label="$t('modules.deals.form.startDate')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -63,7 +63,7 @@
       <v-col cols="6">
         <crud-date-picker
           v-model="model.close_date"
-          label="Дата закрытия"
+          :label="$t('modules.deals.form.closeDate')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -72,7 +72,7 @@
         <CrudSelector
           v-model="model.stage"
           :items="stageOptions"
-          label="Этап"
+          :label="$t('modules.deals.form.stage')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
@@ -81,7 +81,7 @@
       <v-col cols="6">
         <crud-input
           v-model="model.probability"
-          label="Вероятность закрытия (%)"
+          :label="$t('modules.deals.form.probability')"
           type="number"
           :disabled="stateProcessing"
           :rules="[rules.numberMin(0), rules.numberMax(100)]"
@@ -92,7 +92,7 @@
         <CrudSelector
           v-model="model.source"
           :items="sourceOptions"
-          label="Источник"
+          :label="$t('modules.deals.form.source')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -101,7 +101,7 @@
         <CrudSelector
           v-model="model.responsible_id"
           data-url="/workers/list"
-          label="Ответственный"
+          :label="$t('modules.deals.form.responsible')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -110,7 +110,7 @@
         <crud-input
           v-model="model.description"
           type="textarea"
-          label="Описание"
+          :label="$t('modules.deals.form.description')"
           :disabled="stateProcessing"
           :rules="[rules.maxLength(2000)]"
         />
@@ -120,7 +120,7 @@
         <crud-input
           v-model="model.notes"
           type="textarea"
-          label="Заметки"
+          :label="$t('modules.deals.form.notes')"
           :disabled="stateProcessing"
           :rules="[rules.maxLength(1000)]"
         />
@@ -187,38 +187,40 @@ const model = editPageProvider.model
 provide('editPageProvider', editPageProvider)
 
 // Опции для селекторов
+const { t } = useI18n()
+
 const statusOptions = [
-  { value: 'new', title: 'Новая' },
-  { value: 'in_progress', title: 'В работе' },
-  { value: 'won', title: 'Выиграна' },
-  { value: 'lost', title: 'Проиграна' },
-  { value: 'on_hold', title: 'На удержании' },
+  { value: 'new', title: t('modules.deals.statusesEdit.new') },
+  { value: 'in_progress', title: t('modules.deals.statusesEdit.inProgress') },
+  { value: 'won', title: t('modules.deals.statusesEdit.won') },
+  { value: 'lost', title: t('modules.deals.statusesEdit.lost') },
+  { value: 'on_hold', title: t('modules.deals.statusesEdit.onHold') },
 ]
 
 const currencyOptions = [
-  { value: 'RUB', title: 'Рубль' },
-  { value: 'USD', title: 'Доллар США' },
-  { value: 'EUR', title: 'Евро' },
+  { value: 'RUB', title: t('modules.deals.currencies.rub') },
+  { value: 'USD', title: t('modules.deals.currencies.usd') },
+  { value: 'EUR', title: t('modules.deals.currencies.eur') },
 ]
 
 const stageOptions = [
-  { value: 'lead', title: 'Лид' },
-  { value: 'contact', title: 'Контакт' },
-  { value: 'qualification', title: 'Квалификация' },
-  { value: 'proposal', title: 'Предложение' },
-  { value: 'negotiation', title: 'Переговоры' },
-  { value: 'contract', title: 'Договор' },
-  { value: 'closed', title: 'Закрыта' },
+  { value: 'lead', title: t('modules.deals.stages.lead') },
+  { value: 'contact', title: t('modules.deals.stages.contact') },
+  { value: 'qualification', title: t('modules.deals.stages.qualification') },
+  { value: 'proposal', title: t('modules.deals.stages.proposal') },
+  { value: 'negotiation', title: t('modules.deals.stages.negotiation') },
+  { value: 'contract', title: t('modules.deals.stages.contract') },
+  { value: 'closed', title: t('modules.deals.stages.closed') },
 ]
 
 const sourceOptions = [
-  { value: 'website', title: 'Веб-сайт' },
-  { value: 'phone', title: 'Телефон' },
-  { value: 'email', title: 'Email' },
-  { value: 'social', title: 'Социальные сети' },
-  { value: 'referral', title: 'Рекомендация' },
-  { value: 'advertising', title: 'Реклама' },
-  { value: 'partner', title: 'Партнер' },
-  { value: 'other', title: 'Другое' },
+  { value: 'website', title: t('modules.deals.sources.website') },
+  { value: 'phone', title: t('modules.deals.sources.phone') },
+  { value: 'email', title: t('modules.deals.sources.email') },
+  { value: 'social', title: t('modules.deals.sources.social') },
+  { value: 'referral', title: t('modules.deals.sources.referral') },
+  { value: 'advertising', title: t('modules.deals.sources.advertising') },
+  { value: 'partner', title: t('modules.deals.sources.partner') },
+  { value: 'other', title: t('modules.deals.sources.other') },
 ]
 </script>

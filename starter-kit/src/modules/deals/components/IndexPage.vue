@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>Сделки</PageTitle>
+  <PageTitle>{{ $t('modules.deals.title') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button
@@ -18,32 +18,32 @@
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.initial_contact"
-          label="Контакт"
+          :label="$t('modules.deals.filter.contact')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.status"
-          label="Статус"
+          :label="$t('modules.deals.filter.status')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.client_name"
-          label="Клиент"
+          :label="$t('modules.deals.filter.client')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.amount"
           type="number"
-          label="Сумма"
+          :label="$t('modules.deals.filter.amount')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.event_type_title"
-          label="Тип мероприятия"
+          :label="$t('modules.deals.filter.eventType')"
         />
       </v-col>
     </template>
@@ -111,15 +111,16 @@ interface DealItem {
 }
 
 const meStore = useMeStore()
+const { t } = useI18n()
 
 const statusOptions = [
-  { label: 'Новая', value: 'new' },
-  { label: 'В работе', value: 'in_progress' },
-  { label: 'Горячая', value: 'hot' },
-  { label: 'Холодная', value: 'cold' },
-  { label: 'Закрыта', value: 'closed' },
-  { label: 'Отменена', value: 'cancelled' },
-  { label: 'Отклонена', value: 'rejected' },
+  { label: t('modules.deals.statuses.new'), value: 'new' },
+  { label: t('modules.deals.statuses.inProgress'), value: 'in_progress' },
+  { label: t('modules.deals.statuses.hot'), value: 'hot' },
+  { label: t('modules.deals.statuses.cold'), value: 'cold' },
+  { label: t('modules.deals.statuses.closed'), value: 'closed' },
+  { label: t('modules.deals.statuses.cancelled'), value: 'cancelled' },
+  { label: t('modules.deals.statuses.rejected'), value: 'rejected' },
 ]
 
 const getStatusLabel = (status: string | null): string => {
@@ -132,7 +133,7 @@ const columns = [
   {
     name: 'id',
     required: true,
-    label: 'ID',
+    label: t('modules.deals.table.id'),
     align: 'left',
     field: 'id',
     sortable: true,
@@ -141,7 +142,7 @@ const columns = [
   {
     name: 'client_name',
     required: false,
-    label: 'Клиент',
+    label: t('modules.deals.table.client'),
     align: 'left',
     field: 'client_name',
     sortable: true,
@@ -150,7 +151,7 @@ const columns = [
   {
     name: 'event_type_title',
     required: false,
-    label: 'Мероприятие',
+    label: t('modules.deals.table.event'),
     align: 'left',
     field: 'event_type_title',
     sortable: true,
@@ -159,7 +160,7 @@ const columns = [
   {
     name: 'amount',
     required: false,
-    label: 'Сумма',
+    label: t('modules.deals.table.amount'),
     align: 'right',
     field: 'amount',
     sortable: true,
@@ -168,7 +169,7 @@ const columns = [
   {
     name: 'margin',
     required: false,
-    label: 'Маржа',
+    label: t('modules.deals.table.margin'),
     align: 'right',
     field: 'margin',
     sortable: true,
@@ -177,7 +178,7 @@ const columns = [
   {
     name: 'event_date',
     required: false,
-    label: 'Дата мероприятия',
+    label: t('modules.deals.table.eventDate'),
     align: 'center',
     field: 'event_date',
     sortable: true,
@@ -186,7 +187,7 @@ const columns = [
   {
     name: 'status',
     required: false,
-    label: 'Статус',
+    label: t('modules.deals.table.status'),
     align: 'center',
     field: 'status',
     sortable: true,
@@ -195,7 +196,7 @@ const columns = [
   {
     name: 'initial_contact',
     required: false,
-    label: 'Контакт',
+    label: t('modules.deals.table.contact'),
     align: 'left',
     field: 'initial_contact',
     sortable: true,
@@ -204,7 +205,7 @@ const columns = [
   {
     name: 'created',
     required: false,
-    label: 'Создан',
+    label: t('modules.deals.table.created'),
     align: 'center',
     field: 'created',
     sortable: true,

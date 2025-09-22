@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="text-h5 font-weight-medium text-center mb-6 text-medium-emphasis">
-      Восстановление пароля
+      {{ $t('auth.resetPassword') }}
     </div>
     <v-form ref="formRef" @submit.prevent="onSubmit">
       <div class="mb-6">
         <crud-input
           v-model="model.email"
-          label="Email учетной записи"
+          :label="$t('auth.email')"
           type="email"
           :rules="[rules.required(), rules.email(), rules.minLength(5)]"
           :disabled="crudForm.stateProcessing.value"
@@ -20,7 +20,7 @@
           :loading="crudForm.stateProcessing.value"
           @click="onSubmit"
         >
-          Отправить инструкции
+          {{ $t('auth.resetButton') }}
         </crud-button-primary>
         <v-btn
           variant="text"
@@ -28,7 +28,7 @@
           size="small"
           @click="navigateLoginForm"
         >
-          ← Вернуться к входу
+          ← {{ $t('auth.backToLogin') }}
         </v-btn>
       </div>
     </v-form>

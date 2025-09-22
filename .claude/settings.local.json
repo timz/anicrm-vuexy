@@ -5,7 +5,9 @@
       "WebFetch(domain:localhost)",
       "Bash(pnpm run:*)",
       "Bash(curl:*)",
-      "Bash(dir:*)"
+      "Bash(dir:*)",
+      "Bash(find:*)",
+      "Bash(npm run typecheck:*)"
     ],
     "deny": [],
     "ask": []

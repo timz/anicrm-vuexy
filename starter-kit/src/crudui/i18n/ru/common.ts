@@ -23,4 +23,7 @@ export default {
   previous: 'Назад',
   finish: 'Готово',
   actions: 'Действия',
+  deleteSelected: 'Удалить выбранные',
+  deleteConfirmation: 'Подтверждение удаления',
+  deleteConfirmMessage: 'Вы действительно хотите удалить выбранные элементы?\nЭто действие нельзя отменить.',
 }

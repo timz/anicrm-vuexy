@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>Клиенты</PageTitle>
+  <PageTitle>{{ $t('modules.clients.title') }}</PageTitle>
 
   <crud-table>
     <template #actionsSection>
@@ -56,18 +56,20 @@ interface ClientItem {
 
 const meStore = useMeStore()
 
+const { t } = useI18n()
+
 const columns = [
   {
     name: 'title',
     required: true,
-    label: 'Название',
+    label: t('modules.clients.table.title'),
     align: 'left',
     field: 'title',
     sortable: true,
   },
   {
     name: 'created',
-    label: 'Создан',
+    label: t('modules.clients.table.created'),
     align: 'left',
     field: 'created',
     sortable: true,
@@ -75,7 +77,7 @@ const columns = [
   },
   {
     name: 'edited',
-    label: 'Правки',
+    label: t('modules.clients.table.edited'),
     align: 'left',
     field: 'edited',
     sortable: true,

@@ -23,4 +23,7 @@ export default {
   previous: 'Назад',
   finish: 'Готово',
   actions: 'Дії',
+  deleteSelected: 'Видалити вибрані',
+  deleteConfirmation: 'Підтвердження видалення',
+  deleteConfirmMessage: 'Ви дійсно хочете видалити вибрані елементи?\nЦю дію не можна скасувати.',
 }

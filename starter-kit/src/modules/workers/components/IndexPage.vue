@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>Сотрудники</PageTitle>
+  <PageTitle>{{ $t('modules.workers.title') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button
@@ -16,9 +16,9 @@
           v-model="dataListProvider.filter.value.is_outside"
 
           :items="[
-            { title: 'Все', value: null },
-            { title: 'Да', value: true },
-            { title: 'Нет', value: false },
+            { title: $t('modules.workers.filter.all'), value: null },
+            { title: $t('modules.workers.filter.yes'), value: true },
+            { title: $t('modules.workers.filter.no'), value: false },
           ]"
         />
       </v-col>
@@ -26,7 +26,7 @@
 
     <!-- Custom formatting for is_outside column -->
     <template #body-cell-is_outside="{ value }">
-      {{ value ? "Да" : "Нет" }}
+      {{ value ? $t('modules.workers.filter.yes') : $t('modules.workers.filter.no') }}
     </template>
 
     <!-- Custom formatting for created column -->
@@ -59,12 +59,13 @@ interface WorkerItem {
 
 const meStore = useMeStore()
 const { formatTableDate } = useTimezone()
+const { t } = useI18n()
 
 const columns = [
   {
     name: 'name',
     required: true,
-    label: 'ФИО',
+    label: t('modules.workers.table.name'),
     align: 'left',
     field: 'name',
     sortable: true,
@@ -72,7 +73,7 @@ const columns = [
   {
     name: 'mobile',
     required: false,
-    label: 'Телефон',
+    label: t('modules.workers.table.mobile'),
     align: 'left',
     field: 'mobile',
     sortable: true,
@@ -80,7 +81,7 @@ const columns = [
   {
     name: 'is_outside',
     required: false,
-    label: 'Внешний',
+    label: t('modules.workers.table.isOutside'),
     align: 'center',
     field: 'is_outside',
     sortable: true,
@@ -89,7 +90,7 @@ const columns = [
   {
     name: 'created',
     required: false,
-    label: 'Создан',
+    label: t('modules.workers.table.created'),
     align: 'center',
     field: 'created',
     sortable: true,
