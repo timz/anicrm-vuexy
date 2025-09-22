@@ -1,22 +1,31 @@
 <template>
   <v-text-field
     v-if="type !== 'textarea'"
-    v-bind="$props"
     ref="inputRef"
+    v-model="model"
+    :type="type"
+    :label="label"
+    :rules="rules"
+    :disabled="disabled"
+    :readonly="readonly"
+    :clearable="clearable"
     variant="outlined"
     density="comfortable"
-    clearable
     hide-details="auto"
     @blur="handleBlur"
     @focus="handleFocus"
   />
   <v-textarea
     v-else
-    v-bind="$props"
     ref="inputRef"
+    v-model="model"
+    :label="label"
+    :rules="rules"
+    :disabled="disabled"
+    :readonly="readonly"
+    :clearable="clearable"
     variant="outlined"
     density="comfortable"
-    clearable
     hide-details="auto"
     bg-color="white"
     auto-grow
@@ -29,17 +38,18 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { ref } from 'vue'
-
-import commonProps from '@crudui/components/Inputs/interfaces/CommonProps'
 import type { AvailableTypesForInputsType } from '@crudui/components/Inputs/interfaces/AvailableTypesForInputsType'
 
-defineProps({
-  ...commonProps,
-  type: {
-    type: String as PropType<AvailableTypesForInputsType>,
-    default: 'text',
-  },
-})
+const model = defineModel()
+
+defineProps<{
+  type?: AvailableTypesForInputsType
+  label?: string
+  rules?: any[]
+  disabled?: boolean
+  readonly?: boolean
+  clearable?: boolean
+}>()
 
 const inputRef = ref()
 const hasBeenFocused = ref(false)

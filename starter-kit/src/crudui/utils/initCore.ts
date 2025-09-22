@@ -3,32 +3,28 @@ import { useTheme } from 'vuetify'
 import { useConfigStore } from '@crudui/stores/config'
 import { namespaceConfig } from '@crudui/components/templates/stores/config'
 import { themeConfig } from '@themeConfig'
+import { useLocale } from '@crudui/composables/useLocale'
 
 const _syncAppRtl = () => {
   const configStore = useConfigStore()
-  const storedLang = ref<string | null>(null)
+  const { locale, currentLocaleConfig, initializeLocale } = useLocale()
 
-  const { locale } = useI18n({ useScope: 'global' })
+  // Initialize locale on app start
+  initializeLocale()
 
-  // TODO: Handle case where i18n can't read persisted value
-  if (locale.value !== storedLang.value && storedLang.value)
-    locale.value = storedLang.value
-
-  // watch and change lang attribute of html on language change
+  // Watch for locale changes and update RTL
   watch(
-    locale,
-    val => {
-      // Update lang attribute of html tag
-      if (typeof document !== 'undefined')
-        document.documentElement.setAttribute('lang', val as string)
+    currentLocaleConfig,
+    (config) => {
+      // Update RTL based on locale config
+      if (config) {
+        configStore.isAppRTL = config.isRTL || false
+      }
 
-      // Store selected language (no longer in cookie)
-      storedLang.value = val as string
-
-      // set isAppRtl value based on selected language
-      if (themeConfig.app.i18n.langConfig && themeConfig.app.i18n.langConfig.length) {
+      // Fallback to theme config if available
+      if (!config && themeConfig.app.i18n.langConfig && themeConfig.app.i18n.langConfig.length) {
         themeConfig.app.i18n.langConfig.forEach(lang => {
-          if (lang.i18nLang === storedLang.value)
+          if (lang.i18nLang === locale.value)
             configStore.isAppRTL = lang.isRTL
         })
       }

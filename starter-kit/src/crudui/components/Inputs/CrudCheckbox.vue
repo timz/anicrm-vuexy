@@ -1,6 +1,10 @@
 <template>
   <v-checkbox
-    v-bind="$props"
+    v-model="model"
+    :label="label"
+    :rules="rules"
+    :disabled="disabled"
+    :readonly="readonly"
     density="comfortable"
     hide-details="auto"
     color="primary"
@@ -8,9 +12,12 @@
 </template>
 
 <script setup lang="ts">
-import commonProps from '@crudui/components/Inputs/interfaces/CommonProps'
+const model = defineModel()
 
-defineProps({
-  ...commonProps,
-})
+defineProps<{
+  label?: string
+  rules?: any[]
+  disabled?: boolean
+  readonly?: boolean
+}>()
 </script>

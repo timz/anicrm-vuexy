@@ -17,6 +17,7 @@ declare global {
   const alphaValidator: typeof import('./src/crudui/utils/validators')['alphaValidator']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
+  const availableLocales: typeof import('./src/crudui/composables/useLocale')['availableLocales']
   const avatarText: typeof import('./src/crudui/utils/formatters')['avatarText']
   const betweenValidator: typeof import('./src/crudui/utils/validators')['betweenValidator']
   const computed: typeof import('vue')['computed']
@@ -252,6 +253,7 @@ declare global {
   const useKeyModifier: typeof import('@vueuse/core')['useKeyModifier']
   const useLastChanged: typeof import('@vueuse/core')['useLastChanged']
   const useLocalStorage: typeof import('@vueuse/core')['useLocalStorage']
+  const useLocale: typeof import('./src/crudui/composables/useLocale')['useLocale']
   const useMagicKeys: typeof import('@vueuse/core')['useMagicKeys']
   const useManualRefHistory: typeof import('@vueuse/core')['useManualRefHistory']
   const useMath: typeof import('@vueuse/math')['useMath']
@@ -387,6 +389,7 @@ declare module 'vue' {
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
+    readonly availableLocales: UnwrapRef<typeof import('./src/crudui/composables/useLocale')['availableLocales']>
     readonly avatarText: UnwrapRef<typeof import('./src/crudui/utils/formatters')['avatarText']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
@@ -612,6 +615,7 @@ declare module 'vue' {
     readonly useKeyModifier: UnwrapRef<typeof import('@vueuse/core')['useKeyModifier']>
     readonly useLastChanged: UnwrapRef<typeof import('@vueuse/core')['useLastChanged']>
     readonly useLocalStorage: UnwrapRef<typeof import('@vueuse/core')['useLocalStorage']>
+    readonly useLocale: UnwrapRef<typeof import('./src/crudui/composables/useLocale')['useLocale']>
     readonly useMagicKeys: UnwrapRef<typeof import('@vueuse/core')['useMagicKeys']>
     readonly useManualRefHistory: UnwrapRef<typeof import('@vueuse/core')['useManualRefHistory']>
     readonly useMath: UnwrapRef<typeof import('@vueuse/math')['useMath']>

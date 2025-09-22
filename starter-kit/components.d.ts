@@ -34,6 +34,7 @@ declare module 'vue' {
     HorizontalNavLayout: typeof import('./src/crudui/components/templates/navigation/horizontal/HorizontalNavLayout.vue')['default']
     HorizontalNavLink: typeof import('./src/crudui/components/templates/navigation/horizontal/HorizontalNavLink.vue')['default']
     HorizontalNavPopper: typeof import('./src/crudui/components/templates/navigation/horizontal/HorizontalNavPopper.vue')['default']
+    LanguageSwitcher: typeof import('./src/crudui/components/LanguageSwitcher.vue')['default']
     MoreBtn: typeof import('./src/crudui/components/MoreBtn.vue')['default']
     NotificationSystem: typeof import('./src/crudui/components/templates/NotificationSystem.vue')['default']
     PageTitle: typeof import('./src/crudui/components/templates/PageTitle.vue')['default']

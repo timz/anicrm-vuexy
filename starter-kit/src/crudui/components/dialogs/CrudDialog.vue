@@ -46,6 +46,11 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const dialogProvider = inject<CrudDialogProviderReturn>(props.providerKey)
+
+if (!dialogProvider) {
+  throw new Error(`Dialog provider with key '${props.providerKey}' not found. Make sure it's provided.`)
+}
+
 const loading = ref(false)
 
 const { stateProcessing, stateSubmitting, stateLoading, formRef, model, load, submit, reset } = useCrudDataForm(
@@ -83,7 +88,8 @@ watch(
 
 const handleSubmit = async (): Promise<void> => {
   // Сначала явно проверяем валидацию формы
-  const { valid } = await formRef.value?.validate()
+  const validation = await formRef.value?.validate()
+  const valid = validation?.valid ?? false
   if (!valid) {
     // Если валидация не прошла, прерываем выполнение
     // Ошибки валидации уже отображены в полях формы

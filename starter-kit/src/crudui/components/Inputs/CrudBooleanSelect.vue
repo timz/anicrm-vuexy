@@ -1,7 +1,15 @@
 <template>
   <v-select
-    v-bind="$props"
     ref="selectRef"
+    v-model="model"
+    :items="items"
+    :label="label"
+    :rules="rules"
+    :disabled="disabled"
+    :readonly="readonly"
+    :clearable="clearable"
+    :item-title="itemTitle"
+    :item-value="itemValue"
     variant="outlined"
     density="comfortable"
     hide-details="auto"
@@ -12,19 +20,18 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import commonProps from '@crudui/components/Inputs/interfaces/CommonProps'
 
-defineProps({
-  ...commonProps,
-  itemTitle: {
-    type: String,
-    default: 'title',
-  },
-  itemValue: {
-    type: String,
-    default: 'value',
-  },
-})
+const model = defineModel()
+
+defineProps<{
+  label?: string
+  rules?: any[]
+  disabled?: boolean
+  readonly?: boolean
+  clearable?: boolean
+  itemTitle?: string
+  itemValue?: string
+}>()
 
 const selectRef = ref()
 const hasBeenFocused = ref(false)

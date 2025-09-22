@@ -36,7 +36,7 @@ const activeTabIndex = ref(0)
 const tabContext = computed(
   (): TabContext => ({
     isNew: isCreateMode.value,
-    parentId: model.value.id,
+    parentId: model.value.id as string | number | undefined,
     formData: model.value,
     userPermissions: [], // TODO: получить из меню или editPageProvider
     routeParams: route.params,

@@ -8,6 +8,7 @@ import { VerticalNavLayout } from '@crudui/components/templates/helpers'
 
 // Components
 import UserProfile from '@crudui/components/templates/UserProfile.vue'
+import LanguageSwitcher from '@crudui/components/LanguageSwitcher.vue'
 
 // Используем динамическое меню из meStore
 const meStore = useMeStore()
@@ -64,6 +65,10 @@ const navItems = computed(() => {
         </IconBtn>
 
         <VSpacer />
+
+        <!-- Language Switcher -->
+        <LanguageSwitcher class="me-2" />
+
         <UserProfile />
       </div>
     </template>
