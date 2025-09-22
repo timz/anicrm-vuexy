@@ -6,7 +6,7 @@
   >
     <template #activator="{ props }">
       <VBtn
-        class="mr-2"
+        class="me-2"
         v-bind="props"
         icon
         variant="text"
