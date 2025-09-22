@@ -9,13 +9,6 @@ export default {
   logout: 'Вихід',
   save: 'Зберегти',
 
-  // Navigation
-  navigation: {
-    home: 'Головна панель',
-    sales: 'Продажі',
-    company: 'Компанія',
-  },
-
   // User Profile Menu
   userProfile: {
     profile: 'Профіль',
@@ -61,7 +54,9 @@ export default {
     places: 'Місця',
     employees: 'Співробітники',
     products: 'Продукти',
-    settings: 'Налаштування'
+    settings: 'Налаштування',
+    sales: 'Продажі',
+    company: 'Компанія',
   },
 
   // Modules
@@ -402,4 +397,14 @@ export default {
   errors,
   common,
   notifications,
+
+  // Тимчасові ключі для зворотної сумісності
+  Home: 'Головна',
+  Clients: 'Клієнти',
+  Deals: 'Угоди',
+  Places: 'Місця',
+  Workers: 'Співробітники',
+  Employees: 'Співробітники',
+  Products: 'Продукти',
+  Settings: 'Налаштування',
 }

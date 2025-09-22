@@ -9,13 +9,6 @@ export default {
   logout: 'Logout',
   save: 'Save',
 
-  // Navigation
-  navigation: {
-    home: 'Dashboard',
-    sales: 'Sales',
-    company: 'Company',
-  },
-
   // User Profile Menu
   userProfile: {
     profile: 'Profile',
@@ -68,7 +61,9 @@ export default {
     places: 'Places',
     employees: 'Employees',
     products: 'Products',
-    settings: 'Settings'
+    settings: 'Settings',
+    sales: 'Sales',
+    company: 'Company',
   },
 
   // Modules
@@ -407,4 +402,14 @@ export default {
   errors,
   common,
   notifications,
+
+  // Temporary keys for backwards compatibility
+  Home: 'Home',
+  Clients: 'Clients',
+  Deals: 'Deals',
+  Places: 'Places',
+  Workers: 'Workers',
+  Employees: 'Employees',
+  Products: 'Products',
+  Settings: 'Settings',
 }
