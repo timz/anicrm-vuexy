@@ -36,6 +36,10 @@ export default {
   table: {
     actions: 'Действия',
   },
+  sex: {
+    male: 'Мальчик',
+    female: 'Девочка',
+  },
   boolean: {
     yes: 'Да',
     no: 'Нет',

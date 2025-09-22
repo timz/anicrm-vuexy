@@ -218,10 +218,6 @@ export default {
       fields: {
         sex: 'Gender',
       },
-      sex: {
-        male: 'Boy',
-        female: 'Girl',
-      },
     },
     equipments: {
       title: 'Equipment',

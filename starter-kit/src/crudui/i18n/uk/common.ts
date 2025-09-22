@@ -33,6 +33,10 @@ export default {
     cancel: 'Скасувати',
   },
   deleteConfirmMessage: 'Ви дійсно хочете видалити вибрані елементи?\nЦю дію не можна скасувати.',
+  sex: {
+    male: 'Хлопчик',
+    female: 'Дівчинка',
+  },
   table: {
     actions: 'Дії',
   },
@@ -71,7 +75,7 @@ export default {
   // Common fields used across multiple modules
   fields: {
     title: 'Назва',
-    name: "Ім'я",
+    name: 'Ім\'я',
     created: 'Створено',
     edited: 'Змінено',
     description: 'Опис',
@@ -106,9 +110,9 @@ export default {
 
   // Common validation messages
   validationFields: {
-    titleRequired: "Назва обов'язкова",
+    titleRequired: 'Назва обов\'язкова',
     titleMinLength: 'Мінімум 2 символи',
-    nameRequired: "Ім'я обов'язкове",
+    nameRequired: 'Ім\'я обов\'язкове',
     nameMinLength: 'Мінімум 2 символи',
     hourRange: 'Година від 0 до 23',
   },

@@ -228,10 +228,6 @@ export default {
       fields: {
         sex: 'Стать',
       },
-      sex: {
-        male: 'Хлопчик',
-        female: 'Дівчинка',
-      },
     },
     equipments: {
       title: 'Обладнання',
@@ -295,5 +291,4 @@ export default {
   errors,
   common,
   notifications,
-
 }

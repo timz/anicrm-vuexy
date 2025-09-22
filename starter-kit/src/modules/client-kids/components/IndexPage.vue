@@ -1,10 +1,7 @@
 <template>
   <crud-table>
     <template #actionsSection>
-      <create-button
-        v-if="meStore.userCan('clients_update')"
-        @click="dialogProvider.openCreateDialog"
-      />
+      <create-button v-if="meStore.userCan('clients_update')" @click="dialogProvider.openCreateDialog" />
     </template>
     <template #body-cell-birthday="{ value }">
       {{ parseDateISOToLocal(value) }}
@@ -16,7 +13,7 @@
         <crud-input
           v-model="model.name"
           :label="$t('common.fields.name')"
-          :rules="[rules.required(), rules.minLength(3), rules.maxLength(100)]"
+          :rules="[rules.required(), rules.minLength(2), rules.maxLength(100)]"
         />
       </v-col>
       <v-col cols="12">
@@ -24,8 +21,8 @@
           v-model="model.sex"
           :label="$t('modules.clientKids.fields.sex')"
           :items="[
-            { title: $t('modules.clientKids.sex.male'), value: 'm' },
-            { title: $t('modules.clientKids.sex.female'), value: 'f' },
+            { title: $t('common.sex.male'), value: 'm' },
+            { title: $t('common.sex.female'), value: 'f' },
           ]"
           :rules="[rules.required()]"
         />
