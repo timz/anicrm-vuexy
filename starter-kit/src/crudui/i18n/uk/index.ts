@@ -76,9 +76,6 @@ export default {
       pageTitle: 'Клієнти',
       single: 'Клієнт',
       fields: {
-        advSource: 'Джерело реклами',
-      },
-      form: {
         name: 'Ім\'я',
         mobile: 'Мобільний',
         birthday: 'День народження',
@@ -97,7 +94,7 @@ export default {
       title: 'Угоди',
       pageTitle: 'Угоди',
       single: 'Угода',
-      form: {
+      fields: {
         title: 'Назва',
         client: 'Клієнт',
         status: 'Статус',
@@ -105,14 +102,6 @@ export default {
         currency: 'Валюта',
         startDate: 'Дата початку',
         closeDate: 'Дата закриття',
-        stage: 'Етап',
-        probability: 'Вірогідність закриття (%)',
-        source: 'Джерело',
-        responsible: 'Відповідальний',
-        description: 'Опис',
-        notes: 'Примітки',
-      },
-      fields: {
         event: 'Захід',
         margin: 'Маржа',
         eventType: 'Тип заходу',
@@ -120,6 +109,8 @@ export default {
         probability: 'Вірогідність закриття (%)',
         source: 'Джерело',
         responsible: 'Відповідальний',
+        description: 'Опис',
+        notes: 'Примітки',
       },
       statuses: {
         new: 'Нова',
@@ -176,17 +167,13 @@ export default {
         isOutside: 'Зовнішній',
         created: 'Створено',
       },
-      form: {
+      fields: {
         name: 'Ім\'я',
         mobile: 'Мобільний',
         birthday: 'День народження',
         medBook: 'Медична книжка',
         sudSprav: 'Довідка про судимість',
         description: 'Опис',
-      },
-      fields: {
-        medBook: 'Медична книжка',
-        sudSprav: 'Довідка про судимість',
       },
       filter: {
         all: 'Всі',
@@ -218,7 +205,7 @@ export default {
         isAvailable: 'Доступно',
         workHours: 'Години роботи',
       },
-      form: {
+      fields: {
         isAvailable: 'Доступно',
         description: 'Опис',
       },

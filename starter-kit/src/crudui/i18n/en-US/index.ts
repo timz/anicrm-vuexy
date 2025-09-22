@@ -66,9 +66,6 @@ export default {
       pageTitle: 'Clients',
       single: 'Client',
       fields: {
-        advSource: 'Advertising Source',
-      },
-      form: {
         name: 'Name',
         mobile: 'Mobile',
         birthday: 'Birthday',
@@ -87,7 +84,7 @@ export default {
       title: 'Deals',
       pageTitle: 'Deals',
       single: 'Deal',
-      form: {
+      fields: {
         title: 'Title',
         client: 'Client',
         status: 'Status',
@@ -95,14 +92,6 @@ export default {
         currency: 'Currency',
         startDate: 'Start Date',
         closeDate: 'Close Date',
-        stage: 'Stage',
-        probability: 'Closing Probability (%)',
-        source: 'Source',
-        responsible: 'Responsible',
-        description: 'Description',
-        notes: 'Notes',
-      },
-      fields: {
         event: 'Event',
         margin: 'Margin',
         eventType: 'Event Type',
@@ -110,6 +99,8 @@ export default {
         probability: 'Closing Probability (%)',
         source: 'Source',
         responsible: 'Responsible',
+        description: 'Description',
+        notes: 'Notes',
       },
       statuses: {
         new: 'New',
@@ -166,17 +157,13 @@ export default {
         isOutside: 'External',
         created: 'Created',
       },
-      form: {
+      fields: {
         name: 'Name',
         mobile: 'Mobile',
         birthday: 'Birthday',
         medBook: 'Medical Book',
         sudSprav: 'Criminal Record Certificate',
         description: 'Description',
-      },
-      fields: {
-        medBook: 'Medical Book',
-        sudSprav: 'Criminal Record Certificate',
       },
       filter: {
         all: 'All',
@@ -208,7 +195,7 @@ export default {
         isAvailable: 'Available',
         workHours: 'Work Hours',
       },
-      form: {
+      fields: {
         isAvailable: 'Available',
         description: 'Description',
       },
@@ -255,6 +242,15 @@ export default {
       },
       form: {
         title: 'Title',
+        shortName: 'Abbreviation',
+        type: 'Measurement Type',
+        coefficient: 'Coefficient',
+        isActive: 'Active Unit of Measure',
+        description: 'Description',
+        titlePlaceholder: 'e.g., Kilogram',
+        shortNamePlaceholder: 'e.g., kg',
+        coefficientPlaceholder: '1.0',
+        descriptionPlaceholder: 'Additional information about the unit of measure',
       },
       validation: {
         titleRequired: 'Title is required',

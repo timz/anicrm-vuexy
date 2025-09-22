@@ -6,7 +6,7 @@
       <v-col cols="12">
         <crud-input
           v-model="model.title"
-          :label="$t('modules.deals.form.title')"
+          :label="$t('modules.deals.fields.title')"
           :disabled="stateProcessing"
           :rules="[rules.required(), rules.minLength(3), rules.maxLength(255)]"
         />
@@ -16,7 +16,7 @@
         <CrudSelector
           v-model="model.client_id"
           data-url="/clients/list"
-          :label="$t('modules.deals.form.client')"
+          :label="$t('modules.deals.fields.client')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
@@ -26,7 +26,7 @@
         <CrudSelector
           v-model="model.status"
           :items="statusOptions"
-          :label="$t('modules.deals.form.status')"
+          :label="$t('modules.deals.fields.status')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
@@ -35,7 +35,7 @@
       <v-col cols="6">
         <crud-input
           v-model="model.amount"
-          :label="$t('modules.deals.form.amount')"
+          :label="$t('modules.deals.fields.amount')"
           type="number"
           :disabled="stateProcessing"
           :rules="[rules.required(), rules.numberMin(0)]"
@@ -46,7 +46,7 @@
         <CrudSelector
           v-model="model.currency"
           :items="currencyOptions"
-          :label="$t('modules.deals.form.currency')"
+          :label="$t('modules.deals.fields.currency')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
@@ -55,7 +55,7 @@
       <v-col cols="6">
         <crud-date-picker
           v-model="model.start_date"
-          :label="$t('modules.deals.form.startDate')"
+          :label="$t('modules.deals.fields.startDate')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -63,7 +63,7 @@
       <v-col cols="6">
         <crud-date-picker
           v-model="model.close_date"
-          :label="$t('modules.deals.form.closeDate')"
+          :label="$t('modules.deals.fields.closeDate')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -72,7 +72,7 @@
         <CrudSelector
           v-model="model.stage"
           :items="stageOptions"
-          :label="$t('modules.deals.form.stage')"
+          :label="$t('modules.deals.fields.stage')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
@@ -81,7 +81,7 @@
       <v-col cols="6">
         <crud-input
           v-model="model.probability"
-          :label="$t('modules.deals.form.probability')"
+          :label="$t('modules.deals.fields.probability')"
           type="number"
           :disabled="stateProcessing"
           :rules="[rules.numberMin(0), rules.numberMax(100)]"
@@ -92,7 +92,7 @@
         <CrudSelector
           v-model="model.source"
           :items="sourceOptions"
-          :label="$t('modules.deals.form.source')"
+          :label="$t('modules.deals.fields.source')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -101,7 +101,7 @@
         <CrudSelector
           v-model="model.responsible_id"
           data-url="/workers/list"
-          :label="$t('modules.deals.form.responsible')"
+          :label="$t('modules.deals.fields.responsible')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -110,7 +110,7 @@
         <crud-input
           v-model="model.description"
           type="textarea"
-          :label="$t('modules.deals.form.description')"
+          :label="$t('modules.deals.fields.description')"
           :disabled="stateProcessing"
           :rules="[rules.maxLength(2000)]"
         />
@@ -120,7 +120,7 @@
         <crud-input
           v-model="model.notes"
           type="textarea"
-          :label="$t('modules.deals.form.notes')"
+          :label="$t('modules.deals.fields.notes')"
           :disabled="stateProcessing"
           :rules="[rules.maxLength(1000)]"
         />

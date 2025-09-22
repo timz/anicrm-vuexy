@@ -11,7 +11,7 @@
       <v-col cols="12">
         <crud-input
           v-model="model.name"
-          :label="$t('modules.workers.form.name')"
+          :label="$t('modules.workers.fields.name')"
           :disabled="stateProcessing"
           :rules="[rules.required(), rules.minLength(1), rules.maxLength(255)]"
         />
@@ -19,25 +19,25 @@
       <v-col cols="6">
         <crud-input
           v-model="model.mobile"
-          :label="$t('modules.workers.form.mobile')"
+          :label="$t('modules.workers.fields.mobile')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
       </v-col>
       <v-col cols="6">
-        <crud-date-picker v-model="model.birthday" :label="$t('modules.workers.form.birthday')" :disabled="stateProcessing" />
+        <crud-date-picker v-model="model.birthday" :label="$t('modules.workers.fields.birthday')" :disabled="stateProcessing" />
       </v-col>
       <v-col cols="6">
-        <crud-date-picker v-model="model.med_book" :label="$t('modules.workers.form.medBook')" :disabled="stateProcessing" />
+        <crud-date-picker v-model="model.med_book" :label="$t('modules.workers.fields.medBook')" :disabled="stateProcessing" />
       </v-col>
       <v-col cols="6">
-        <crud-date-picker v-model="model.sud_sprav" :label="$t('modules.workers.form.sudSprav')" :disabled="stateProcessing" />
+        <crud-date-picker v-model="model.sud_sprav" :label="$t('modules.workers.fields.sudSprav')" :disabled="stateProcessing" />
       </v-col>
       <v-col cols="12">
         <crud-input
           v-model="model.description"
           type="textarea"
-          :label="$t('modules.workers.form.description')"
+          :label="$t('modules.workers.fields.description')"
           :disabled="stateProcessing"
           :rules="[rules.maxLength(1000)]"
         />

@@ -5,26 +5,26 @@
       <v-col cols="12">
         <crud-input
           v-model="model.name"
-          :label="$t('modules.clients.form.name')"
+          :label="$t('modules.clients.fields.name')"
           :disable="stateProcessing"
           :rules="[rules.required(), rules.minLength(3), rules.maxLength(100)]"
         />
       </v-col>
       <v-col cols="12">
-        <crud-input v-model="model.mobile" :label="$t('modules.clients.form.mobile')" :disable="stateProcessing" />
+        <crud-input v-model="model.mobile" :label="$t('modules.clients.fields.mobile')" :disable="stateProcessing" />
       </v-col>
       <v-col cols="12">
-        <crud-date-picker v-model="model.birthday" :label="$t('modules.clients.form.birthday')" />
+        <crud-date-picker v-model="model.birthday" :label="$t('modules.clients.fields.birthday')" />
       </v-col>
       <v-col cols="12">
         <CrudSelector
           v-model="model.adv_id"
           data-url="/adv-sources/list"
-          :label="$t('modules.clients.form.advSource')"
+          :label="$t('modules.clients.fields.advSource')"
         />
       </v-col>
       <v-col cols="12">
-        <crud-input v-model="model.description" type="textarea" :label="$t('modules.clients.form.description')" :disable="stateProcessing" />
+        <crud-input v-model="model.description" type="textarea" :label="$t('modules.clients.fields.description')" :disable="stateProcessing" />
       </v-col>
     </template>
   </CrudEditForm>

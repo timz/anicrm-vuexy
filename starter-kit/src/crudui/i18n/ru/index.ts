@@ -66,9 +66,6 @@ export default {
       pageTitle: 'Клиенты',
       single: 'Клиент',
       fields: {
-        advSource: 'Источник рекламы',
-      },
-      form: {
         name: 'Имя',
         mobile: 'Мобильный',
         birthday: 'День рождения',
@@ -87,7 +84,7 @@ export default {
       title: 'Сделки',
       pageTitle: 'Сделки',
       single: 'Сделка',
-      form: {
+      fields: {
         title: 'Название',
         client: 'Клиент',
         status: 'Статус',
@@ -95,14 +92,6 @@ export default {
         currency: 'Валюта',
         startDate: 'Дата начала',
         closeDate: 'Дата закрытия',
-        stage: 'Этап',
-        probability: 'Вероятность закрытия (%)',
-        source: 'Источник',
-        responsible: 'Ответственный',
-        description: 'Описание',
-        notes: 'Примечания',
-      },
-      fields: {
         event: 'Мероприятие',
         margin: 'Маржа',
         eventType: 'Тип мероприятия',
@@ -110,6 +99,8 @@ export default {
         probability: 'Вероятность закрытия (%)',
         source: 'Источник',
         responsible: 'Ответственный',
+        description: 'Описание',
+        notes: 'Примечания',
       },
       statuses: {
         new: 'Новая',
@@ -166,17 +157,13 @@ export default {
         isOutside: 'Внешний',
         created: 'Создан',
       },
-      form: {
+      fields: {
         name: 'Имя',
         mobile: 'Мобильный',
         birthday: 'День рождения',
         medBook: 'Медицинская книжка',
         sudSprav: 'Судебная справка',
         description: 'Описание',
-      },
-      fields: {
-        medBook: 'Медицинская книжка',
-        sudSprav: 'Судебная справка',
       },
       filter: {
         all: 'Все',
@@ -208,7 +195,7 @@ export default {
         isAvailable: 'Доступно',
         workHours: 'Часы работы',
       },
-      form: {
+      fields: {
         isAvailable: 'Доступно',
         description: 'Описание',
       },
@@ -255,6 +242,15 @@ export default {
       },
       form: {
         title: 'Название',
+        shortName: 'Сокращение',
+        type: 'Тип измерения',
+        coefficient: 'Коэффициент',
+        isActive: 'Активная единица измерения',
+        description: 'Описание',
+        titlePlaceholder: 'Например: Килограмм',
+        shortNamePlaceholder: 'Например: кг',
+        coefficientPlaceholder: '1.0',
+        descriptionPlaceholder: 'Дополнительная информация об единице измерения',
       },
       validation: {
         titleRequired: 'Название обязательно',

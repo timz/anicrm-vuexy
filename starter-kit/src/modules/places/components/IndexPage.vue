@@ -100,7 +100,7 @@
       <v-col cols="4">
         <crud-checkbox
           v-model="model.is_available"
-          :label="$t('modules.places.form.isAvailable')"
+          :label="$t('modules.places.fields.isAvailable')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -108,7 +108,7 @@
       <v-col cols="12">
         <crud-input
           v-model="model.description"
-          :label="$t('modules.places.form.description')"
+          :label="$t('modules.places.fields.description')"
           type="textarea"
           :disabled="stateProcessing"
         />
