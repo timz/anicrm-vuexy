@@ -68,6 +68,17 @@ export default {
       fields: {
         advSource: 'Advertising Source',
       },
+      form: {
+        name: 'Name',
+        mobile: 'Mobile',
+        birthday: 'Birthday',
+        advSource: 'Advertising Source',
+        description: 'Description',
+      },
+      validation: {
+        nameRequired: 'Name is required',
+        nameMinLength: 'Minimum 2 characters',
+      },
       tabs: {
         clientKids: 'Client Kids',
       },
@@ -76,6 +87,21 @@ export default {
       title: 'Deals',
       pageTitle: 'Deals',
       single: 'Deal',
+      form: {
+        title: 'Title',
+        client: 'Client',
+        status: 'Status',
+        amount: 'Amount',
+        currency: 'Currency',
+        startDate: 'Start Date',
+        closeDate: 'Close Date',
+        stage: 'Stage',
+        probability: 'Closing Probability (%)',
+        source: 'Source',
+        responsible: 'Responsible',
+        description: 'Description',
+        notes: 'Notes',
+      },
       fields: {
         event: 'Event',
         margin: 'Margin',
@@ -140,6 +166,14 @@ export default {
         isOutside: 'External',
         created: 'Created',
       },
+      form: {
+        name: 'Name',
+        mobile: 'Mobile',
+        birthday: 'Birthday',
+        medBook: 'Medical Book',
+        sudSprav: 'Criminal Record Certificate',
+        description: 'Description',
+      },
       fields: {
         medBook: 'Medical Book',
         sudSprav: 'Criminal Record Certificate',
@@ -173,6 +207,10 @@ export default {
         address: 'Address',
         isAvailable: 'Available',
         workHours: 'Work Hours',
+      },
+      form: {
+        isAvailable: 'Available',
+        description: 'Description',
       },
     },
     settings: {

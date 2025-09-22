@@ -68,6 +68,17 @@ export default {
       fields: {
         advSource: 'Источник рекламы',
       },
+      form: {
+        name: 'Имя',
+        mobile: 'Мобильный',
+        birthday: 'День рождения',
+        advSource: 'Источник рекламы',
+        description: 'Описание',
+      },
+      validation: {
+        nameRequired: 'Имя обязательно',
+        nameMinLength: 'Минимум 2 символа',
+      },
       tabs: {
         clientKids: 'Дети клиента',
       },
@@ -76,6 +87,21 @@ export default {
       title: 'Сделки',
       pageTitle: 'Сделки',
       single: 'Сделка',
+      form: {
+        title: 'Название',
+        client: 'Клиент',
+        status: 'Статус',
+        amount: 'Сумма',
+        currency: 'Валюта',
+        startDate: 'Дата начала',
+        closeDate: 'Дата закрытия',
+        stage: 'Этап',
+        probability: 'Вероятность закрытия (%)',
+        source: 'Источник',
+        responsible: 'Ответственный',
+        description: 'Описание',
+        notes: 'Примечания',
+      },
       fields: {
         event: 'Мероприятие',
         margin: 'Маржа',
@@ -140,6 +166,14 @@ export default {
         isOutside: 'Внешний',
         created: 'Создан',
       },
+      form: {
+        name: 'Имя',
+        mobile: 'Мобильный',
+        birthday: 'День рождения',
+        medBook: 'Медицинская книжка',
+        sudSprav: 'Судебная справка',
+        description: 'Описание',
+      },
       fields: {
         medBook: 'Медицинская книжка',
         sudSprav: 'Судебная справка',
@@ -173,6 +207,10 @@ export default {
         address: 'Адрес',
         isAvailable: 'Доступно',
         workHours: 'Часы работы',
+      },
+      form: {
+        isAvailable: 'Доступно',
+        description: 'Описание',
       },
     },
     settings: {

@@ -78,6 +78,17 @@ export default {
       fields: {
         advSource: 'Джерело реклами',
       },
+      form: {
+        name: 'Ім\'я',
+        mobile: 'Мобільний',
+        birthday: 'День народження',
+        advSource: 'Джерело реклами',
+        description: 'Опис',
+      },
+      validation: {
+        nameRequired: 'Ім\'я обов\'язкове',
+        nameMinLength: 'Мінімум 2 символи',
+      },
       tabs: {
         clientKids: 'Діти клієнта',
       },
@@ -86,6 +97,21 @@ export default {
       title: 'Угоди',
       pageTitle: 'Угоди',
       single: 'Угода',
+      form: {
+        title: 'Назва',
+        client: 'Клієнт',
+        status: 'Статус',
+        amount: 'Сума',
+        currency: 'Валюта',
+        startDate: 'Дата початку',
+        closeDate: 'Дата закриття',
+        stage: 'Етап',
+        probability: 'Вірогідність закриття (%)',
+        source: 'Джерело',
+        responsible: 'Відповідальний',
+        description: 'Опис',
+        notes: 'Примітки',
+      },
       fields: {
         event: 'Захід',
         margin: 'Маржа',
@@ -150,6 +176,14 @@ export default {
         isOutside: 'Зовнішній',
         created: 'Створено',
       },
+      form: {
+        name: 'Ім\'я',
+        mobile: 'Мобільний',
+        birthday: 'День народження',
+        medBook: 'Медична книжка',
+        sudSprav: 'Довідка про судимість',
+        description: 'Опис',
+      },
       fields: {
         medBook: 'Медична книжка',
         sudSprav: 'Довідка про судимість',
@@ -183,6 +217,10 @@ export default {
         address: 'Адреса',
         isAvailable: 'Доступно',
         workHours: 'Години роботи',
+      },
+      form: {
+        isAvailable: 'Доступно',
+        description: 'Опис',
       },
     },
     settings: {
