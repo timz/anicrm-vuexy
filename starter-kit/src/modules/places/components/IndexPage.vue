@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>Площадки</PageTitle>
+  <PageTitle>{{ $t('modules.places.title') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button
@@ -11,17 +11,17 @@
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.title"
-          label="Название"
+          :label="$t('modules.places.table.title')"
         />
       </v-col>
       <v-col cols="12" md="2">
         <v-select
           v-model="dataListProvider.filter.value.is_available"
-          label="Доступно"
+          :label="$t('modules.places.table.isAvailable')"
           :items="[
-            { title: 'Все', value: null },
-            { title: 'Да', value: true },
-            { title: 'Нет', value: false },
+            { title: $t('common.all'), value: null },
+            { title: $t('common.yes'), value: true },
+            { title: $t('common.no'), value: false },
           ]"
           item-title="title"
           item-value="value"
@@ -32,7 +32,7 @@
 
     <!-- Custom formatting for is_available column -->
     <template #body-cell-is_available="{ value }">
-      {{ value ? "Да" : "Нет" }}
+      {{ value ? $t('common.yes') : $t('common.no') }}
     </template>
 
     <!-- Custom formatting for work_hours column -->
@@ -47,10 +47,10 @@
       <v-col cols="12">
         <crud-input
           v-model="model.title"
-          label="Название"
+          :label="$t('modules.places.form.title')"
           :rules="[
-            (val) => !!val || 'Название обязательно',
-            (val) => (val && val.length >= 2) || 'Минимум 2 символа',
+            (val) => !!val || $t('modules.places.validation.titleRequired'),
+            (val) => (val && val.length >= 2) || $t('modules.places.validation.titleMinLength'),
           ]"
           :disabled="stateProcessing"
         />
@@ -60,7 +60,7 @@
         <crud-input
           v-model="model.address"
           type="textarea"
-          label="Адрес"
+          :label="$t('modules.places.form.address')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -68,14 +68,14 @@
       <v-col cols="6">
         <crud-input
           v-model.number="model.work_from"
-          label="Работает с (час)"
+          :label="$t('modules.places.form.workFrom')"
           type="number"
           :rules="[
             (val) =>
               val === null
               || val === undefined
               || (val >= 0 && val <= 23)
-              || 'Час от 0 до 23',
+              || $t('modules.places.validation.hourRange'),
           ]"
           :disabled="stateProcessing"
         />
@@ -84,14 +84,14 @@
       <v-col cols="6">
         <crud-input
           v-model.number="model.work_to"
-          label="Работает до (час)"
+          :label="$t('modules.places.form.workTo')"
           type="number"
           :rules="[
             (val) =>
               val === null
               || val === undefined
               || (val >= 0 && val <= 23)
-              || 'Час от 0 до 23',
+              || $t('modules.places.validation.hourRange'),
           ]"
           :disabled="stateProcessing"
         />
@@ -100,7 +100,7 @@
       <v-col cols="4">
         <crud-checkbox
           v-model="model.is_available"
-          label="Доступно"
+          :label="$t('modules.places.form.isAvailable')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -108,7 +108,7 @@
       <v-col cols="12">
         <crud-input
           v-model="model.description"
-          label="Описание"
+          :label="$t('modules.places.form.description')"
           type="textarea"
           :disabled="stateProcessing"
         />
@@ -160,7 +160,7 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: 'Название',
+    label: 'modules.places.table.title',
     align: 'left',
     field: 'title',
     sortable: true,
@@ -168,7 +168,7 @@ const columns = [
   {
     name: 'address',
     required: false,
-    label: 'Адрес',
+    label: 'modules.places.table.address',
     align: 'left',
     field: 'address',
     sortable: true,
@@ -176,7 +176,7 @@ const columns = [
   {
     name: 'is_available',
     required: false,
-    label: 'Доступно',
+    label: 'modules.places.table.isAvailable',
     align: 'center',
     field: 'is_available',
     sortable: true,
@@ -185,7 +185,7 @@ const columns = [
   {
     name: 'work_hours',
     required: false,
-    label: 'Часы работы',
+    label: 'modules.places.table.workHours',
     align: 'left',
     sortable: false,
     headerStyle: 'width: 150px',

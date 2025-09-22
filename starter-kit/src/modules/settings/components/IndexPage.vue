@@ -3,7 +3,7 @@
     <v-col cols="6">
       <VCard>
         <div class="pa-4">
-          <VCardTitle>Ресурсы компании</VCardTitle>
+          <VCardTitle>{{ $t('modules.settings.companyResources') }}</VCardTitle>
           <VList nav>
             <VListItem v-for="item in items" :key="item.value" :value="item.value" :to="item.route">
               <template #prepend>
@@ -21,7 +21,7 @@
     <v-col cols="6">
       <VCard>
         <div class="pa-4">
-          <VCardTitle>CRM</VCardTitle>
+          <VCardTitle>{{ $t('modules.settings.crm') }}</VCardTitle>
           <VList nav>
             <VListItem v-for="item in itemsCrm" :key="item.value" :value="item.value" :to="item.route">
               <template #prepend>
@@ -40,13 +40,18 @@
 </template>
 
 <script setup lang="ts">
-const items = [
-  { title: 'Единицы измерения', value: 1, prependIcon: 'tabler-list-details', route: '/measures' },
-  { title: 'Типы событий', value: 2, prependIcon: 'tabler-list-details', route: '/event-types' },
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const itemsCrm = [
-  { title: 'Источники рекламы', value: 1, prependIcon: 'tabler-list-details', route: '/adv-sources' },
-  { title: 'Причины отказов', value: 2, prependIcon: 'tabler-list-details', route: '/rejection-reasons' },
-]
+const { t } = useI18n()
+
+const items = computed(() => [
+  { title: t('modules.measures.title'), value: 1, prependIcon: 'tabler-list-details', route: '/measures' },
+  { title: t('modules.eventTypes.title'), value: 2, prependIcon: 'tabler-list-details', route: '/event-types' },
+])
+
+const itemsCrm = computed(() => [
+  { title: t('modules.advSources.title'), value: 1, prependIcon: 'tabler-list-details', route: '/adv-sources' },
+  { title: t('modules.rejectionReasons.title'), value: 2, prependIcon: 'tabler-list-details', route: '/rejection-reasons' },
+])
 </script>

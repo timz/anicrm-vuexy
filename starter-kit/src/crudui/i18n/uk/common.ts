@@ -24,6 +24,42 @@ export default {
   finish: 'Готово',
   actions: 'Дії',
   deleteSelected: 'Видалити вибрані',
-  deleteConfirmation: 'Підтвердження видалення',
+  deleteConfirmation: {
+    title: 'Підтвердження видалення',
+    message: 'Ви впевнені, що хочете видалити цей запис? Ця дія незворотна.',
+    confirm: 'Підтвердити',
+    cancel: 'Скасувати',
+  },
   deleteConfirmMessage: 'Ви дійсно хочете видалити вибрані елементи?\nЦю дію не можна скасувати.',
+  table: {
+    actions: 'Дії',
+  },
+  boolean: {
+    yes: 'Так',
+    no: 'Ні',
+  },
+  auth: {
+    logoutMessage: 'Ви вийшли з системи',
+    logout: 'Вийти',
+  },
+  dateRange: {
+    from: 'З дати',
+    to: 'По дату',
+    date: 'дата',
+    range: 'Діапазон',
+    placeholder: 'дд.мм.рррр - дд.мм.рррр',
+    periods: {
+      currentWeek: 'Поточний тиждень',
+      lastWeek: 'Минулий тиждень',
+      currentMonth: 'Поточний місяць',
+      lastMonth: 'Минулий місяць',
+    },
+  },
+  dialog: {
+    createTitle: 'Створення запису',
+    editTitle: 'Редагування запису',
+  },
+  language: {
+    changeLanguage: 'Змінити мову',
+  },
 }

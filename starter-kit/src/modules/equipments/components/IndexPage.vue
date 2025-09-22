@@ -35,7 +35,8 @@
         <v-col cols="12">
           <crud-input
             v-model="model.title"
-            :rules="[(val) => !!val || 'Название обязательно', (val) => val && val.length >= 2 || 'Минимум 2 символа']"
+            :label="$t('modules.equipments.form.title')"
+            :rules="[(val) => !!val || $t('modules.equipments.validation.titleRequired'), (val) => val && val.length >= 2 || $t('modules.equipments.validation.titleMinLength')]"
             :disabled="stateProcessing"
           />
         </v-col>
@@ -43,6 +44,7 @@
         <v-col cols="12">
           <crud-input
             v-model.number="model.state_id"
+            :label="$t('modules.equipments.form.stateId')"
             type="number"
             :disabled="stateProcessing"
           />
@@ -51,6 +53,7 @@
         <v-col cols="12">
           <crud-input
             v-model="model.description"
+            :label="$t('modules.equipments.form.description')"
             type="textarea"
             :disabled="stateProcessing"
           />
@@ -91,7 +94,7 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: 'Название',
+    label: 'modules.equipments.table.title',
     align: 'left',
     field: 'title',
     sortable: true,
@@ -99,7 +102,7 @@ const columns = [
   {
     name: 'state_id',
     required: false,
-    label: 'Статус',
+    label: 'modules.equipments.table.stateId',
     align: 'left',
     field: 'state_id',
     sortable: true,
@@ -108,7 +111,7 @@ const columns = [
   {
     name: 'description',
     required: false,
-    label: 'Описание',
+    label: 'modules.equipments.table.description',
     align: 'left',
     field: 'description',
     sortable: false,
@@ -116,7 +119,7 @@ const columns = [
   {
     name: 'created',
     required: false,
-    label: 'Создано',
+    label: 'modules.equipments.table.created',
     align: 'left',
     field: 'created',
     sortable: true,
@@ -125,7 +128,7 @@ const columns = [
   {
     name: 'edited',
     required: false,
-    label: 'Изменено',
+    label: 'modules.equipments.table.edited',
     align: 'left',
     field: 'edited',
     sortable: true,

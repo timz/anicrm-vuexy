@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex align-center ga-1">
     <VDateInput
-      placeholder="дд.мм.гггг - дд.мм.гггг"
+      :placeholder="t('common.dateRange.placeholder')"
       bg-color="white"
       variant="outlined"
       density="comfortable"
@@ -12,13 +12,14 @@
       v-bind="$attrs"
       @update:model-value="updateDateRange"
     />
-    <crud-checkbox v-model="isRange" label="Диапазон" />
+    <crud-checkbox v-model="isRange" :label="t('common.dateRange.range')" />
     <crud-date-picker />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { VDateInput } from 'vuetify/labs/VDateInput'
 import CrudCheckbox from '@crudui/components/Inputs/CrudCheckbox.vue'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
@@ -33,6 +34,7 @@ const emit = defineEmits<{
   'update:modelValue': [value: [string | null, string | null] | null]
 }>()
 
+const { t } = useI18n()
 const isRange = ref(true)
 
 // Computed для отображения диапазона дат в компоненте

@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>Причины отказов</PageTitle>
+  <PageTitle>{{ $t('modules.rejectionReasons.title') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button
@@ -9,7 +9,7 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="6">
-        <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
+        <crud-input v-model="dataListProvider.filter.value.title" :label="$t('modules.rejectionReasons.table.title')" />
       </v-col>
     </template>
   </crud-table>
@@ -20,8 +20,8 @@
       <v-col cols="12">
         <crud-input
           v-model="model.title"
-          label="Название"
-          :rules="[val => !!val || 'Название обязательно', val => val.length >= 2 || 'Минимум 2 символа']"
+          :label="$t('modules.rejectionReasons.form.title')"
+          :rules="[val => !!val || $t('modules.rejectionReasons.validation.titleRequired'), val => val.length >= 2 || $t('modules.rejectionReasons.validation.titleMinLength')]"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -53,7 +53,7 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: 'Название',
+    label: 'modules.rejectionReasons.table.title',
     align: 'left',
     field: 'title',
     sortable: true,

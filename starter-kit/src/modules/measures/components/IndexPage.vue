@@ -1,12 +1,12 @@
 <template>
-  <PageTitle>Единицы измерения</PageTitle>
+  <PageTitle>{{ $t('modules.measures.title') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button v-if="meStore.userCan('measures_create')" @click="dialogProvider.openCreateDialog" />
     </template>
     <template #filterForm>
       <v-col cols="12" md="6">
-        <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
+        <crud-input v-model="dataListProvider.filter.value.title" :label="$t('modules.measures.table.title')" />
       </v-col>
     </template>
   </crud-table>
@@ -17,8 +17,8 @@
       <v-col cols="12">
         <crud-input
           v-model="model.title"
-          label="Название"
-          :rules="[val => !!val || 'Название обязательно', val => val.length >= 2 || 'Минимум 2 символа']"
+          :label="$t('modules.measures.form.title')"
+          :rules="[val => !!val || $t('modules.measures.validation.titleRequired'), val => val.length >= 2 || $t('modules.measures.validation.titleMinLength')]"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -50,7 +50,7 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: 'Название',
+    label: 'modules.measures.table.title',
     align: 'left',
     field: 'title',
     sortable: true,

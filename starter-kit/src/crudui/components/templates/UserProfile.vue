@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import avatar1 from '@images/avatars/avatar-1.png'
 import { notifications } from '@crudui/boot/notification'
 import { clearAbilityRules } from '@crudui/plugins/casl/index'
@@ -8,6 +9,7 @@ import { useMeStore } from '@crudui/stores/meStore'
 
 const router = useRouter()
 const meStore = useMeStore()
+const { t } = useI18n()
 
 const handleLogout = async () => {
   // Вызываем logout из meStore (очищает токены и данные пользователя)
@@ -18,7 +20,7 @@ const handleLogout = async () => {
   ability.update([]) // Очищаем текущие правила
 
   // Показываем уведомление
-  notifications.info('Вы вышли из системы')
+  notifications.info(t('common.auth.logoutMessage'))
 
   // Перенаправляем на страницу логина
   router.push('/login')
@@ -143,7 +145,7 @@ const handleLogout = async () => {
               />
             </template>
 
-            <VListItemTitle>Выйти</VListItemTitle>
+            <VListItemTitle>{{ $t('common.auth.logout') }}</VListItemTitle>
           </VListItem>
         </VList>
       </VMenu>

@@ -1,17 +1,17 @@
 <template>
-  <PageTitle>Сотрудник</PageTitle>
+  <PageTitle>{{ $t('modules.workers.single') }}</PageTitle>
 
   <CrudEditForm>
     <template #actions>
       <crud-button-secondary prepend-icon="mdi-email" @click="showInviteDialog">
-        Пригласить
+        {{ $t('modules.workers.actions.invite') }}
       </crud-button-secondary>
     </template>
     <template #default="{ stateProcessing }">
       <v-col cols="12">
         <crud-input
           v-model="model.name"
-          label="Имя"
+          :label="$t('modules.workers.form.name')"
           :disabled="stateProcessing"
           :rules="[rules.required(), rules.minLength(1), rules.maxLength(255)]"
         />
@@ -19,25 +19,25 @@
       <v-col cols="6">
         <crud-input
           v-model="model.mobile"
-          label="Мобильный телефон"
+          :label="$t('modules.workers.form.mobile')"
           :disabled="stateProcessing"
           :rules="[rules.required()]"
         />
       </v-col>
       <v-col cols="6">
-        <crud-date-picker v-model="model.birthday" label="Дата рождения" :disabled="stateProcessing" />
+        <crud-date-picker v-model="model.birthday" :label="$t('modules.workers.form.birthday')" :disabled="stateProcessing" />
       </v-col>
       <v-col cols="6">
-        <crud-date-picker v-model="model.med_book" label="Медицинская книжка" :disabled="stateProcessing" />
+        <crud-date-picker v-model="model.med_book" :label="$t('modules.workers.form.medBook')" :disabled="stateProcessing" />
       </v-col>
       <v-col cols="6">
-        <crud-date-picker v-model="model.sud_sprav" label="Судебная справка" :disabled="stateProcessing" />
+        <crud-date-picker v-model="model.sud_sprav" :label="$t('modules.workers.form.sudSprav')" :disabled="stateProcessing" />
       </v-col>
       <v-col cols="12">
         <crud-input
           v-model="model.description"
           type="textarea"
-          label="Описание"
+          :label="$t('modules.workers.form.description')"
           :disabled="stateProcessing"
           :rules="[rules.maxLength(1000)]"
         />

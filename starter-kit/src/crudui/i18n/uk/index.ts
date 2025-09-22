@@ -1,7 +1,7 @@
-import validation from './validation'
-import errors from './errors'
-import common from './common'
-import notifications from './notifications'
+import validation from './validation.ts'
+import errors from './errors.ts'
+import common from './common.ts'
+import notifications from './notifications.ts'
 
 export default {
   welcome: 'Ласкаво просимо',
@@ -13,6 +13,13 @@ export default {
   delete: 'Видалити',
   add: 'Додати',
   search: 'Пошук',
+
+  // Common translations
+  common: {
+    all: 'Всі',
+    yes: 'Так',
+    no: 'Ні'
+  },
 
   // Authentication
   auth: {
@@ -152,7 +159,24 @@ export default {
     },
     workers: {
       title: 'Співробітники',
-      single: 'Співробітник'
+      single: 'Співробітник',
+      form: {
+        name: 'Ім’я',
+        mobile: 'Мобільний телефон',
+        birthday: 'Дата народження',
+        medBook: 'Медична книжка',
+        sudSprav: 'Довідка про судимість',
+        description: 'Опис'
+      },
+      actions: {
+        invite: 'Запросити'
+      },
+      invite: {
+        title: 'Запрошення співробітника',
+        email: 'Email співробітника',
+        success: 'Запрошення успішно надіслано',
+        error: 'Помилка при надсиланні запрошення'
+      }
     },
     products: {
       title: 'Продукти',
@@ -167,11 +191,34 @@ export default {
     },
     advSources: {
       title: 'Джерела реклами',
-      single: 'Джерело реклами'
+      single: 'Джерело реклами',
+      table: {
+        title: 'Назва'
+      },
+      form: {
+        title: 'Назва'
+      },
+      validation: {
+        titleRequired: 'Назва обов’язкова',
+        titleMinLength: 'Мінімум 2 символи'
+      }
     },
     clientKids: {
       title: 'Діти клієнтів',
-      single: 'Дитина клієнта'
+      single: 'Дитина клієнта',
+      table: {
+        name: 'Ім’я',
+        birthday: 'День народження'
+      },
+      form: {
+        name: 'Ім’я',
+        sex: 'Стать',
+        birthday: 'Дата народження'
+      },
+      sex: {
+        male: 'Хлопчик',
+        female: 'Дівчинка'
+      }
     },
     equipments: {
       title: 'Обладнання',

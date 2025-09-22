@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, inject, ref, useSlots } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { CrudRowAction, UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import ButtonBatchDelete from '@crudui/components/table/buttons/ButtonBatchDelete.vue'
 import ButtonAction from '@crudui/components/table/buttons/ButtonAction.vue'
@@ -7,6 +8,7 @@ import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
 import CrudConfirmDialog from '@crudui/components/dialogs/CrudConfirmDialog.vue'
 
+const { t } = useI18n()
 const filterPanel = ref(false)
 const slots = useSlots()
 
@@ -54,7 +56,7 @@ const tableHeaders = computed(() => {
   // Add actions column if there are row actions
   if (rowActions.length > 0) {
     headers.push({
-      title: 'Действия',
+      title: t('common.table.actions'),
       key: 'actions',
       value: 'actions',
       sortable: false,
@@ -329,11 +331,11 @@ const resetFilter = async (): Promise<void> => {
   <!-- Delete Confirmation Dialog -->
   <crud-confirm-dialog
     v-model="deleteDialog"
-    title="Подтверждение удаления"
-    message="Вы уверены, что хотите удалить эту запись? Это действие необратимо."
-    confirm-text="Подтвердить"
+    :title="$t('common.deleteConfirmation.title')"
+    :message="$t('common.deleteConfirmation.message')"
+    :confirm-text="$t('common.deleteConfirmation.confirm')"
     confirm-color="error"
-    cancel-text="Отмена"
+    :cancel-text="$t('common.deleteConfirmation.cancel')"
     @confirm="handleDeleteConfirm"
     @cancel="cancelDelete"
   />

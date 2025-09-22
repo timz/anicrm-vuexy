@@ -2,7 +2,7 @@
   <v-dialog v-model="dialog" max-width="500px" persistent>
     <v-card>
       <v-card-title class="text-h6">
-        Приглашение сотрудника
+        {{ $t('modules.workers.invite.title') }}
       </v-card-title>
 
       <v-divider />
@@ -13,7 +13,7 @@
             <v-col cols="12">
               <crud-input
                 v-model="model.email"
-                label="Email сотрудника"
+                :label="$t('modules.workers.invite.email')"
                 :disabled="stateProcessing"
                 :rules="[rules.required(), rules.email()]"
               />
@@ -26,10 +26,10 @@
 
       <v-card-actions class="justify-end">
         <v-btn variant="text" @click="onCancel">
-          Отмена
+          {{ $t('cancel') }}
         </v-btn>
         <crud-button-primary
-          label="Пригласить"
+          :label="$t('modules.workers.actions.invite')"
           :loading="stateProcessing"
           @click="onSubmit"
         />
@@ -40,11 +40,14 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useCrudForm } from '@crudui/providers/useCrudForm'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import { rules } from '@crudui/utils/validation/rules'
 import { notifications } from '@crudui/boot/notification'
+
+const { t } = useI18n()
 
 interface InviteForm {
   email: string
@@ -84,12 +87,12 @@ const {
   url: '/workers/invite',
   method: 'post',
   onSuccess: () => {
-    notifications.positive('Приглашение успешно отправлено')
+    notifications.positive(t('modules.workers.invite.success'))
     emit('success')
     dialog.value = false
   },
   onError: () => {
-    notifications.negative('Ошибка при отправке приглашения')
+    notifications.negative(t('modules.workers.invite.error'))
   },
 })
 

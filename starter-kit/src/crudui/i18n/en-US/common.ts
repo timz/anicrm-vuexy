@@ -24,6 +24,42 @@ export default {
   finish: 'Finish',
   actions: 'Actions',
   deleteSelected: 'Delete Selected',
-  deleteConfirmation: 'Delete Confirmation',
+  deleteConfirmation: {
+    title: 'Delete Confirmation',
+    message: 'Are you sure you want to delete this record? This action is irreversible.',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+  },
   deleteConfirmMessage: 'Are you sure you want to delete the selected items?\nThis action cannot be undone.',
+  table: {
+    actions: 'Actions',
+  },
+  boolean: {
+    yes: 'Yes',
+    no: 'No',
+  },
+  auth: {
+    logoutMessage: 'You have been logged out',
+    logout: 'Logout',
+  },
+  dateRange: {
+    from: 'From date',
+    to: 'To date',
+    date: 'date',
+    range: 'Range',
+    placeholder: 'dd.mm.yyyy - dd.mm.yyyy',
+    periods: {
+      currentWeek: 'Current week',
+      lastWeek: 'Last week',
+      currentMonth: 'Current month',
+      lastMonth: 'Last month',
+    },
+  },
+  dialog: {
+    createTitle: 'Create record',
+    editTitle: 'Edit record',
+  },
+  language: {
+    changeLanguage: 'Change language',
+  },
 }

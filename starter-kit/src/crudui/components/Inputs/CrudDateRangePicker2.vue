@@ -5,7 +5,7 @@
         <crud-input
           :model-value="displayValue"
           :label="props.label"
-          placeholder="дд.мм.гггг - дд.мм.гггг"
+          :placeholder="t('common.dateRange.placeholder')"
           readonly
           v-bind="menuProps"
         />
@@ -27,19 +27,20 @@
             </v-btn>
           </div>
           <div style="width: 100%; min-width: 190px">
-            <crud-date-picker v-model="startDate" style="margin-left: 2px" class="mt-2" label="С даты" />
-            <crud-date-picker v-model="endDate" style="margin-left: 2px" class="mt-4" label="По дату" />
+            <crud-date-picker v-model="startDate" style="margin-left: 2px" class="mt-2" :label="t('common.dateRange.from')" />
+            <crud-date-picker v-model="endDate" style="margin-left: 2px" class="mt-4" :label="t('common.dateRange.to')" />
           </div>
         </div>
       </v-card>
     </v-menu>
-    <crud-date-picker v-else v-model="viewDate" :label="props.label || 'дата'" />
-    <crud-checkbox v-model="isRange" class="ms-1" label="Диапазон" />
+    <crud-date-picker v-else v-model="viewDate" :label="props.label || t('common.dateRange.date')" />
+    <crud-checkbox v-model="isRange" class="ms-1" :label="t('common.dateRange.range')" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import dayjs from 'dayjs'
 import CrudDatePicker from '@crudui/components/Inputs/CrudDatePicker.vue'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
@@ -54,6 +55,7 @@ const emit = defineEmits<{
   'update:modelValue': [value: string | string[] | null]
 }>()
 
+const { t } = useI18n()
 const menu = ref(false)
 const isRange = ref(false)
 
@@ -68,25 +70,25 @@ const datePresets = computed(() => {
   return [
     {
       key: 'current_week',
-      label: 'Текущая неделя',
+      label: t('common.dateRange.periods.currentWeek'),
       start: now.startOf('week'),
       end: now.endOf('week'),
     },
     {
       key: 'last_week',
-      label: 'Прошлая неделя',
+      label: t('common.dateRange.periods.lastWeek'),
       start: now.subtract(1, 'week').startOf('week'),
       end: now.subtract(1, 'week').endOf('week'),
     },
     {
       key: 'current_month',
-      label: 'Текущий месяц',
+      label: t('common.dateRange.periods.currentMonth'),
       start: now.startOf('month'),
       end: now.endOf('month'),
     },
     {
       key: 'last_month',
-      label: 'Прошлый месяц',
+      label: t('common.dateRange.periods.lastMonth'),
       start: now.subtract(1, 'month').startOf('month'),
       end: now.subtract(1, 'month').endOf('month'),
     },

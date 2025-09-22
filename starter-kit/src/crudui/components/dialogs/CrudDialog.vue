@@ -3,7 +3,7 @@
     <v-card class="pa-3">
       <div class="px-3">
         <div class="pb-4 text-h4 font-weight-bold text-secondary">
-          {{ dialogProvider.isCreateMode.value ? 'Создание записи' : 'Редактирование записи' }}
+          {{ dialogProvider.isCreateMode.value ? $t('common.dialog.createTitle') : $t('common.dialog.editTitle') }}
         </div>
 
         <v-form ref="formRef" @submit.prevent="handleSubmit">

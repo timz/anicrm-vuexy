@@ -24,6 +24,42 @@ export default {
   finish: 'Готово',
   actions: 'Действия',
   deleteSelected: 'Удалить выбранные',
-  deleteConfirmation: 'Подтверждение удаления',
+  deleteConfirmation: {
+    title: 'Подтверждение удаления',
+    message: 'Вы уверены, что хотите удалить эту запись? Это действие необратимо.',
+    confirm: 'Подтвердить',
+    cancel: 'Отмена',
+  },
   deleteConfirmMessage: 'Вы действительно хотите удалить выбранные элементы?\nЭто действие нельзя отменить.',
+  table: {
+    actions: 'Действия',
+  },
+  boolean: {
+    yes: 'Да',
+    no: 'Нет',
+  },
+  auth: {
+    logoutMessage: 'Вы вышли из системы',
+    logout: 'Выйти',
+  },
+  dateRange: {
+    from: 'С даты',
+    to: 'По дату',
+    date: 'дата',
+    range: 'Диапазон',
+    placeholder: 'дд.мм.гггг - дд.мм.гггг',
+    periods: {
+      currentWeek: 'Текущая неделя',
+      lastWeek: 'Прошлая неделя',
+      currentMonth: 'Текущий месяц',
+      lastMonth: 'Прошлый месяц',
+    },
+  },
+  dialog: {
+    createTitle: 'Создание записи',
+    editTitle: 'Редактирование записи',
+  },
+  language: {
+    changeLanguage: 'Изменить язык',
+  },
 }

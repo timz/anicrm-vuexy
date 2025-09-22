@@ -1,7 +1,7 @@
-import validation from './validation'
-import errors from './errors'
-import common from './common'
-import notifications from './notifications'
+import validation from './validation.ts'
+import errors from './errors.ts'
+import common from './common.ts'
+import notifications from './notifications.ts'
 
 export default {
   welcome: 'Добро пожаловать',
@@ -13,6 +13,13 @@ export default {
   delete: 'Удалить',
   add: 'Добавить',
   search: 'Поиск',
+
+  // Common translations
+  common: {
+    all: 'Все',
+    yes: 'Да',
+    no: 'Нет'
+  },
 
   // Authentication
   auth: {
@@ -160,17 +167,29 @@ export default {
         created: 'Создан'
       },
       form: {
-        name: 'ФИО',
-        mobile: 'Телефон',
+        name: 'Имя',
+        mobile: 'Мобильный телефон',
         email: 'Email',
         position: 'Должность',
         isOutside: 'Внешний сотрудник',
-        description: 'Описание'
+        description: 'Описание',
+        birthday: 'Дата рождения',
+        medBook: 'Медицинская книжка',
+        sudSprav: 'Судебная справка'
       },
       filter: {
         all: 'Все',
         yes: 'Да',
         no: 'Нет'
+      },
+      actions: {
+        invite: 'Пригласить'
+      },
+      invite: {
+        title: 'Приглашение сотрудника',
+        email: 'Email сотрудника',
+        success: 'Приглашение успешно отправлено',
+        error: 'Ошибка при отправке приглашения'
       }
     },
     products: {
@@ -180,13 +199,19 @@ export default {
         title: 'Название',
         price: 'Цена',
         category: 'Категория',
-        created: 'Создан'
+        created: 'Создан',
+        measure: 'Единица измерения'
       },
       form: {
         title: 'Название',
         price: 'Цена',
         category: 'Категория',
         description: 'Описание'
+      },
+      filter: {
+        id: 'Ид',
+        title: 'Название',
+        measure: 'Мера'
       }
     },
     places: {
@@ -196,33 +221,94 @@ export default {
         title: 'Название',
         address: 'Адрес',
         capacity: 'Вместимость',
-        created: 'Создан'
+        created: 'Создан',
+        isAvailable: 'Доступно',
+        workHours: 'Часы работы'
       },
       form: {
         title: 'Название',
         address: 'Адрес',
         capacity: 'Вместимость',
-        description: 'Описание'
+        description: 'Описание',
+        isAvailable: 'Доступно',
+        workFrom: 'Работает с (час)',
+        workTo: 'Работает до (час)'
+      },
+      validation: {
+        titleRequired: 'Название обязательно',
+        titleMinLength: 'Минимум 2 символа',
+        hourRange: 'Час от 0 до 23'
       }
     },
     settings: {
-      title: 'Настройки'
+      title: 'Настройки',
+      companyResources: 'Ресурсы компании',
+      crm: 'CRM'
     },
     advSources: {
       title: 'Источники рекламы',
-      single: 'Источник рекламы'
+      single: 'Источник рекламы',
+      table: {
+        title: 'Название'
+      },
+      form: {
+        title: 'Название'
+      },
+      validation: {
+        titleRequired: 'Название обязательно',
+        titleMinLength: 'Минимум 2 символа'
+      }
     },
     clientKids: {
       title: 'Дети клиентов',
-      single: 'Ребенок клиента'
+      single: 'Ребенок клиента',
+      table: {
+        name: 'Имя',
+        birthday: 'День рождения'
+      },
+      form: {
+        name: 'Имя',
+        sex: 'Пол',
+        birthday: 'Дата рождения'
+      },
+      sex: {
+        male: 'Мальчик',
+        female: 'Девочка'
+      }
     },
     equipments: {
       title: 'Оборудование',
-      single: 'Оборудование'
+      single: 'Оборудование',
+      table: {
+        title: 'Название',
+        stateId: 'Статус',
+        description: 'Описание',
+        created: 'Создано',
+        edited: 'Изменено'
+      },
+      form: {
+        title: 'Название',
+        stateId: 'Статус',
+        description: 'Описание'
+      },
+      validation: {
+        titleRequired: 'Название обязательно',
+        titleMinLength: 'Минимум 2 символа'
+      }
     },
     eventTypes: {
       title: 'Типы событий',
-      single: 'Тип события'
+      single: 'Тип события',
+      table: {
+        title: 'Название'
+      },
+      form: {
+        title: 'Название'
+      },
+      validation: {
+        titleRequired: 'Название обязательно',
+        titleMinLength: 'Минимум 2 символа'
+      }
     },
     measures: {
       title: 'Единицы измерения',
@@ -235,12 +321,45 @@ export default {
       form: {
         title: 'Название',
         symbol: 'Обозначение',
-        description: 'Описание'
+        description: 'Описание',
+        shortName: 'Сокращение',
+        type: 'Тип измерения',
+        coefficient: 'Коэффициент',
+        isActive: 'Активная единица измерения',
+        titlePlaceholder: 'Например: Килограмм',
+        shortNamePlaceholder: 'Например: кг',
+        coefficientPlaceholder: '1.0',
+        descriptionPlaceholder: 'Дополнительная информация об единице измерения'
+      },
+      types: {
+        weight: 'Вес',
+        volume: 'Объем',
+        length: 'Длина',
+        area: 'Площадь',
+        count: 'Количество',
+        time: 'Время'
+      },
+      edit: {
+        title: 'Редактирование единицы измерения'
+      },
+      validation: {
+        titleRequired: 'Название обязательно',
+        titleMinLength: 'Минимум 2 символа'
       }
     },
     rejectionReasons: {
       title: 'Причины отказа',
-      single: 'Причина отказа'
+      single: 'Причина отказа',
+      table: {
+        title: 'Название'
+      },
+      form: {
+        title: 'Название'
+      },
+      validation: {
+        titleRequired: 'Название обязательно',
+        titleMinLength: 'Минимум 2 символа'
+      }
     },
     subscriptions: {
       title: 'Подписки',

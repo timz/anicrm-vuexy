@@ -5,7 +5,7 @@
     transition="slide-y-transition"
   >
     <template #activator="{ props }">
-      <VTooltip text="Изменить язык" location="bottom">
+      <VTooltip :text="$t('common.language.changeLanguage')" location="bottom">
         <template #activator="{ props: tooltipProps }">
           <VBtn
             class="me-2 language-switcher-btn"

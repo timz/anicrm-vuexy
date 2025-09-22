@@ -19,7 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 defineProps<{
   label?: string
@@ -36,7 +37,13 @@ const model = defineModel()
 const selectRef = ref()
 const hasBeenFocused = ref(false)
 
-const items = ref([{ title: '', value: null }, { title: 'Да', value: true }, { title: 'Нет', value: false }])
+const { t } = useI18n()
+
+const items = computed(() => [
+  { title: '', value: null },
+  { title: t('common.boolean.yes'), value: true },
+  { title: t('common.boolean.no'), value: false }
+])
 
 const handleFocus = () => {
   hasBeenFocused.value = true

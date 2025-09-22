@@ -7,8 +7,8 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'workers_index',
-      title: 'Сотрудники',
-      menuTitle: 'Сотрудники',
+      title: 'modules.workers.title',
+      menuTitle: 'modules.workers.title',
       menuIcon: 'mdi-account-group',
       menuSort: 30,
     },
@@ -19,7 +19,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'workers_create',
-      menuTitle: 'Сотрудник',
+      menuTitle: 'modules.workers.single',
       menuHide: true,
     },
   },
@@ -29,7 +29,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'workers_view',
-      menuTitle: 'Сотрудник',
+      menuTitle: 'modules.workers.single',
       menuHide: true,
     },
   },

@@ -1,7 +1,7 @@
-import validation from './validation'
-import errors from './errors'
-import common from './common'
-import notifications from './notifications'
+import validation from './validation.ts'
+import errors from './errors.ts'
+import common from './common.ts'
+import notifications from './notifications.ts'
 
 export default {
   welcome: 'Welcome',
@@ -13,6 +13,13 @@ export default {
   delete: 'Delete',
   add: 'Add',
   search: 'Search',
+
+  // Common translations
+  common: {
+    all: 'All',
+    yes: 'Yes',
+    no: 'No'
+  },
 
   // Authentication
   auth: {
@@ -152,7 +159,31 @@ export default {
     },
     workers: {
       title: 'Workers',
-      single: 'Worker'
+      single: 'Worker',
+      table: {
+        name: 'Name',
+        mobile: 'Phone',
+        isOutside: 'External',
+        created: 'Created'
+      },
+      form: {
+        name: 'Name',
+        mobile: 'Mobile Phone',
+        email: 'Email',
+        birthday: 'Date of Birth',
+        medBook: 'Medical Book',
+        sudSprav: 'Criminal Record Certificate',
+        description: 'Description'
+      },
+      actions: {
+        invite: 'Invite'
+      },
+      invite: {
+        title: 'Invite Employee',
+        email: 'Employee Email',
+        success: 'Invitation sent successfully',
+        error: 'Error sending invitation'
+      }
     },
     products: {
       title: 'Products',
@@ -167,23 +198,102 @@ export default {
     },
     advSources: {
       title: 'Advertising Sources',
-      single: 'Advertising Source'
+      single: 'Advertising Source',
+      table: {
+        title: 'Title'
+      },
+      form: {
+        title: 'Title'
+      },
+      validation: {
+        titleRequired: 'Title is required',
+        titleMinLength: 'Minimum 2 characters'
+      }
     },
     clientKids: {
       title: 'Client Kids',
-      single: 'Client Kid'
+      single: 'Client Kid',
+      table: {
+        name: 'Name',
+        birthday: 'Birthday'
+      },
+      form: {
+        name: 'Name',
+        sex: 'Gender',
+        birthday: 'Date of Birth'
+      },
+      sex: {
+        male: 'Boy',
+        female: 'Girl'
+      }
     },
     equipments: {
       title: 'Equipment',
-      single: 'Equipment'
+      single: 'Equipment',
+      table: {
+        title: 'Title',
+        stateId: 'Status',
+        description: 'Description',
+        created: 'Created',
+        edited: 'Modified'
+      },
+      form: {
+        title: 'Title',
+        stateId: 'Status',
+        description: 'Description'
+      },
+      validation: {
+        titleRequired: 'Title is required',
+        titleMinLength: 'Minimum 2 characters'
+      }
     },
     eventTypes: {
       title: 'Event Types',
-      single: 'Event Type'
+      single: 'Event Type',
+      table: {
+        title: 'Title'
+      },
+      form: {
+        title: 'Title'
+      },
+      validation: {
+        titleRequired: 'Title is required',
+        titleMinLength: 'Minimum 2 characters'
+      }
     },
     measures: {
       title: 'Units of Measure',
-      single: 'Unit of Measure'
+      single: 'Unit of Measure',
+      table: {
+        title: 'Title'
+      },
+      form: {
+        title: 'Title',
+        shortName: 'Abbreviation',
+        type: 'Measurement Type',
+        coefficient: 'Coefficient',
+        description: 'Description',
+        isActive: 'Active Unit of Measure',
+        titlePlaceholder: 'e.g., Kilogram',
+        shortNamePlaceholder: 'e.g., kg',
+        coefficientPlaceholder: '1.0',
+        descriptionPlaceholder: 'Additional information about the unit of measure'
+      },
+      types: {
+        weight: 'Weight',
+        volume: 'Volume',
+        length: 'Length',
+        area: 'Area',
+        count: 'Count',
+        time: 'Time'
+      },
+      edit: {
+        title: 'Edit Unit of Measure'
+      },
+      validation: {
+        titleRequired: 'Title is required',
+        titleMinLength: 'Minimum 2 characters'
+      }
     },
     rejectionReasons: {
       title: 'Rejection Reasons',
