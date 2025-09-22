@@ -1,13 +1,21 @@
-import validation from './validation.ts'
-import errors from './errors.ts'
-import common from './common.ts'
-import notifications from './notifications.ts'
+import validation from './validation'
+import errors from './errors'
+import common from './common'
+import notifications from './notifications'
 
 export default {
   welcome: 'Ласкаво просимо',
   login: 'Вхід',
   logout: 'Вихід',
   save: 'Зберегти',
+  Home: 'Головна',
+  Clients: 'Клієнти',
+  Deals: 'Угоди',
+  Places: 'Місця',
+  Workers: 'Співробітники',
+  Employees: 'Співробітники',
+  Products: 'Продукти',
+  Settings: 'Налаштування',
 
   // User Profile Menu
   userProfile: {
@@ -43,7 +51,7 @@ export default {
     backToLogin2: '← Повернутися до входу',
     error: 'Помилка',
     goHome: 'На головну',
-    goBack: 'Назад'
+    goBack: 'Назад',
   },
 
   // Navigation
@@ -71,22 +79,22 @@ export default {
         mobile: 'Мобільний',
         birthday: 'Дата народження',
         description: 'Нотатки',
-        advSource: 'Джерело реклами'
+        advSource: 'Джерело реклами',
       },
       form: {
         name: 'Назва',
         mobile: 'Мобільний',
         birthday: 'Дата народження',
         advSource: 'Джерело реклами',
-        description: 'Нотатки'
+        description: 'Нотатки',
       },
       tabs: {
-        clientKids: 'Діти клієнта'
+        clientKids: 'Діти клієнта',
       },
       validation: {
         nameRequired: 'Назва обов\'язкова',
-        nameMinLength: 'Мінімум 2 символи'
-      }
+        nameMinLength: 'Мінімум 2 символи',
+      },
     },
     deals: {
       title: 'Угоди',
@@ -100,7 +108,7 @@ export default {
         eventDate: 'Дата заходу',
         status: 'Статус',
         contact: 'Контакт',
-        created: 'Створено'
+        created: 'Створено',
       },
       filter: {
         id: 'ID',
@@ -108,7 +116,7 @@ export default {
         status: 'Статус',
         client: 'Клієнт',
         amount: 'Сума',
-        eventType: 'Тип заходу'
+        eventType: 'Тип заходу',
       },
       statuses: {
         new: 'Нова',
@@ -117,7 +125,7 @@ export default {
         cold: 'Холодна',
         closed: 'Закрита',
         cancelled: 'Скасована',
-        rejected: 'Відхилена'
+        rejected: 'Відхилена',
       },
       form: {
         title: 'Назва угоди',
@@ -132,12 +140,12 @@ export default {
         source: 'Джерело',
         responsible: 'Відповідальний',
         description: 'Опис',
-        notes: 'Нотатки'
+        notes: 'Нотатки',
       },
       currencies: {
         rub: 'Рубль',
         usd: 'Долар США',
-        eur: 'Євро'
+        eur: 'Євро',
       },
       stages: {
         lead: 'Лід',
@@ -146,7 +154,7 @@ export default {
         proposal: 'Пропозиція',
         negotiation: 'Переговори',
         contract: 'Контракт',
-        closed: 'Закрита'
+        closed: 'Закрита',
       },
       sources: {
         website: 'Веб-сайт',
@@ -156,18 +164,18 @@ export default {
         referral: 'Рекомендація',
         advertising: 'Реклама',
         partner: 'Партнер',
-        other: 'Інше'
+        other: 'Інше',
       },
       statusesEdit: {
         new: 'Нова',
         inProgress: 'У роботі',
         won: 'Виграна',
         lost: 'Програна',
-        onHold: 'На утриманні'
-      }
+        onHold: 'На утриманні',
+      },
     },
     dashboards: {
-      title: 'Панелі управління'
+      title: 'Панелі управління',
     },
     workers: {
       title: 'Співробітники',
@@ -176,7 +184,7 @@ export default {
         name: 'ПІБ',
         mobile: 'Телефон',
         isOutside: 'Зовнішній',
-        created: 'Створено'
+        created: 'Створено',
       },
       form: {
         name: 'Ім\'я',
@@ -187,22 +195,22 @@ export default {
         description: 'Опис',
         position: 'Посада',
         isOutside: 'Зовнішній співробітник',
-        email: 'Email'
+        email: 'Email',
       },
       filter: {
         all: 'Всі',
         yes: 'Так',
-        no: 'Ні'
+        no: 'Ні',
       },
       actions: {
-        invite: 'Запросити'
+        invite: 'Запросити',
       },
       invite: {
         title: 'Запрошення співробітника',
         email: 'Email співробітника',
         success: 'Запрошення успішно надіслано',
-        error: 'Помилка при надсиланні запрошення'
-      }
+        error: 'Помилка при надсиланні запрошення',
+      },
     },
     products: {
       title: 'Продукти',
@@ -212,24 +220,24 @@ export default {
         price: 'Ціна',
         category: 'Категорія',
         created: 'Створено',
-        measure: 'Одиниця виміру'
+        measure: 'Одиниця виміру',
       },
       form: {
         title: 'Назва',
         price: 'Ціна',
         category: 'Категорія',
         description: 'Опис',
-        measure: 'Одиниця виміру'
+        measure: 'Одиниця виміру',
       },
       filter: {
         id: 'Ід',
         title: 'Назва',
-        measure: 'Міра'
+        measure: 'Міра',
       },
       validation: {
         titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи'
-      }
+        titleMinLength: 'Мінімум 2 символи',
+      },
     },
     places: {
       title: 'Місця',
@@ -240,7 +248,7 @@ export default {
         capacity: 'Місткість',
         created: 'Створено',
         isAvailable: 'Доступно',
-        workHours: 'Години роботи'
+        workHours: 'Години роботи',
       },
       form: {
         title: 'Назва',
@@ -249,49 +257,49 @@ export default {
         description: 'Опис',
         isAvailable: 'Доступно',
         workFrom: 'Працює з (година)',
-        workTo: 'Працює до (година)'
+        workTo: 'Працює до (година)',
       },
       validation: {
         titleRequired: 'Назва обов\'язкова',
         titleMinLength: 'Мінімум 2 символи',
-        hourRange: 'Година від 0 до 23'
-      }
+        hourRange: 'Година від 0 до 23',
+      },
     },
     settings: {
       title: 'Налаштування',
       companyResources: 'Ресурси компанії',
-      crm: 'CRM'
+      crm: 'CRM',
     },
     advSources: {
       title: 'Джерела реклами',
       single: 'Джерело реклами',
       table: {
-        title: 'Назва'
+        title: 'Назва',
       },
       form: {
-        title: 'Назва'
+        title: 'Назва',
       },
       validation: {
         titleRequired: 'Назва обов’язкова',
-        titleMinLength: 'Мінімум 2 символи'
-      }
+        titleMinLength: 'Мінімум 2 символи',
+      },
     },
     clientKids: {
       title: 'Діти клієнтів',
       single: 'Дитина клієнта',
       table: {
         name: 'Ім’я',
-        birthday: 'День народження'
+        birthday: 'День народження',
       },
       form: {
         name: 'Ім’я',
         sex: 'Стать',
-        birthday: 'Дата народження'
+        birthday: 'Дата народження',
       },
       sex: {
         male: 'Хлопчик',
-        female: 'Дівчинка'
-      }
+        female: 'Дівчинка',
+      },
     },
     equipments: {
       title: 'Обладнання',
@@ -301,31 +309,31 @@ export default {
         stateId: 'Статус',
         description: 'Опис',
         created: 'Створено',
-        edited: 'Змінено'
+        edited: 'Змінено',
       },
       form: {
         title: 'Назва',
         stateId: 'Статус',
-        description: 'Опис'
+        description: 'Опис',
       },
       validation: {
         titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи'
-      }
+        titleMinLength: 'Мінімум 2 символи',
+      },
     },
     eventTypes: {
       title: 'Типи подій',
       single: 'Тип події',
       table: {
-        title: 'Назва'
+        title: 'Назва',
       },
       form: {
-        title: 'Назва'
+        title: 'Назва',
       },
       validation: {
         titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи'
-      }
+        titleMinLength: 'Мінімум 2 символи',
+      },
     },
     measures: {
       title: 'Одиниці виміру',
@@ -333,7 +341,7 @@ export default {
       table: {
         title: 'Назва',
         symbol: 'Позначення',
-        created: 'Створено'
+        created: 'Створено',
       },
       form: {
         title: 'Назва',
@@ -346,7 +354,7 @@ export default {
         titlePlaceholder: 'Наприклад: Кілограм',
         shortNamePlaceholder: 'Наприклад: кг',
         coefficientPlaceholder: '1.0',
-        descriptionPlaceholder: 'Додаткова інформація про одиницю вимірювання'
+        descriptionPlaceholder: 'Додаткова інформація про одиницю вимірювання',
       },
       types: {
         weight: 'Вага',
@@ -354,57 +362,39 @@ export default {
         length: 'Довжина',
         area: 'Площа',
         count: 'Кількість',
-        time: 'Час'
+        time: 'Час',
       },
       edit: {
-        title: 'Редагування одиниці вимірювання'
+        title: 'Редагування одиниці вимірювання',
       },
       validation: {
         titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи'
-      }
+        titleMinLength: 'Мінімум 2 символи',
+      },
     },
     rejectionReasons: {
       title: 'Причини відмови',
       single: 'Причина відмови',
       table: {
-        title: 'Назва'
+        title: 'Назва',
       },
       form: {
-        title: 'Назва'
+        title: 'Назва',
       },
       validation: {
         titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи'
-      }
+        titleMinLength: 'Мінімум 2 символи',
+      },
     },
     subscriptions: {
       title: 'Підписки',
-      single: 'Підписка'
-    }
+      single: 'Підписка',
+    },
   },
-
-  // Legacy support - to be removed after full migration
-  Главная: 'Головна',
-  Клиенты: 'Клієнти',
-  Сделки: 'Угоди',
-  Места: 'Місця',
-  Сотрудники: 'Співробітники',
-  Продукты: 'Продукти',
-  Настройки: 'Налаштування',
 
   validation,
   errors,
   common,
   notifications,
 
-  // Тимчасові ключі для зворотної сумісності
-  Home: 'Головна',
-  Clients: 'Клієнти',
-  Deals: 'Угоди',
-  Places: 'Місця',
-  Workers: 'Співробітники',
-  Employees: 'Співробітники',
-  Products: 'Продукти',
-  Settings: 'Налаштування',
 }
