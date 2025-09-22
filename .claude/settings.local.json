@@ -5,7 +5,8 @@
       "Bash(for file in starter-kit/src/modules/*/routes.ts)",
       "Bash(do echo \"=== $file ===\")",
       "Bash(grep:*)",
-      "Bash(del \"starter-kit\\src\\modules\\workers\\components\\EditPage.vue_\")"
+      "Bash(del \"starter-kit\\src\\modules\\workers\\components\\EditPage.vue_\")",
+      "Bash(rg:*)"
     ],
     "deny": [],
     "ask": []

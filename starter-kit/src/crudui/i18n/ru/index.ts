@@ -379,7 +379,7 @@ export default {
     },
   },
 
-  // Temporary backwards compatibility keys
+  // English keys for navigation (backwards compatibility)
   Home: 'Главная',
   Clients: 'Клиенты',
   Deals: 'Сделки',
@@ -388,15 +388,6 @@ export default {
   Employees: 'Сотрудники',
   Products: 'Продукты',
   Settings: 'Настройки',
-
-  // Ukrainian text as keys (for fixing warnings)
-  'Головна': 'Главная',
-  'Клієнти': 'Клиенты',
-  'Угоди': 'Сделки',
-  'Місця': 'Места',
-  'Співробітники': 'Сотрудники',
-  'Продукти': 'Продукты',
-  'Налаштування': 'Настройки',
 
   validation,
   errors,

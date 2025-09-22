@@ -1,7 +1,7 @@
-import validation from './validation.ts'
-import errors from './errors.ts'
-import common from './common.ts'
-import notifications from './notifications.ts'
+import validation from './validation'
+import errors from './errors'
+import common from './common'
+import notifications from './notifications'
 
 export default {
   welcome: 'Welcome',
@@ -21,13 +21,6 @@ export default {
   delete: 'Delete',
   add: 'Add',
   search: 'Search',
-
-  // Common translations
-  common: {
-    all: 'All',
-    yes: 'Yes',
-    no: 'No'
-  },
 
   // Authentication
   auth: {
@@ -50,7 +43,7 @@ export default {
     backToLogin2: '← Back to Login',
     error: 'Error',
     goHome: 'Go Home',
-    goBack: 'Back'
+    goBack: 'Back',
   },
 
   // Navigation
@@ -78,22 +71,22 @@ export default {
         mobile: 'Mobile',
         birthday: 'Birthday',
         description: 'Notes',
-        advSource: 'Advertising Source'
+        advSource: 'Advertising Source',
       },
       form: {
         name: 'Name',
         mobile: 'Mobile',
         birthday: 'Birthday',
         advSource: 'Advertising Source',
-        description: 'Notes'
+        description: 'Notes',
       },
       tabs: {
-        clientKids: 'Client Kids'
+        clientKids: 'Client Kids',
       },
       validation: {
         nameRequired: 'Name is required',
-        nameMinLength: 'Minimum 2 characters'
-      }
+        nameMinLength: 'Minimum 2 characters',
+      },
     },
     deals: {
       title: 'Deals',
@@ -107,7 +100,7 @@ export default {
         eventDate: 'Event Date',
         status: 'Status',
         contact: 'Contact',
-        created: 'Created'
+        created: 'Created',
       },
       filter: {
         id: 'ID',
@@ -115,7 +108,7 @@ export default {
         status: 'Status',
         client: 'Client',
         amount: 'Amount',
-        eventType: 'Event Type'
+        eventType: 'Event Type',
       },
       statuses: {
         new: 'New',
@@ -124,7 +117,7 @@ export default {
         cold: 'Cold',
         closed: 'Closed',
         cancelled: 'Cancelled',
-        rejected: 'Rejected'
+        rejected: 'Rejected',
       },
       form: {
         title: 'Deal Title',
@@ -139,12 +132,12 @@ export default {
         source: 'Source',
         responsible: 'Responsible',
         description: 'Description',
-        notes: 'Notes'
+        notes: 'Notes',
       },
       currencies: {
         rub: 'Ruble',
         usd: 'US Dollar',
-        eur: 'Euro'
+        eur: 'Euro',
       },
       stages: {
         lead: 'Lead',
@@ -153,7 +146,7 @@ export default {
         proposal: 'Proposal',
         negotiation: 'Negotiation',
         contract: 'Contract',
-        closed: 'Closed'
+        closed: 'Closed',
       },
       sources: {
         website: 'Website',
@@ -163,18 +156,18 @@ export default {
         referral: 'Referral',
         advertising: 'Advertising',
         partner: 'Partner',
-        other: 'Other'
+        other: 'Other',
       },
       statusesEdit: {
         new: 'New',
         inProgress: 'In Progress',
         won: 'Won',
         lost: 'Lost',
-        onHold: 'On Hold'
-      }
+        onHold: 'On Hold',
+      },
     },
     dashboards: {
-      title: 'Dashboards'
+      title: 'Dashboards',
     },
     workers: {
       title: 'Workers',
@@ -183,7 +176,7 @@ export default {
         name: 'Name',
         mobile: 'Phone',
         isOutside: 'External',
-        created: 'Created'
+        created: 'Created',
       },
       form: {
         name: 'Name',
@@ -194,22 +187,22 @@ export default {
         sudSprav: 'Criminal Record Certificate',
         description: 'Description',
         position: 'Position',
-        isOutside: 'External Employee'
+        isOutside: 'External Employee',
       },
       filter: {
         all: 'All',
         yes: 'Yes',
-        no: 'No'
+        no: 'No',
       },
       actions: {
-        invite: 'Invite'
+        invite: 'Invite',
       },
       invite: {
         title: 'Invite Employee',
         email: 'Employee Email',
         success: 'Invitation sent successfully',
-        error: 'Error sending invitation'
-      }
+        error: 'Error sending invitation',
+      },
     },
     products: {
       title: 'Products',
@@ -219,24 +212,24 @@ export default {
         price: 'Price',
         category: 'Category',
         created: 'Created',
-        measure: 'Unit of Measure'
+        measure: 'Unit of Measure',
       },
       form: {
         title: 'Title',
         price: 'Price',
         category: 'Category',
         description: 'Description',
-        measure: 'Unit of Measure'
+        measure: 'Unit of Measure',
       },
       filter: {
         id: 'ID',
         title: 'Title',
-        measure: 'Measure'
+        measure: 'Measure',
       },
       validation: {
         titleRequired: 'Title is required',
-        titleMinLength: 'Minimum 2 characters'
-      }
+        titleMinLength: 'Minimum 2 characters',
+      },
     },
     places: {
       title: 'Places',
@@ -247,7 +240,7 @@ export default {
         capacity: 'Capacity',
         created: 'Created',
         isAvailable: 'Available',
-        workHours: 'Working Hours'
+        workHours: 'Working Hours',
       },
       form: {
         title: 'Title',
@@ -256,47 +249,47 @@ export default {
         description: 'Description',
         isAvailable: 'Available',
         workFrom: 'Working From (hour)',
-        workTo: 'Working To (hour)'
+        workTo: 'Working To (hour)',
       },
       validation: {
         titleRequired: 'Title is required',
         titleMinLength: 'Minimum 2 characters',
-        hourRange: 'Hour from 0 to 23'
-      }
+        hourRange: 'Hour from 0 to 23',
+      },
     },
     settings: {
-      title: 'Settings'
+      title: 'Settings',
     },
     advSources: {
       title: 'Advertising Sources',
       single: 'Advertising Source',
       table: {
-        title: 'Title'
+        title: 'Title',
       },
       form: {
-        title: 'Title'
+        title: 'Title',
       },
       validation: {
         titleRequired: 'Title is required',
-        titleMinLength: 'Minimum 2 characters'
-      }
+        titleMinLength: 'Minimum 2 characters',
+      },
     },
     clientKids: {
       title: 'Client Kids',
       single: 'Client Kid',
       table: {
         name: 'Name',
-        birthday: 'Birthday'
+        birthday: 'Birthday',
       },
       form: {
         name: 'Name',
         sex: 'Gender',
-        birthday: 'Date of Birth'
+        birthday: 'Date of Birth',
       },
       sex: {
         male: 'Boy',
-        female: 'Girl'
-      }
+        female: 'Girl',
+      },
     },
     equipments: {
       title: 'Equipment',
@@ -306,31 +299,31 @@ export default {
         stateId: 'Status',
         description: 'Description',
         created: 'Created',
-        edited: 'Modified'
+        edited: 'Modified',
       },
       form: {
         title: 'Title',
         stateId: 'Status',
-        description: 'Description'
+        description: 'Description',
       },
       validation: {
         titleRequired: 'Title is required',
-        titleMinLength: 'Minimum 2 characters'
-      }
+        titleMinLength: 'Minimum 2 characters',
+      },
     },
     eventTypes: {
       title: 'Event Types',
       single: 'Event Type',
       table: {
-        title: 'Title'
+        title: 'Title',
       },
       form: {
-        title: 'Title'
+        title: 'Title',
       },
       validation: {
         titleRequired: 'Title is required',
-        titleMinLength: 'Minimum 2 characters'
-      }
+        titleMinLength: 'Minimum 2 characters',
+      },
     },
     measures: {
       title: 'Units of Measure',
@@ -338,7 +331,7 @@ export default {
       table: {
         title: 'Title',
         symbol: 'Symbol',
-        created: 'Created'
+        created: 'Created',
       },
       form: {
         title: 'Title',
@@ -351,7 +344,7 @@ export default {
         titlePlaceholder: 'e.g., Kilogram',
         shortNamePlaceholder: 'e.g., kg',
         coefficientPlaceholder: '1.0',
-        descriptionPlaceholder: 'Additional information about the unit of measure'
+        descriptionPlaceholder: 'Additional information about the unit of measure',
       },
       types: {
         weight: 'Weight',
@@ -359,51 +352,37 @@ export default {
         length: 'Length',
         area: 'Area',
         count: 'Count',
-        time: 'Time'
+        time: 'Time',
       },
       edit: {
-        title: 'Edit Unit of Measure'
+        title: 'Edit Unit of Measure',
       },
       validation: {
         titleRequired: 'Title is required',
-        titleMinLength: 'Minimum 2 characters'
-      }
+        titleMinLength: 'Minimum 2 characters',
+      },
     },
     rejectionReasons: {
       title: 'Rejection Reasons',
       single: 'Rejection Reason',
       table: {
-        title: 'Title'
+        title: 'Title',
       },
       form: {
-        title: 'Title'
+        title: 'Title',
       },
       validation: {
         titleRequired: 'Title is required',
-        titleMinLength: 'Minimum 2 characters'
-      }
+        titleMinLength: 'Minimum 2 characters',
+      },
     },
     subscriptions: {
       title: 'Subscriptions',
-      single: 'Subscription'
-    }
+      single: 'Subscription',
+    },
   },
 
-  // Legacy support - to be removed after full migration
-  Главная: 'Home',
-  Клиенты: 'Clients',
-  Сделки: 'Deals',
-  Места: 'Places',
-  Сотрудники: 'Employees',
-  Продукты: 'Products',
-  Настройки: 'Settings',
-
-  validation,
-  errors,
-  common,
-  notifications,
-
-  // Temporary keys for backwards compatibility
+  // English keys for navigation (backwards compatibility)
   Home: 'Home',
   Clients: 'Clients',
   Deals: 'Deals',
@@ -413,12 +392,8 @@ export default {
   Products: 'Products',
   Settings: 'Settings',
 
-  // Ukrainian text as keys (for fixing warnings)
-  'Головна': 'Home',
-  'Клієнти': 'Clients',
-  'Угоди': 'Deals',
-  'Місця': 'Places',
-  'Співробітники': 'Employees',
-  'Продукти': 'Products',
-  'Налаштування': 'Settings',
+  validation,
+  errors,
+  common,
+  notifications,
 }
