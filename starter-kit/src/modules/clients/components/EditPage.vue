@@ -7,11 +7,16 @@
           v-model="model.name"
           :label="$t('modules.clients.fields.name')"
           :disable="stateProcessing"
-          :rules="[rules.required(), rules.minLength(3), rules.maxLength(100)]"
+          :rules="[rules.required(), rules.minLength(2), rules.maxLength(100)]"
         />
       </v-col>
       <v-col cols="12">
-        <crud-input v-model="model.mobile" :label="$t('modules.clients.fields.mobile')" :disable="stateProcessing" />
+        <crud-input
+          v-model="model.mobile"
+          :label="$t('modules.clients.fields.mobile')"
+          :disable="stateProcessing"
+          :rules="[rules.required(), rules.minLength(4), rules.maxLength(15)]"
+        />
       </v-col>
       <v-col cols="12">
         <crud-date-picker v-model="model.birthday" :label="$t('modules.clients.fields.birthday')" />
@@ -24,7 +29,12 @@
         />
       </v-col>
       <v-col cols="12">
-        <crud-input v-model="model.description" type="textarea" :label="$t('modules.clients.fields.description')" :disable="stateProcessing" />
+        <crud-input
+          v-model="model.description"
+          type="textarea"
+          :label="$t('modules.clients.fields.description')"
+          :disable="stateProcessing"
+        />
       </v-col>
     </template>
   </CrudEditForm>
@@ -93,12 +103,13 @@ const tabs: CrudTabInterface[] = [
   },
   {
     name: 'client-kids2',
-    label: t('modules.clients.tabs.clientKids') + ' sda',
+    label: `${t('modules.clients.tabs.clientKids')} sda`,
     icon: 'mdi-account-child',
     tab: ClientKidsIndexPage,
     visible: TabVisibilityHelpers.hideOnNew,
   },
 ]
+
 const titleRules = [
   (val: string) => !!val || t('modules.clients.validation.nameRequired'),
   (val: string) => val.length >= 2 || t('modules.clients.validation.nameMinLength'),

@@ -7,17 +7,13 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.title" />
+        <crud-input v-model="dataListProvider.filter.value.title" :rules="[rules.maxLength(100)]" />
       </v-col>
       <v-col cols="12" md="4">
         <crud-date-range-picker-2 v-model="dataListProvider.filter.value.created" />
       </v-col>
       <v-col cols="12" md="4">
-        <CrudSelector
-          v-model="dataListProvider.filter.value.adv_id"
-          multiple
-          data-url="/adv-sources/list"
-        />
+        <CrudSelector v-model="dataListProvider.filter.value.adv_id" multiple data-url="/adv-sources/list" />
       </v-col>
     </template>
 
@@ -44,6 +40,7 @@ import { createStandardActions } from '@crudui/components/table/buttons/rowActio
 import { useTimezone } from '@crudui/composables/useTimezone'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
 import CrudSelector from '@core/components/Inputs/CrudSelector.vue'
+import { rules } from '@crudui/utils/validation/rules'
 
 const { formatTableDate } = useTimezone()
 
