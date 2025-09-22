@@ -273,10 +273,10 @@ const resetFilter = async (): Promise<void> => {
 
           <div class="d-flex mt-4 gap-2">
             <CrudButtonPrimary :disabled="loading" @click="applyFilter">
-              Применить
+              {{ $t('common.filter') }}
             </CrudButtonPrimary>
             <CrudButtonSecondary :disabled="loading" @click="resetFilter">
-              Сброс
+              {{ $t('common.reset') }}
             </CrudButtonSecondary>
           </div>
         </v-form>
