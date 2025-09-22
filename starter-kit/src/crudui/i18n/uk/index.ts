@@ -144,6 +144,12 @@ export default {
       title: 'Співробітники',
       pageTitle: 'Співробітники',
       single: 'Співробітник',
+      table: {
+        name: 'Ім\'я',
+        mobile: 'Мобільний',
+        isOutside: 'Зовнішній',
+        created: 'Створено',
+      },
       fields: {
         medBook: 'Медична книжка',
         sudSprav: 'Довідка про судимість',
@@ -172,6 +178,12 @@ export default {
       title: 'Місця',
       pageTitle: 'Місця',
       single: 'Місце',
+      table: {
+        title: 'Назва',
+        address: 'Адреса',
+        isAvailable: 'Доступно',
+        workHours: 'Години роботи',
+      },
     },
     settings: {
       title: 'Налаштування',
@@ -210,6 +222,16 @@ export default {
       title: 'Одиниці виміру',
       pageTitle: 'Одиниці виміру',
       single: 'Одиниця виміру',
+      table: {
+        title: 'Назва',
+      },
+      form: {
+        title: 'Назва',
+      },
+      validation: {
+        titleRequired: 'Назва обов\'язкова',
+        titleMinLength: 'Мінімум 2 символи',
+      },
       fields: {
         shortName: 'Скорочення',
         type: 'Тип вимірювання',

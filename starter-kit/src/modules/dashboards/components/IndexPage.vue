@@ -1,12 +1,11 @@
 <template>
+  <PageTitle>{{ $t('modules.dashboards.pageTitle') }}</PageTitle>
   <div class="pa-4">
-    <h1 class="text-h4 mb-4">
-      {{ $t('modules.dashboards.title') }}
-    </h1>
     <p>{{ $t('welcome') }} AniCRM!</p>
   </div>
 </template>
 
 <script setup lang="ts">
+import PageTitle from '@crudui/components/templates/PageTitle.vue'
 // Страница дашборда
 </script>

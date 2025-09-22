@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>{{ $t('modules.measures.title') }}</PageTitle>
+  <PageTitle>{{ $t('modules.measures.pageTitle') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button v-if="meStore.userCan('measures_create')" @click="dialogProvider.openCreateDialog" />

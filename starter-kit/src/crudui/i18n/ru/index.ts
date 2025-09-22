@@ -134,6 +134,12 @@ export default {
       title: 'Сотрудники',
       pageTitle: 'Сотрудники',
       single: 'Сотрудник',
+      table: {
+        name: 'Имя',
+        mobile: 'Мобильный',
+        isOutside: 'Внешний',
+        created: 'Создан',
+      },
       fields: {
         medBook: 'Медицинская книжка',
         sudSprav: 'Судебная справка',
@@ -162,6 +168,12 @@ export default {
       title: 'Места',
       pageTitle: 'Места',
       single: 'Место',
+      table: {
+        title: 'Название',
+        address: 'Адрес',
+        isAvailable: 'Доступно',
+        workHours: 'Часы работы',
+      },
     },
     settings: {
       title: 'Настройки',
@@ -200,6 +212,16 @@ export default {
       title: 'Единицы измерения',
       pageTitle: 'Единицы измерения',
       single: 'Единица измерения',
+      table: {
+        title: 'Название',
+      },
+      form: {
+        title: 'Название',
+      },
+      validation: {
+        titleRequired: 'Название обязательно',
+        titleMinLength: 'Минимум 2 символа',
+      },
       fields: {
         shortName: 'Сокращение',
         type: 'Тип измерения',

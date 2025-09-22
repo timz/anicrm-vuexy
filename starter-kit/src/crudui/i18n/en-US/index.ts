@@ -134,6 +134,12 @@ export default {
       title: 'Workers',
       pageTitle: 'Workers',
       single: 'Worker',
+      table: {
+        name: 'Name',
+        mobile: 'Mobile',
+        isOutside: 'External',
+        created: 'Created',
+      },
       fields: {
         medBook: 'Medical Book',
         sudSprav: 'Criminal Record Certificate',
@@ -162,6 +168,12 @@ export default {
       title: 'Places',
       pageTitle: 'Places',
       single: 'Place',
+      table: {
+        title: 'Title',
+        address: 'Address',
+        isAvailable: 'Available',
+        workHours: 'Work Hours',
+      },
     },
     settings: {
       title: 'Settings',
@@ -200,6 +212,16 @@ export default {
       title: 'Units of Measure',
       pageTitle: 'Units of Measure',
       single: 'Unit of Measure',
+      table: {
+        title: 'Title',
+      },
+      form: {
+        title: 'Title',
+      },
+      validation: {
+        titleRequired: 'Title is required',
+        titleMinLength: 'Minimum 2 characters',
+      },
       fields: {
         shortName: 'Abbreviation',
         type: 'Measurement Type',
