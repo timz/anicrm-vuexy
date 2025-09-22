@@ -6,7 +6,8 @@
       "Bash(do echo \"=== $file ===\")",
       "Bash(grep:*)",
       "Bash(del \"starter-kit\\src\\modules\\workers\\components\\EditPage.vue_\")",
-      "Bash(rg:*)"
+      "Bash(rg:*)",
+      "Bash(start http://localhost:5174/home)"
     ],
     "deny": [],
     "ask": []

@@ -19,14 +19,16 @@ const navItems = computed(() => {
   return meStore.leftMenu
     .map(item => {
       const navItem: any = {
-        title: t(item.title),
+        // item.title уже содержит ключ перевода, передаем его как есть
+        title: item.title,
         icon: item.icon ? { icon: `mdi-${item.icon.replace('mdi-', '')}` } : undefined,
       }
 
       // Если это группа с дочерними элементами
       if (item.childItems && item.childItems.length > 0) {
         navItem.children = item.childItems.map(child => ({
-          title: t(child.title),
+          // child.title уже содержит ключ перевода, передаем его как есть
+          title: child.title,
           to: child.name ? { name: child.name } : undefined,
           icon: child.icon ? { icon: `mdi-${child.icon.replace('mdi-', '')}` } : undefined,
         }))
