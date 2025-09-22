@@ -1,4 +1,5 @@
 export default {
+  all: 'Всі',
   close: 'Закрити',
   confirm: 'Підтвердити',
   confirmation: 'Підтвердження',

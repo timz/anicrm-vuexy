@@ -1,4 +1,5 @@
 export default {
+  all: 'All',
   close: 'Close',
   confirm: 'Confirm',
   confirmation: 'Confirmation',
