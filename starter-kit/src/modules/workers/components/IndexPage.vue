@@ -2,22 +2,19 @@
   <PageTitle>Сотрудники</PageTitle>
   <crud-table>
     <template #actionsSection>
-      <crud-button-primary
+      <create-button
         v-if="meStore.userCan('workers_create')"
-        label="{{ ('common.create') }}"
         :to="{ name: 'workerCreate' }"
-      >
-        Создать
-      </crud-button-primary>
+      />
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.name" label="ФИО" />
+        <crud-input v-model="dataListProvider.filter.value.name"  />
       </v-col>
       <v-col cols="12" md="3">
         <crud-select
           v-model="dataListProvider.filter.value.is_outside"
-          label="Внешний сотрудник"
+          
           :items="[
             { title: 'Все', value: null },
             { title: 'Да', value: true },
@@ -46,7 +43,7 @@ import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
-import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import CreateButton from '@crudui/components/buttons/CreateButton.vue'
 import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
 import { useTimezone } from '@crudui/composables/useTimezone'
 import CrudSelect from '@crudui/components/Inputs/CrudSelect.vue'

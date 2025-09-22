@@ -1,21 +1,20 @@
 <template>
   <crud-table>
     <template #actionsSection>
-      <crud-button-primary
+      <create-button
         v-if="meStore.userCan('equipment_create')"
-        label="{{ ('common.create') }}"
         @click="dialogProvider.openCreateDialog"
       />
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
+        <crud-input v-model="dataListProvider.filter.value.title"  />
       </v-col>
       <v-col cols="12" md="2">
-        <crud-boolean-select v-model="dataListProvider.filter.value.is_available" label="Доступно" />
+        <crud-boolean-select v-model="dataListProvider.filter.value.is_available"  />
       </v-col>
       <v-col cols="12" md="6">
-        <crud-input v-model="dataListProvider.filter.value.state_id" type="number" label="Статус" />
+        <crud-input v-model="dataListProvider.filter.value.state_id" type="number"  />
       </v-col>
     </template>
 
@@ -35,7 +34,7 @@
       <v-row>
         <v-col cols="12">
           <crud-input
-            v-model="model.title" label="Название"
+            v-model="model.title" 
             :rules="[(val) => !!val || 'Название обязательно', (val) => val && val.length >= 2 || 'Минимум 2 символа']"
             :disabled="stateProcessing"
           />
@@ -43,7 +42,7 @@
 
         <v-col cols="12">
           <crud-input
-            v-model.number="model.state_id" label="Статус"
+            v-model.number="model.state_id" 
             type="number"
             :disabled="stateProcessing"
           />
@@ -51,7 +50,7 @@
 
         <v-col cols="12">
           <crud-input
-            v-model="model.description" label="Описание"
+            v-model="model.description" 
             type="textarea"
             :disabled="stateProcessing"
           />
@@ -68,7 +67,7 @@ import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
-import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import CreateButton from '@crudui/components/buttons/CreateButton.vue'
 import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
 import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
 import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'

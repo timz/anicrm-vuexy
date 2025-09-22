@@ -10,6 +10,7 @@ declare module 'vue' {
     AppLoadingIndicator: typeof import('./src/crudui/components/templates/AppLoadingIndicator.vue')['default']
     ButtonAction: typeof import('./src/crudui/components/table/buttons/ButtonAction.vue')['default']
     ButtonBatchDelete: typeof import('./src/crudui/components/table/buttons/ButtonBatchDelete.vue')['default']
+    CreateButton: typeof import('./src/crudui/components/buttons/CreateButton.vue')['default']
     CrudBooleanSelect: typeof import('./src/crudui/components/Inputs/CrudBooleanSelect.vue')['default']
     CrudButtonPrimary: typeof import('./src/crudui/components/buttons/CrudButtonPrimary.vue')['default']
     CrudButtonSecondary: typeof import('./src/crudui/components/buttons/CrudButtonSecondary.vue')['default']

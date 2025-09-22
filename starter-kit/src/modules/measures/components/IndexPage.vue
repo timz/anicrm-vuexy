@@ -2,9 +2,7 @@
   <PageTitle>Единицы измерения</PageTitle>
   <crud-table>
     <template #actionsSection>
-      <crud-button-primary v-if="meStore.userCan('measures_create')" @click="dialogProvider.openCreateDialog">
-        Создать
-      </crud-button-primary>
+      <create-button v-if="meStore.userCan('measures_create')" @click="dialogProvider.openCreateDialog" />
     </template>
     <template #filterForm>
       <v-col cols="12" md="6">
@@ -35,7 +33,7 @@ import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
-import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import CreateButton from '@crudui/components/buttons/CreateButton.vue'
 import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
 import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
 import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'

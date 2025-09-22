@@ -3,23 +3,21 @@
 
   <crud-table>
     <template #actionsSection>
-      <crud-button-primary v-if="meStore.userCan('clients_create')" :to="{ name: 'clientCreate' }">
-        Создать
-      </crud-button-primary>
+      <create-button v-if="meStore.userCan('clients_create')" :to="{ name: 'clientCreate' }" />
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.title" label="Название" />
+        <crud-input v-model="dataListProvider.filter.value.title"  />
       </v-col>
       <v-col cols="12" md="4">
-        <crud-date-range-picker-2 v-model="dataListProvider.filter.value.created" label="Дата создания" />
+        <crud-date-range-picker-2 v-model="dataListProvider.filter.value.created"  />
       </v-col>
       <v-col cols="12" md="4">
         <CrudSelector
           v-model="dataListProvider.filter.value.adv_id"
           multiple
           data-url="/adv-sources/list"
-          label="Источник рекламы"
+          
         />
       </v-col>
     </template>
@@ -41,7 +39,7 @@ import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
-import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
+import CreateButton from '@crudui/components/buttons/CreateButton.vue'
 import { createStandardActions } from '@crudui/components/table/buttons/rowActionsFactory'
 import { useTimezone } from '@crudui/composables/useTimezone'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
