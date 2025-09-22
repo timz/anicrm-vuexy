@@ -65,10 +65,10 @@
 
               <div class="d-flex ga-2">
                 <crud-button-primary type="submit">
-                  {{ $t('save') }}
+                  {{ $t('common.save') }}
                 </crud-button-primary>
                 <crud-button-secondary @click="$router.go(-1)">
-                  {{ $t('cancel') }}
+                  {{ $t('common.cancel') }}
                 </crud-button-secondary>
               </div>
             </v-form>

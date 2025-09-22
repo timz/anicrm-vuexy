@@ -26,7 +26,7 @@
 
       <v-card-actions class="justify-end">
         <v-btn variant="text" @click="onCancel">
-          {{ $t('cancel') }}
+          {{ $t('common.cancel') }}
         </v-btn>
         <crud-button-primary
           :label="$t('modules.workers.actions.invite')"
