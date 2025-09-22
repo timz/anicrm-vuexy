@@ -39,6 +39,7 @@
 
 <script setup lang="ts">
 import { computed, provide, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useMeStore } from '@crudui/stores/meStore'
 import CrudTable from '@crudui/components/table/CrudTable.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
@@ -64,6 +65,7 @@ interface ClientKidItem {
 }
 
 const meStore = useMeStore()
+const { t } = useI18n()
 
 // Используем композабл для получения данных родительской модели
 const { parentId } = useTabParentProvider()
@@ -72,7 +74,7 @@ const columns = [
   {
     name: 'name',
     required: true,
-    label: 'modules.clientKids.table.name',
+    label: t('modules.clientKids.table.name'),
     align: 'left',
     field: 'name',
     sortable: true,
@@ -80,7 +82,7 @@ const columns = [
   {
     name: 'birthday',
     required: true,
-    label: 'modules.clientKids.table.birthday',
+    label: t('modules.clientKids.table.birthday'),
     align: 'left',
     field: 'birthday',
     sortable: true,

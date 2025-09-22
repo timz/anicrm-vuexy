@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 import { provide, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import ClientKidsIndexPage from '../../client-kids/components/IndexPage.vue'
 import CrudEditForm from '@crudui/components/forms/CrudEditForm.vue'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
@@ -53,6 +54,9 @@ interface ClientItem extends FormModel {
   test_time: string | null
   adv_id: number | null
 }
+
+// Инициализация i18n
+const { t } = useI18n()
 
 // Конфигурация формы через композицию блоков
 const editFormConfig = {
@@ -95,10 +99,6 @@ const tabs: CrudTabInterface[] = [
     visible: TabVisibilityHelpers.hideOnNew,
   },
 ]
-
-// Правила валидации
-const { t } = useI18n()
-
 const titleRules = [
   (val: string) => !!val || t('modules.clients.validation.nameRequired'),
   (val: string) => val.length >= 2 || t('modules.clients.validation.nameMinLength'),
