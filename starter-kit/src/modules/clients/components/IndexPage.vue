@@ -7,17 +7,16 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.title"  />
+        <crud-input v-model="dataListProvider.filter.value.title" />
       </v-col>
       <v-col cols="12" md="4">
-        <crud-date-range-picker-2 v-model="dataListProvider.filter.value.created"  />
+        <crud-date-range-picker-2 v-model="dataListProvider.filter.value.created" />
       </v-col>
       <v-col cols="12" md="4">
         <CrudSelector
           v-model="dataListProvider.filter.value.adv_id"
           multiple
           data-url="/adv-sources/list"
-          
         />
       </v-col>
     </template>

@@ -8,13 +8,13 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.title"  />
+        <crud-input v-model="dataListProvider.filter.value.title" />
       </v-col>
       <v-col cols="12" md="2">
-        <crud-boolean-select v-model="dataListProvider.filter.value.is_available"  />
+        <crud-boolean-select v-model="dataListProvider.filter.value.is_available" />
       </v-col>
       <v-col cols="12" md="6">
-        <crud-input v-model="dataListProvider.filter.value.state_id" type="number"  />
+        <crud-input v-model="dataListProvider.filter.value.state_id" type="number" />
       </v-col>
     </template>
 
@@ -34,7 +34,7 @@
       <v-row>
         <v-col cols="12">
           <crud-input
-            v-model="model.title" 
+            v-model="model.title"
             :rules="[(val) => !!val || 'Название обязательно', (val) => val && val.length >= 2 || 'Минимум 2 символа']"
             :disabled="stateProcessing"
           />
@@ -42,7 +42,7 @@
 
         <v-col cols="12">
           <crud-input
-            v-model.number="model.state_id" 
+            v-model.number="model.state_id"
             type="number"
             :disabled="stateProcessing"
           />
@@ -50,7 +50,7 @@
 
         <v-col cols="12">
           <crud-input
-            v-model="model.description" 
+            v-model="model.description"
             type="textarea"
             :disabled="stateProcessing"
           />

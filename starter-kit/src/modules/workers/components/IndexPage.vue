@@ -9,12 +9,12 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.name"  />
+        <crud-input v-model="dataListProvider.filter.value.name" />
       </v-col>
       <v-col cols="12" md="3">
         <crud-select
           v-model="dataListProvider.filter.value.is_outside"
-          
+
           :items="[
             { title: 'Все', value: null },
             { title: 'Да', value: true },

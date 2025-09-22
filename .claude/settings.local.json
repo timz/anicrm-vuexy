@@ -4,7 +4,8 @@
       "Bash(pnpm run dev:*)",
       "WebFetch(domain:localhost)",
       "Bash(pnpm run:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(dir:*)"
     ],
     "deny": [],
     "ask": []

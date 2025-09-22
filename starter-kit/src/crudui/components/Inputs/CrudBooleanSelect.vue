@@ -21,8 +21,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const model = defineModel()
-
 defineProps<{
   label?: string
   rules?: any[]
@@ -32,6 +30,8 @@ defineProps<{
   itemTitle?: string
   itemValue?: string
 }>()
+
+const model = defineModel()
 
 const selectRef = ref()
 const hasBeenFocused = ref(false)

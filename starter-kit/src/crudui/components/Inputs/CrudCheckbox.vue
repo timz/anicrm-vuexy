@@ -12,12 +12,12 @@
 </template>
 
 <script setup lang="ts">
-const model = defineModel()
-
 defineProps<{
   label?: string
   rules?: any[]
   disabled?: boolean
   readonly?: boolean
 }>()
+
+const model = defineModel()
 </script>

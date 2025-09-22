@@ -1,52 +1,43 @@
 import { useStorage } from '@vueuse/core'
-import type { I18n } from 'vue-i18n'
 import { useI18n } from 'vue-i18n'
 import { useLocale as useVuetifyLocale } from 'vuetify'
+import LocaleService, { type LocaleConfig } from '@crudui/services/LocaleService'
 
-const LOCALE_STORAGE_KEY = 'app-locale'
-const DEFAULT_LOCALE = 'ru'
-const FALLBACK_LOCALE = 'en-US'
-
-export interface LocaleConfig {
-  code: string
-  name: string
-  isRTL?: boolean
-  vuetifyCode?: string
-}
-
-export const availableLocales: LocaleConfig[] = [
-  { code: 'ru', name: 'Русский', isRTL: false, vuetifyCode: 'ru' },
-  { code: 'en-US', name: 'English', isRTL: false, vuetifyCode: 'en' },
-]
+export { type LocaleConfig }
+export const availableLocales = LocaleService.availableLocales
 
 export const useLocale = () => {
   const vuetifyLocale = useVuetifyLocale()
-  const { locale: i18nLocale, availableLocales: i18nAvailableLocales } = useI18n({ useScope: 'global' })
+  const { locale: i18nLocale } = useI18n({ useScope: 'global' })
 
-  // Persistent storage for locale
-  const storedLocale = useStorage(LOCALE_STORAGE_KEY, DEFAULT_LOCALE)
+  // Persistent storage for locale using LocaleService key
+  const storedLocale = useStorage(
+    'app-locale',
+    LocaleService.getInitialLocale(),
+  )
 
-  // Current locale config
-  const currentLocaleConfig = computed(() => {
-    return availableLocales.find(l => l.code === i18nLocale.value) || availableLocales[0]
+  // Current locale config (using shallowRef for better performance)
+  const currentLocaleConfig = shallowRef<LocaleConfig | null>(
+    LocaleService.getLocaleConfig(i18nLocale.value),
+  )
+
+  // Update current config when locale changes
+  watchEffect(() => {
+    currentLocaleConfig.value = LocaleService.getLocaleConfig(i18nLocale.value)
   })
 
   // Sync Vuetify locale with i18n locale
   const syncVuetifyLocale = (locale: string) => {
-    const config = availableLocales.find(l => l.code === locale)
-    if (config && config.vuetifyCode && vuetifyLocale.current) {
-      vuetifyLocale.current.value = config.vuetifyCode
+    const vuetifyCode = LocaleService.getVuetifyLocale(locale)
+    if (vuetifyLocale.current) {
+      vuetifyLocale.current.value = vuetifyCode
     }
   }
 
   // Set locale for both i18n and Vuetify
   const setLocale = (locale: string) => {
-    // Validate locale
-    const isValidLocale = availableLocales.some(l => l.code === locale)
-    if (!isValidLocale) {
-      console.warn(`Invalid locale: ${locale}. Falling back to ${DEFAULT_LOCALE}`)
-      locale = DEFAULT_LOCALE
-    }
+    // Validate locale using LocaleService
+    locale = LocaleService.validateLocale(locale)
 
     // Update i18n locale
     i18nLocale.value = locale
@@ -54,7 +45,8 @@ export const useLocale = () => {
     // Update Vuetify locale
     syncVuetifyLocale(locale)
 
-    // Store in localStorage
+    // Store in localStorage using LocaleService
+    LocaleService.saveLocale(locale)
     storedLocale.value = locale
 
     // Update HTML lang attribute
@@ -67,14 +59,28 @@ export const useLocale = () => {
 
   // Initialize locale on first load
   const initializeLocale = () => {
-    const initialLocale = storedLocale.value || DEFAULT_LOCALE
+    const initialLocale = LocaleService.getInitialLocale()
+
     setLocale(initialLocale)
   }
 
+  // Auto-detect browser locale
+  const detectAndSetBrowserLocale = () => {
+    const detectedLocale = LocaleService.detectBrowserLocale()
+    if (detectedLocale) {
+      setLocale(detectedLocale)
+
+      return detectedLocale
+    }
+
+    return null
+  }
+
   // Watch for i18n locale changes and sync with Vuetify
-  watch(i18nLocale, (newLocale) => {
+  watch(i18nLocale, newLocale => {
     if (newLocale !== storedLocale.value) {
       syncVuetifyLocale(newLocale)
+      LocaleService.saveLocale(newLocale)
       storedLocale.value = newLocale
 
       // Update HTML lang attribute
@@ -87,9 +93,11 @@ export const useLocale = () => {
   return {
     locale: i18nLocale,
     availableLocales,
-    currentLocaleConfig,
+    currentLocaleConfig: readonly(currentLocaleConfig),
     setLocale,
     initializeLocale,
+    detectAndSetBrowserLocale,
     storedLocale: readonly(storedLocale),
+    getShortCode: LocaleService.getShortCode,
   }
 }

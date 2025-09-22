@@ -15,7 +15,7 @@ const _syncAppRtl = () => {
   // Watch for locale changes and update RTL
   watch(
     currentLocaleConfig,
-    (config) => {
+    config => {
       // Update RTL based on locale config
       if (config) {
         configStore.isAppRTL = config.isRTL || false

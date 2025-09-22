@@ -36,11 +36,8 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
 import { ref } from 'vue'
 import type { AvailableTypesForInputsType } from '@crudui/components/Inputs/interfaces/AvailableTypesForInputsType'
-
-const model = defineModel()
 
 defineProps<{
   type?: AvailableTypesForInputsType
@@ -50,6 +47,8 @@ defineProps<{
   readonly?: boolean
   clearable?: boolean
 }>()
+
+const model = defineModel()
 
 const inputRef = ref()
 const hasBeenFocused = ref(false)

@@ -3,28 +3,16 @@ import type { App } from 'vue'
 import { createVuetify } from 'vuetify'
 import { VBtn } from 'vuetify/components/VBtn'
 import { VDateInput } from 'vuetify/labs/VDateInput'
-import { en, ru } from 'vuetify/locale'
+import { en, ru, uk } from 'vuetify/locale'
 import defaults from './defaults'
 import { icons } from './icons'
 import { staticPrimaryColor, staticPrimaryDarkenColor, themes } from './theme'
 import { themeConfig } from '@themeConfig'
+import LocaleService from '@crudui/services/LocaleService'
 
 // Styles
 import '@crudui/styles/template/libs/vuetify/index.scss'
 import 'vuetify/styles'
-
-// Get initial locale from localStorage
-const getInitialVuetifyLocale = () => {
-  if (typeof window !== 'undefined') {
-    const storedLocale = localStorage.getItem('app-locale')
-    if (storedLocale) {
-      const locale = storedLocale.replace(/^"(.*)"$/, '$1')
-      // Map i18n locale to Vuetify locale
-      return locale === 'en-US' ? 'en' : 'ru'
-    }
-  }
-  return 'ru' // Default to Russian
-}
 
 export default function (app: App) {
   const cookieThemeValues = {
@@ -58,9 +46,9 @@ export default function (app: App) {
     icons,
     theme: optionTheme,
     locale: {
-      locale: getInitialVuetifyLocale(),
+      locale: LocaleService.getInitialVuetifyLocale(),
       fallback: 'en',
-      messages: { en, ru },
+      messages: { en, ru, uk },
     },
   })
 
