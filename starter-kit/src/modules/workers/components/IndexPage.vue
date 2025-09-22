@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>{{ $t('modules.workers.title') }}</PageTitle>
+  <PageTitle>{{ $t('modules.workers.pageTitle') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button

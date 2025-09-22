@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>{{ $t('modules.products.title') }}</PageTitle>
+  <PageTitle>{{ $t('modules.products.pageTitle') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button
@@ -9,18 +9,18 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
-        <crud-input v-model="dataListProvider.filter.value.id" :label="$t('modules.products.filter.id')" />
+        <crud-input v-model="dataListProvider.filter.value.id" :label="$t('common.fields.id')" />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.title"
-          :label="$t('modules.products.filter.title')"
+          :label="$t('common.fields.title')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.measure_id"
-          :label="$t('modules.products.filter.measure')"
+          :label="$t('common.fields.measure')"
           type="number"
         />
       </v-col>
@@ -65,7 +65,7 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: t('modules.products.table.title'),
+    label: t('common.fields.title'),
     align: 'left',
     field: 'title',
     sortable: true,
@@ -73,7 +73,7 @@ const columns = [
   {
     name: 'measure_title',
     required: false,
-    label: t('modules.products.table.measure'),
+    label: t('common.fields.measure'),
     align: 'left',
     field: 'measure_title',
     sortable: true,

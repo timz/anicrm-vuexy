@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>{{ $t('modules.deals.title') }}</PageTitle>
+  <PageTitle>{{ $t('modules.deals.pageTitle') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button
@@ -18,32 +18,32 @@
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.initial_contact"
-          :label="$t('modules.deals.filter.contact')"
+          :label="$t('common.fields.contact')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.status"
-          :label="$t('modules.deals.filter.status')"
+          :label="$t('common.fields.status')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.client_name"
-          :label="$t('modules.deals.filter.client')"
+          :label="$t('common.fields.client')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.amount"
           type="number"
-          :label="$t('modules.deals.filter.amount')"
+          :label="$t('common.fields.amount')"
         />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.event_type_title"
-          :label="$t('modules.deals.filter.eventType')"
+          :label="$t('modules.deals.fields.eventType')"
         />
       </v-col>
     </template>
@@ -134,7 +134,7 @@ const columns = [
   {
     name: 'id',
     required: true,
-    label: t('modules.deals.table.id'),
+    label: t('common.fields.id'),
     align: 'left',
     field: 'id',
     sortable: true,
@@ -143,7 +143,7 @@ const columns = [
   {
     name: 'client_name',
     required: false,
-    label: t('modules.deals.table.client'),
+    label: t('common.fields.client'),
     align: 'left',
     field: 'client_name',
     sortable: true,
@@ -152,7 +152,7 @@ const columns = [
   {
     name: 'event_type_title',
     required: false,
-    label: t('modules.deals.table.event'),
+    label: t('modules.deals.fields.event'),
     align: 'left',
     field: 'event_type_title',
     sortable: true,
@@ -161,7 +161,7 @@ const columns = [
   {
     name: 'amount',
     required: false,
-    label: t('modules.deals.table.amount'),
+    label: t('common.fields.amount'),
     align: 'right',
     field: 'amount',
     sortable: true,
@@ -170,7 +170,7 @@ const columns = [
   {
     name: 'margin',
     required: false,
-    label: t('modules.deals.table.margin'),
+    label: t('modules.deals.fields.margin'),
     align: 'right',
     field: 'margin',
     sortable: true,
@@ -179,7 +179,7 @@ const columns = [
   {
     name: 'event_date',
     required: false,
-    label: t('modules.deals.table.eventDate'),
+    label: t('common.fields.eventDate'),
     align: 'center',
     field: 'event_date',
     sortable: true,
@@ -188,7 +188,7 @@ const columns = [
   {
     name: 'status',
     required: false,
-    label: t('modules.deals.table.status'),
+    label: t('common.fields.status'),
     align: 'center',
     field: 'status',
     sortable: true,
@@ -197,7 +197,7 @@ const columns = [
   {
     name: 'initial_contact',
     required: false,
-    label: t('modules.deals.table.contact'),
+    label: t('common.fields.contact'),
     align: 'left',
     field: 'initial_contact',
     sortable: true,
@@ -206,7 +206,7 @@ const columns = [
   {
     name: 'created',
     required: false,
-    label: t('modules.deals.table.created'),
+    label: t('common.fields.created'),
     align: 'center',
     field: 'created',
     sortable: true,

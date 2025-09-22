@@ -35,8 +35,8 @@
         <v-col cols="12">
           <crud-input
             v-model="model.title"
-            :label="$t('modules.equipments.form.title')"
-            :rules="[(val) => !!val || $t('modules.equipments.validation.titleRequired'), (val) => val && val.length >= 2 || $t('modules.equipments.validation.titleMinLength')]"
+            :label="$t('common.fields.title')"
+            :rules="[(val) => !!val || $t('common.validationFields.titleRequired'), (val) => val && val.length >= 2 || $t('common.validationFields.titleMinLength')]"
             :disabled="stateProcessing"
           />
         </v-col>
@@ -44,7 +44,7 @@
         <v-col cols="12">
           <crud-input
             v-model.number="model.state_id"
-            :label="$t('modules.equipments.form.stateId')"
+            :label="$t('common.fields.stateId')"
             type="number"
             :disabled="stateProcessing"
           />
@@ -53,7 +53,7 @@
         <v-col cols="12">
           <crud-input
             v-model="model.description"
-            :label="$t('modules.equipments.form.description')"
+            :label="$t('common.fields.description')"
             type="textarea"
             :disabled="stateProcessing"
           />
@@ -96,7 +96,7 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: t('modules.equipments.table.title'),
+    label: t('common.fields.title'),
     align: 'left',
     field: 'title',
     sortable: true,
@@ -104,7 +104,7 @@ const columns = [
   {
     name: 'state_id',
     required: false,
-    label: t('modules.equipments.table.stateId'),
+    label: t('common.fields.stateId'),
     align: 'left',
     field: 'state_id',
     sortable: true,
@@ -113,7 +113,7 @@ const columns = [
   {
     name: 'description',
     required: false,
-    label: t('modules.equipments.table.description'),
+    label: t('common.fields.description'),
     align: 'left',
     field: 'description',
     sortable: false,
@@ -121,7 +121,7 @@ const columns = [
   {
     name: 'created',
     required: false,
-    label: t('modules.equipments.table.created'),
+    label: t('common.fields.created'),
     align: 'left',
     field: 'created',
     sortable: true,
@@ -130,7 +130,7 @@ const columns = [
   {
     name: 'edited',
     required: false,
-    label: t('modules.equipments.table.edited'),
+    label: t('common.fields.edited'),
     align: 'left',
     field: 'edited',
     sortable: true,

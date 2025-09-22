@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>{{ $t('modules.clients.title') }}</PageTitle>
+  <PageTitle>{{ $t('modules.clients.pageTitle') }}</PageTitle>
 
   <crud-table>
     <template #actionsSection>
@@ -63,14 +63,14 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: t('modules.clients.table.title'),
+    label: t('common.fields.title'),
     align: 'left',
     field: 'title',
     sortable: true,
   },
   {
     name: 'created',
-    label: t('modules.clients.table.created'),
+    label: t('common.fields.created'),
     align: 'left',
     field: 'created',
     sortable: true,
@@ -78,7 +78,7 @@ const columns = [
   },
   {
     name: 'edited',
-    label: t('modules.clients.table.edited'),
+    label: t('common.fields.edited'),
     align: 'left',
     field: 'edited',
     sortable: true,

@@ -73,52 +73,27 @@ export default {
   modules: {
     clients: {
       title: 'Клієнти',
+      pageTitle: 'Клієнти',
       single: 'Клієнт',
-      table: {
-        title: 'Назва',
-        created: 'Створено',
-        edited: 'Зміни',
-        mobile: 'Мобільний',
-        birthday: 'Дата народження',
-        description: 'Нотатки',
+      fields: {
         advSource: 'Джерело реклами',
-      },
-      form: {
-        name: 'Назва',
-        mobile: 'Мобільний',
-        birthday: 'Дата народження',
-        advSource: 'Джерело реклами',
-        description: 'Нотатки',
       },
       tabs: {
         clientKids: 'Діти клієнта',
       },
-      validation: {
-        nameRequired: 'Назва обов\'язкова',
-        nameMinLength: 'Мінімум 2 символи',
-      },
     },
     deals: {
       title: 'Угоди',
+      pageTitle: 'Угоди',
       single: 'Угода',
-      table: {
-        id: 'ID',
-        client: 'Клієнт',
+      fields: {
         event: 'Захід',
-        amount: 'Сума',
         margin: 'Маржа',
-        eventDate: 'Дата заходу',
-        status: 'Статус',
-        contact: 'Контакт',
-        created: 'Створено',
-      },
-      filter: {
-        id: 'ID',
-        contact: 'Контакт',
-        status: 'Статус',
-        client: 'Клієнт',
-        amount: 'Сума',
         eventType: 'Тип заходу',
+        stage: 'Етап',
+        probability: 'Вірогідність закриття (%)',
+        source: 'Джерело',
+        responsible: 'Відповідальний',
       },
       statuses: {
         new: 'Нова',
@@ -128,21 +103,6 @@ export default {
         closed: 'Закрита',
         cancelled: 'Скасована',
         rejected: 'Відхилена',
-      },
-      form: {
-        title: 'Назва угоди',
-        client: 'Клієнт',
-        status: 'Статус',
-        amount: 'Сума',
-        currency: 'Валюта',
-        startDate: 'Дата початку',
-        closeDate: 'Дата закриття',
-        stage: 'Етап',
-        probability: 'Вірогідність закриття (%)',
-        source: 'Джерело',
-        responsible: 'Відповідальний',
-        description: 'Опис',
-        notes: 'Нотатки',
       },
       currencies: {
         rub: 'Рубль',
@@ -178,26 +138,15 @@ export default {
     },
     dashboards: {
       title: 'Панелі управління',
+      pageTitle: 'Панелі управління',
     },
     workers: {
       title: 'Співробітники',
+      pageTitle: 'Співробітники',
       single: 'Співробітник',
-      table: {
-        name: 'ПІБ',
-        mobile: 'Телефон',
-        isOutside: 'Зовнішній',
-        created: 'Створено',
-      },
-      form: {
-        name: 'Ім\'я',
-        mobile: 'Мобільний телефон',
-        birthday: 'Дата народження',
+      fields: {
         medBook: 'Медична книжка',
         sudSprav: 'Довідка про судимість',
-        description: 'Опис',
-        position: 'Посада',
-        isOutside: 'Зовнішній співробітник',
-        email: 'Email',
       },
       filter: {
         all: 'Всі',
@@ -216,87 +165,31 @@ export default {
     },
     products: {
       title: 'Продукти',
+      pageTitle: 'Продукти',
       single: 'Продукт',
-      table: {
-        title: 'Назва',
-        price: 'Ціна',
-        category: 'Категорія',
-        created: 'Створено',
-        measure: 'Одиниця виміру',
-      },
-      form: {
-        title: 'Назва',
-        price: 'Ціна',
-        category: 'Категорія',
-        description: 'Опис',
-        measure: 'Одиниця виміру',
-      },
-      filter: {
-        id: 'Ід',
-        title: 'Назва',
-        measure: 'Міра',
-      },
-      validation: {
-        titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи',
-      },
     },
     places: {
       title: 'Місця',
+      pageTitle: 'Місця',
       single: 'Місце',
-      table: {
-        title: 'Назва',
-        address: 'Адреса',
-        capacity: 'Місткість',
-        created: 'Створено',
-        isAvailable: 'Доступно',
-        workHours: 'Години роботи',
-      },
-      form: {
-        title: 'Назва',
-        address: 'Адреса',
-        capacity: 'Місткість',
-        description: 'Опис',
-        isAvailable: 'Доступно',
-        workFrom: 'Працює з (година)',
-        workTo: 'Працює до (година)',
-      },
-      validation: {
-        titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи',
-        hourRange: 'Година від 0 до 23',
-      },
     },
     settings: {
       title: 'Налаштування',
+      pageTitle: 'Налаштування',
       companyResources: 'Ресурси компанії',
       crm: 'CRM',
     },
     advSources: {
       title: 'Джерела реклами',
+      pageTitle: 'Джерела реклами',
       single: 'Джерело реклами',
-      table: {
-        title: 'Назва',
-      },
-      form: {
-        title: 'Назва',
-      },
-      validation: {
-        titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи',
-      },
     },
     clientKids: {
       title: 'Діти клієнтів',
+      pageTitle: 'Діти клієнтів',
       single: 'Дитина клієнта',
-      table: {
-        name: 'Ім\'я',
-        birthday: 'День народження',
-      },
-      form: {
-        name: 'Ім\'я',
+      fields: {
         sex: 'Стать',
-        birthday: 'Дата народження',
       },
       sex: {
         male: 'Хлопчик',
@@ -305,50 +198,19 @@ export default {
     },
     equipments: {
       title: 'Обладнання',
+      pageTitle: 'Обладнання',
       single: 'Обладнання',
-      table: {
-        title: 'Назва',
-        stateId: 'Статус',
-        description: 'Опис',
-        created: 'Створено',
-        edited: 'Змінено',
-      },
-      form: {
-        title: 'Назва',
-        stateId: 'Статус',
-        description: 'Опис',
-      },
-      validation: {
-        titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи',
-      },
     },
     eventTypes: {
       title: 'Типи подій',
+      pageTitle: 'Типи подій',
       single: 'Тип події',
-      table: {
-        title: 'Назва',
-      },
-      form: {
-        title: 'Назва',
-      },
-      validation: {
-        titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи',
-      },
     },
     measures: {
       title: 'Одиниці виміру',
+      pageTitle: 'Одиниці виміру',
       single: 'Одиниця виміру',
-      table: {
-        title: 'Назва',
-        symbol: 'Позначення',
-        created: 'Створено',
-      },
-      form: {
-        title: 'Назва',
-        symbol: 'Позначення',
-        description: 'Опис',
+      fields: {
         shortName: 'Скорочення',
         type: 'Тип вимірювання',
         coefficient: 'Коефіцієнт',
@@ -369,27 +231,15 @@ export default {
       edit: {
         title: 'Редагування одиниці вимірювання',
       },
-      validation: {
-        titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи',
-      },
     },
     rejectionReasons: {
       title: 'Причини відмови',
+      pageTitle: 'Причини відмови',
       single: 'Причина відмови',
-      table: {
-        title: 'Назва',
-      },
-      form: {
-        title: 'Назва',
-      },
-      validation: {
-        titleRequired: 'Назва обов\'язкова',
-        titleMinLength: 'Мінімум 2 символи',
-      },
     },
     subscriptions: {
       title: 'Підписки',
+      pageTitle: 'Підписки',
       single: 'Підписка',
     },
   },

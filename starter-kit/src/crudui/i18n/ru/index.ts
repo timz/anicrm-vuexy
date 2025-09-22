@@ -63,52 +63,27 @@ export default {
   modules: {
     clients: {
       title: 'Клиенты',
+      pageTitle: 'Клиенты',
       single: 'Клиент',
-      table: {
-        title: 'Название',
-        created: 'Создан',
-        edited: 'Правки',
-        mobile: 'Мобильный',
-        birthday: 'Дата рождения',
-        description: 'Заметки',
+      fields: {
         advSource: 'Источник рекламы',
-      },
-      form: {
-        name: 'Название',
-        mobile: 'Мобильный',
-        birthday: 'Дата рождения',
-        advSource: 'Источник рекламы',
-        description: 'Заметки',
       },
       tabs: {
         clientKids: 'Дети клиента',
       },
-      validation: {
-        nameRequired: 'Название обязательно',
-        nameMinLength: 'Минимум 2 символа',
-      },
     },
     deals: {
       title: 'Сделки',
+      pageTitle: 'Сделки',
       single: 'Сделка',
-      table: {
-        id: 'ID',
-        client: 'Клиент',
+      fields: {
         event: 'Мероприятие',
-        amount: 'Сумма',
         margin: 'Маржа',
-        eventDate: 'Дата мероприятия',
-        status: 'Статус',
-        contact: 'Контакт',
-        created: 'Создан',
-      },
-      filter: {
-        id: 'ID',
-        contact: 'Контакт',
-        status: 'Статус',
-        client: 'Клиент',
-        amount: 'Сумма',
         eventType: 'Тип мероприятия',
+        stage: 'Этап',
+        probability: 'Вероятность закрытия (%)',
+        source: 'Источник',
+        responsible: 'Ответственный',
       },
       statuses: {
         new: 'Новая',
@@ -118,21 +93,6 @@ export default {
         closed: 'Закрыта',
         cancelled: 'Отменена',
         rejected: 'Отклонена',
-      },
-      form: {
-        title: 'Название сделки',
-        client: 'Клиент',
-        status: 'Статус',
-        amount: 'Сумма',
-        currency: 'Валюта',
-        startDate: 'Дата начала',
-        closeDate: 'Дата закрытия',
-        stage: 'Этап',
-        probability: 'Вероятность закрытия (%)',
-        source: 'Источник',
-        responsible: 'Ответственный',
-        description: 'Описание',
-        notes: 'Заметки',
       },
       currencies: {
         rub: 'Рубль',
@@ -168,24 +128,13 @@ export default {
     },
     dashboards: {
       title: 'Панели управления',
+      pageTitle: 'Панели управления',
     },
     workers: {
       title: 'Сотрудники',
+      pageTitle: 'Сотрудники',
       single: 'Сотрудник',
-      table: {
-        name: 'ФИО',
-        mobile: 'Телефон',
-        isOutside: 'Внешний',
-        created: 'Создан',
-      },
-      form: {
-        name: 'Имя',
-        mobile: 'Мобильный телефон',
-        email: 'Email',
-        position: 'Должность',
-        isOutside: 'Внешний сотрудник',
-        description: 'Описание',
-        birthday: 'Дата рождения',
+      fields: {
         medBook: 'Медицинская книжка',
         sudSprav: 'Судебная справка',
       },
@@ -206,82 +155,31 @@ export default {
     },
     products: {
       title: 'Продукты',
+      pageTitle: 'Продукты',
       single: 'Продукт',
-      table: {
-        title: 'Название',
-        price: 'Цена',
-        category: 'Категория',
-        created: 'Создан',
-        measure: 'Единица измерения',
-      },
-      form: {
-        title: 'Название',
-        price: 'Цена',
-        category: 'Категория',
-        description: 'Описание',
-      },
-      filter: {
-        id: 'Ид',
-        title: 'Название',
-        measure: 'Мера',
-      },
     },
     places: {
       title: 'Места',
+      pageTitle: 'Места',
       single: 'Место',
-      table: {
-        title: 'Название',
-        address: 'Адрес',
-        capacity: 'Вместимость',
-        created: 'Создан',
-        isAvailable: 'Доступно',
-        workHours: 'Часы работы',
-      },
-      form: {
-        title: 'Название',
-        address: 'Адрес',
-        capacity: 'Вместимость',
-        description: 'Описание',
-        isAvailable: 'Доступно',
-        workFrom: 'Работает с (час)',
-        workTo: 'Работает до (час)',
-      },
-      validation: {
-        titleRequired: 'Название обязательно',
-        titleMinLength: 'Минимум 2 символа',
-        hourRange: 'Час от 0 до 23',
-      },
     },
     settings: {
       title: 'Настройки',
+      pageTitle: 'Настройки',
       companyResources: 'Ресурсы компании',
       crm: 'CRM',
     },
     advSources: {
       title: 'Источники рекламы',
+      pageTitle: 'Источники рекламы',
       single: 'Источник рекламы',
-      table: {
-        title: 'Название',
-      },
-      form: {
-        title: 'Название',
-      },
-      validation: {
-        titleRequired: 'Название обязательно',
-        titleMinLength: 'Минимум 2 символа',
-      },
     },
     clientKids: {
       title: 'Дети клиентов',
+      pageTitle: 'Дети клиентов',
       single: 'Ребенок клиента',
-      table: {
-        name: 'Имя',
-        birthday: 'День рождения',
-      },
-      form: {
-        name: 'Имя',
+      fields: {
         sex: 'Пол',
-        birthday: 'Дата рождения',
       },
       sex: {
         male: 'Мальчик',
@@ -290,50 +188,19 @@ export default {
     },
     equipments: {
       title: 'Оборудование',
+      pageTitle: 'Оборудование',
       single: 'Оборудование',
-      table: {
-        title: 'Название',
-        stateId: 'Статус',
-        description: 'Описание',
-        created: 'Создано',
-        edited: 'Изменено',
-      },
-      form: {
-        title: 'Название',
-        stateId: 'Статус',
-        description: 'Описание',
-      },
-      validation: {
-        titleRequired: 'Название обязательно',
-        titleMinLength: 'Минимум 2 символа',
-      },
     },
     eventTypes: {
       title: 'Типы событий',
+      pageTitle: 'Типы событий',
       single: 'Тип события',
-      table: {
-        title: 'Название',
-      },
-      form: {
-        title: 'Название',
-      },
-      validation: {
-        titleRequired: 'Название обязательно',
-        titleMinLength: 'Минимум 2 символа',
-      },
     },
     measures: {
       title: 'Единицы измерения',
+      pageTitle: 'Единицы измерения',
       single: 'Единица измерения',
-      table: {
-        title: 'Название',
-        symbol: 'Обозначение',
-        created: 'Создан',
-      },
-      form: {
-        title: 'Название',
-        symbol: 'Обозначение',
-        description: 'Описание',
+      fields: {
         shortName: 'Сокращение',
         type: 'Тип измерения',
         coefficient: 'Коэффициент',
@@ -354,27 +221,15 @@ export default {
       edit: {
         title: 'Редактирование единицы измерения',
       },
-      validation: {
-        titleRequired: 'Название обязательно',
-        titleMinLength: 'Минимум 2 символа',
-      },
     },
     rejectionReasons: {
       title: 'Причины отказа',
+      pageTitle: 'Причины отказа',
       single: 'Причина отказа',
-      table: {
-        title: 'Название',
-      },
-      form: {
-        title: 'Название',
-      },
-      validation: {
-        titleRequired: 'Название обязательно',
-        titleMinLength: 'Минимум 2 символа',
-      },
     },
     subscriptions: {
       title: 'Подписки',
+      pageTitle: 'Подписки',
       single: 'Подписка',
     },
   },

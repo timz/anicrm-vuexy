@@ -15,14 +15,14 @@
       <v-col cols="12">
         <crud-input
           v-model="model.name"
-          :label="$t('modules.clientKids.form.name')"
+          :label="$t('common.fields.name')"
           :rules="[rules.required(), rules.minLength(3), rules.maxLength(100)]"
         />
       </v-col>
       <v-col cols="12">
         <crud-select
           v-model="model.sex"
-          :label="$t('modules.clientKids.form.sex')"
+          :label="$t('modules.clientKids.fields.sex')"
           :items="[
             { title: $t('modules.clientKids.sex.male'), value: 'm' },
             { title: $t('modules.clientKids.sex.female'), value: 'f' },
@@ -31,7 +31,7 @@
         />
       </v-col>
       <v-col cols="12">
-        <crud-date-picker v-model="model.birthday" :label="$t('modules.clientKids.form.birthday')" :disable="stateProcessing" />
+        <crud-date-picker v-model="model.birthday" :label="$t('common.fields.birthday')" :disable="stateProcessing" />
       </v-col>
     </template>
   </crud-dialog>
@@ -74,7 +74,7 @@ const columns = [
   {
     name: 'name',
     required: true,
-    label: t('modules.clientKids.table.name'),
+    label: t('common.fields.name'),
     align: 'left',
     field: 'name',
     sortable: true,
@@ -82,7 +82,7 @@ const columns = [
   {
     name: 'birthday',
     required: true,
-    label: t('modules.clientKids.table.birthday'),
+    label: t('common.fields.birthday'),
     align: 'left',
     field: 'birthday',
     sortable: true,

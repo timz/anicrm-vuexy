@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>{{ $t('modules.places.title') }}</PageTitle>
+  <PageTitle>{{ $t('modules.places.pageTitle') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button
@@ -11,13 +11,13 @@
       <v-col cols="12" md="4">
         <crud-input
           v-model="dataListProvider.filter.value.title"
-          :label="$t('modules.places.table.title')"
+          :label="$t('common.fields.title')"
         />
       </v-col>
       <v-col cols="12" md="2">
         <v-select
           v-model="dataListProvider.filter.value.is_available"
-          :label="$t('modules.places.table.isAvailable')"
+          :label="$t('common.fields.isAvailable')"
           :items="[
             { title: $t('common.all'), value: null },
             { title: $t('common.yes'), value: true },
@@ -47,10 +47,10 @@
       <v-col cols="12">
         <crud-input
           v-model="model.title"
-          :label="$t('modules.places.form.title')"
+          :label="$t('common.fields.title')"
           :rules="[
-            (val) => !!val || $t('modules.places.validation.titleRequired'),
-            (val) => (val && val.length >= 2) || $t('modules.places.validation.titleMinLength'),
+            (val) => !!val || $t('common.validationFields.titleRequired'),
+            (val) => (val && val.length >= 2) || $t('common.validationFields.titleMinLength'),
           ]"
           :disabled="stateProcessing"
         />
@@ -60,7 +60,7 @@
         <crud-input
           v-model="model.address"
           type="textarea"
-          :label="$t('modules.places.form.address')"
+          :label="$t('common.fields.address')"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -68,14 +68,14 @@
       <v-col cols="6">
         <crud-input
           v-model.number="model.work_from"
-          :label="$t('modules.places.form.workFrom')"
+          :label="$t('common.fields.workFrom')"
           type="number"
           :rules="[
             (val) =>
               val === null
               || val === undefined
               || (val >= 0 && val <= 23)
-              || $t('modules.places.validation.hourRange'),
+              || $t('common.validationFields.hourRange'),
           ]"
           :disabled="stateProcessing"
         />
@@ -84,14 +84,14 @@
       <v-col cols="6">
         <crud-input
           v-model.number="model.work_to"
-          :label="$t('modules.places.form.workTo')"
+          :label="$t('common.fields.workTo')"
           type="number"
           :rules="[
             (val) =>
               val === null
               || val === undefined
               || (val >= 0 && val <= 23)
-              || $t('modules.places.validation.hourRange'),
+              || $t('common.validationFields.hourRange'),
           ]"
           :disabled="stateProcessing"
         />

@@ -1,5 +1,5 @@
 <template>
-  <PageTitle>{{ $t('modules.advSources.title') }}</PageTitle>
+  <PageTitle>{{ $t('modules.advSources.pageTitle') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
       <create-button
@@ -9,7 +9,7 @@
     </template>
     <template #filterForm>
       <v-col cols="12" md="6">
-        <crud-input v-model="dataListProvider.filter.value.title" :label="$t('modules.advSources.table.title')" />
+        <crud-input v-model="dataListProvider.filter.value.title" :label="$t('common.fields.title')" />
       </v-col>
     </template>
   </crud-table>
@@ -20,8 +20,8 @@
       <v-col cols="12">
         <crud-input
           v-model="model.title"
-          :label="$t('modules.advSources.form.title')"
-          :rules="[val => !!val || $t('modules.advSources.validation.titleRequired'), val => val.length >= 2 || $t('modules.advSources.validation.titleMinLength')]"
+          :label="$t('common.fields.title')"
+          :rules="[val => !!val || $t('common.validationFields.titleRequired'), val => val.length >= 2 || $t('common.validationFields.titleMinLength')]"
           :disabled="stateProcessing"
         />
       </v-col>
@@ -55,7 +55,7 @@ const columns = [
   {
     name: 'title',
     required: true,
-    label: t('modules.advSources.table.title'),
+    label: t('common.fields.title'),
     align: 'left',
     field: 'title',
     sortable: true,
