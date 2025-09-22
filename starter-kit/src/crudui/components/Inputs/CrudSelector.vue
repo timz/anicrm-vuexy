@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { PropType } from 'vue'
 import { debounce } from 'lodash'
 import type { CrudSelectorOptionsList } from '@crudui/components/Inputs/interfaces/CrudSelectorTypes'
@@ -77,6 +78,7 @@ const emit = defineEmits<{
 }>()
 
 const { showError } = useNotifications()
+const { t } = useI18n()
 
 const listOptions = ref<CrudSelectorOptionsList>([])
 const listOptionsFiltered = ref<CrudSelectorOptionsList>([])
@@ -121,7 +123,7 @@ const getList = async (filterStr?: string) => {
       }
     }
     catch (e) {
-      showError(`Ошибка при загрузке списка ${props.label || ''}`)
+      showError(`${t('errors.generalError')} ${props.label || ''}`)
       console.error(e)
     }
     finally {

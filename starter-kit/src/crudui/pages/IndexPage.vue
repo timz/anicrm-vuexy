@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <p>Главная</p>
+    <p>{{ $t('navigation.home') }}</p>
   </v-container>
 </template>
 

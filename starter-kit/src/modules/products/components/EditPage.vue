@@ -1,10 +1,10 @@
 <template>
-  <PageTitle>Продукт</PageTitle>
+  <PageTitle>{{ $t('modules.products.single') }}</PageTitle>
   <div class="pa-4">
     <h1 class="text-h4 mb-4">
-      Редактирование
+      {{ $t('common.dialog.editTitle') }}
     </h1>
-    <p>Форма редактирования</p>
+    <p>{{ $t('common.editForm') }}</p>
   </div>
 </template>
 

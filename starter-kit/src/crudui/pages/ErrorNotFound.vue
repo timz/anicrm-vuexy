@@ -8,17 +8,17 @@
               404
             </div>
             <div class="text-h4 mb-4">
-              Страница не найдена
+              {{ $t('errors.pageNotFound') }}
             </div>
             <p class="text-body-1 mb-6">
-              К сожалению, запрашиваемая страница не существует.
+              {{ $t('errors.pageNotFoundMessage') }}
             </p>
             <v-btn
               color="primary"
               to="/"
               size="large"
             >
-              Вернуться на главную
+              {{ $t('errors.returnHome') }}
             </v-btn>
           </v-card-text>
         </v-card>

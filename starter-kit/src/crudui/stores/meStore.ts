@@ -19,13 +19,13 @@ type PermissionsType = Record<string, 'all'>
 const DEFAULT_ICON = 'apps' as const
 const GROUP_PLACEHOLDER_PATH = '#' as const
 const MIN_PERMISSION = 'min_permission' as const
-const DEFAULT_MENU_TITLE = 'Заголовок страницы' as const
+const DEFAULT_MENU_TITLE = 'Page Title' as const
 
 export const useMeStore = defineStore('meStore', {
   state: () => ({
     loaded: false,
     user_id: 0,
-    username: 'Гость',
+    username: 'Guest',
     role_title: '',
     subscription_title: '',
     subscription_to: '',

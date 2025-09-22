@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'subscription',
-      menuTitle: 'Подписки',
+      menuTitle: 'modules.subscriptions.title',
       menuIcon: 'mdi-credit-card',
       menuSort: 110,
     },

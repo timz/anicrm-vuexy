@@ -18,6 +18,7 @@ export default {
   filter: 'Фільтр',
   clear: 'Очистити',
   reset: 'Скинути',
+  dateFormat: 'дд.мм.рррр',
   back: 'Назад',
   next: 'Далі',
   previous: 'Назад',
@@ -62,4 +63,7 @@ export default {
   language: {
     changeLanguage: 'Змінити мову',
   },
+  editForm: 'Форма редагування',
+  itemsList: 'Список елементів',
+  generalError: 'Сталася помилка',
 }

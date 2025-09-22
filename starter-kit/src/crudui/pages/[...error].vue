@@ -26,7 +26,7 @@ definePage({
       to="/"
       class="mb-11"
     >
-      Вернуться на главную
+      {{ $t('errors.returnHome') }}
     </VBtn>
     <img
       class="misc-footer-img d-none d-md-block"

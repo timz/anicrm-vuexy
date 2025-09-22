@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'measures_index',
-      menuTitle: 'Единицы измерения',
+      menuTitle: 'modules.measures.title',
       menuIcon: 'mdi-ruler',
       menuSort: 90,
       menuHide: true,
@@ -19,7 +19,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'measures_create',
-      menuTitle: 'Единица измерения',
+      menuTitle: 'modules.measures.single',
       menuHide: true,
     },
   },
@@ -29,7 +29,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'measures_view',
-      menuTitle: 'Единица измерения',
+      menuTitle: 'modules.measures.single',
       menuHide: true,
     },
   },

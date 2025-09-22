@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'places_index',
-      menuTitle: 'Места',
+      menuTitle: 'modules.places.title',
       menuIcon: 'mdi-map-marker',
       menuSort: 20,
     },

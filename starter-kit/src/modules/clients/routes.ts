@@ -7,8 +7,8 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'clients_index',
-      title: 'Клиенты',
-      menuTitle: 'Клиенты',
+      title: 'modules.clients.title',
+      menuTitle: 'modules.clients.title',
       menuIcon: 'mdi-account',
       menuSort: 5,
     },
@@ -19,7 +19,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'clients_create',
-      menuTitle: 'Клиент',
+      menuTitle: 'modules.clients.single',
       menuHide: true,
     },
   },
@@ -29,7 +29,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'clients_view',
-      menuTitle: 'Клиент',
+      menuTitle: 'modules.clients.single',
       menuHide: true,
     },
   },

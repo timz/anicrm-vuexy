@@ -7,11 +7,11 @@
             <v-icon size="large" color="error" class="mr-3">
               mdi-alert-circle
             </v-icon>
-            Ошибка
+            {{ $t('auth.error') }}
           </v-card-title>
           <v-card-text class="text-center pa-6">
             <p class="text-body-1">
-              {{ $route.meta.description || 'Произошла ошибка' }}
+              {{ $route.meta.description || $t('errors.generalError') }}
             </p>
           </v-card-text>
           <v-card-actions class="justify-center pa-6">
@@ -20,14 +20,14 @@
               prepend-icon="mdi-home"
               @click="goHome"
             >
-              На главную
+              {{ $t('auth.goHome') }}
             </v-btn>
             <v-btn
               variant="outlined"
               prepend-icon="mdi-arrow-left"
               @click="goBack"
             >
-              Назад
+              {{ $t('auth.goBack') }}
             </v-btn>
           </v-card-actions>
         </v-card>

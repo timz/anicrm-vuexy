@@ -119,7 +119,7 @@ const shouldRenderTab = (tabName: string): boolean => {
         <div v-if="!isDataReady" class="text-center pa-12">
           <v-progress-circular indeterminate size="40" color="primary" />
           <div class="text-grey mt-2">
-            Загрузка данных...
+            {{ $t('common.loading') }}
           </div>
         </div>
 

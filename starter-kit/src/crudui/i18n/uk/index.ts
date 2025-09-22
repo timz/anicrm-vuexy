@@ -8,6 +8,13 @@ export default {
   login: 'Вхід',
   logout: 'Вихід',
   save: 'Зберегти',
+
+  // Navigation
+  navigation: {
+    home: 'Головна панель',
+    sales: 'Продажі',
+    company: 'Компанія',
+  },
   cancel: 'Скасувати',
   edit: 'Редагувати',
   delete: 'Видалити',
@@ -20,13 +27,22 @@ export default {
     username: 'Email або ім\'я користувача',
     password: 'Пароль',
     loginButton: 'Увійти',
+    emailOrUsername: 'Email або ім\'я користувача',
+    accountEmail: 'Email облікового запису',
     forgotPassword: 'Забули пароль?',
     resetPassword: 'Скинути пароль',
     email: 'Email',
     newPassword: 'Новий пароль',
     confirmPassword: 'Підтвердіть пароль',
     resetButton: 'Скинути пароль',
-    backToLogin: 'Назад до входу'
+    backToLogin: 'Назад до входу',
+    welcomeMessage: 'Ласкаво просимо!',
+    resetEmailSent: 'На вказаний email надіслано листа з інструкціями по відновленню пароля',
+    sendInstructions: 'Надіслати інструкції',
+    backToLogin2: '← Повернутися до входу',
+    error: 'Помилка',
+    goHome: 'На головну',
+    goBack: 'Назад'
   },
 
   // Navigation

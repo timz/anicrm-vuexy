@@ -1,13 +1,13 @@
 export const menuGroups = {
   sales: {
     name: 'sales',
-    title: 'Продажи',
+    title: 'navigation.sales',
     menuSort: 70,
     icon: 'trending_up',
   },
   company: {
     name: 'company',
-    title: 'Компания',
+    title: 'navigation.company',
     menuSort: 20,
     icon: 'inventory_2',
   },

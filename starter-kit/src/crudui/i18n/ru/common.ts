@@ -18,6 +18,7 @@ export default {
   filter: 'Фильтр',
   clear: 'Очистить',
   reset: 'Сбросить',
+  dateFormat: 'дд.мм.гггг',
   back: 'Назад',
   next: 'Далее',
   previous: 'Назад',
@@ -62,4 +63,7 @@ export default {
   language: {
     changeLanguage: 'Изменить язык',
   },
+  editForm: 'Форма редактирования',
+  itemsList: 'Список элементов',
+  generalError: 'Произошла ошибка',
 }

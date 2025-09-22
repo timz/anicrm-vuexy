@@ -19,18 +19,18 @@ const handleGoBack = () => {
   <div class="misc-wrapper">
     <div class="text-center">
       <h1 class="text-h1 mb-3">
-        403 - Доступ запрещен
+        403 - {{ $t('errors.accessDenied') }}
       </h1>
 
       <p class="text-body-1 mb-6">
-        У вас нет прав для просмотра этой страницы
+        {{ $t('errors.noPermission') }}
       </p>
 
       <VBtn
         color="primary"
         @click="handleGoBack"
       >
-        Вернуться на главную
+        {{ $t('errors.returnHome') }}
       </VBtn>
     </div>
   </div>

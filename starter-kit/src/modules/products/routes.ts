@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'products_index',
-      menuTitle: 'Продукты',
+      menuTitle: 'modules.products.title',
       menuIcon: 'mdi-package-variant',
       menuSort: 40,
     },
@@ -18,7 +18,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'products_create',
-      menuTitle: 'Продукт',
+      menuTitle: 'modules.products.single',
       menuHide: true,
     },
   },
@@ -28,7 +28,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'products_view',
-      menuTitle: 'Продукт',
+      menuTitle: 'modules.products.single',
       menuHide: true,
     },
   },

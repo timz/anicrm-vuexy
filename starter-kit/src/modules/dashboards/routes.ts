@@ -7,8 +7,8 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'min_permission',
-      title: 'Главная панель',
-      menuTitle: 'Главная',
+      title: 'navigation.home',
+      menuTitle: 'navigation.home',
       menuIcon: 'mdi-home',
       menuSort: 0,
     },

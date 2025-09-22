@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'event_types_index',
-      menuTitle: 'Типы событий',
+      menuTitle: 'modules.eventTypes.title',
       menuIcon: 'mdi-calendar-clock',
       menuSort: 60,
       menuHide: true,
@@ -19,7 +19,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'event_types_create',
-      menuTitle: 'Тип события',
+      menuTitle: 'modules.eventTypes.single',
       menuHide: true,
     },
   },
@@ -29,7 +29,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'event_types_view',
-      menuTitle: 'Тип события',
+      menuTitle: 'modules.eventTypes.single',
       menuHide: true,
     },
   },

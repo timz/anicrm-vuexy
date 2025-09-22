@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'rejection_reasons_index',
-      menuTitle: 'Причины отказов',
+      menuTitle: 'modules.rejectionReasons.title',
       menuIcon: 'mdi-cancel',
       menuSort: 80,
       menuHide: true,
@@ -19,7 +19,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'rejection_reasons_create',
-      menuTitle: 'Причина отказа',
+      menuTitle: 'modules.rejectionReasons.single',
       menuHide: true,
     },
   },
@@ -29,7 +29,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'rejection_reasons_view',
-      menuTitle: 'Причина отказа',
+      menuTitle: 'modules.rejectionReasons.single',
       menuHide: true,
     },
   },

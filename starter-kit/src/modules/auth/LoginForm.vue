@@ -46,6 +46,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { rules } from '@crudui/utils/validation/rules'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import envService from '@crudui/services/EnvService'
@@ -57,6 +58,7 @@ import type { FormModel } from '@crudui/types'
 const emits = defineEmits(['goResetForm'])
 
 const router = useRouter()
+const { t } = useI18n()
 
 interface LoginModel extends FormModel {
   username: string
@@ -90,7 +92,7 @@ const onSubmit = async (): Promise<void> => {
 
     envService.saveTokenInLocalStorage(content.access_token)
     envService.saveRefreshTokenInLocalStorage(content.refresh_token)
-    notifications.positive('Добро пожаловать!')
+    notifications.positive(t('auth.welcomeMessage'))
     await router.push({ name: 'home' })
   }
   catch (error) {

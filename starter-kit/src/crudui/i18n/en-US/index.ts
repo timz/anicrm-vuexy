@@ -8,6 +8,13 @@ export default {
   login: 'Login',
   logout: 'Logout',
   save: 'Save',
+
+  // Navigation
+  navigation: {
+    home: 'Dashboard',
+    sales: 'Sales',
+    company: 'Company',
+  },
   cancel: 'Cancel',
   edit: 'Edit',
   delete: 'Delete',
@@ -27,13 +34,22 @@ export default {
     username: 'Email or Username',
     password: 'Password',
     loginButton: 'Login',
+    emailOrUsername: 'Email or Username',
+    accountEmail: 'Account Email',
     forgotPassword: 'Forgot Password?',
     resetPassword: 'Reset Password',
     email: 'Email',
     newPassword: 'New Password',
     confirmPassword: 'Confirm Password',
     resetButton: 'Reset Password',
-    backToLogin: 'Back to Login'
+    backToLogin: 'Back to Login',
+    welcomeMessage: 'Welcome!',
+    resetEmailSent: 'Instructions have been sent to the specified email address',
+    sendInstructions: 'Send Instructions',
+    backToLogin2: '← Back to Login',
+    error: 'Error',
+    goHome: 'Go Home',
+    goBack: 'Back'
   },
 
   // Navigation

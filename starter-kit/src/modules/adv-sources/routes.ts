@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'adv_sources_index',
-      menuTitle: 'Источники рекламы',
+      menuTitle: 'modules.advSources.title',
       menuIcon: 'mdi-bullhorn',
       menuSort: 70,
       menuHide: true,
@@ -19,7 +19,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'adv_sources_create',
-      menuTitle: 'Источник рекламы',
+      menuTitle: 'modules.advSources.single',
       menuHide: true,
     },
   },
@@ -29,7 +29,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'adv_sources_view',
-      menuTitle: 'Источник рекламы',
+      menuTitle: 'modules.advSources.single',
       menuHide: true,
     },
   },

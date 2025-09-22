@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'equipments_index',
-      menuTitle: 'Оборудование',
+      menuTitle: 'modules.equipments.title',
       menuIcon: 'mdi-tools',
       menuSort: 50,
     },
@@ -18,7 +18,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'equipments_create',
-      menuTitle: 'Оборудование',
+      menuTitle: 'modules.equipments.single',
       menuHide: true,
     },
   },
@@ -28,7 +28,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'equipments_view',
-      menuTitle: 'Оборудование',
+      menuTitle: 'modules.equipments.single',
       menuHide: true,
     },
   },

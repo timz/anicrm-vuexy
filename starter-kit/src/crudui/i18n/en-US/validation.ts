@@ -1,6 +1,7 @@
 export default {
   required: 'This field is required',
   email: 'Please enter a valid email',
+  emailValid: 'Email must be valid',
   password: 'Password must be at least 8 characters long and include uppercase, lowercase letters and numbers',
   confirmed: 'Fields do not match',
   between: 'Enter a number between {min} and {max}',
@@ -25,4 +26,7 @@ export default {
   oneOf: 'Value must be one of: {options}',
   notOneOf: 'Value must not be one of: {options}',
   custom: 'Invalid value',
+  minChars2: 'Minimum 2 characters',
+  minChars5: 'Minimum 5 characters',
+  minChars6: 'Minimum 6 characters',
 }

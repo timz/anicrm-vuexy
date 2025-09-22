@@ -7,7 +7,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/IndexPage.vue'),
     meta: {
       permission: 'deals_index',
-      menuTitle: 'Сделки',
+      menuTitle: 'modules.deals.title',
       menuIcon: 'mdi-handshake',
       menuSort: 10,
     },
@@ -18,7 +18,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'deals_create',
-      menuTitle: 'Сделка',
+      menuTitle: 'modules.deals.single',
       menuHide: true,
     },
   },
@@ -28,7 +28,7 @@ export default <TCrudRouteRecord[]>[
     component: () => import('./components/EditPage.vue'),
     meta: {
       permission: 'deals_view',
-      menuTitle: 'Сделка',
+      menuTitle: 'modules.deals.single',
       menuHide: true,
     },
   },

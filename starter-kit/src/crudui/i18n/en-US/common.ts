@@ -18,6 +18,7 @@ export default {
   filter: 'Filter',
   clear: 'Clear',
   reset: 'Reset',
+  dateFormat: 'dd.mm.yyyy',
   back: 'Back',
   next: 'Next',
   previous: 'Previous',
@@ -62,4 +63,7 @@ export default {
   language: {
     changeLanguage: 'Change language',
   },
+  editForm: 'Edit Form',
+  itemsList: 'Items List',
+  generalError: 'An error occurred',
 }

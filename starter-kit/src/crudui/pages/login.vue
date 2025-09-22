@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { VNodeRenderer } from '@crudui/components/templates/helpers/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 import { api } from '@crudui/services/AxiosService'
@@ -9,6 +10,7 @@ import { saveAbilityRules } from '@/crudui/plugins/casl/index'
 import { ability } from '@/crudui/plugins/casl/ability'
 
 const router = useRouter()
+const { t } = useI18n()
 
 definePage({
   meta: {
@@ -60,7 +62,7 @@ const onSubmit = async (): Promise<void> => {
       ability.update(defaultRules)
     }
 
-    notifications.positive('Добро пожаловать!')
+    notifications.positive(t('auth.welcomeMessage'))
     await router.push('/')
   }
   catch (error: any) {
@@ -76,7 +78,7 @@ const onResetPassword = async (): Promise<void> => {
   try {
     isLoading.value = true
     await api.post('/auth/reset-password', { email: resetEmail.value })
-    notifications.positive('На указанный email выслано письмо с инструкциями по восстановлению пароля')
+    notifications.positive(t('auth.resetEmailSent'))
     showResetForm.value = false
     resetEmail.value = ''
   }
@@ -110,7 +112,7 @@ const onResetPassword = async (): Promise<void> => {
       <VExpandTransition mode="out-in">
         <div v-if="!showResetForm">
           <h4 class="text-h4 text-center mb-6">
-            Вход
+            {{ $t('auth.title') }}
           </h4>
           <VForm @submit.prevent="onSubmit">
             <VRow>
@@ -119,12 +121,12 @@ const onResetPassword = async (): Promise<void> => {
                 <AppTextField
                   v-model="form.username"
                   autofocus
-                  label="Email или имя пользователя"
+                  :label="$t('auth.emailOrUsername')"
                   placeholder="johndoe@email.com"
                   :disabled="isLoading"
                   :rules="[
-                    (v: string) => !!v || 'Обязательное поле',
-                    (v: string) => v.length >= 2 || 'Минимум 2 символа',
+                    (v: string) => !!v || t('validation.required'),
+                    (v: string) => v.length >= 2 || t('validation.minChars2'),
                   ]"
                 />
               </VCol>
@@ -133,15 +135,15 @@ const onResetPassword = async (): Promise<void> => {
               <VCol cols="12">
                 <AppTextField
                   v-model="form.password"
-                  label="Пароль"
+                  :label="$t('auth.password')"
                   placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   :disabled="isLoading"
                   :rules="[
-                    (v: string) => !!v || 'Обязательное поле',
-                    (v: string) => v.length >= 6 || 'Минимум 6 символов',
+                    (v: string) => !!v || t('validation.required'),
+                    (v: string) => v.length >= 6 || t('validation.minChars6'),
                   ]"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -156,7 +158,7 @@ const onResetPassword = async (): Promise<void> => {
                     size="large"
                     :loading="isLoading"
                   >
-                    Войти
+                    {{ $t('auth.loginButton') }}
                   </VBtn>
 
                   <!-- forgot password -->
@@ -166,7 +168,7 @@ const onResetPassword = async (): Promise<void> => {
                     size="small"
                     @click="showResetForm = true"
                   >
-                    Забыли пароль?
+                    {{ $t('auth.forgotPassword') }}
                   </VBtn>
                 </div>
               </VCol>
@@ -176,21 +178,21 @@ const onResetPassword = async (): Promise<void> => {
 
         <div v-else>
           <h5 class="text-h5 text-center mb-6">
-            Восстановление пароля
+            {{ $t('auth.resetPassword') }}
           </h5>
           <VForm @submit.prevent="onResetPassword">
             <VRow>
               <VCol cols="12">
                 <AppTextField
                   v-model="resetEmail"
-                  label="Email учетной записи"
+                  :label="$t('auth.accountEmail')"
                   type="email"
                   placeholder="johndoe@email.com"
                   :disabled="isLoading"
                   :rules="[
-                    (v: string) => !!v || 'Обязательное поле',
-                    (v: string) => /.+@.+\..+/.test(v) || 'Email должен быть корректным',
-                    (v: string) => v.length >= 5 || 'Минимум 5 символов',
+                    (v: string) => !!v || t('validation.required'),
+                    (v: string) => /.+@.+\..+/.test(v) || t('validation.emailValid'),
+                    (v: string) => v.length >= 5 || t('validation.minChars5'),
                   ]"
                 />
               </VCol>
@@ -203,7 +205,7 @@ const onResetPassword = async (): Promise<void> => {
                     size="large"
                     :loading="isLoading"
                   >
-                    Отправить инструкции
+                    {{ $t('auth.sendInstructions') }}
                   </VBtn>
 
                   <VBtn
@@ -212,7 +214,7 @@ const onResetPassword = async (): Promise<void> => {
                     size="small"
                     @click="showResetForm = false; resetEmail = ''"
                   >
-                    ← Вернуться к входу
+                    {{ $t('auth.backToLogin2') }}
                   </VBtn>
                 </div>
               </VCol>

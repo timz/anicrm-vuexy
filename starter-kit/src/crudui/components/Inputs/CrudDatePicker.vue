@@ -1,7 +1,7 @@
 <template>
   <VDateInput
     prepend-icon=""
-    placeholder="дд.мм.гггг"
+    :placeholder="$t('common.dateFormat')"
     bg-color="white"
     variant="outlined"
     density="comfortable"

@@ -37,6 +37,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { rules } from '@crudui/utils/validation/rules'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
@@ -44,6 +45,7 @@ import { useCrudForm } from '@crudui/providers/useCrudForm'
 import { notifications } from '@crudui/boot/notification'
 
 const emits = defineEmits(['goLoginForm'])
+const { t } = useI18n()
 
 const model = ref({
   email: '',
@@ -62,6 +64,6 @@ function navigateLoginForm() {
 
 const onSubmit = async (): Promise<void> => {
   await crudForm.submit()
-  notifications.positive('На указанный email выслано письмо с инструкциями по восстановлению пароля')
+  notifications.positive(t('auth.resetEmailSent'))
 }
 </script>

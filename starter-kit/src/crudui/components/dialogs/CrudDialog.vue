@@ -111,7 +111,7 @@ const handleSubmit = async (): Promise<void> => {
     dialogProvider.wasSaved.value = true
   }
   catch (error) {
-    console.error('Ошибка сохранения:', error)
+    console.error('Save error:', error)
   }
 }
 </script>
