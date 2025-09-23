@@ -43,7 +43,7 @@ export function useCrudDialogProvider<T extends FormModel = FormModel>(
     // Устанавливаем режим создания через модель (источник истины)
     const primaryKey = config.formConfig.primaryKey ?? 'id'
 
-    config.formConfig.model.value[primaryKey as keyof T] = null
+    config.formConfig.model.value[primaryKey as keyof T] = null as T[keyof T]
 
     isOpen.value = true
     void config.onDialogOpen?.(null)
