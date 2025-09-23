@@ -10,9 +10,10 @@
       multi-line
       @update:model-value="val => !val && remove(index)"
     >
-      <div class="text-subtitle-1">
-        {{ notification.message }}
-      </div>
+      <div
+        class="text-subtitle-1"
+        v-html="notification.message"
+      />
       <template #actions>
         <VBtn
           color="secondary"
