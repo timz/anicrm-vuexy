@@ -184,6 +184,11 @@ export default {
       title: 'Products',
       pageTitle: 'Products',
       single: 'Product',
+      fields: {
+        title: 'Title',
+        measure: 'Unit of Measurement',
+        description: 'Description',
+      },
     },
     places: {
       title: 'Places',

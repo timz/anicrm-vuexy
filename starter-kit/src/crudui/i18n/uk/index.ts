@@ -194,6 +194,11 @@ export default {
       title: 'Продукти',
       pageTitle: 'Продукти',
       single: 'Продукт',
+      fields: {
+        title: 'Назва',
+        measure: 'Одиниця виміру',
+        description: 'Опис',
+      },
     },
     places: {
       title: 'Місця',

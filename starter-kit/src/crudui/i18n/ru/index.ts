@@ -184,6 +184,11 @@ export default {
       title: 'Продукты',
       pageTitle: 'Продукты',
       single: 'Продукт',
+      fields: {
+        title: 'Название',
+        measure: 'Единица измерения',
+        description: 'Описание',
+      },
     },
     places: {
       title: 'Места',
