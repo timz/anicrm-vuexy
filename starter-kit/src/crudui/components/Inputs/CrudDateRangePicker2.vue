@@ -52,7 +52,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string | string[] | null]
+  'update:modelValue': [value: string | string[] | null | undefined]
 }>()
 
 const { t } = useI18n()
@@ -206,7 +206,7 @@ watch(
   () => {
     if (!isRange.value) {
       // Режим одной даты
-      emit('update:modelValue', viewDate.value)
+      emit('update:modelValue', viewDate.value || undefined)
     }
     else {
       // Режим диапазона дат
@@ -218,7 +218,7 @@ watch(
         emit('update:modelValue', dates)
       }
       else {
-        emit('update:modelValue', null)
+        emit('update:modelValue', undefined)
       }
     }
   },
