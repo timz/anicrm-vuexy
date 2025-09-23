@@ -4,25 +4,25 @@ import type { CrudRowAction } from '@crudui/providers/useCrudDataList'
 import type { FormModel } from '@crudui/types'
 import { i18n } from '@crudui/boot/i18n'
 
-export interface StandardActionConfig {
-  show?: (item: unknown) => boolean
+export interface StandardActionConfig<T = unknown> {
+  show?: (item: T) => boolean
   class?: string
 }
 
-export interface EditActionConfig extends StandardActionConfig {
+export interface EditActionConfig<T = unknown> extends StandardActionConfig<T> {
   routeName: string
   paramName?: string
 }
 
-export interface EditDialogActionConfig extends StandardActionConfig {
-  handler: (item: unknown) => void | Promise<void>
+export interface EditDialogActionConfig<T = unknown> extends StandardActionConfig<T> {
+  handler: (item: T) => void | Promise<void>
 }
 
-export interface DeleteActionConfig extends StandardActionConfig {
-  onDelete: (item: unknown) => void | Promise<void>
+export interface DeleteActionConfig<T = unknown> extends StandardActionConfig<T> {
+  onDelete: (item: T) => void | Promise<void>
 }
 
-export interface ViewActionConfig extends StandardActionConfig {
+export interface ViewActionConfig<T = unknown> extends StandardActionConfig<T> {
   routeName: string
   paramName?: string
 }
@@ -40,7 +40,7 @@ function getRouteParam(value: unknown): RouteParamValueRaw {
 }
 
 export function createEditAction<T extends FormModel>(
-  config: EditActionConfig,
+  config: EditActionConfig<T>,
 ): CrudRowAction<T> {
   const router = useRouter()
 
@@ -64,7 +64,7 @@ export function createEditAction<T extends FormModel>(
 }
 
 export function createEditDialogAction<T extends FormModel>(
-  config: EditDialogActionConfig,
+  config: EditDialogActionConfig<T>,
 ): CrudRowAction<T> {
   return {
     name: 'edit-dialog',
@@ -78,7 +78,7 @@ export function createEditDialogAction<T extends FormModel>(
 }
 
 export function createDeleteAction<T extends FormModel>(
-  config: DeleteActionConfig,
+  config: DeleteActionConfig<T>,
 ): CrudRowAction<T> {
   return {
     name: 'delete',
@@ -92,7 +92,7 @@ export function createDeleteAction<T extends FormModel>(
 }
 
 export function createViewAction<T extends FormModel>(
-  config: ViewActionConfig,
+  config: ViewActionConfig<T>,
 ): CrudRowAction<T> {
   const router = useRouter()
 
@@ -117,10 +117,10 @@ export function createViewAction<T extends FormModel>(
 
 // Композитная функция для создания стандартного набора действий
 export function createStandardActions<T extends FormModel>(config: {
-  edit?: EditActionConfig
-  editDialog?: EditDialogActionConfig
-  delete?: DeleteActionConfig
-  view?: ViewActionConfig
+  edit?: EditActionConfig<T>
+  editDialog?: EditDialogActionConfig<T>
+  delete?: DeleteActionConfig<T>
+  view?: ViewActionConfig<T>
 }): CrudRowAction<T>[] {
   const actions: CrudRowAction<T>[] = []
 
