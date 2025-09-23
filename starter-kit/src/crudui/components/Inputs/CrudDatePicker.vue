@@ -19,6 +19,7 @@ import { VDateInput } from 'vuetify/labs/VDateInput'
 
 interface Props {
   modelValue?: string | null | undefined
+  emitNullOnClear?: boolean
 }
 
 const props = defineProps<Props>()
@@ -44,7 +45,8 @@ const dateValue = computed(() => {
 // Обработчик обновления даты
 const updateDate = (date: Date | null) => {
   if (!date) {
-    emit('update:modelValue', undefined)
+    const emptyValue = props.emitNullOnClear !== false ? null : undefined
+    emit('update:modelValue', emptyValue)
 
     return
   }
