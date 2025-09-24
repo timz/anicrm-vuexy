@@ -1,36 +1,30 @@
 <template>
-  <div>
+  <div style="min-width: 280px;">
     <div class="text-h5 font-weight-medium text-center mb-6 text-medium-emphasis">
       {{ $t('auth.resetPassword') }}
     </div>
     <v-form ref="formRef" @submit.prevent="onSubmit">
-      <div class="mb-6">
-        <crud-input
-          v-model="model.email"
-          :label="$t('auth.email')"
-          type="email"
-          :rules="[rules.required(), rules.email(), rules.minLength(5)]"
-          :disabled="crudForm.stateProcessing.value"
-        />
-      </div>
-      <div class="d-flex flex-column ga-3">
-        <crud-button-primary
-          size="large"
-          block
-          :loading="crudForm.stateProcessing.value"
-          @click="onSubmit"
-        >
-          {{ $t('auth.resetButton') }}
-        </crud-button-primary>
-        <v-btn
-          variant="text"
-          color="primary"
-          size="small"
-          @click="navigateLoginForm"
-        >
-          ← {{ $t('auth.backToLogin') }}
-        </v-btn>
-      </div>
+      <v-row class="form-row">
+        <v-col cols="12">
+          <crud-input
+            v-model="model.email"
+            :label="$t('auth.email')"
+            type="email"
+            :rules="[rules.required(), rules.email(), rules.minLength(5)]"
+            :disabled="crudForm.stateProcessing.value"
+          />
+        </v-col>
+        <v-col cols="12">
+          <div class="d-flex flex-column ga-3 mt-2">
+            <crud-button-primary block :loading="crudForm.stateProcessing.value" @click="onSubmit">
+              {{ $t('auth.resetButton') }}
+            </crud-button-primary>
+            <v-btn variant="text" color="primary"  @click="navigateLoginForm">
+              ← {{ $t('auth.backToLogin') }}
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
     </v-form>
   </div>
 </template>

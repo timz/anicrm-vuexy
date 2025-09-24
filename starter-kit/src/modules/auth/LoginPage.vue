@@ -1,5 +1,5 @@
 <template>
-  <v-card class="pa-8" elevation="2" min-width="480" max-width="480" width="100%">
+  <v-card class="pa-8 " elevation="2">
     <v-card-text class="px-0">
       <v-expand-transition mode="out-in">
         <div v-if="!showResetForm">

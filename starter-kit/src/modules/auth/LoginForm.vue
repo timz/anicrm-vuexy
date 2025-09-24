@@ -1,44 +1,47 @@
 <template>
-  <div>
+  <div style="min-width: 280px;">
     <h4 class="text-h4 text-center mb-6 text-blue-grey-darken-2">
       {{ $t('auth.title') }}
     </h4>
     <v-form ref="formRef" @submit.prevent="onSubmit">
-      <div class="mb-6">
-        <crud-input
-          v-model="model.username"
-          :label="$t('auth.username')"
-          :rules="[rules.required(), rules.minLength(2)]"
-          :disabled="crudForm.stateProcessing.value"
-        />
-      </div>
-      <div class="mb-6">
-        <crud-input
-          v-model="model.password"
-          :label="$t('auth.password')"
-          type="password"
-          :rules="[rules.required(), rules.minLength(6)]"
-          :disabled="crudForm.stateProcessing.value"
-        />
-      </div>
-      <div class="d-flex flex-column ga-3">
-        <crud-button-primary
-          size="large"
-          block
-          :loading="crudForm.stateProcessing.value"
-          @click="onSubmit"
-        >
-          {{ $t('auth.loginButton') }}
-        </crud-button-primary>
-        <v-btn
-          variant="text"
-          color="primary"
-          size="small"
-          @click="navigateResetForm"
-        >
-          {{ $t('auth.forgotPassword') }}
-        </v-btn>
-      </div>
+      <v-row  class="form-row">
+        <v-col cols="12">
+          <crud-input
+            v-model="model.username"
+            :label="$t('auth.username')"
+            :rules="[rules.required(), rules.minLength(2)]"
+            :disabled="crudForm.stateProcessing.value"
+          />
+        </v-col>
+        <v-col cols="12">
+          <crud-input
+            v-model="model.password"
+            :label="$t('auth.password')"
+            type="password"
+            :rules="[rules.required(), rules.minLength(6)]"
+            :disabled="crudForm.stateProcessing.value"
+          />
+        </v-col>
+        <v-col cols="12 mt-2">
+          <div class="d-flex flex-column ga-3">
+            <crud-button-primary
+              block
+              :loading="crudForm.stateProcessing.value"
+              @click="onSubmit"
+            >
+              {{ $t('auth.loginButton') }}
+            </crud-button-primary>
+            <v-btn
+              variant="text"
+              color="primary"
+              @click="navigateResetForm"
+            >
+              {{ $t('auth.forgotPassword') }}
+            </v-btn>
+          </div>
+        </v-col>
+      </v-row>
+
     </v-form>
   </div>
 </template>
