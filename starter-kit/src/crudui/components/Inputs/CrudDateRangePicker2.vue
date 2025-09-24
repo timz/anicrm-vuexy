@@ -27,13 +27,13 @@
             </v-btn>
           </div>
           <div style="width: 100%; min-width: 190px">
-            <crud-date-picker v-model="startDate" style="margin-left: 2px" class="mt-2" :label="t('common.dateRange.from')" />
-            <crud-date-picker v-model="endDate" style="margin-left: 2px" class="mt-4" :label="t('common.dateRange.to')" />
+            <crud-date-picker v-model="startDate" style="margin-left: 2px" class="mt-2" :label="t('common.dateRange.from')" :emit-null-on-clear="props.emitNullOnClear" />
+            <crud-date-picker v-model="endDate" style="margin-left: 2px" class="mt-4" :label="t('common.dateRange.to')" :emit-null-on-clear="props.emitNullOnClear" />
           </div>
         </div>
       </v-card>
     </v-menu>
-    <crud-date-picker v-else v-model="viewDate" :label="props.label || t('common.dateRange.date')" />
+    <crud-date-picker v-else v-model="viewDate" :label="props.label || t('common.dateRange.date')" :emit-null-on-clear="props.emitNullOnClear" />
     <crud-checkbox v-model="isRange" class="ms-1" :label="t('common.dateRange.range')" />
   </div>
 </template>
@@ -49,10 +49,11 @@ import CrudCheckbox from '@crudui/components/Inputs/CrudCheckbox.vue'
 const props = defineProps<{
   modelValue?: string | string[] | null
   label?: string
+  emitNullOnClear?: boolean
 }>()
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string | string[] | null]
+  'update:modelValue': [value: string | string[] | null | undefined]
 }>()
 
 const { t } = useI18n()
@@ -206,7 +207,8 @@ watch(
   () => {
     if (!isRange.value) {
       // Режим одной даты
-      emit('update:modelValue', viewDate.value)
+      const emptyValue = props.emitNullOnClear !== false ? null : undefined
+      emit('update:modelValue', viewDate.value || emptyValue)
     }
     else {
       // Режим диапазона дат
@@ -218,7 +220,8 @@ watch(
         emit('update:modelValue', dates)
       }
       else {
-        emit('update:modelValue', null)
+        const emptyValue = props.emitNullOnClear !== false ? null : undefined
+        emit('update:modelValue', emptyValue)
       }
     }
   },

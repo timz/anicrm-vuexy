@@ -1,5 +1,5 @@
-import { ref } from 'vue'
 import type { ComputedRef, Ref } from 'vue'
+import { ref } from 'vue'
 import { type CrudDataFormConfig, useCrudDataForm } from './useCrudDataForm'
 import type { FormModel } from '@crudui/types'
 
@@ -18,7 +18,7 @@ export interface CrudDialogProviderReturn<T extends FormModel = FormModel> {
   readonly formConfig: CrudDataFormConfig<T>
   readonly wasSaved: Ref<boolean>
   readonly openCreateDialog: () => void
-  readonly openEditDialog: (id: string | number) => void
+  readonly openEditDialog: (id: string | number | null | undefined) => void
   readonly closeDialog: () => void
   readonly handleItemSaved: (item: T) => void
 }
@@ -43,13 +43,20 @@ export function useCrudDialogProvider<T extends FormModel = FormModel>(
     // Устанавливаем режим создания через модель (источник истины)
     const primaryKey = config.formConfig.primaryKey ?? 'id'
 
-    config.formConfig.model.value[primaryKey as keyof T] = null
+    config.formConfig.model.value[primaryKey as keyof T] = null as T[keyof T]
 
     isOpen.value = true
     void config.onDialogOpen?.(null)
   }
 
-  const openEditDialog = (id: string | number): void => {
+  const openEditDialog = (id: string | number | null | undefined): void => {
+    // Проверяем, что id валиден
+    if (id === null || id === undefined) {
+      console.warn('Не могу открыть диалог, тк не передан id')
+
+      return
+    }
+
     editId.value = id
     wasSaved.value = false
 

@@ -42,11 +42,10 @@ import { createStandardActions } from '@crudui/components/table/buttons/rowActio
 import { useCrudDialogProvider } from '@crudui/providers/useCrudDialogProvider'
 import CrudDialog from '@crudui/components/dialogs/CrudDialog.vue'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
+import type { FormModel } from '@core/types'
 
-interface RejectionReasonItem {
-  id: number
+interface RejectionReasonItem extends FormModel {
   title: string
-  [key: string]: unknown
 }
 
 const meStore = useMeStore()

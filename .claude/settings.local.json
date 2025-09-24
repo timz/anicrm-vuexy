@@ -2,18 +2,12 @@
   "permissions": {
     "allow": [
       "Bash(npx tsc:*)",
-      "Bash(for file in starter-kit/src/modules/*/routes.ts)",
-      "Bash(do echo \"=== $file ===\")",
+      "Bash(for:*)",
+      "Bash(do:*)",
       "Bash(grep:*)",
-      "Bash(del \"starter-kit\\src\\modules\\workers\\components\\EditPage.vue_\")",
       "Bash(rg:*)",
-      "Bash(start http://localhost:5174/home)",
-      "Bash(for file in starter-kit/src/modules/*/components/EditPage.vue)",
-      "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_take_screenshot",
-      "mcp__playwright__browser_snapshot",
-      "mcp__playwright__browser_evaluate",
-      "mcp__playwright__browser_wait_for"
+      "Bash(cat:*)",
+      "Bash(python:*)"
     ],
     "deny": [],
     "ask": []
