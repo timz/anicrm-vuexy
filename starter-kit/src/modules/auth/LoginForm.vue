@@ -91,16 +91,20 @@ function navigateResetForm() {
 const onSubmit = async (): Promise<void> => {
   try {
     const result = await crudForm.submit()
-    const content = result.content
 
-    envService.saveTokenInLocalStorage(content.access_token)
-    envService.saveRefreshTokenInLocalStorage(content.refresh_token)
-    notifications.positive(t('auth.welcomeMessage'))
-    await router.push({ name: 'home' })
+    // Проверяем что получили успешный ответ с токенами
+    if (result?.content?.access_token && result?.content?.refresh_token) {
+      const content = result.content
+
+      envService.saveTokenInLocalStorage(content.access_token)
+      envService.saveRefreshTokenInLocalStorage(content.refresh_token)
+      notifications.positive(t('auth.welcomeMessage'))
+      await router.push({ name: 'home' })
+    }
   }
   catch (error) {
-    // Ошибки обрабатываются в AxiosService interceptors
-    // Здесь можем добавить специфичную для логина логику, если нужно
+    // Ошибки уже обработаны в AxiosService interceptors и показаны через notifications
+    // Просто логируем для отладки
     console.warn('Login failed:', error)
   }
 }

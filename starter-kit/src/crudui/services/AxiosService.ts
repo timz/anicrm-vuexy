@@ -106,7 +106,9 @@ function getAxiosInstance(secure = true): AxiosInstance {
       const originalRequest = error.config as AxiosRequestConfig & { _retry?: boolean }
       if (error.response) {
         if (error.response.status === 401) {
-          if (!originalRequest._retry) {
+          // Не пытаемся обновить токен для запросов на логин
+          const isLoginRequest = originalRequest.url?.includes('/auth/login')
+          if (!originalRequest._retry && !isLoginRequest) {
             // Если другой запрос уже инициировал обновление токена, подписываемся
             if (isRefreshing) {
               return new Promise(resolve => {
@@ -141,16 +143,42 @@ function getAxiosInstance(secure = true): AxiosInstance {
               isRefreshing = false
             }
           }
+          // Для запроса логина с ошибкой 401 показываем сообщение об ошибке
+          else if (isLoginRequest) {
+            const data = error.response.data as any
+            // Проверяем разные форматы ответа от сервера
+            if (data.error) {
+              // Формат: {"success":false,"code":401,"error":"Неверный логин или пароль"}
+              notifications.warning(data.error)
+            }
+            else if (data.status && data.status.error) {
+              // Формат с вложенным status
+              notifications.warning(data.status.error)
+            }
+            else {
+              notifications.warning('Неверный логин или пароль')
+            }
+          }
         }
-        else if (error.response.status !== 422) {
-          const data = error.response.data as ResponseDto
-          if (data.status && data.status.error) {
+        else {
+          const data = error.response.data as any
+          // Для статуса 422 (валидационные ошибки) и других ошибок показываем сообщение
+          if (data.error) {
+            // Формат: {"success":false,"code":422,"error":"Сообщение об ошибке"}
+            notifications.warning(data.error)
+          }
+          else if (data.status && data.status.error) {
+            // Формат с вложенным status
             notifications.warning(data.status.error)
           }
-          else {
+          else if (error.response.status !== 422) {
+            // Для не-валидационных ошибок показываем общее сообщение если нет конкретного
             notifications.warning(i18n.global.t('errors.serverError'))
           }
-          console.warn(data, 'Ошибка на сервере')
+          // Логируем ошибку для отладки
+          if (error.response.status !== 422 || data.error || (data.status && data.status.error)) {
+            console.warn(data, 'Ошибка на сервере')
+          }
         }
       }
       if (secure) {
