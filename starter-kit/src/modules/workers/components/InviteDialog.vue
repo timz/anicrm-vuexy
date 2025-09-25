@@ -1,13 +1,11 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500px" persistent>
-    <v-card>
-      <v-card-title class="text-h6">
-        {{ $t('modules.workers.invite.title') }}
-      </v-card-title>
+  <v-dialog v-model="dialog" max-width="380px" persistent>
+    <v-card class="pa-3">
+      <div class="px-3">
+        <div class="pb-4 text-h4 font-weight-bold text-secondary">
+          {{ $t('modules.workers.invite.title') }}
+        </div>
 
-      <v-divider />
-
-      <v-card-text class="pt-4">
         <v-form ref="formRef" @submit.prevent="onSubmit">
           <v-row>
             <v-col cols="12">
@@ -20,19 +18,15 @@
             </v-col>
           </v-row>
         </v-form>
-      </v-card-text>
-
-      <v-divider />
-
-      <v-card-actions class="justify-end">
-        <v-btn variant="text" @click="onCancel">
-          {{ $t('common.cancel') }}
-        </v-btn>
-        <crud-button-primary
-          :label="$t('modules.workers.actions.invite')"
-          :loading="stateProcessing"
-          @click="onSubmit"
-        />
+      </div>
+      <v-card-actions class="justify-end ga-2 pt-4">
+        <v-spacer />
+        <crud-button-secondary @click="onCancel">
+          {{ $t('common.close') }}
+        </crud-button-secondary>
+        <crud-button-primary :loading="stateProcessing" @click="onSubmit">
+          {{ $t('modules.workers.actions.invite') }}
+        </crud-button-primary>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -46,6 +40,11 @@ import CrudInput from '@crudui/components/Inputs/CrudInput.vue'
 import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import { rules } from '@crudui/utils/validation/rules'
 import { notifications } from '@crudui/boot/notification'
+import CrudButtonSecondary from '@core/components/buttons/CrudButtonSecondary.vue'
+
+const props = defineProps<Props>()
+
+const emit = defineEmits<Emits>()
 
 const { t } = useI18n()
 
@@ -64,9 +63,6 @@ interface Emits {
   (e: 'success'): void
 }
 
-const props = defineProps<Props>()
-const emit = defineEmits<Emits>()
-
 const dialog = computed({
   get: () => props.modelValue,
   set: value => emit('update:modelValue', value),
@@ -74,12 +70,7 @@ const dialog = computed({
 
 const formRef = ref()
 
-const {
-  model,
-  stateProcessing,
-  submit,
-  validate,
-} = useCrudForm<InviteForm>({
+const { model, stateProcessing, submit, validate } = useCrudForm<InviteForm>({
   model: ref({
     email: '',
     worker_id: props.workerId,

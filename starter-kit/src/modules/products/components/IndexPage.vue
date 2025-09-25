@@ -2,20 +2,14 @@
   <PageTitle>{{ $t('modules.products.pageTitle') }}</PageTitle>
   <crud-table>
     <template #actionsSection>
-      <create-button
-        v-if="meStore.userCan('products_create')"
-        :to="{ name: 'productCreate' }"
-      />
+      <create-button v-if="meStore.userCan('products_create')" :to="{ name: 'productCreate' }" />
     </template>
     <template #filterForm>
       <v-col cols="12" md="4">
         <crud-input v-model="dataListProvider.filter.value.id" :label="$t('common.fields.id')" />
       </v-col>
       <v-col cols="12" md="4">
-        <crud-input
-          v-model="dataListProvider.filter.value.title"
-          :label="$t('common.fields.title')"
-        />
+        <crud-input v-model="dataListProvider.filter.value.title" :label="$t('common.fields.title')" />
       </v-col>
       <v-col cols="12" md="4">
         <crud-input
@@ -24,16 +18,6 @@
           type="number"
         />
       </v-col>
-    </template>
-
-    <!-- Custom title column with icon -->
-    <template #body-cell-title="{ value }">
-      <div class="d-flex align-center ga-2">
-        <v-icon color="primary" size="small">
-          mdi-package-variant
-        </v-icon>
-        <span>{{ value }}</span>
-      </div>
     </template>
   </crud-table>
 </template>
@@ -81,27 +65,26 @@ const columns = [
 ]
 
 // Создаем dataListProvider
-const dataListProvider: UseCrudDataListReturn<ProductItem> =
-  useCrudDataList<ProductItem>({
-    mode: 'table',
-    urlBase: '/products',
-    pk: 'id',
-    columns,
-    rowActions: [
-      ...createStandardActions<ProductItem>({
-        edit: {
-          routeName: 'productEdit',
-          show: () => meStore.userCan('products_update'),
+const dataListProvider: UseCrudDataListReturn<ProductItem> = useCrudDataList<ProductItem>({
+  mode: 'table',
+  urlBase: '/products',
+  pk: 'id',
+  columns,
+  rowActions: [
+    ...createStandardActions<ProductItem>({
+      edit: {
+        routeName: 'productEdit',
+        show: () => meStore.userCan('products_update'),
+      },
+      delete: {
+        show: () => meStore.userCan('products_delete'),
+        onDelete: (item: ProductItem) => {
+          console.log('Delete item:', item.id)
         },
-        delete: {
-          show: () => meStore.userCan('products_delete'),
-          onDelete: (item: ProductItem) => {
-            console.log('Delete item:', item.id)
-          },
-        },
-      }),
-    ],
-  })
+      },
+    }),
+  ],
+})
 
 provide('dataListProvider', dataListProvider)
 </script>
