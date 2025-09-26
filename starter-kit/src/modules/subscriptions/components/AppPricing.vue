@@ -165,7 +165,7 @@ const pricingPlans = [
             :variant="plan.isPopular ? 'elevated' : 'tonal'"
             :active="false"
           >
-            {{ plan.yearlyPrice === 0 ? 'Your Current Plan' : 'Upgrade' }}
+            {{ plan.yearlyPrice === 0 ? 'Ваш текущий план' : 'Улучшить план' }}
           </VBtn>
         </VCardText>
       </VCard>
