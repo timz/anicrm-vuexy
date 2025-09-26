@@ -6,10 +6,18 @@ export default <TCrudRouteRecord[]>[
     name: 'subscriptionsIndex',
     component: () => import('./components/IndexPage.vue'),
     meta: {
-      permission: 'subscription',
       menuTitle: 'modules.subscriptions.title',
       menuIcon: 'mdi-credit-card',
       menuSort: 110,
+    },
+  },
+  {
+    path: '/subscriptions/confirm',
+    name: 'subscriptionsConfirm',
+    component: () => import('./components/SubscriptionConfirm.vue'),
+    meta: {
+      layout: 'default',
+      menuTitle: 'subscriptionsConfirm',
     },
   },
 ]
