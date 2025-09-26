@@ -14,8 +14,7 @@ const annualMonthlyPlanPriceToggler = ref(true)
 
 const pricingPlans = [
   {
-    name: 'Бесплатный',
-    tagLine: 'A simple start for everyone',
+    name: 'Стартовый',
     monthlyPrice: 0,
     yearlyPrice: 0,
     isPopular: false,
@@ -29,8 +28,7 @@ const pricingPlans = [
     ],
   },
   {
-    name: 'Pro',
-    tagLine: 'For small to medium businesses',
+    name: 'Профессиональный',
     monthlyPrice: 49,
     yearlyPrice: 499,
     isPopular: true,
@@ -44,8 +42,7 @@ const pricingPlans = [
     ],
   },
   {
-    name: 'VIP',
-    tagLine: 'Solution for big organizations',
+    name: 'Максимальный',
     monthlyPrice: 99,
     yearlyPrice: 999,
     isPopular: false,
@@ -67,10 +64,10 @@ const pricingPlans = [
     <h3 class="text-h3 pricing-title mb-2">
       <span class="font-weight-bold">Наши</span> тарифные планы
     </h3>
-    <p class="mb-0">
+    <p class="mb-0 text-subtitle-1">
       Все планы включают современные инструменты для развития вашего бизнеса.
     </p>
-    <p class="mb-2">
+    <p class="mb-2 text-subtitle-1">
       Выберите подходящий план для ваших потребностей.
     </p>
   </div>
@@ -108,7 +105,7 @@ const pricingPlans = [
         <VCardText style="block-size: 1rem" class="text-end">
           <!-- 👉 Popular -->
           <VChip v-show="plan.isPopular" label color="primary" size="small">
-            Popular
+            Популярный
           </VChip>
         </VCardText>
 
