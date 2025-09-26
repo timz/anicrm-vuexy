@@ -19,13 +19,7 @@ const pricingPlans = [
     yearlyPrice: 0,
     isPopular: false,
     current: true,
-    features: [
-      '100 responses a month',
-      'Unlimited forms and surveys',
-      'Unlimited fields',
-      'Basic form creation tools',
-      'Up to 2 subdomains',
-    ],
+    features: ['До 2 пользователей', 'Базовый функционал', 'Поддержка по email'],
   },
   {
     name: 'Профессиональный',
@@ -33,13 +27,7 @@ const pricingPlans = [
     yearlyPrice: 499,
     isPopular: true,
     current: false,
-    features: [
-      'Unlimited responses',
-      'Unlimited forms and surveys',
-      'Instagram profile page',
-      'Google Docs integration',
-      'Custom “Thank you” page',
-    ],
+    features: ['До 5 пользователей', 'Расширенный функционал', 'Приоритетная поддержка', 'Расширенная аналитика'],
   },
   {
     name: 'Максимальный',
@@ -47,13 +35,7 @@ const pricingPlans = [
     yearlyPrice: 999,
     isPopular: false,
     current: false,
-    features: [
-      'PayPal payments',
-      'Logic Jumps',
-      'File upload with 5GB storage',
-      'Custom domain support',
-      'Stripe integration',
-    ],
+    features: ['До 10 пользователей', 'Максимальный функционал', '24/7 поддержка', 'API интеграция'],
   },
 ]
 </script>
@@ -142,7 +124,7 @@ const pricingPlans = [
 
           <!-- 👉 Plan features -->
 
-          <VList class="card-list mb-4">
+          <VList class="card-list mb-4" style="min-height: 112px">
             <VListItem v-for="feature in plan.features" :key="feature">
               <template #prepend>
                 <VIcon
