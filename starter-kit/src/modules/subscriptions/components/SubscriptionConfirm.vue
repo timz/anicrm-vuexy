@@ -1,27 +1,21 @@
 <template>
   <CenteredContentWrapper>
     <!-- Основной блок по центру -->
-    <VCard
-      :max-width="400"
-      width="100%"
-      color="blue-grey-darken-4"
-      class="subscription-card text-center pa-12"
-      rounded="lg"
-    >
+    <VCard :max-width="400" class="text-center pa-8">
       <!-- Заголовок -->
       <div class="mb-8">
-        <div class="text-h6 font-weight-bold text-blue-grey-lighten-5">
+        <div class="text-h5 font-weight-bold text-blue-grey-lighten-5">
           Начните пробный период вашего тарифного плана
         </div>
       </div>
 
       <!-- Блок плана -->
       <div class="plan-block mb-8 d-flex align-center">
-        <div class="plan-icon mr-4">
+        <div class="plan-icon me-4">
           <VIcon
-            icon="mdi-fire"
+            icon="tabler-rocket"
             size="32"
-            color="red-darken-1"
+            color="secondary"
           />
         </div>
         <div class="plan-info text-left">
@@ -35,15 +29,9 @@
       </div>
 
       <!-- Кнопка действия -->
-      <VBtn
-        variant="flat"
-        color="blue-grey-lighten-4"
-        class="font-weight-medium text-blue-grey-darken-4"
-        block
-        @click="startTrial"
-      >
+      <crud-button-primary block>
         Начать пробный период
-      </VBtn>
+      </crud-button-primary>
     </VCard>
   </CenteredContentWrapper>
 </template>
@@ -51,11 +39,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
 import CenteredContentWrapper from '@crudui/components/templates/CenteredContentWrapper.vue'
-
-const startTrial = () => {
-  // Логика начала пробного периода
-  console.log('Начать пробный период')
-}
+import CrudButtonPrimary from '@core/components/buttons/CrudButtonPrimary.vue'
 
 onMounted(() => {
   // Установка заголовка страницы
@@ -64,7 +48,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
 .plan-block {
   padding: 0;
 }
@@ -76,6 +59,4 @@ onMounted(() => {
 .plan-info {
   flex: 1;
 }
-
-
 </style>
