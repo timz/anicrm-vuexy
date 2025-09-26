@@ -1,12 +1,12 @@
 <template>
-  <div class="subscription-wrapper">
+  <CenteredContentWrapper>
     <!-- Основной блок по центру -->
     <VCard
       :max-width="400"
       width="100%"
       color="blue-grey-darken-4"
       class="subscription-card text-center pa-12"
-      rounded="xl"
+      rounded="lg"
     >
       <!-- Заголовок -->
       <div class="mb-8">
@@ -45,11 +45,12 @@
         Начать пробный период
       </VBtn>
     </VCard>
-  </div>
+  </CenteredContentWrapper>
 </template>
 
 <script setup lang="ts">
 import { onMounted } from 'vue'
+import CenteredContentWrapper from '@crudui/components/templates/CenteredContentWrapper.vue'
 
 const startTrial = () => {
   // Логика начала пробного периода
@@ -63,20 +64,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.subscription-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.25rem;
-  min-height: calc(100vh - 118px);
-}
-
-.subscription-card {
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  z-index: 1;
-}
 
 .plan-block {
   padding: 0;
@@ -90,10 +77,5 @@ onMounted(() => {
   flex: 1;
 }
 
-@media (max-width: 600px) {
-  .subscription-card {
-    padding: 30px 20px;
-    margin: 0 10px;
-  }
-}
+
 </style>
