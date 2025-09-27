@@ -8,6 +8,8 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppLoadingIndicator: typeof import('./src/crudui/components/templates/AppLoadingIndicator.vue')['default']
+    AppSelect: typeof import('./src/crudui/components/app-form-elements/AppSelect.vue')['default']
+    AppTextField: typeof import('./src/crudui/components/app-form-elements/AppTextField.vue')['default']
     ButtonAction: typeof import('./src/crudui/components/table/buttons/ButtonAction.vue')['default']
     ButtonBatchDelete: typeof import('./src/crudui/components/table/buttons/ButtonBatchDelete.vue')['default']
     CenteredContentWrapper: typeof import('./src/crudui/components/templates/CenteredContentWrapper.vue')['default']
@@ -27,6 +29,7 @@ declare module 'vue' {
     CrudSelect: typeof import('./src/crudui/components/Inputs/CrudSelect.vue')['default']
     CrudSelector: typeof import('./src/crudui/components/Inputs/CrudSelector.vue')['default']
     CrudTable: typeof import('./src/crudui/components/table/CrudTable.vue')['default']
+    CustomRadios: typeof import('./src/crudui/components/app-form-elements/CustomRadios.vue')['default']
     DefaultLayoutWithHorizontalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithHorizontalNav.vue')['default']
     DefaultLayoutWithVerticalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithVerticalNav.vue')['default']
     DropZone: typeof import('./src/crudui/components/DropZone.vue')['default']

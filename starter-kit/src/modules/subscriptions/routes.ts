@@ -2,6 +2,16 @@ import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
 
 export default <TCrudRouteRecord[]>[
   {
+    path: '/pay',
+    name: 'PaymentPage',
+    component: () => import('./components/PaymentPage.vue'),
+    meta: {
+      menuTitle: 'PaymentPage',
+      menuIcon: 'mdi-credit-card',
+      menuSort: 110,
+    },
+  },
+  {
     path: '/blocked',
     name: 'PayBlockedPage',
     component: () => import('./components/PayBlockedPage.vue'),
