@@ -22,7 +22,7 @@ const pricingPlans = [
     features: ['До 2 пользователей', 'Базовый функционал', 'Поддержка по email'],
   },
   {
-    name: 'Профессиональный',
+    name: 'Профи',
     monthlyPrice: 49,
     yearlyPrice: 499,
     isPopular: true,
@@ -56,7 +56,7 @@ const pricingPlans = [
 
   <!-- 👉 Annual and monthly price toggler -->
 
-  <div class="d-flex font-weight-medium text-body-1 align-center justify-center mx-auto mt-12 mb-6">
+  <div class="d-flex font-weight-medium text-body-1 align-center justify-center mx-auto mt-8 mb-6">
     <VLabel for="pricing-plan-toggle" class="me-3">
       Помесячная подписка
     </VLabel>
@@ -80,7 +80,7 @@ const pricingPlans = [
   </div>
 
   <!-- SECTION pricing plans -->
-  <VRow>
+  <VRow dense>
     <VCol v-for="plan in pricingPlans" :key="plan.name" v-bind="props" cols="12">
       <!-- 👉  Card -->
       <VCard flat border :class="plan.isPopular ? 'border-primary border-opacity-100' : ''">

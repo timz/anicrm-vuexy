@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import CustomRadios from '@core/components/app-form-elements/CustomRadios.vue'
 import type { CustomInputContent } from '@core/utils/types'
+import AppPricing from '@modules/subscriptions/components/AppPricing.vue'
+import DialogCloseBtn from '@core/components/dialogs/DialogCloseBtn.vue'
 
 const radioContent: CustomInputContent[] = [
   {
@@ -23,17 +25,22 @@ const isPricingPlanDialogVisible = ref(false)
       <div class="d-flex justify-center align-center payment-card">
         <div class="bg-surface rounded-lg">
           <VRow no-gutters>
-            <VCol class="px-8 py-4" cols="12" md="7" :class="$vuetify.display.mdAndUp ? 'border-e' : 'border-b'" >
+            <VCol class="px-8 py-4" cols="12" md="7" :class="$vuetify.display.mdAndUp ? 'border-e' : 'border-b'">
               <h4 class="text-h4 mb-2">
                 Оплата подписки
               </h4>
               <div class="text-body-1">
                 Выберите вариант продления подписки или измените текущий план
               </div>
-              <div class="mt-4 w-100 bg-grey-100">
+              <div class="mt-4 w-100 bg-grey-100 rounded-lg">
                 <div class="d-flex align-center gap-2 flex-wrap pa-4">
-                  <div >Текущий тарифный план: <strong>"Профи"</strong></div>
-                  <VBtn variant="tonal" @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible">
+                  <div>Тарифный план: <strong>"Профи"</strong></div>
+                  <v-spacer />
+                  <VBtn
+                    color="primary"
+                    variant="tonal"
+                    @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible"
+                  >
                     Изменить
                   </VBtn>
                 </div>
@@ -50,7 +57,7 @@ const isPricingPlanDialogVisible = ref(false)
               </CustomRadios>
             </VCol>
 
-            <VCol class="px-8  py-4" cols="12" md="5">
+            <VCol class="px-8 py-4" cols="12" md="5">
               <h4 class="text-h4 mb-2">
                 Сводка по заказу
               </h4>
@@ -94,71 +101,11 @@ const isPricingPlanDialogVisible = ref(false)
     </VContainer>
 
     <!-- Pricing Plan Dialog -->
-    <VDialog v-model="isPricingPlanDialogVisible" max-width="800">
-      <VCard>
-        <VCardTitle class="text-h5 pa-5">
-          Select Plan
-        </VCardTitle>
-        <VCardText>
-          <div class="text-body-1 mb-4">
-            Choose the plan that best fits your needs.
-          </div>
-          <!-- Placeholder for pricing plans content -->
-          <VRow>
-            <VCol cols="12" md="4">
-              <VCard variant="outlined">
-                <VCardText class="text-center">
-                  <h4 class="text-h4 mb-2">
-                    Basic
-                  </h4>
-                  <div class="text-h2 my-3">
-                    $29<span class="text-body-1">/mo</span>
-                  </div>
-                  <VBtn variant="outlined" block>
-                    Select
-                  </VBtn>
-                </VCardText>
-              </VCard>
-            </VCol>
-            <VCol cols="12" md="4">
-              <VCard variant="outlined" color="primary">
-                <VCardText class="text-center">
-                  <h4 class="text-h4 mb-2">
-                    Standard
-                  </h4>
-                  <div class="text-h2 my-3">
-                    $59<span class="text-body-1">/mo</span>
-                  </div>
-                  <VBtn color="primary" block>
-                    Select
-                  </VBtn>
-                </VCardText>
-              </VCard>
-            </VCol>
-            <VCol cols="12" md="4">
-              <VCard variant="outlined">
-                <VCardText class="text-center">
-                  <h4 class="text-h4 mb-2">
-                    Premium
-                  </h4>
-                  <div class="text-h2 my-3">
-                    $99<span class="text-body-1">/mo</span>
-                  </div>
-                  <VBtn variant="outlined" block>
-                    Select
-                  </VBtn>
-                </VCardText>
-              </VCard>
-            </VCol>
-          </VRow>
-        </VCardText>
-        <VCardActions>
-          <VSpacer />
-          <VBtn @click="isPricingPlanDialogVisible = false">
-            Close
-          </VBtn>
-        </VCardActions>
+    <VDialog v-model="isPricingPlanDialogVisible" max-width="960">
+      <VCard class="pa-6">
+        <AppPricing md="4" />
       </VCard>
+      <DialogCloseBtn @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible" />
     </VDialog>
   </div>
 </template>

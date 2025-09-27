@@ -32,6 +32,7 @@ declare module 'vue' {
     CustomRadios: typeof import('./src/crudui/components/app-form-elements/CustomRadios.vue')['default']
     DefaultLayoutWithHorizontalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithHorizontalNav.vue')['default']
     DefaultLayoutWithVerticalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithVerticalNav.vue')['default']
+    DialogCloseBtn: typeof import('./src/crudui/components/dialogs/DialogCloseBtn.vue')['default']
     DropZone: typeof import('./src/crudui/components/DropZone.vue')['default']
     ErrorHeader: typeof import('./src/crudui/components/templates/ErrorHeader.vue')['default']
     HorizontalNav: typeof import('./src/crudui/components/templates/navigation/horizontal/HorizontalNav.vue')['default']
