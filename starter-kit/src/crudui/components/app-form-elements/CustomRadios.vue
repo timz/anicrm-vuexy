@@ -30,7 +30,7 @@ const updateSelectedOption = (value: string | null) => {
       <VCol
         v-for="item in props.radioContent"
         :key="item.title"
-        cols="12"
+        cols="6"
       >
         <VLabel
           class="custom-input custom-radio rounded cursor-pointer"

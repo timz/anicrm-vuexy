@@ -7,5 +7,4 @@
 
 <script setup lang="ts">
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
-// Страница списка
 </script>

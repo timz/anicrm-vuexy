@@ -4,11 +4,11 @@ import type { CustomInputContent } from '@core/utils/types'
 
 const radioContent: CustomInputContent[] = [
   {
-    title: 'Credit Card',
+    title: 'Продление на 1 месяц',
     value: 'credit card',
   },
   {
-    title: 'PayPal',
+    title: 'Продление на 1 год',
     value: 'paypal',
   },
 ]
@@ -29,16 +29,34 @@ const isPricingPlanDialogVisible = ref(false)
                 <div>
                   <h4 class="text-h4 mb-2">Оплата подписки</h4>
                   <div class="text-body-1">
-                    All plans include 40+ advanced tools and features to boost your product. Choose the best plan to fit
-                    your needs.
+                    Выберите вариант продления подписки или измените текущий план
                   </div>
+                  <div class="mt-4 w-100 bg-blue-grey-lighten-5">
+                    <div class="d-flex align-center gap-2 flex-wrap pa-4">
+                      <VCardTitle>Sticky Action Bar</VCardTitle>
+                      <VSpacer />
+                      <div>
+                        <VBtn
+                          variant="tonal"
+                          class="me-4"
+                        >
+                          Back
+                        </VBtn>
+                        <VBtn>Place Order</VBtn>
+                      </div>
+                    </div>
+                  </div>
+                  <VCard flat class="mt-4" color="rgba(var(--v-theme-on-surface), var(--v-hover-opacity))">
+                    <VCardText>
+                      <div class="text-body-1">Текущий тарифный план "Профи"</div>
+                      <VBtn variant="tonal" block @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible">
+                        Change Plan
+                      </VBtn>
+                    </VCardText>
+                  </VCard>
                 </div>
 
-                <CustomRadios
-                  v-model:selected-radio="selectedRadio"
-                  :radio-content="radioContent"
-                  class="my-8"
-                >
+                <CustomRadios v-model:selected-radio="selectedRadio" :radio-content="radioContent" class="my-8">
                   <template #default="{ item }">
                     <div class="d-flex align-center gap-x-4 ms-3">
                       <h6 class="text-h6">
