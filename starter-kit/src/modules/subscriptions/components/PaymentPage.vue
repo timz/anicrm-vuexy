@@ -21,9 +21,9 @@ const isPricingPlanDialogVisible = ref(false)
   <div class="payment-page">
     <VContainer>
       <div class="d-flex justify-center align-center payment-card">
-        <VCard class="px-8 py-4">
+        <div class="bg-white">
           <VRow>
-            <VCol cols="12" md="7" :class="$vuetify.display.mdAndUp ? 'border-e' : 'border-b'">
+            <VCol cols="12" md="7" :class="$vuetify.display.mdAndUp ? 'border-e' : 'border-b'" >
               <h4 class="text-h4 mb-2">
                 Оплата подписки
               </h4>
@@ -32,8 +32,7 @@ const isPricingPlanDialogVisible = ref(false)
               </div>
               <div class="mt-4 w-100 bg-grey-100">
                 <div class="d-flex align-center gap-2 flex-wrap pa-4">
-                  Текущий тарифный план: <strong>"Профи"</strong>
-                  <VSpacer />
+                  <div >Текущий тарифный план: <strong>"Профи"</strong></div>
                   <VBtn variant="tonal" @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible">
                     Изменить
                   </VBtn>
@@ -78,19 +77,19 @@ const isPricingPlanDialogVisible = ref(false)
                 </div>
               </div>
 
-              <VBtn block color="success" class="mb-4">
+              <VBtn block color="primary" class="mb-4">
                 <template #append>
                   <VIcon icon="tabler-arrow-right" class="flip-in-rtl" />
                 </template>
                 Перейти к оплате
               </VBtn>
 
-              <div class="text-body-1">
+              <div class="text-body-1 mb-2">
                 Продолжая, вы принимаете наши Условия обслуживания и Политику конфиденциальности.
               </div>
             </VCol>
           </VRow>
-        </VCard>
+        </div>
       </div>
     </VContainer>
 
