@@ -21,9 +21,9 @@ const isPricingPlanDialogVisible = ref(false)
   <div class="payment-page">
     <VContainer>
       <div class="d-flex justify-center align-center payment-card">
-        <div class="bg-white">
-          <VRow>
-            <VCol cols="12" md="7" :class="$vuetify.display.mdAndUp ? 'border-e' : 'border-b'" >
+        <div class="bg-surface rounded-lg">
+          <VRow no-gutters>
+            <VCol class="px-8 py-4" cols="12" md="7" :class="$vuetify.display.mdAndUp ? 'border-e' : 'border-b'" >
               <h4 class="text-h4 mb-2">
                 Оплата подписки
               </h4>
@@ -50,12 +50,12 @@ const isPricingPlanDialogVisible = ref(false)
               </CustomRadios>
             </VCol>
 
-            <VCol cols="12" md="5">
+            <VCol class="px-8  py-4" cols="12" md="5">
               <h4 class="text-h4 mb-2">
                 Сводка по заказу
               </h4>
 
-              <div class="my-4">
+              <div class="my-5">
                 <div class="d-flex justify-space-between mb-2">
                   <span>Стоимость подписки</span>
                   <h6 class="text-h6">
@@ -165,7 +165,7 @@ const isPricingPlanDialogVisible = ref(false)
 
 <style lang="scss" scoped>
 .payment-page {
-  max-width: 800px;
+  max-width: 820px;
   margin: 0 auto;
 }
 .payment-card {
