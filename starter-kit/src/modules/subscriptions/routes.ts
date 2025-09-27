@@ -2,6 +2,17 @@ import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
 
 export default <TCrudRouteRecord[]>[
   {
+    path: '/subscription-plans',
+    name: 'SubscriptionPlans',
+    component: () => import('./components/SubscriptionPlansPage.vue'),
+    meta: {
+      menuTitle: 'SubscriptionPlans',
+      menuIcon: 'mdi-credit-card',
+      menuSort: 110,
+      menuHide: true,
+    },
+  },
+  {
     path: '/pay',
     name: 'PaymentPage',
     component: () => import('./components/PaymentPage.vue'),
