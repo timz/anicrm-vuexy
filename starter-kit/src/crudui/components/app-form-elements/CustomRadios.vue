@@ -23,17 +23,16 @@ const updateSelectedOption = (value: string | null) => {
   <VRadioGroup
     v-if="props.radioContent"
     :model-value="props.selectedRadio"
-    class="custom-input-wrapper"
     @update:model-value="updateSelectedOption"
   >
-    <VRow>
+    <VRow dense>
       <VCol
         v-for="item in props.radioContent"
         :key="item.title"
-        cols="6"
+        cols="12"
       >
         <VLabel
-          class="custom-input custom-radio rounded cursor-pointer"
+          class="custom-input custom-radio-icon rounded cursor-pointer"
           :class="props.selectedRadio === item.value ? 'active' : ''"
         >
           <div>
@@ -43,17 +42,10 @@ const updateSelectedOption = (value: string | null) => {
             />
           </div>
           <slot :item="item">
-            <div class="flex-grow-1">
-              <div class="d-flex align-center mb-2">
-                <h6 class="cr-title text-base">
-                  {{ item.title }}
-                </h6>
-                <VSpacer />
-                <span
-                  v-if="item.subtitle"
-                  class="text-disabled text-body-2"
-                >{{ item.subtitle }}</span>
-              </div>
+            <div class="d-flex flex-column align-center text-center">
+              <h6 class="text-h6">
+                {{ item.title }}
+              </h6>
               <p class="text-body-2 mb-0">
                 {{ item.desc }}
               </p>
@@ -66,18 +58,7 @@ const updateSelectedOption = (value: string | null) => {
 </template>
 
 <style lang="scss" scoped>
-.custom-radio {
+.custom-radio-icon {
   display: flex;
-  align-items: flex-start;
-  gap: 0.25rem;
-
-  .v-radio {
-    margin-block-start: -0.45rem;
-  }
-
-  .cr-title {
-    font-weight: 500;
-    line-height: 1.375rem;
-  }
 }
 </style>
