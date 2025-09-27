@@ -34,7 +34,10 @@ const isPricingPlanDialogVisible = ref(false)
               </div>
               <div class="mt-4 w-100 bg-grey-100 rounded-lg">
                 <div class="d-flex align-center gap-2 flex-wrap pa-4">
-                  <div>Тарифный план: <strong>"Профи"</strong></div>
+                  <div>
+                    <small>Тарифный план:</small><br>
+                    <strong>"Профи"</strong>
+                  </div>
                   <v-spacer />
                   <VBtn
                     color="primary"
