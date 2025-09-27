@@ -1,14 +1,19 @@
 <template>
   <div class="centered-content-wrapper">
-    <div style="min-width: 1200px">
+    <div :style="{ minWidth: `${minWidth}` }">
       <slot />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-// Универсальный компонент для центрирования контента
-// Используется для отображения блоков по центру экрана
+interface Props {
+  minWidth?: string
+}
+
+withDefaults(defineProps<Props>(), {
+  minWidth: '320px',
+})
 </script>
 
 <style scoped>

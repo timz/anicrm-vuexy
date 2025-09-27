@@ -44,7 +44,7 @@ const pricingPlans = [
   <!-- 👉 Title and subtitle -->
   <div class="text-center">
     <h3 class="text-h3 pricing-title mb-2">
-      <span class="font-weight-bold">Наши</span> тарифные планы
+      <span class="font-weight-bold">Тарифные</span> планы
     </h3>
     <p class="mb-0 text-subtitle-1">
       Все планы включают современные инструменты для развития вашего бизнеса.
@@ -56,16 +56,16 @@ const pricingPlans = [
 
   <!-- 👉 Annual and monthly price toggler -->
 
-  <div class="d-flex font-weight-medium text-body-1 align-center justify-center mx-auto mt-8 mb-6">
-    <VLabel for="pricing-plan-toggle" class="me-3">
-      Помесячная подписка
+  <div class="d-flex text-body-1 align-center justify-center mx-auto mt-8 mb-6">
+    <VLabel for="pricing-plan-toggle" class="me-3 text-primary">
+      Помесячная оплата
     </VLabel>
 
     <div class="position-relative">
       <VSwitch id="pricing-plan-toggle" v-model="annualMonthlyPlanPriceToggler">
         <template #label>
-          <div class="text-body-1 font-weight-medium">
-            Годовая подписка
+          <div class="text-body-1 text-primary">
+            Оплата за год
           </div>
         </template>
       </VSwitch>
@@ -91,45 +91,38 @@ const pricingPlans = [
           </VChip>
         </VCardText>
 
-        <!-- 👉 Plan logo -->
         <VCardText>
           <!-- 👉 Plan name -->
-          <h4 class="text-h4 mb-1 text-center">
+          <h4 class="text-h4 text-center">
             {{ plan.name }}
           </h4>
-
           <!-- 👉 Plan price  -->
 
           <div class="position-relative">
-            <div class="d-flex justify-center pt-4 pb-10">
-              <div class="text-body-1 align-self-start font-weight-medium">
-                $
-              </div>
-              <h1 class="text-h1 font-weight-medium text-primary">
-                {{ annualMonthlyPlanPriceToggler ? Math.floor(Number(plan.yearlyPrice) / 12) : plan.monthlyPrice }}
-              </h1>
-              <div class="text-body-1 font-weight-medium align-self-end">
-                /month
-              </div>
+            <div class="d-flex justify-center pt-2 pb-10">
+              <h2 class="text-h2 font-weight-bold text-primary">
+                {{ annualMonthlyPlanPriceToggler ? Math.floor(Number(plan.yearlyPrice) / 12) : plan.monthlyPrice }} ₽
+                <span class="text-body-1">/ мес.</span>
+              </h2>
             </div>
 
             <!-- 👉 Annual Price -->
             <span
               v-show="annualMonthlyPlanPriceToggler"
-              class="annual-price-text position-absolute text-caption text-disabled pb-4"
+              class="font-weight-bold annual-price-text position-absolute text-disabled pb-4"
             >
-              {{ plan.yearlyPrice === 0 ? 'free' : `USD ${plan.yearlyPrice}/Year` }}
+              {{ plan.yearlyPrice === 0 ? 'Бесплатно' : `${plan.yearlyPrice} ₽ / год` }}
             </span>
           </div>
 
           <!-- 👉 Plan features -->
 
-          <VList class="card-list mb-4" style="min-height: 112px">
+          <VList class="card-list mb-8" style="min-height: 112px">
             <VListItem v-for="feature in plan.features" :key="feature">
               <template #prepend>
                 <VIcon
-                  size="8"
-                  icon="tabler-circle-filled"
+                  size="16"
+                  icon="tabler-circle-check-filled"
                   color="rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity))"
                 />
               </template>

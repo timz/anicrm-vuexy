@@ -13,8 +13,8 @@ export default {
   userProfile: {
     profile: 'Профиль',
     settings: 'Настройки',
-    pricing: 'Тарифы',
-    faq: 'Часто задаваемые вопросы',
+    pricing: 'Тарифные планы',
+    faq: 'Частые вопросы',
   },
   cancel: 'Отмена',
   edit: 'Редактировать',
