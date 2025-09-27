@@ -1,6 +1,8 @@
 <template>
   <div class="centered-content-wrapper">
-    <slot />
+    <div style="min-width: 1200px">
+      <slot />
+    </div>
   </div>
 </template>
 
