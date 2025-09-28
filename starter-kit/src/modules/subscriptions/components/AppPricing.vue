@@ -46,9 +46,6 @@ const pricingPlans = [
     <h3 class="text-h3 pricing-title mb-2">
       <span class="font-weight-bold">Тарифные</span> планы
     </h3>
-    <p class="mb-0 text-subtitle-1">
-      Все планы включают современные инструменты для развития вашего бизнеса.
-    </p>
     <p class="mb-2 text-subtitle-1">
       Выберите подходящий план для ваших потребностей.
     </p>
@@ -57,7 +54,7 @@ const pricingPlans = [
   <!-- 👉 Annual and monthly price toggler -->
 
   <div class="d-flex text-body-1 align-center justify-center mx-auto mt-8 mb-6">
-    <VLabel for="pricing-plan-toggle" class="me-3 text-primary">
+    <VLabel for="pricing-plan-toggle" class="cursor-pointer me-3 text-primary">
       Помесячная оплата
     </VLabel>
 
@@ -136,11 +133,12 @@ const pricingPlans = [
           <!-- 👉 Plan actions -->
           <VBtn
             block
-            :color="plan.current ? 'success' : 'primary'"
-            :variant="plan.isPopular ? 'elevated' : 'tonal'"
+            :disabled="plan.current"
+            color="primary"
+            variant="flat"
             :active="false"
           >
-            {{ plan.yearlyPrice === 0 ? 'Ваш текущий план' : 'Улучшить план' }}
+            {{ plan.current ? 'Ваш текущий план' : 'Выбрать' }}
           </VBtn>
         </VCardText>
       </VCard>
