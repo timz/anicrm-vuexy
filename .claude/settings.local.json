@@ -9,7 +9,8 @@
       "Bash(cat:*)",
       "Bash(python:*)",
       "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_console_messages"
+      "mcp__playwright__browser_console_messages",
+      "Bash(curl \"http://saas.local:8000/api/v1/billing/info\" --header \"Content-Type: application/json\" --header \"Authorization: Bearer 49d1e3bd-f41e-4ca7-8f3d-a039d005d681\" --data \"{\"\"sorting\"\": {\"\"sort_by\"\": \"\"id\"\", \"\"descending\"\": false}, \"\"pagination\"\": {\"\"page\"\": 1, \"\"rows_per_page\"\": 12}}\")"
     ],
     "deny": [],
     "ask": []

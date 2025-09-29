@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { api } from '@crudui/services/AxiosService'
+
 interface Pricing {
   title?: string
   xs?: number | string
@@ -8,36 +10,62 @@ interface Pricing {
   xl?: string | number
 }
 
+interface PricingPlan {
+  id: number
+  code: string
+  title: string
+  price_monthly: string
+  price_annual: string
+  visible: boolean
+  info: {
+    icon: string
+    features: string[]
+    highlight: boolean
+    action_backend: {
+      link: string
+      text: string
+      style: string
+    }
+    price_annual_month: number
+    price_monthly_year: number
+  }
+  active: boolean
+}
+
 const props = defineProps<Pricing>()
 
 const annualMonthlyPlanPriceToggler = ref(true)
+const pricingPlans = ref<any[]>([])
+const loading = ref(false)
 
-const pricingPlans = [
-  {
-    name: 'Стартовый',
-    monthlyPrice: 0,
-    yearlyPrice: 0,
-    isPopular: false,
-    current: true,
-    features: ['До 2 пользователей', 'Базовый функционал', 'Поддержка по email'],
-  },
-  {
-    name: 'Профи',
-    monthlyPrice: 49,
-    yearlyPrice: 499,
-    isPopular: true,
-    current: false,
-    features: ['До 5 пользователей', 'Расширенный функционал', 'Приоритетная поддержка', 'Расширенная аналитика'],
-  },
-  {
-    name: 'Максимальный',
-    monthlyPrice: 99,
-    yearlyPrice: 999,
-    isPopular: false,
-    current: false,
-    features: ['До 10 пользователей', 'Максимальный функционал', '24/7 поддержка', 'API интеграция'],
-  },
-]
+const fetchPricingPlans = async () => {
+  loading.value = true
+  try {
+    const response = await api.post('/billing/info')
+
+    if (response.data?.success && response.data?.content?.items) {
+      pricingPlans.value = response.data.content.items.map((plan: PricingPlan) => ({
+        name: plan.title,
+        monthlyPrice: Number.parseFloat(plan.price_monthly),
+        yearlyPrice: Number.parseFloat(plan.price_annual),
+        isPopular: plan.info.highlight,
+        current: plan.active,
+        features: plan.info.features,
+        code: plan.code,
+      }))
+    }
+  }
+  catch (error) {
+    console.error('Error fetching pricing plans:', error)
+  }
+  finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  fetchPricingPlans()
+})
 </script>
 
 <template>
