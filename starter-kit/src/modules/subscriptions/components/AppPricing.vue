@@ -12,7 +12,17 @@ const props = defineProps<{
   loading?: boolean
 }>()
 
+const emit = defineEmits<{
+  planSelected: [code: string]
+}>()
+
 const annualMonthlyPlanPriceToggler = ref(true)
+
+const handlePlanSelect = (plan: FormattedPricingPlan) => {
+  if (!plan.active) {
+    emit('planSelected', plan.code)
+  }
+}
 </script>
 
 <template>
@@ -115,7 +125,11 @@ const annualMonthlyPlanPriceToggler = ref(true)
           </VList>
 
           <!-- 👉 Plan actions -->
-          <VBtn block>
+          <VBtn
+            block
+            :disabled="plan.active"
+            @click="handlePlanSelect(plan)"
+          >
             {{ plan.active ? 'Ваш текущий план' : 'Выбрать' }}
           </VBtn>
         </VCardText>

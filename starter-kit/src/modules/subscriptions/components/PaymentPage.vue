@@ -62,6 +62,14 @@ const fetchPricingPlans = async () => {
   }
 }
 
+const handlePlanSelected = (code: string) => {
+  const newPlan = findPlanByCode(code)
+  if (newPlan) {
+    selectedPricingPlan.value = newPlan
+    isPricingPlanDialogVisible.value = false
+  }
+}
+
 onMounted(() => {
   fetchPricingPlans()
 })
@@ -150,7 +158,12 @@ onMounted(() => {
     <!-- Pricing Plan Dialog -->
     <VDialog v-model="isPricingPlanDialogVisible" max-width="960">
       <VCard class="pa-6">
-        <AppPricing md="4" :pricing-plans="pricingPlans" :loading="loading" />
+        <AppPricing
+          md="4"
+          :pricing-plans="pricingPlans"
+          :loading="loading"
+          @plan-selected="handlePlanSelected"
+        />
       </VCard>
       <DialogCloseBtn @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible" />
     </VDialog>
