@@ -74,12 +74,11 @@ watchEffect(() => {
       :value="index"
     >
       <div
-        class="cursor-pointer app-stepper-step pa-1"
+        class="app-stepper-step pa-1"
         :class="[
           (!props.isActiveStepValid && (isValidationEnabled)) && 'stepper-steps-invalid',
           activeOrCompletedStepsClasses(index),
         ]"
-        @click="!isValidationEnabled && emit('update:currentStep', index)"
       >
         <!-- SECTION stepper step with icon -->
         <template v-if="item.icon">

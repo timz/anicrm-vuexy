@@ -54,6 +54,7 @@ const handlePlanSelectedWithPeriod = (data: { code: string; period: 'monthly' | 
   if (newPlan) {
     selectedPricingPlan.value = newPlan
     selectedPeriod.value = data.period
+
     // Move to step 2
     activeStep.value = 1
   }
@@ -66,21 +67,11 @@ const handlePayment = () => {
     period: selectedPeriod.value,
     total: selectedPeriod.value === 'annual'
       ? Math.round((selectedPricingPlan.value?.yearlyPrice || 0) * 1.2)
-      : Math.round((selectedPricingPlan.value?.monthlyPrice || 0) * 1.2)
+      : Math.round((selectedPricingPlan.value?.monthlyPrice || 0) * 1.2),
   })
+
   // TODO: Implement payment logic
 }
-
-const stepperItems = [
-  {
-    title: 'Выбор тарифа',
-    subtitle: 'Выберите тариф и период оплаты'
-  },
-  {
-    title: 'Сводка',
-    subtitle: 'Проверьте данные перед оплатой'
-  }
-]
 
 onMounted(() => {
   fetchPricingPlans()
@@ -89,133 +80,112 @@ onMounted(() => {
 
 <template>
   <div class="payment-page">
-    <VContainer>
-      <!-- Stepper -->
-      <VCard class="mb-6">
-        <VCardText>
-          <h4 class="text-h4 mb-4">Оформление подписки</h4>
-          <AppStepper
-            v-model:current-step="activeStep"
-            :items="stepperItems"
-            class="stepper-icon-step-bg"
+    <div class="text-center">
+      <h3 class="text-h3 pricing-title mb-2">
+        <span class="font-weight-bold">Оформление</span> подписки
+      </h3>
+    </div>
+
+    <VWindow
+      v-model="activeStep"
+      class="disable-tab-transition"
+    >
+      <!-- Step 1: Выбор тарифа и периода -->
+      <VWindowItem :value="0">
+        <div class="pa-4">
+          <!-- AppPricing component directly in step 1 -->
+          <AppPricing
+            md="4"
+            :pricing-plans="pricingPlans"
+            @plan-selected="handlePlanSelectedWithPeriod"
           />
-        </VCardText>
+        </div>
+      </VWindowItem>
 
-        <VDivider />
+      <!-- Step 2: Сводка -->
+      <VWindowItem :value="1">
+        <div class="pa-4">
+          <h5 class="text-h5 mb-4">
+            Сводка по заказу
+          </h5>
 
-        <VCardText>
-          <!-- Stepper content -->
-          <VWindow
-            v-model="activeStep"
-            class="disable-tab-transition"
-          >
-            <!-- Step 1: Выбор тарифа и периода -->
-            <VWindowItem :value="0">
-              <div class="pa-4">
-                <h4 class="text-h4 mb-2">
-                  Оплата подписки
-                </h4>
-                <div class="text-body-1 mb-4">
-                  Выберите вариант продления подписки или измените текущий план
-                </div>
-
-                <!-- AppPricing component directly in step 1 -->
-                <AppPricing
-                  md="4"
-                  :pricing-plans="pricingPlans"
-                  @plan-selected="handlePlanSelectedWithPeriod"
-                />
+          <!-- Информация о выбранном тарифе -->
+          <div class="mb-4">
+            <div class="bg-grey-100 rounded-lg pa-4 mb-4">
+              <div class="d-flex justify-space-between mb-2">
+                <span>Тарифный план:</span>
+                <strong>{{ selectedPricingPlan?.name || 'Не выбран' }}</strong>
               </div>
-            </VWindowItem>
-
-            <!-- Step 2: Сводка -->
-            <VWindowItem :value="1">
-              <div class="pa-4">
-                <h5 class="text-h5 mb-4">Сводка по заказу</h5>
-
-                <!-- Информация о выбранном тарифе -->
-                <div class="mb-4">
-                  <div class="bg-grey-100 rounded-lg pa-4 mb-4">
-                    <div class="d-flex justify-space-between mb-2">
-                      <span>Тарифный план:</span>
-                      <strong>{{ selectedPricingPlan?.name || 'Не выбран' }}</strong>
-                    </div>
-                    <div class="d-flex justify-space-between">
-                      <span>Период подписки:</span>
-                      <strong>{{ selectedPeriod === 'annual' ? '1 год' : '1 месяц' }}</strong>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Итоговая стоимость -->
-                <div class="my-5">
-                  <div class="d-flex justify-space-between mb-2">
-                    <span>Стоимость подписки</span>
-                    <h6 class="text-h6">
-                      {{ selectedPeriod === 'annual'
-                        ? (selectedPricingPlan?.yearlyPrice || '0')
-                        : (selectedPricingPlan?.monthlyPrice || '0') }} ₽
-                    </h6>
-                  </div>
-                  <div class="d-flex justify-space-between">
-                    <span>НДС (20%)</span>
-                    <h6 class="text-h6">
-                      {{ selectedPeriod === 'annual'
-                        ? Math.round((selectedPricingPlan?.yearlyPrice || 0) * 0.2)
-                        : Math.round((selectedPricingPlan?.monthlyPrice || 0) * 0.2) }} ₽
-                    </h6>
-                  </div>
-                  <VDivider class="my-4" />
-                  <div class="d-flex justify-space-between">
-                    <span class="font-weight-medium">Итого</span>
-                    <h6 class="text-h6 text-primary">
-                      {{ selectedPeriod === 'annual'
-                        ? Math.round((selectedPricingPlan?.yearlyPrice || 0) * 1.2)
-                        : Math.round((selectedPricingPlan?.monthlyPrice || 0) * 1.2) }} ₽
-                    </h6>
-                  </div>
-                </div>
-
-                <div class="text-body-2 text-medium-emphasis mb-6">
-                  Продолжая, вы принимаете наши Условия обслуживания и Политику конфиденциальности.
-                </div>
-
-                <!-- Navigation buttons for step 2 -->
-                <div class="d-flex flex-wrap gap-4 justify-sm-space-between justify-center">
-                  <VBtn
-                    color="secondary"
-                    variant="tonal"
-                    @click="activeStep = 0"
-                  >
-                    <VIcon
-                      icon="tabler-arrow-left"
-                      start
-                      class="flip-in-rtl"
-                    />
-                    Назад
-                  </VBtn>
-
-                  <VBtn
-                    color="success"
-                    @click="handlePayment"
-                  >
-                    Перейти к оплате
-                    <VIcon
-                      icon="tabler-arrow-right"
-                      end
-                      class="flip-in-rtl"
-                    />
-                  </VBtn>
-                </div>
+              <div class="d-flex justify-space-between">
+                <span>Период подписки:</span>
+                <strong>{{ selectedPeriod === 'annual' ? '1 год' : '1 месяц' }}</strong>
               </div>
-            </VWindowItem>
-          </VWindow>
+            </div>
+          </div>
 
-        </VCardText>
-      </VCard>
+          <!-- Итоговая стоимость -->
+          <div class="my-5">
+            <div class="d-flex justify-space-between mb-2">
+              <span>Стоимость подписки</span>
+              <h6 class="text-h6">
+                {{ selectedPeriod === 'annual'
+                  ? (selectedPricingPlan?.yearlyPrice || '0')
+                  : (selectedPricingPlan?.monthlyPrice || '0') }} ₽
+              </h6>
+            </div>
+            <div class="d-flex justify-space-between">
+              <span>НДС (20%)</span>
+              <h6 class="text-h6">
+                {{ selectedPeriod === 'annual'
+                  ? Math.round((selectedPricingPlan?.yearlyPrice || 0) * 0.2)
+                  : Math.round((selectedPricingPlan?.monthlyPrice || 0) * 0.2) }} ₽
+              </h6>
+            </div>
+            <VDivider class="my-4" />
+            <div class="d-flex justify-space-between">
+              <span class="font-weight-medium">Итого</span>
+              <h6 class="text-h6 text-primary">
+                {{ selectedPeriod === 'annual'
+                  ? Math.round((selectedPricingPlan?.yearlyPrice || 0) * 1.2)
+                  : Math.round((selectedPricingPlan?.monthlyPrice || 0) * 1.2) }} ₽
+              </h6>
+            </div>
+          </div>
 
-      <!-- Старый блок с формой оплаты удален, так как перенесен в степпер -->
-    </VContainer>
+          <div class="text-body-2 text-medium-emphasis mb-6">
+            Продолжая, вы принимаете наши Условия обслуживания и Политику конфиденциальности.
+          </div>
+
+          <!-- Navigation buttons for step 2 -->
+          <div class="d-flex flex-wrap gap-4 justify-sm-space-between justify-center">
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              @click="activeStep = 0"
+            >
+              <VIcon
+                icon="tabler-arrow-left"
+                start
+                class="flip-in-rtl"
+              />
+              Назад
+            </VBtn>
+
+            <VBtn
+              color="success"
+              @click="handlePayment"
+            >
+              Перейти к оплате
+              <VIcon
+                icon="tabler-arrow-right"
+                end
+                class="flip-in-rtl"
+              />
+            </VBtn>
+          </div>
+        </div>
+      </VWindowItem>
+    </VWindow>
   </div>
 </template>
 
