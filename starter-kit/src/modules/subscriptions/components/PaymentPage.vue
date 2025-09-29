@@ -20,7 +20,16 @@ const radioContent: CustomInputContent[] = [
 const selectedRadio = ref('credit card')
 const isPricingPlanDialogVisible = ref(false)
 const pricingPlans = ref<FormattedPricingPlan[]>([])
+const selectedPricingPlan = ref<FormattedPricingPlan | null>(null)
 const loading = ref(false)
+
+const findActivePlan = (): FormattedPricingPlan | null => {
+  return pricingPlans.value.find(plan => plan.active === true) || null
+}
+
+const findPlanByCode = (code: string): FormattedPricingPlan | null => {
+  return pricingPlans.value.find(plan => plan.code === code) || null
+}
 
 const fetchPricingPlans = async () => {
   loading.value = true
@@ -28,6 +37,7 @@ const fetchPricingPlans = async () => {
     const response = await api.post('/billing/info')
 
     if (response.data?.success && response.data?.content?.items) {
+      // Map pricing plans for display
       pricingPlans.value = response.data.content.items.map((plan: PricingPlan) => ({
         name: plan.title,
         monthlyPrice: Number.parseFloat(plan.price_monthly),
@@ -39,6 +49,9 @@ const fetchPricingPlans = async () => {
         features: plan.info.features,
         code: plan.code,
       }))
+
+      // Find and set the active plan from formatted plans
+      selectedPricingPlan.value = findActivePlan()
     }
   }
   catch (error) {
@@ -66,12 +79,13 @@ onMounted(() => {
               </h4>
               <div class="text-body-1">
                 Выберите вариант продления подписки или измените текущий план
+                {{ selectedPricingPlan}}
               </div>
               <div class="mt-4 w-100 bg-grey-100 rounded-lg">
                 <div class="d-flex align-center gap-2 flex-wrap pa-4">
                   <div>
                     <small>Тарифный план:</small><br>
-                    <strong>"Профи"</strong>
+                    <strong>Профи</strong>
                   </div>
                   <v-spacer />
                   <VBtn
