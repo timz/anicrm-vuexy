@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { api } from '@crudui/services/AxiosService'
 
-interface Pricing {
-  title?: string
-  xs?: number | string
-  sm?: number | string
-  md?: string | number
-  lg?: string | number
-  xl?: string | number
-}
-
 interface PricingPlan {
   id: number
   code: string
@@ -32,7 +23,14 @@ interface PricingPlan {
   active: boolean
 }
 
-const props = defineProps<Pricing>()
+const props = defineProps<{
+  title?: string
+  xs?: number | string
+  sm?: number | string
+  md?: string | number
+  lg?: string | number
+  xl?: string | number
+}>()
 
 const annualMonthlyPlanPriceToggler = ref(true)
 const pricingPlans = ref<any[]>([])
@@ -110,7 +108,16 @@ onMounted(() => {
 
   <!-- SECTION pricing plans -->
   <VRow dense>
-    <VCol v-for="plan in pricingPlans" :key="plan.name" v-bind="props" cols="12">
+    <VCol
+      v-for="plan in pricingPlans"
+      :key="plan.name"
+      cols="12"
+      :xs="props.xs"
+      :sm="props.sm"
+      :md="props.md"
+      :lg="props.lg"
+      :xl="props.xl"
+    >
       <!-- 👉  Card -->
       <VCard flat border :class="plan.isPopular ? 'border-primary border-opacity-100' : ''">
         <VCardText style="block-size: 1rem" class="text-end">
