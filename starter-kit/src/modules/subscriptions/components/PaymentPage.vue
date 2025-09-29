@@ -4,7 +4,7 @@ import DialogCloseBtn from '@core/components/dialogs/DialogCloseBtn.vue'
 import { api } from '@crudui/services/AxiosService'
 import type { FormattedPricingPlan, PricingPlan } from '@modules/subscriptions/types/pricing'
 
-const selectedRadio = ref('monthly')
+const selectedPeriod = ref('monthly')
 const isPricingPlanDialogVisible = ref(false)
 const pricingPlans = ref<FormattedPricingPlan[]>([])
 const selectedPricingPlan = ref<FormattedPricingPlan | null>(null)
@@ -89,20 +89,20 @@ onMounted(() => {
               </div>
 
               <VRadioGroup
-                v-model="selectedRadio"
+                v-model="selectedPeriod"
                 class="my-4"
               >
                 <VRow dense>
                   <VCol cols="12">
                     <VLabel
                       class="custom-input custom-radio-icon rounded cursor-pointer"
-                      :class="selectedRadio === 'monthly' ? 'active' : ''"
+                      :class="selectedPeriod === 'monthly' ? 'active' : ''"
                     >
                       <div>
                         <VRadio name="monthly" value="monthly" />
                       </div>
                       <div class="flex">
-                        <div>Оплата на 1 месяц</div>
+                        <div>Оплата за 1 месяц</div>
                         <strong>{{ selectedPricingPlan?.monthlyPrice || '0' }} </strong> ₽
                       </div>
                     </VLabel>
@@ -110,13 +110,13 @@ onMounted(() => {
                   <VCol cols="12">
                     <VLabel
                       class="custom-input custom-radio-icon rounded cursor-pointer"
-                      :class="selectedRadio === 'annual' ? 'active' : ''"
+                      :class="selectedPeriod === 'annual' ? 'active' : ''"
                     >
                       <div>
                         <VRadio name="annual" value="annual" />
                       </div>
                       <div class="flex">
-                        <div>Оплата на 1 год</div>
+                        <div>Оплата за 1 год</div>
                         <strong>{{ selectedPricingPlan?.yearlyPrice || '0' }} </strong>₽
                       </div>
                     </VLabel>
