@@ -1,21 +1,8 @@
 <script setup lang="ts">
-import CustomRadios from '@core/components/app-form-elements/CustomRadios.vue'
-import type { CustomInputContent } from '@core/utils/types'
 import AppPricing from '@modules/subscriptions/components/AppPricing.vue'
 import DialogCloseBtn from '@core/components/dialogs/DialogCloseBtn.vue'
 import { api } from '@crudui/services/AxiosService'
 import type { FormattedPricingPlan, PricingPlan } from '@modules/subscriptions/types/pricing'
-
-const radioContent: CustomInputContent[] = [
-  {
-    title: 'Продление на 1 месяц',
-    value: 'monthly',
-  },
-  {
-    title: 'Продление на 1 год',
-    value: 'annual',
-  },
-]
 
 const selectedRadio = ref('monthly')
 const isPricingPlanDialogVisible = ref(false)
@@ -101,14 +88,41 @@ onMounted(() => {
                 </div>
               </div>
 
-              <CustomRadios v-model:selected-radio="selectedRadio" :radio-content="radioContent" class="my-4">
-                <template #default="{ item }">
-                  <div class="flex">
-                   <div>{{ item.title }}</div>
-                    <strong>цена </strong>₽
-                  </div>
-                </template>
-              </CustomRadios>
+              <VRadioGroup
+                v-model="selectedRadio"
+                class="my-4"
+              >
+                <VRow dense>
+                  <VCol cols="12">
+                    <VLabel
+                      class="custom-input custom-radio-icon rounded cursor-pointer"
+                      :class="selectedRadio === 'monthly' ? 'active' : ''"
+                    >
+                      <div>
+                        <VRadio name="monthly" value="monthly" />
+                      </div>
+                      <div class="flex">
+                        <div>Оплата на 1 месяц</div>
+                        <strong>{{ selectedPricingPlan?.monthlyPrice || '0' }} </strong> ₽
+                      </div>
+                    </VLabel>
+                  </VCol>
+                  <VCol cols="12">
+                    <VLabel
+                      class="custom-input custom-radio-icon rounded cursor-pointer"
+                      :class="selectedRadio === 'annual' ? 'active' : ''"
+                    >
+                      <div>
+                        <VRadio name="annual" value="annual" />
+                      </div>
+                      <div class="flex">
+                        <div>Оплата на 1 год</div>
+                        <strong>{{ selectedPricingPlan?.yearlyPrice || '0' }} </strong>₽
+                      </div>
+                    </VLabel>
+                  </VCol>
+                </VRow>
+              </VRadioGroup>
             </VCol>
 
             <VCol class="px-8 py-4" cols="12" md="5">
@@ -174,8 +188,36 @@ onMounted(() => {
   max-width: 820px;
   margin: 0 auto;
 }
+
 .payment-card {
-  .custom-radio {
+  .custom-radio-icon {
+    display: flex;
+  }
+
+  .v-label.custom-input {
+    padding: 1rem;
+    border: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+    opacity: 1;
+    white-space: normal;
+
+    &:hover {
+      border-color: rgba(var(--v-border-color), 0.25);
+    }
+
+    &.active {
+      border-color: rgb(var(--v-theme-primary));
+
+      .v-icon {
+        color: rgb(var(--v-theme-primary)) !important;
+      }
+    }
+
+    &.custom-radio {
+      .v-input__control {
+        grid-area: none;
+      }
+    }
+
     .v-radio {
       margin-block-start: 0 !important;
     }
