@@ -3,6 +3,8 @@ import CustomRadios from '@core/components/app-form-elements/CustomRadios.vue'
 import type { CustomInputContent } from '@core/utils/types'
 import AppPricing from '@modules/subscriptions/components/AppPricing.vue'
 import DialogCloseBtn from '@core/components/dialogs/DialogCloseBtn.vue'
+import { api } from '@crudui/services/AxiosService'
+import type { PricingPlan, FormattedPricingPlan } from '@modules/subscriptions/types/pricing'
 
 const radioContent: CustomInputContent[] = [
   {
@@ -17,6 +19,41 @@ const radioContent: CustomInputContent[] = [
 
 const selectedRadio = ref('credit card')
 const isPricingPlanDialogVisible = ref(false)
+const pricingPlans = ref<FormattedPricingPlan[]>([])
+const loading = ref(false)
+
+const fetchPricingPlans = async () => {
+  loading.value = true
+  try {
+    const response = await api.post('/billing/info')
+
+    if (response.data?.success && response.data?.content?.items) {
+      pricingPlans.value = response.data.content.items.map((plan: PricingPlan) => ({
+        name: plan.title,
+        monthlyPrice: Number.parseFloat(plan.price_monthly),
+        yearlyPrice: Number.parseFloat(plan.price_annual),
+        priceAnnualMonth: plan.info.price_annual_month,
+        priceMonthlyYear: plan.info.price_monthly_year,
+        isPopular: plan.info.highlight,
+        current: plan.active,
+        features: plan.info.features,
+        code: plan.code,
+        actionText: plan.info.action_backend.text,
+        actionStyle: plan.info.action_backend.style,
+      }))
+    }
+  }
+  catch (error) {
+    console.error('Error fetching pricing plans:', error)
+  }
+  finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  fetchPricingPlans()
+})
 </script>
 
 <template>
@@ -106,7 +143,7 @@ const isPricingPlanDialogVisible = ref(false)
     <!-- Pricing Plan Dialog -->
     <VDialog v-model="isPricingPlanDialogVisible" max-width="960">
       <VCard class="pa-6">
-        <AppPricing md="4" />
+        <AppPricing md="4" :pricing-plans="pricingPlans" :loading="loading" />
       </VCard>
       <DialogCloseBtn @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible" />
     </VDialog>

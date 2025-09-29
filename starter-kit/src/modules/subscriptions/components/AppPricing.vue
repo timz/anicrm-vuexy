@@ -1,27 +1,5 @@
 <script setup lang="ts">
-import { api } from '@crudui/services/AxiosService'
-
-interface PricingPlan {
-  id: number
-  code: string
-  title: string
-  price_monthly: string
-  price_annual: string
-  visible: boolean
-  info: {
-    icon: string
-    features: string[]
-    highlight: boolean
-    action_backend: {
-      link: string
-      text: string
-      style: string
-    }
-    price_annual_month: number
-    price_monthly_year: number
-  }
-  active: boolean
-}
+import type { FormattedPricingPlan } from '@modules/subscriptions/types/pricing'
 
 const props = defineProps<{
   title?: string
@@ -30,44 +8,11 @@ const props = defineProps<{
   md?: string | number
   lg?: string | number
   xl?: string | number
+  pricingPlans: FormattedPricingPlan[]
+  loading?: boolean
 }>()
 
 const annualMonthlyPlanPriceToggler = ref(true)
-const pricingPlans = ref<any[]>([])
-const loading = ref(false)
-
-const fetchPricingPlans = async () => {
-  loading.value = true
-  try {
-    const response = await api.post('/billing/info')
-
-    if (response.data?.success && response.data?.content?.items) {
-      pricingPlans.value = response.data.content.items.map((plan: PricingPlan) => ({
-        name: plan.title,
-        monthlyPrice: Number.parseFloat(plan.price_monthly),
-        yearlyPrice: Number.parseFloat(plan.price_annual),
-        priceAnnualMonth: plan.info.price_annual_month,
-        priceMonthlyYear: plan.info.price_monthly_year,
-        isPopular: plan.info.highlight,
-        current: plan.active,
-        features: plan.info.features,
-        code: plan.code,
-        actionText: plan.info.action_backend.text,
-        actionStyle: plan.info.action_backend.style,
-      }))
-    }
-  }
-  catch (error) {
-    console.error('Error fetching pricing plans:', error)
-  }
-  finally {
-    loading.value = false
-  }
-}
-
-onMounted(() => {
-  fetchPricingPlans()
-})
 </script>
 
 <template>
@@ -109,7 +54,7 @@ onMounted(() => {
   <!-- SECTION pricing plans -->
   <VRow dense>
     <VCol
-      v-for="plan in pricingPlans"
+      v-for="plan in props.pricingPlans"
       :key="plan.name"
       cols="12"
       :xs="props.xs"
