@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import AppPricing from '@modules/subscriptions/components/AppPricing.vue'
 import AppStepper from '@/crudui/components/templates/AppStepper.vue'
-import DialogCloseBtn from '@core/components/dialogs/DialogCloseBtn.vue'
 import { api } from '@crudui/services/AxiosService'
 import type { FormattedPricingPlan, PricingPlan } from '@modules/subscriptions/types/pricing'
 
 const selectedPeriod = ref('monthly')
-const isPricingPlanDialogVisible = ref(false)
 const pricingPlans = ref<FormattedPricingPlan[]>([])
 const selectedPricingPlan = ref<FormattedPricingPlan | null>(null)
 const loading = ref(false)
@@ -51,11 +49,13 @@ const fetchPricingPlans = async () => {
   }
 }
 
-const handlePlanSelected = (code: string) => {
-  const newPlan = findPlanByCode(code)
+const handlePlanSelectedWithPeriod = (data: { code: string; period: 'monthly' | 'annual' }) => {
+  const newPlan = findPlanByCode(data.code)
   if (newPlan) {
     selectedPricingPlan.value = newPlan
-    isPricingPlanDialogVisible.value = false
+    selectedPeriod.value = data.period
+    // Move to step 2
+    activeStep.value = 1
   }
 }
 
@@ -107,54 +107,13 @@ onMounted(() => {
                   Выберите вариант продления подписки или измените текущий план
                 </div>
 
-                <div class="mt-4 w-100 bg-grey-100 rounded-lg">
-                  <div class="d-flex align-center gap-2 flex-wrap pa-4">
-                    <div>
-                      <small>Тарифный план:</small><br>
-                      <strong>{{ selectedPricingPlan?.name || 'Не выбран' }}</strong>
-                    </div>
-                    <v-spacer />
-                    <crud-button-secondary @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible">
-                      Изменить
-                    </crud-button-secondary>
-                  </div>
-                </div>
-
-                <VRadioGroup
-                  v-model="selectedPeriod"
-                  class="my-4"
-                >
-                  <VRow dense>
-                    <VCol cols="12">
-                      <VLabel
-                        class="custom-input custom-radio-icon rounded cursor-pointer"
-                        :class="selectedPeriod === 'monthly' ? 'active' : ''"
-                      >
-                        <div>
-                          <VRadio name="monthly" value="monthly" />
-                        </div>
-                        <div class="flex">
-                          <div>Оплата за 1 месяц</div>
-                          <strong>{{ selectedPricingPlan?.monthlyPrice || '0' }} </strong> ₽
-                        </div>
-                      </VLabel>
-                    </VCol>
-                    <VCol cols="12">
-                      <VLabel
-                        class="custom-input custom-radio-icon rounded cursor-pointer"
-                        :class="selectedPeriod === 'annual' ? 'active' : ''"
-                      >
-                        <div>
-                          <VRadio name="annual" value="annual" />
-                        </div>
-                        <div class="flex">
-                          <div>Оплата за 1 год</div>
-                          <strong>{{ selectedPricingPlan?.yearlyPrice || '0' }} </strong>₽
-                        </div>
-                      </VLabel>
-                    </VCol>
-                  </VRow>
-                </VRadioGroup>
+                <!-- AppPricing component directly in step 1 -->
+                <AppPricing
+                  md="4"
+                  :pricing-plans="pricingPlans"
+                  :loading="loading"
+                  @plan-selected="handlePlanSelectedWithPeriod"
+                />
               </div>
             </VWindowItem>
 
@@ -260,19 +219,6 @@ onMounted(() => {
 
       <!-- Старый блок с формой оплаты удален, так как перенесен в степпер -->
     </VContainer>
-
-    <!-- Pricing Plan Dialog -->
-    <VDialog v-model="isPricingPlanDialogVisible" max-width="960">
-      <VCard class="pa-6">
-        <AppPricing
-          md="4"
-          :pricing-plans="pricingPlans"
-          :loading="loading"
-          @plan-selected="handlePlanSelected"
-        />
-      </VCard>
-      <DialogCloseBtn @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible" />
-    </VDialog>
   </div>
 </template>
 

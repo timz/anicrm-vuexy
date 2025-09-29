@@ -13,13 +13,14 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  planSelected: [code: string]
+  planSelected: [data: { code: string; period: 'monthly' | 'annual' }]
 }>()
 
 const annualMonthlyPlanPriceToggler = ref(true)
 
 const handlePlanSelect = (plan: FormattedPricingPlan) => {
-  emit('planSelected', plan.code)
+  const period = annualMonthlyPlanPriceToggler.value ? 'annual' : 'monthly'
+  emit('planSelected', { code: plan.code, period })
 }
 </script>
 
