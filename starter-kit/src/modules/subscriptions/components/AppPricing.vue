@@ -48,6 +48,8 @@ const fetchPricingPlans = async () => {
         name: plan.title,
         monthlyPrice: Number.parseFloat(plan.price_monthly),
         yearlyPrice: Number.parseFloat(plan.price_annual),
+        priceAnnualMonth: plan.info.price_annual_month,
+        priceMonthlyYear: plan.info.price_monthly_year,
         isPopular: plan.info.highlight,
         current: plan.active,
         features: plan.info.features,
@@ -126,17 +128,19 @@ onMounted(() => {
           <div class="position-relative">
             <div class="d-flex justify-center pt-2 pb-10">
               <h2 class="text-h2 font-weight-bold text-primary">
-                {{ annualMonthlyPlanPriceToggler ? Math.floor(Number(plan.yearlyPrice) / 12) : plan.monthlyPrice }} ₽
+                {{ annualMonthlyPlanPriceToggler ? plan.priceAnnualMonth : plan.monthlyPrice }} ₽
                 <span class="text-body-1">/ мес.</span>
               </h2>
             </div>
 
             <!-- 👉 Annual Price -->
             <span
-              v-show="annualMonthlyPlanPriceToggler"
               class="font-weight-bold annual-price-text position-absolute text-disabled pb-4"
             >
-              {{ plan.yearlyPrice === 0 ? 'Бесплатно' : `${plan.yearlyPrice} ₽ / год` }}
+              {{ annualMonthlyPlanPriceToggler
+                ? (plan.yearlyPrice === 0 ? 'Бесплатно' : `${plan.yearlyPrice} ₽ / год`)
+                : (plan.priceMonthlyYear === 0 ? 'Бесплатно' : `${plan.priceMonthlyYear} ₽ / год`)
+              }}
             </span>
           </div>
 
