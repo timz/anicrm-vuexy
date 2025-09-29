@@ -2,14 +2,8 @@
 import type { FormattedPricingPlan } from '@modules/subscriptions/types/pricing'
 
 const props = defineProps<{
-  title?: string
-  xs?: number | string
-  sm?: number | string
   md?: string | number
-  lg?: string | number
-  xl?: string | number
   pricingPlans: FormattedPricingPlan[]
-  loading?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -66,11 +60,7 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
         v-for="plan in props.pricingPlans"
         :key="plan.name"
         cols="12"
-        :xs="props.xs"
-        :sm="props.sm"
         :md="props.md"
-        :lg="props.lg"
-        :xl="props.xl"
       >
         <!-- 👉  Card -->
         <VCard flat border :class="plan.highlight ? 'border-primary border-opacity-100' : ''">

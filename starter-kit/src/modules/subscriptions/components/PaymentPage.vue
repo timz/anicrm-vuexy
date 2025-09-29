@@ -111,7 +111,6 @@ onMounted(() => {
                 <AppPricing
                   md="4"
                   :pricing-plans="pricingPlans"
-                  :loading="loading"
                   @plan-selected="handlePlanSelectedWithPeriod"
                 />
               </div>
