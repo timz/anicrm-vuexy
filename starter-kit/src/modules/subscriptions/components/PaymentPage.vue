@@ -4,7 +4,7 @@ import type { CustomInputContent } from '@core/utils/types'
 import AppPricing from '@modules/subscriptions/components/AppPricing.vue'
 import DialogCloseBtn from '@core/components/dialogs/DialogCloseBtn.vue'
 import { api } from '@crudui/services/AxiosService'
-import type { PricingPlan, FormattedPricingPlan } from '@modules/subscriptions/types/pricing'
+import type { FormattedPricingPlan, PricingPlan } from '@modules/subscriptions/types/pricing'
 
 const radioContent: CustomInputContent[] = [
   {
@@ -34,12 +34,10 @@ const fetchPricingPlans = async () => {
         yearlyPrice: Number.parseFloat(plan.price_annual),
         priceAnnualMonth: plan.info.price_annual_month,
         priceMonthlyYear: plan.info.price_monthly_year,
-        isPopular: plan.info.highlight,
-        current: plan.active,
+        highlight: plan.info.highlight,
+        active: plan.active,
         features: plan.info.features,
         code: plan.code,
-        actionText: plan.info.action_backend.text,
-        actionStyle: plan.info.action_backend.style,
       }))
     }
   }

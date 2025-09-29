@@ -64,10 +64,10 @@ const annualMonthlyPlanPriceToggler = ref(true)
       :xl="props.xl"
     >
       <!-- 👉  Card -->
-      <VCard flat border :class="plan.isPopular ? 'border-primary border-opacity-100' : ''">
+      <VCard flat border :class="plan.highlight ? 'border-primary border-opacity-100' : ''">
         <VCardText style="block-size: 1rem" class="text-end">
           <!-- 👉 Popular -->
-          <VChip v-show="plan.isPopular" label color="primary" size="small">
+          <VChip v-show="plan.highlight" label color="primary" size="small">
             Популярный
           </VChip>
         </VCardText>
@@ -88,9 +88,7 @@ const annualMonthlyPlanPriceToggler = ref(true)
             </div>
 
             <!-- 👉 Annual Price -->
-            <span
-              class="font-weight-bold annual-price-text position-absolute text-disabled pb-4"
-            >
+            <span class="font-weight-bold annual-price-text position-absolute text-disabled pb-4">
               {{ annualMonthlyPlanPriceToggler
                 ? (plan.yearlyPrice === 0 ? 'Бесплатно' : `${plan.yearlyPrice} ₽ / год`)
                 : (plan.priceMonthlyYear === 0 ? 'Бесплатно' : `${plan.priceMonthlyYear} ₽ / год`)
@@ -117,13 +115,8 @@ const annualMonthlyPlanPriceToggler = ref(true)
           </VList>
 
           <!-- 👉 Plan actions -->
-          <VBtn
-            block
-            :disabled="plan.current"
-            :class="plan.actionStyle"
-            :active="false"
-          >
-            {{ plan.current ? 'Ваш текущий план' : plan.actionText }}
+          <VBtn block>
+            {{ plan.active ? 'Ваш текущий план' : 'Выбрать' }}
           </VBtn>
         </VCardText>
       </VCard>

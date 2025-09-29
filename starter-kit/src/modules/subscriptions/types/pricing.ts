@@ -9,11 +9,6 @@ export interface PricingPlan {
     icon: string
     features: string[]
     highlight: boolean
-    action_backend: {
-      link: string
-      text: string
-      style: string
-    }
     price_annual_month: number
     price_monthly_year: number
   }
@@ -26,10 +21,8 @@ export interface FormattedPricingPlan {
   yearlyPrice: number
   priceAnnualMonth: number
   priceMonthlyYear: number
-  isPopular: boolean
-  current: boolean
+  highlight: boolean
+  active: boolean
   features: string[]
   code: string
-  actionText: string
-  actionStyle: string
 }
