@@ -61,77 +61,77 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
 
   <!-- SECTION pricing plans -->
   <VRow dense>
-    <VCol
-      v-for="plan in props.pricingPlans"
-      :key="plan.name"
-      cols="12"
-      :xs="props.xs"
-      :sm="props.sm"
-      :md="props.md"
-      :lg="props.lg"
-      :xl="props.xl"
-    >
-      <!-- 👉  Card -->
-      <VCard flat border :class="plan.highlight ? 'border-primary border-opacity-100' : ''">
-        <VCardText style="block-size: 1rem" class="text-end">
-          <!-- 👉 Popular -->
-          <VChip v-show="plan.highlight" label color="primary" size="small">
-            Популярный
-          </VChip>
-        </VCardText>
+      <VCol
+        v-for="plan in props.pricingPlans"
+        :key="plan.name"
+        cols="12"
+        :xs="props.xs"
+        :sm="props.sm"
+        :md="props.md"
+        :lg="props.lg"
+        :xl="props.xl"
+      >
+        <!-- 👉  Card -->
+        <VCard flat border :class="plan.highlight ? 'border-primary border-opacity-100' : ''">
+          <VCardText style="block-size: 1rem" class="text-end">
+            <!-- 👉 Popular -->
+            <VChip v-show="plan.highlight" label color="primary" size="small">
+              Популярный
+            </VChip>
+          </VCardText>
 
-        <VCardText>
-          <!-- 👉 Plan name -->
-          <h4 class="text-h4 text-center">
-            {{ plan.name }}
-          </h4>
-          <!-- 👉 Plan price  -->
+          <VCardText>
+            <!-- 👉 Plan name -->
+            <h4 class="text-h4 text-center">
+              {{ plan.name }}
+            </h4>
+            <!-- 👉 Plan price  -->
 
-          <div class="position-relative">
-            <div class="d-flex justify-center pt-2 pb-10">
-              <h2 class="text-h2 font-weight-bold text-primary">
-                {{ annualMonthlyPlanPriceToggler ? plan.priceAnnualMonth : plan.monthlyPrice }} ₽
-                <span class="text-body-1">/ мес.</span>
-              </h2>
+            <div class="position-relative">
+              <div class="d-flex justify-center pt-2 pb-10">
+                <h2 class="text-h2 font-weight-bold text-primary">
+                  {{ annualMonthlyPlanPriceToggler ? plan.priceAnnualMonth : plan.monthlyPrice }} ₽
+                  <span class="text-body-1">/ мес.</span>
+                </h2>
+              </div>
+
+              <!-- 👉 Annual Price -->
+              <span class="font-weight-bold annual-price-text position-absolute text-disabled pb-4">
+                {{ annualMonthlyPlanPriceToggler
+                  ? (plan.yearlyPrice === 0 ? 'Бесплатно' : `${plan.yearlyPrice} ₽ / год`)
+                  : (plan.priceMonthlyYear === 0 ? 'Бесплатно' : `${plan.priceMonthlyYear} ₽ / год`)
+                }}
+              </span>
             </div>
 
-            <!-- 👉 Annual Price -->
-            <span class="font-weight-bold annual-price-text position-absolute text-disabled pb-4">
-              {{ annualMonthlyPlanPriceToggler
-                ? (plan.yearlyPrice === 0 ? 'Бесплатно' : `${plan.yearlyPrice} ₽ / год`)
-                : (plan.priceMonthlyYear === 0 ? 'Бесплатно' : `${plan.priceMonthlyYear} ₽ / год`)
-              }}
-            </span>
-          </div>
+            <!-- 👉 Plan features -->
 
-          <!-- 👉 Plan features -->
+            <VList class="card-list mb-8" style="min-height: 112px">
+              <VListItem v-for="feature in plan.features" :key="feature">
+                <template #prepend>
+                  <VIcon
+                    size="16"
+                    icon="tabler-circle-check-filled"
+                    color="rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity))"
+                  />
+                </template>
 
-          <VList class="card-list mb-8" style="min-height: 112px">
-            <VListItem v-for="feature in plan.features" :key="feature">
-              <template #prepend>
-                <VIcon
-                  size="16"
-                  icon="tabler-circle-check-filled"
-                  color="rgba(var(--v-theme-on-surface), var(--v-medium-emphasis-opacity))"
-                />
-              </template>
+                <VListItemTitle class="text-body-1">
+                  {{ feature }}
+                </VListItemTitle>
+              </VListItem>
+            </VList>
 
-              <VListItemTitle class="text-body-1">
-                {{ feature }}
-              </VListItemTitle>
-            </VListItem>
-          </VList>
-
-          <!-- 👉 Plan actions -->
-          <VBtn
-            block
-            @click="handlePlanSelect(plan)"
-          >
-            {{ plan.active ? 'Ваш текущий план' : 'Выбрать' }}
-          </VBtn>
-        </VCardText>
-      </VCard>
-    </VCol>
+            <!-- 👉 Plan actions -->
+            <VBtn
+              block
+              @click="handlePlanSelect(plan)"
+            >
+              {{ plan.active ? 'Ваш текущий план' : 'Выбрать' }}
+            </VBtn>
+          </VCardText>
+        </VCard>
+      </VCol>
   </VRow>
   <!-- !SECTION  -->
 </template>
