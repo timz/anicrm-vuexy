@@ -19,9 +19,7 @@ const emit = defineEmits<{
 const annualMonthlyPlanPriceToggler = ref(true)
 
 const handlePlanSelect = (plan: FormattedPricingPlan) => {
-  if (!plan.active) {
-    emit('planSelected', plan.code)
-  }
+  emit('planSelected', plan.code)
 }
 </script>
 
