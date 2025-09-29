@@ -59,6 +59,18 @@ const handlePlanSelectedWithPeriod = (data: { code: string; period: 'monthly' | 
   }
 }
 
+const handlePayment = () => {
+  // Здесь будет логика для перехода к оплате
+  console.log('Переход к оплате:', {
+    plan: selectedPricingPlan.value?.code,
+    period: selectedPeriod.value,
+    total: selectedPeriod.value === 'annual'
+      ? Math.round((selectedPricingPlan.value?.yearlyPrice || 0) * 1.2)
+      : Math.round((selectedPricingPlan.value?.monthlyPrice || 0) * 1.2)
+  })
+  // TODO: Implement payment logic
+}
+
 const stepperItems = [
   {
     title: 'Выбор тарифа',
@@ -164,55 +176,41 @@ onMounted(() => {
                   </div>
                 </div>
 
-                <div class="text-body-2 text-medium-emphasis">
+                <div class="text-body-2 text-medium-emphasis mb-6">
                   Продолжая, вы принимаете наши Условия обслуживания и Политику конфиденциальности.
+                </div>
+
+                <!-- Navigation buttons for step 2 -->
+                <div class="d-flex flex-wrap gap-4 justify-sm-space-between justify-center">
+                  <VBtn
+                    color="secondary"
+                    variant="tonal"
+                    @click="activeStep = 0"
+                  >
+                    <VIcon
+                      icon="tabler-arrow-left"
+                      start
+                      class="flip-in-rtl"
+                    />
+                    Назад
+                  </VBtn>
+
+                  <VBtn
+                    color="success"
+                    @click="handlePayment"
+                  >
+                    Перейти к оплате
+                    <VIcon
+                      icon="tabler-arrow-right"
+                      end
+                      class="flip-in-rtl"
+                    />
+                  </VBtn>
                 </div>
               </div>
             </VWindowItem>
           </VWindow>
 
-          <!-- Navigation buttons -->
-          <div class="d-flex flex-wrap gap-4 justify-sm-space-between justify-center mt-4">
-            <VBtn
-              color="secondary"
-              variant="tonal"
-              :disabled="activeStep === 0"
-              @click="activeStep--"
-            >
-              <VIcon
-                icon="tabler-arrow-left"
-                start
-                class="flip-in-rtl"
-              />
-              Назад
-            </VBtn>
-
-            <VBtn
-              v-if="activeStep === 0"
-              color="primary"
-              @click="activeStep++"
-            >
-              Далее
-              <VIcon
-                icon="tabler-arrow-right"
-                end
-                class="flip-in-rtl"
-              />
-            </VBtn>
-
-            <VBtn
-              v-else
-              color="success"
-              block
-            >
-              Перейти к оплате
-              <VIcon
-                icon="tabler-arrow-right"
-                end
-                class="flip-in-rtl"
-              />
-            </VBtn>
-          </div>
         </VCardText>
       </VCard>
 
