@@ -54,6 +54,8 @@ const fetchPricingPlans = async () => {
         current: plan.active,
         features: plan.info.features,
         code: plan.code,
+        actionText: plan.info.action_backend.text,
+        actionStyle: plan.info.action_backend.style,
       }))
     }
   }
@@ -166,11 +168,10 @@ onMounted(() => {
           <VBtn
             block
             :disabled="plan.current"
-            color="primary"
-            variant="flat"
+            :class="plan.actionStyle"
             :active="false"
           >
-            {{ plan.current ? 'Ваш текущий план' : 'Выбрать' }}
+            {{ plan.current ? 'Ваш текущий план' : plan.actionText }}
           </VBtn>
         </VCardText>
       </VCard>
