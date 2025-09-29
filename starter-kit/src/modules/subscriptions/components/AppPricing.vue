@@ -127,7 +127,6 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
           <!-- 👉 Plan actions -->
           <VBtn
             block
-            :disabled="plan.active"
             @click="handlePlanSelect(plan)"
           >
             {{ plan.active ? 'Ваш текущий план' : 'Выбрать' }}
