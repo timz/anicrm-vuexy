@@ -9,15 +9,15 @@ import type { FormattedPricingPlan, PricingPlan } from '@modules/subscriptions/t
 const radioContent: CustomInputContent[] = [
   {
     title: 'Продление на 1 месяц',
-    value: 'credit card',
+    value: 'monthly',
   },
   {
     title: 'Продление на 1 год',
-    value: 'paypal',
+    value: 'annual',
   },
 ]
 
-const selectedRadio = ref('credit card')
+const selectedRadio = ref('monthly')
 const isPricingPlanDialogVisible = ref(false)
 const pricingPlans = ref<FormattedPricingPlan[]>([])
 const selectedPricingPlan = ref<FormattedPricingPlan | null>(null)
@@ -103,10 +103,9 @@ onMounted(() => {
 
               <CustomRadios v-model:selected-radio="selectedRadio" :radio-content="radioContent" class="my-4">
                 <template #default="{ item }">
-                  <div class="d-flex align-center gap-x-4 ms-3">
-                    <h6 class="text-h6">
-                      {{ item.title }}
-                    </h6>
+                  <div class="flex">
+                   <div>{{ item.title }}</div>
+                    <strong>цена </strong>₽
                   </div>
                 </template>
               </CustomRadios>
