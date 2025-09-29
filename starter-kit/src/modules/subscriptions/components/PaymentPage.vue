@@ -79,22 +79,17 @@ onMounted(() => {
               </h4>
               <div class="text-body-1">
                 Выберите вариант продления подписки или измените текущий план
-                {{ selectedPricingPlan}}
               </div>
               <div class="mt-4 w-100 bg-grey-100 rounded-lg">
                 <div class="d-flex align-center gap-2 flex-wrap pa-4">
                   <div>
                     <small>Тарифный план:</small><br>
-                    <strong>Профи</strong>
+                    <strong>{{ selectedPricingPlan?.name || 'Не выбран' }}</strong>
                   </div>
                   <v-spacer />
-                  <VBtn
-                    color="primary"
-                    variant="tonal"
-                    @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible"
-                  >
+                  <crud-button-secondary @click="isPricingPlanDialogVisible = !isPricingPlanDialogVisible">
                     Изменить
-                  </VBtn>
+                  </crud-button-secondary>
                 </div>
               </div>
 
