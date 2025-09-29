@@ -36,7 +36,11 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
     </VLabel>
 
     <div class="position-relative">
-      <VSwitch id="pricing-plan-toggle" v-model="annualMonthlyPlanPriceToggler">
+      <VSwitch
+        id="pricing-plan-toggle"
+        v-model="annualMonthlyPlanPriceToggler"
+        class="large-switch"
+      >
         <template #label>
           <div class="text-h5 text-primary">
             За год
@@ -137,5 +141,22 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
   inset-block-end: 3%;
   inset-inline-start: 50%;
   transform: translateX(-50%);
+}
+
+.large-switch {
+  :deep(.v-switch__track) {
+    height: 24px;
+    width: 42px;
+  }
+
+  :deep(.v-switch__thumb) {
+    height: 18px;
+    width: 18px;
+  }
+
+  :deep(.v-selection-control__input) {
+    height: 24px;
+    width: 42px;
+  }
 }
 </style>
