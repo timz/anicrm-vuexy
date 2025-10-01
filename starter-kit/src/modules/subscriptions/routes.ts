@@ -17,7 +17,7 @@ export default <TCrudRouteRecord[]>[
     name: 'PaymentPage',
     component: () => import('./components/PaymentPage.vue'),
     meta: {
-      layout: 'blank',
+      layout: 'boxed',
       menuTitle: 'PaymentPage',
       menuIcon: 'mdi-credit-card',
       menuSort: 110,
