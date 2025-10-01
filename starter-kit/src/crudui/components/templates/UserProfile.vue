@@ -7,6 +7,14 @@ import { clearAbilityRules } from '@crudui/plugins/casl/index'
 import { ability } from '@crudui/plugins/casl/ability'
 import { useMeStore } from '@crudui/stores/meStore'
 
+interface Props {
+  shortMenu?: boolean
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  shortMenu: false,
+})
+
 const router = useRouter()
 const meStore = useMeStore()
 const { t } = useI18n()
@@ -55,44 +63,46 @@ const handleLogout = async () => {
 
           <VDivider class="my-2" />
 
-          <!-- 👉 Profile -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon class="me-2" icon="tabler-user" size="22" />
-            </template>
+          <template v-if="!shortMenu">
+            <!-- 👉 Profile -->
+            <VListItem link>
+              <template #prepend>
+                <VIcon class="me-2" icon="tabler-user" size="22" />
+              </template>
 
-            <VListItemTitle>{{ $t('userProfile.profile') }}</VListItemTitle>
-          </VListItem>
+              <VListItemTitle>{{ $t('userProfile.profile') }}</VListItemTitle>
+            </VListItem>
 
-          <!-- 👉 Settings -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon class="me-2" icon="tabler-settings" size="22" />
-            </template>
+            <!-- 👉 Settings -->
+            <VListItem link>
+              <template #prepend>
+                <VIcon class="me-2" icon="tabler-settings" size="22" />
+              </template>
 
-            <VListItemTitle>{{ $t('userProfile.settings') }}</VListItemTitle>
-          </VListItem>
+              <VListItemTitle>{{ $t('userProfile.settings') }}</VListItemTitle>
+            </VListItem>
 
-          <!-- 👉 Pricing -->
-          <VListItem link :to="{ name: 'SubscriptionPlans' }">
-            <template #prepend>
-              <VIcon class="me-2" icon="tabler-currency-dollar" size="22" />
-            </template>
+            <!-- 👉 Pricing -->
+            <VListItem link :to="{ name: 'SubscriptionPlans' }">
+              <template #prepend>
+                <VIcon class="me-2" icon="tabler-currency-dollar" size="22" />
+              </template>
 
-            <VListItemTitle>{{ $t('userProfile.pricing') }}</VListItemTitle>
-          </VListItem>
+              <VListItemTitle>{{ $t('userProfile.pricing') }}</VListItemTitle>
+            </VListItem>
 
-          <!-- 👉 FAQ -->
-          <VListItem link>
-            <template #prepend>
-              <VIcon class="me-2" icon="tabler-help" size="22" />
-            </template>
+            <!-- 👉 FAQ -->
+            <VListItem link>
+              <template #prepend>
+                <VIcon class="me-2" icon="tabler-help" size="22" />
+              </template>
 
-            <VListItemTitle>{{ $t('userProfile.faq') }}</VListItemTitle>
-          </VListItem>
+              <VListItemTitle>{{ $t('userProfile.faq') }}</VListItemTitle>
+            </VListItem>
 
-          <!-- Divider -->
-          <VDivider class="my-2" />
+            <!-- Divider -->
+            <VDivider class="my-2" />
+          </template>
 
           <!-- 👉 Logout -->
           <VListItem @click="handleLogout">

@@ -45,7 +45,7 @@ watch(
             <!-- Language Switcher -->
             <LanguageSwitcher class="me-2" />
 
-            <UserProfile />
+            <UserProfile :short-menu="true" />
           </div>
         </div>
       </header>
