@@ -10,7 +10,7 @@ const emit = defineEmits<{
   planSelected: [data: { code: string; period: 'monthly' | 'annual' }]
 }>()
 
-const annualMonthlyPlanPriceToggler = ref(true)
+const annualMonthlyPlanPriceToggler = ref(false)
 
 const handlePlanSelect = (plan: FormattedPricingPlan) => {
   const period = annualMonthlyPlanPriceToggler.value ? 'annual' : 'monthly'
