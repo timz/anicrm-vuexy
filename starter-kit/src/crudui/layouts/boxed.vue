@@ -39,9 +39,9 @@ watch(
         <div class="navbar-content-container boxed-container">
           <div class="d-flex h-100 align-center">
             <!-- 👉 Logo -->
-            <RouterLink to="/" class="app-logo d-flex align-center gap-x-3">
+            <div class="app-logo d-flex align-center gap-x-3">
               <VNodeRenderer :nodes="layoutConfig.app.logo" />
-            </RouterLink>
+            </div>
 
             <VSpacer />
 
