@@ -31,6 +31,7 @@ declare module 'vue' {
     CrudTable: typeof import('./src/crudui/components/table/CrudTable.vue')['default']
     CustomRadios: typeof import('./src/crudui/components/app-form-elements/CustomRadios.vue')['default']
     DefaultLayoutWithHorizontalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithHorizontalNav.vue')['default']
+    DefaultLayoutWithoutNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithoutNav.vue')['default']
     DefaultLayoutWithVerticalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithVerticalNav.vue')['default']
     DialogCloseBtn: typeof import('./src/crudui/components/dialogs/DialogCloseBtn.vue')['default']
     DropZone: typeof import('./src/crudui/components/DropZone.vue')['default']
@@ -54,5 +55,6 @@ declare module 'vue' {
     VerticalNavLayout: typeof import('./src/crudui/components/templates/navigation/vertical/VerticalNavLayout.vue')['default']
     VerticalNavLink: typeof import('./src/crudui/components/templates/navigation/vertical/VerticalNavLink.vue')['default']
     VerticalNavSectionTitle: typeof import('./src/crudui/components/templates/navigation/vertical/VerticalNavSectionTitle.vue')['default']
+    WithoutNavLayout: typeof import('./src/crudui/components/templates/navigation/vertical/WithoutNavLayout.vue')['default']
   }
 }

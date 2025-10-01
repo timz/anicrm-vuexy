@@ -17,6 +17,7 @@ export default <TCrudRouteRecord[]>[
     name: 'PaymentPage',
     component: () => import('./components/PaymentPage.vue'),
     meta: {
+      layout: 'blank',
       menuTitle: 'PaymentPage',
       menuIcon: 'mdi-credit-card',
       menuSort: 110,
@@ -47,7 +48,7 @@ export default <TCrudRouteRecord[]>[
     name: 'subscriptionsConfirm',
     component: () => import('./components/SubscriptionConfirm.vue'),
     meta: {
-      layout: 'default',
+      layout: 'clean',
       menuTitle: 'subscriptionsConfirm',
     },
   },

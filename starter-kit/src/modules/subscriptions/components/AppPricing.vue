@@ -49,10 +49,10 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
       </VSwitch>
 
       <div class="save-upto-chip position-absolute align-center d-none d-md-flex gap-1">
-        <VIcon icon="tabler-corner-left-down" size="36" class="flip-in-rtl mt-2 text-disabled" />
         <VChip label color="primary" size="small">
           Сэкономьте 25%
         </VChip>
+        <VIcon icon="tabler-corner-right-down" size="36" class=" mt-2 text-disabled" />
       </div>
     </div>
   </div>
@@ -133,8 +133,8 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
 }
 
 .save-upto-chip {
-  inset-block-start: -2rem;
-  inset-inline-end: -5rem;
+  inset-block-start: -2.25rem;
+  inset-inline-end: 1rem;
 }
 
 .annual-price-text {

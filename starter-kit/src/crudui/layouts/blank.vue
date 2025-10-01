@@ -1,10 +1,4 @@
 <script lang="ts" setup>
-const { injectSkinClasses } = useSkins()
-
-// ℹ️ This will inject classes in body tag for accurate styling
-injectSkinClasses()
-
-// SECTION: Loading Indicator
 const isFallbackStateActive = ref(false)
 const refLoadingIndicator = ref<any>(null)
 
@@ -41,5 +35,6 @@ watch([isFallbackStateActive, refLoadingIndicator], () => {
 <style>
 .layout-wrapper.layout-blank {
   flex-direction: column;
+  padding: 1.25rem 0.5rem;
 }
 </style>
