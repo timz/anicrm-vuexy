@@ -3,11 +3,7 @@ import { useLayoutConfigStore } from '@core/components/templates/stores/config'
 import LanguageSwitcher from '@crudui/components/LanguageSwitcher.vue'
 import UserProfile from '@crudui/components/templates/UserProfile.vue'
 
-const { injectSkinClasses } = useSkins()
 const configStore = useLayoutConfigStore()
-
-// ℹ️ This will inject classes in body tag for accurate styling
-injectSkinClasses()
 
 // SECTION: Loading Indicator
 const isFallbackStateActive = ref(false)
@@ -35,7 +31,7 @@ watch(
     <div class="layout-content-wrapper">
       <!-- 👉 navbar -->
       <header
-        class="layout-navbar"
+        class="layout-navbar ma-4"
         :class="[{ 'navbar-blur': configStore.isNavbarBlurEnabled }]"
       >
         <div class="navbar-content-container boxed-container">
