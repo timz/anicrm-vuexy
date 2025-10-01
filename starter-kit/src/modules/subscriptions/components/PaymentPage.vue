@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import AppPricing from '@modules/subscriptions/components/AppPricing.vue'
-import AppStepper from '@/crudui/components/templates/AppStepper.vue'
 import { api } from '@crudui/services/AxiosService'
 import type { FormattedPricingPlan, PricingPlan } from '@modules/subscriptions/types/pricing'
 
@@ -65,9 +64,10 @@ const handlePayment = () => {
   console.log('Переход к оплате:', {
     plan: selectedPricingPlan.value?.code,
     period: selectedPeriod.value,
-    total: selectedPeriod.value === 'annual'
-      ? Math.round((selectedPricingPlan.value?.yearlyPrice || 0) * 1.2)
-      : Math.round((selectedPricingPlan.value?.monthlyPrice || 0) * 1.2),
+    total:
+      selectedPeriod.value === 'annual'
+        ? Math.round((selectedPricingPlan.value?.yearlyPrice || 0) * 1.2)
+        : Math.round((selectedPricingPlan.value?.monthlyPrice || 0) * 1.2),
   })
 
   // TODO: Implement payment logic
@@ -81,25 +81,16 @@ onMounted(() => {
 <template>
   <div class="payment-page">
     <div class="text-center">
-      <h3 class="text-h3 pricing-title mb-2">
+      <h3 class="text-h3 mb-2">
         <span class="font-weight-bold">Оформление</span> подписки
       </h3>
     </div>
 
-    <VWindow
-      v-model="activeStep"
-      class="disable-tab-transition"
-    >
+    <VWindow v-model="activeStep" class="disable-tab-transition">
       <!-- Step 1: Выбор тарифа и периода -->
       <VWindowItem :value="0">
-        <div class="pa-4">
-          <!-- AppPricing component directly in step 1 -->
-          <AppPricing
-            md="4"
-            :pricing-plans="pricingPlans"
-            @plan-selected="handlePlanSelectedWithPeriod"
-          />
-        </div>
+        <!-- AppPricing component directly in step 1 -->
+        <AppPricing md="4" :pricing-plans="pricingPlans" @plan-selected="handlePlanSelectedWithPeriod" />
       </VWindowItem>
 
       <!-- Step 2: Сводка -->
@@ -128,26 +119,35 @@ onMounted(() => {
             <div class="d-flex justify-space-between mb-2">
               <span>Стоимость подписки</span>
               <h6 class="text-h6">
-                {{ selectedPeriod === 'annual'
-                  ? (selectedPricingPlan?.yearlyPrice || '0')
-                  : (selectedPricingPlan?.monthlyPrice || '0') }} ₽
+                {{
+                  selectedPeriod === 'annual'
+                    ? selectedPricingPlan?.yearlyPrice || '0'
+                    : selectedPricingPlan?.monthlyPrice || '0'
+                }}
+                ₽
               </h6>
             </div>
             <div class="d-flex justify-space-between">
               <span>НДС (20%)</span>
               <h6 class="text-h6">
-                {{ selectedPeriod === 'annual'
-                  ? Math.round((selectedPricingPlan?.yearlyPrice || 0) * 0.2)
-                  : Math.round((selectedPricingPlan?.monthlyPrice || 0) * 0.2) }} ₽
+                {{
+                  selectedPeriod === 'annual'
+                    ? Math.round((selectedPricingPlan?.yearlyPrice || 0) * 0.2)
+                    : Math.round((selectedPricingPlan?.monthlyPrice || 0) * 0.2)
+                }}
+                ₽
               </h6>
             </div>
             <VDivider class="my-4" />
             <div class="d-flex justify-space-between">
               <span class="font-weight-medium">Итого</span>
               <h6 class="text-h6 text-primary">
-                {{ selectedPeriod === 'annual'
-                  ? Math.round((selectedPricingPlan?.yearlyPrice || 0) * 1.2)
-                  : Math.round((selectedPricingPlan?.monthlyPrice || 0) * 1.2) }} ₽
+                {{
+                  selectedPeriod === 'annual'
+                    ? Math.round((selectedPricingPlan?.yearlyPrice || 0) * 1.2)
+                    : Math.round((selectedPricingPlan?.monthlyPrice || 0) * 1.2)
+                }}
+                ₽
               </h6>
             </div>
           </div>
@@ -158,29 +158,14 @@ onMounted(() => {
 
           <!-- Navigation buttons for step 2 -->
           <div class="d-flex flex-wrap gap-4 justify-sm-space-between justify-center">
-            <VBtn
-              color="secondary"
-              variant="tonal"
-              @click="activeStep = 0"
-            >
-              <VIcon
-                icon="tabler-arrow-left"
-                start
-                class="flip-in-rtl"
-              />
+            <VBtn color="secondary" variant="tonal" @click="activeStep = 0">
+              <VIcon icon="tabler-arrow-left" start class="flip-in-rtl" />
               Назад
             </VBtn>
 
-            <VBtn
-              color="success"
-              @click="handlePayment"
-            >
+            <VBtn color="success" @click="handlePayment">
               Перейти к оплате
-              <VIcon
-                icon="tabler-arrow-right"
-                end
-                class="flip-in-rtl"
-              />
+              <VIcon icon="tabler-arrow-right" end class="flip-in-rtl" />
             </VBtn>
           </div>
         </div>

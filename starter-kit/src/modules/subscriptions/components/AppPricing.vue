@@ -20,16 +20,6 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
 </script>
 
 <template>
-  <!-- 👉 Title and subtitle -->
-  <!--
-    <div class="text-center">
-    <h3 class="text-h3 pricing-title mb-2"><span class="font-weight-bold">Тарифные</span> планы</h3>
-    <p class="mb-2 text-subtitle-1">Выберите подходящий план для ваших потребностей.</p>
-    </div>
-  -->
-
-  <!-- 👉 Annual and monthly price toggler -->
-
   <div class="d-flex align-center justify-center mx-auto mt-8 mb-6">
     <VLabel for="pricing-plan-toggle" class="cursor-pointer me-3 text-primary text-h5 ">
       За месяц
