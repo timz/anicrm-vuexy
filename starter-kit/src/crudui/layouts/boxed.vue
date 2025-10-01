@@ -80,7 +80,7 @@ watch(
   }
 
   .boxed-container {
-    max-inline-size: 1200px;
+    max-inline-size: 960px;
     margin-inline: auto;
     padding-inline: 1rem;
   }
