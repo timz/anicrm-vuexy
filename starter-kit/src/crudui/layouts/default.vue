@@ -1,49 +1,35 @@
 <script lang="ts" setup>
-import { useConfigStore } from '@crudui/stores/config'
-import { AppContentLayoutNav } from '@crudui/components/templates/helpers/enums'
-import { switchToVerticalNavOnLtOverlayNavBreakpoint } from '@crudui/components/templates/helpers/utils'
+const DefaultLayoutWithVerticalNav = defineAsyncComponent(
+  () => import('../components/templates/DefaultLayoutWithVerticalNav.vue'),
+)
 
-const DefaultLayoutWithHorizontalNav = defineAsyncComponent(() => import('../components/templates/DefaultLayoutWithHorizontalNav.vue'))
-const DefaultLayoutWithVerticalNav = defineAsyncComponent(() => import('../components/templates/DefaultLayoutWithVerticalNav.vue'))
-
-const configStore = useConfigStore()
-
-// ℹ️ This will switch to vertical nav when define breakpoint is reached when in horizontal nav layout
-// Remove below composable usage if you are not using horizontal nav layout in your app
-switchToVerticalNavOnLtOverlayNavBreakpoint()
-
-const { layoutAttrs, injectSkinClasses } = useSkins()
-
-injectSkinClasses()
+const { layoutAttrs } = useSkins()
 
 // SECTION: Loading Indicator
 const isFallbackStateActive = ref(false)
 const refLoadingIndicator = ref<any>(null)
 
 // watching if the fallback state is active and the refLoadingIndicator component is available
-watch([isFallbackStateActive, refLoadingIndicator], () => {
-  if (isFallbackStateActive.value && refLoadingIndicator.value)
-    refLoadingIndicator.value.fallbackHandle()
+watch(
+  [isFallbackStateActive, refLoadingIndicator],
+  () => {
+    if (isFallbackStateActive.value && refLoadingIndicator.value)
+      refLoadingIndicator.value.fallbackHandle()
 
-  if (!isFallbackStateActive.value && refLoadingIndicator.value)
-    refLoadingIndicator.value.resolveHandle()
-}, { immediate: true })
+    if (!isFallbackStateActive.value && refLoadingIndicator.value)
+      refLoadingIndicator.value.resolveHandle()
+  },
+  { immediate: true },
+)
 // !SECTION
 </script>
 
 <template>
-  <Component
-    v-bind="layoutAttrs"
-    :is="configStore.appContentLayoutNav === AppContentLayoutNav.Vertical ? DefaultLayoutWithVerticalNav : DefaultLayoutWithHorizontalNav"
-  >
+  <Component v-bind="layoutAttrs" :is="DefaultLayoutWithVerticalNav">
     <AppLoadingIndicator ref="refLoadingIndicator" />
 
     <RouterView v-slot="{ Component }">
-      <Suspense
-        :timeout="0"
-        @fallback="isFallbackStateActive = true"
-        @resolve="isFallbackStateActive = false"
-      >
+      <Suspense :timeout="0" @fallback="isFallbackStateActive = true" @resolve="isFallbackStateActive = false">
         <Component :is="Component" />
       </Suspense>
     </RouterView>
@@ -52,5 +38,5 @@ watch([isFallbackStateActive, refLoadingIndicator], () => {
 
 <style lang="scss">
 // As we are using `layouts` plugin we need its styles to be imported
-@use "@crudui/styles/default-layout";
+@use '@crudui/styles/default-layout';
 </style>
