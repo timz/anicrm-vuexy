@@ -21,28 +21,18 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
 
 <template>
   <div class="d-flex align-center justify-center mx-auto mt-8 mb-6">
-    <VLabel for="pricing-plan-toggle" class="cursor-pointer me-3 text-primary text-h5 ">
-      За месяц
-    </VLabel>
+    <VLabel for="pricing-plan-toggle" class="cursor-pointer me-3 text-primary text-h5"> За месяц </VLabel>
 
     <div class="position-relative">
-      <VSwitch
-        id="pricing-plan-toggle"
-        v-model="annualMonthlyPlanPriceToggler"
-        class="large-switch"
-      >
+      <VSwitch id="pricing-plan-toggle" v-model="annualMonthlyPlanPriceToggler" class="large-switch">
         <template #label>
-          <div class="text-h5 text-primary">
-            За год
-          </div>
+          <div class="text-h5 text-primary">За год</div>
         </template>
       </VSwitch>
 
       <div class="save-upto-chip position-absolute align-center d-none d-md-flex gap-1">
-        <VChip label color="primary" size="small">
-          Сэкономьте 25%
-        </VChip>
-        <VIcon icon="tabler-corner-right-down" size="36" class=" mt-2 text-disabled" />
+        <VChip label color="primary" size="small"> Сэкономьте 25% </VChip>
+        <VIcon icon="tabler-corner-right-down" size="36" class="mt-2 text-disabled" />
       </div>
     </div>
   </div>
@@ -54,9 +44,7 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
       <VCard flat border :class="plan.highlight ? 'border-primary border-opacity-100' : ''">
         <VCardText style="block-size: 1rem" class="text-end">
           <!-- 👉 Popular -->
-          <VChip v-show="plan.highlight" label color="primary" size="small">
-            Популярный
-          </VChip>
+          <VChip v-show="plan.highlight" label color="primary" size="small"> Популярный </VChip>
         </VCardText>
 
         <VCardText>
@@ -67,30 +55,59 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
           <!-- 👉 Plan price  -->
 
           <div class="position-relative">
-            <div class="d-flex justify-center pt-2 pb-10">
-              <h2 class="text-h2 font-weight-bold text-primary">
-                {{ annualMonthlyPlanPriceToggler ? plan.priceAnnualMonth : plan.monthlyPrice }} ₽
-                <span class="text-body-1">/ мес.</span>
-              </h2>
+            <div class="text-center d-flex justify-center align-center pb-10">
+              <template v-if="!annualMonthlyPlanPriceToggler">
+                <!-- МЕСЯЧНАЯ ОПЛАТА -->
+                <h2 class="text-h3 font-weight-bold text-primary mb-2">
+                  {{ plan.monthlyPrice.toLocaleString('ru-RU') }} ₽
+                  <span class="text-body-1 text-disabled">/месяц</span>
+                </h2>
+              </template>
+
+              <template v-else>
+                <!-- ГОДОВАЯ ОПЛАТА -->
+                <h2 class="text-h3 font-weight-bold text-primary mb-2">
+                  {{ plan.yearlyPrice.toLocaleString('ru-RU') }} ₽
+                  <span class="text-body-1 text-disabled">/год</span>
+                </h2>
+              </template>
             </div>
 
-            <!-- 👉 Annual Price -->
-            <span class="font-weight-bold annual-price-text position-absolute text-disabled pb-4">
-              {{
-                annualMonthlyPlanPriceToggler
-                  ? plan.yearlyPrice === 0
-                    ? 'Бесплатно'
-                    : `${plan.yearlyPrice} ₽ / год`
-                  : plan.priceMonthlyYear === 0
-                    ? 'Бесплатно'
-                    : `${plan.priceMonthlyYear} ₽ / год`
-              }}
-            </span>
+            <!-- 👉 Дополнительная информация -->
+            <div class="annual-price-text position-absolute text-center" style="width: 100%">
+              <template v-if="!annualMonthlyPlanPriceToggler">
+                <!-- При месячной оплате показываем годовой эквивалент -->
+                <div class="text-body-1 text-disabled">
+                  или {{ (plan.monthlyPrice * 12).toLocaleString('ru-RU') }} ₽ в год
+                </div>
+              </template>
+
+              <template v-else>
+                <!-- При годовой оплате показываем экономию -->
+                <div class="d-flex flex-column align-center gap-1">
+                  <template v-if="plan.yearlyPrice === 0">
+                    <!-- Бесплатный план -->
+                    <div class="text-body-2 font-weight-bold text-success">Бесплатно</div>
+                  </template>
+                  <template v-else>
+                    <!-- Перечеркнутая оригинальная цена -->
+                    <div class="text-body-1 text-decoration-line-through">
+                      Вместо {{ plan.priceMonthlyYear.toLocaleString('ru-RU') }} ₽
+                    </div>
+
+                    <!-- Экономия -->
+                    <div class="text-body-1 font-weight-bold text-success">
+                      Экономия {{ (plan.monthlyPrice * 12 - plan.yearlyPrice).toLocaleString('ru-RU') }} ₽
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </div>
           </div>
 
           <!-- 👉 Plan features -->
 
-          <VList class="card-list mb-8" style="min-height: 112px">
+          <VList class="card-list mb-8 mt-2" style="min-height: 112px">
             <VListItem v-for="feature in plan.features" :key="feature">
               <template #prepend>
                 <VIcon
@@ -128,9 +145,10 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
 }
 
 .annual-price-text {
-  inset-block-end: 3%;
+  inset-block-end: 0%;
   inset-inline-start: 50%;
   transform: translateX(-50%);
+  min-height: 40px;
 }
 
 .large-switch {
