@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import { useLayoutConfigStore } from '@core/components/templates/stores/config'
+import { layoutConfig } from '@core/components/templates/helpers'
+import { VNodeRenderer } from '@crudui/components/templates/helpers/VNodeRenderer'
 import LanguageSwitcher from '@crudui/components/LanguageSwitcher.vue'
 import UserProfile from '@crudui/components/templates/UserProfile.vue'
 
@@ -36,6 +38,11 @@ watch(
       >
         <div class="navbar-content-container boxed-container">
           <div class="d-flex h-100 align-center">
+            <!-- 👉 Logo -->
+            <RouterLink to="/" class="app-logo d-flex align-center gap-x-3">
+              <VNodeRenderer :nodes="layoutConfig.app.logo" />
+            </RouterLink>
+
             <VSpacer />
 
             <!-- Language Switcher -->
