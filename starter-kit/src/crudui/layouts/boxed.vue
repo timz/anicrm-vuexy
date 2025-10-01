@@ -102,9 +102,5 @@ watch(
       @extend %blurry-bg;
     }
   }
-
-  .layout-page-content {
-    padding-block: 1.5rem;
-  }
 }
 </style>
