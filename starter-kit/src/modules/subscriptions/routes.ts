@@ -28,8 +28,8 @@ export default <TCrudRouteRecord[]>[
     name: 'PayBlockedPage',
     component: () => import('./components/PayBlockedPage.vue'),
     meta: {
-      menuTitle: 'PayBlockedPage',
-      menuIcon: 'mdi-credit-card',
+      layout: 'boxed',
+      menuTitle: 'Pay Blocked Page',
       menuSort: 110,
     },
   },
