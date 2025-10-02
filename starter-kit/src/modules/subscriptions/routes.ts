@@ -13,13 +13,12 @@ export default <TCrudRouteRecord[]>[
     },
   },
   {
-    path: '/pay',
-    name: 'PaymentPage',
-    component: () => import('./components/PaymentPage.vue'),
+    path: '/select-plane',
+    name: 'SelectPlanePage',
+    component: () => import('./components/SelectPlanePage.vue'),
     meta: {
       layout: 'boxed',
-      menuTitle: 'PaymentPage',
-      menuIcon: 'mdi-credit-card',
+      menuTitle: 'Select Plane Page',
       menuSort: 110,
     },
   },
@@ -50,6 +49,16 @@ export default <TCrudRouteRecord[]>[
     meta: {
       layout: 'clean',
       menuTitle: 'subscriptionsConfirm',
+    },
+  },
+  {
+    path: '/checkout/summary',
+    name: 'CheckoutSummaryPage',
+    component: () => import('./components/CheckoutSummaryPage.vue'),
+    meta: {
+      layout: 'boxed',
+      menuTitle: 'Checkout Summary',
+      menuHide: true,
     },
   },
 ]
