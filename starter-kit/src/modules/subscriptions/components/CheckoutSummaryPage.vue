@@ -11,36 +11,25 @@ const period = computed(() => route.query.period as 'monthly' | 'annual')
 
 // Reactive state
 const selectedPlan = ref<FormattedPricingPlan | null>(null)
-const promoCode = ref('')
-const promoDiscount = ref(0)
-const promoError = ref('')
-const isValidatingPromo = ref(false)
 const loading = ref(false)
 
 // Computed values
 const basePrice = computed(() => {
   if (!selectedPlan.value)
     return 0
+
   return period.value === 'annual'
     ? selectedPlan.value.yearlyPrice
     : selectedPlan.value.monthlyPrice
 })
 
-const discountAmount = computed(() => {
-  return Math.round(basePrice.value * (promoDiscount.value / 100))
-})
-
-const priceAfterDiscount = computed(() => {
-  return basePrice.value - discountAmount.value
-})
-
 const vat = computed(() => {
   // Assuming VAT is already included in the price
-  return Math.round(priceAfterDiscount.value * 0.2)
+  return Math.round(basePrice.value * 0.2)
 })
 
 const totalPrice = computed(() => {
-  return priceAfterDiscount.value
+  return basePrice.value
 })
 
 const periodText = computed(() => {
@@ -84,43 +73,6 @@ const fetchPlanDetails = async () => {
   }
 }
 
-// Validate promo code
-const validatePromoCode = async () => {
-  if (!promoCode.value.trim()) {
-    promoDiscount.value = 0
-    promoError.value = ''
-    return
-  }
-
-  isValidatingPromo.value = true
-  promoError.value = ''
-
-  try {
-    // TODO: Replace with actual API endpoint
-    const response = await api.post('/subscriptions/validate-promo', {
-      code: promoCode.value.trim(),
-      plan: planCode.value,
-      period: period.value,
-    })
-
-    if (response.data?.success) {
-      promoDiscount.value = response.data.discount || 0
-      promoError.value = ''
-    }
-    else {
-      promoDiscount.value = 0
-      promoError.value = response.data?.message || 'Промокод недействителен'
-    }
-  }
-  catch (error: any) {
-    promoDiscount.value = 0
-    promoError.value = error.response?.data?.message || 'Ошибка проверки промокода'
-  }
-  finally {
-    isValidatingPromo.value = false
-  }
-}
-
 // Handle payment
 const handlePayment = async () => {
   loading.value = true
@@ -130,7 +82,6 @@ const handlePayment = async () => {
     const response = await api.post('/subscriptions/checkout', {
       plan: planCode.value,
       period: period.value,
-      promo_code: promoCode.value.trim() || undefined,
     })
 
     if (response.data?.success && response.data?.redirect_url) {
@@ -165,6 +116,7 @@ onMounted(() => {
   // Validate required query params
   if (!planCode.value || !period.value) {
     router.push('/select-plane')
+
     return
   }
 
@@ -186,50 +138,17 @@ onMounted(() => {
     <VCard v-if="!loading && selectedPlan" class="pa-6">
       <!-- Plan Information -->
       <div class="mb-6">
-        <h5 class="text-h6 mb-4">
+        <h4 class="mb-4">
           Выбранный тариф
-        </h5>
-        <div class="bg-grey-100 rounded-lg pa-4">
-          <div class="d-flex justify-space-between mb-3">
-            <span class="text-body-1">Тарифный план:</span>
-            <strong class="text-h6">{{ selectedPlan.name }}</strong>
-          </div>
-          <div class="d-flex justify-space-between">
-            <span class="text-body-1">Период подписки:</span>
-            <strong class="text-h6">{{ periodText }}</strong>
-          </div>
-        </div>
-      </div>
+        </h4>
 
-      <VDivider class="my-6" />
-
-      <!-- Promo Code -->
-      <div class="mb-6">
-        <h5 class="text-h6 mb-4">
-          Промокод
-        </h5>
-        <div class="d-flex gap-3">
-          <VTextField
-            v-model="promoCode"
-            label="Введите промокод"
-            placeholder="WELCOME10"
-            variant="outlined"
-            density="comfortable"
-            :error-messages="promoError"
-            @keyup.enter="validatePromoCode"
-          />
-          <VBtn
-            color="primary"
-            variant="tonal"
-            :loading="isValidatingPromo"
-            @click="validatePromoCode"
-          >
-            Применить
-          </VBtn>
+        <div class="d-flex justify-space-between mb-3">
+          <span class="text-body-1">Тарифный план:</span>
+          <strong class="text-h6">{{ selectedPlan.name }}</strong>
         </div>
-        <div v-if="promoDiscount > 0" class="text-success mt-2">
-          <VIcon icon="tabler-check" size="20" />
-          Скидка {{ promoDiscount }}% применена
+        <div class="d-flex justify-space-between">
+          <span class="text-body-1">Период подписки:</span>
+          <strong class="text-h6">{{ periodText }}</strong>
         </div>
       </div>
 
@@ -237,23 +156,18 @@ onMounted(() => {
 
       <!-- Price Breakdown -->
       <div class="mb-6">
-        <h5 class="text-h6 mb-4">
+        <h4 class="mb-4">
           Стоимость
-        </h5>
+        </h4>
 
         <div class="d-flex justify-space-between mb-3">
           <span class="text-body-1">Стоимость подписки</span>
           <span class="text-h6">{{ basePrice.toLocaleString() }} ₽</span>
         </div>
 
-        <div v-if="promoDiscount > 0" class="d-flex justify-space-between mb-3 text-success">
-          <span class="text-body-1">Скидка по промокоду ({{ promoDiscount }}%)</span>
-          <span class="text-h6">-{{ discountAmount.toLocaleString() }} ₽</span>
-        </div>
-
-        <div class="d-flex justify-space-between mb-3 text-medium-emphasis">
-          <span class="text-body-2">НДС включен (20%)</span>
-          <span class="text-body-2">{{ vat.toLocaleString() }} ₽</span>
+        <div class="d-flex justify-space-between mb-3 text-medium-emphasis ">
+          <span>НДС включен (20%)</span>
+          <span>{{ vat.toLocaleString() }} ₽</span>
         </div>
 
         <VDivider class="my-4" />
@@ -266,18 +180,8 @@ onMounted(() => {
         </div>
       </div>
 
-      <VDivider class="my-6" />
-
-      <!-- Terms -->
-      <div class="text-body-2 text-medium-emphasis mb-6">
-        Продолжая, вы принимаете наши
-        <a href="#" class="text-primary">Условия обслуживания</a>
-        и
-        <a href="#" class="text-primary">Политику конфиденциальности</a>.
-      </div>
-
       <!-- Action Buttons -->
-      <div class="d-flex flex-wrap gap-4 justify-space-between">
+      <div class="d-flex flex-wrap gap-4 justify-center">
         <VBtn
           color="secondary"
           variant="tonal"
@@ -297,6 +201,14 @@ onMounted(() => {
           Перейти к оплате
           <VIcon icon="tabler-arrow-right" end class="flip-in-rtl" />
         </VBtn>
+      </div>
+
+      <!-- Terms -->
+      <div class=" text-center text-body-2 text-medium-emphasis mt-6">
+        Продолжая, вы принимаете наши
+        <a href="#" class="text-primary">Условия обслуживания</a>
+        и
+        <a href="#" class="text-primary">Политику конфиденциальности</a>.
       </div>
     </VCard>
 

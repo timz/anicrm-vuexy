@@ -75,10 +75,3 @@ onMounted(() => {
     <AppPricing md="4" :pricing-plans="pricingPlans" @plan-selected="handlePlanSelectedWithPeriod" />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.payment-page {
-  max-width: 820px;
-  margin: 0 auto;
-}
-</style>
