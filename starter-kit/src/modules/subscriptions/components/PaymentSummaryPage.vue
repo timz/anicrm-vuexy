@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { api } from '@crudui/services/AxiosService'
-import type { FormattedPricingPlan } from '@modules/subscriptions/types/pricing'
 
 const router = useRouter()
 const route = useRoute()
@@ -10,58 +9,56 @@ const planCode = computed(() => route.query.plan as string)
 const period = computed(() => route.query.period as 'monthly' | 'annual')
 
 // Reactive state
-const selectedPlan = ref<FormattedPricingPlan | null>(null)
+interface PaymentSummaryData {
+  planTitle: string
+  price: number
+  billingCycle: string
+  unspentAmount: number
+  totalAmount: number
+}
+
+const paymentSummary = ref<PaymentSummaryData | null>(null)
 const loading = ref(false)
 
 // Computed values
-const basePrice = computed(() => {
-  if (!selectedPlan.value)
-    return 0
-
-  return period.value === 'annual'
-    ? selectedPlan.value.yearlyPrice
-    : selectedPlan.value.monthlyPrice
-})
+const basePrice = computed(() => paymentSummary.value?.price || 0)
 
 const vat = computed(() => {
   // Assuming VAT is already included in the price
   return Math.round(basePrice.value * 0.2)
 })
 
-const totalPrice = computed(() => {
-  return basePrice.value
-})
+const unspentAmount = computed(() => paymentSummary.value?.unspentAmount || 0)
 
-const periodText = computed(() => {
-  return period.value === 'annual' ? '1 год' : '1 месяц'
-})
+const totalPrice = computed(() => paymentSummary.value?.totalAmount || 0)
+
+const periodText = computed(() => paymentSummary.value?.billingCycle || '')
+
+const showUnspentAmount = computed(() => unspentAmount.value > 0)
 
 // Fetch plan details
 const fetchPlanDetails = async () => {
   loading.value = true
   try {
-    const response = await api.post('/billing/info')
+    const response = await api.post('/billing/payment-summary', {
+      plan_code: planCode.value,
+      billing_cycle: period.value === 'annual' ? 'yearly' : 'monthly',
+    })
 
-    if (response.data?.success && response.data?.content?.items) {
-      const plan = response.data.content.items.find((p: any) => p.code === planCode.value)
+    if (response.data?.success && response.data?.content) {
+      const data = response.data.content
 
-      if (plan) {
-        selectedPlan.value = {
-          name: plan.title,
-          monthlyPrice: Number.parseFloat(plan.price_monthly),
-          yearlyPrice: Number.parseFloat(plan.price_annual),
-          priceAnnualMonth: plan.info.price_annual_month,
-          priceMonthlyYear: plan.info.price_monthly_year,
-          highlight: plan.info.highlight,
-          active: plan.active,
-          features: plan.info.features,
-          code: plan.code,
-        }
+      paymentSummary.value = {
+        planTitle: data.plan_title,
+        price: Number.parseFloat(data.price),
+        billingCycle: data.billing_cycle,
+        unspentAmount: Number.parseFloat(data.unspent_amount),
+        totalAmount: Number.parseFloat(data.total_amount),
       }
-      else {
-        // Plan not found, redirect back
-        router.push('/select-plane')
-      }
+    }
+    else {
+      // Plan not found, redirect back
+      router.push('/select-plane')
     }
   }
   catch (error) {
@@ -135,7 +132,7 @@ onMounted(() => {
       </p>
     </div>
 
-    <VCard v-if="!loading && selectedPlan" class="pa-6">
+    <VCard v-if="!loading && paymentSummary" class="pa-6">
       <!-- Plan Information -->
       <div class="mb-6">
         <h4 class="mb-4">
@@ -144,7 +141,7 @@ onMounted(() => {
 
         <div class="d-flex justify-space-between mb-3">
           <span class="text-body-1">Тарифный план:</span>
-          <strong class="text-h6">{{ selectedPlan.name }}</strong>
+          <strong class="text-h6">{{ paymentSummary.planTitle }}</strong>
         </div>
         <div class="d-flex justify-space-between">
           <span class="text-body-1">Период подписки:</span>
@@ -168,6 +165,11 @@ onMounted(() => {
         <div class="d-flex justify-space-between mb-3 text-medium-emphasis ">
           <span>НДС включен (20%)</span>
           <span>{{ vat.toLocaleString() }} ₽</span>
+        </div>
+
+        <div v-if="showUnspentAmount" class="d-flex justify-space-between mb-3 text-success">
+          <span>Остаток от предыдущего тарифа</span>
+          <span>-{{ unspentAmount.toLocaleString() }} ₽</span>
         </div>
 
         <VDivider class="my-4" />
