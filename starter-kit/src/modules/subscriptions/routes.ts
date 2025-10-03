@@ -52,12 +52,12 @@ export default <TCrudRouteRecord[]>[
     },
   },
   {
-    path: '/checkout/summary',
-    name: 'CheckoutSummaryPage',
-    component: () => import('./components/CheckoutSummaryPage.vue'),
+    path: '/subscriptions/payment-summary',
+    name: 'PaymentSummaryPage',
+    component: () => import('./components/PaymentSummaryPage.vue'),
     meta: {
       layout: 'boxed',
-      menuTitle: 'Checkout Summary',
+      menuTitle: 'Payment Summary Page',
       menuHide: true,
     },
   },

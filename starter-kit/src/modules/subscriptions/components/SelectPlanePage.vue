@@ -47,9 +47,8 @@ const fetchPricingPlans = async () => {
 const handlePlanSelectedWithPeriod = (data: { code: string; period: 'monthly' | 'annual' }) => {
   const newPlan = findPlanByCode(data.code)
   if (newPlan) {
-    // Redirect to checkout summary page
     router.push({
-      path: '/checkout/summary',
+      path: '/subscriptions/payment-summary',
       query: {
         plan: data.code,
         period: data.period,
