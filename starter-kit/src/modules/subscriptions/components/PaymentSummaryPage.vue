@@ -76,9 +76,9 @@ const handlePayment = async () => {
 
   try {
     // TODO: Replace with actual checkout endpoint
-    const response = await api.post('/subscriptions/checkout', {
-      plan: planCode.value,
-      period: period.value,
+    const response = await api.post('/billing/checkout', {
+      plan_code: planCode.value,
+      billing_cycle: period.value === 'annual' ? 'yearly' : 'monthly',
     })
 
     if (response.data?.success && response.data?.redirect_url) {
