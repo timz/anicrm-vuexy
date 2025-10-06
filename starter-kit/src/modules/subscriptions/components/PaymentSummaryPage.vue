@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { api } from '@crudui/services/AxiosService'
+import { secureApi } from '@crudui/services/AxiosService'
 
 const router = useRouter()
 const route = useRoute()
@@ -40,7 +40,7 @@ const showUnspentAmount = computed(() => unspentAmount.value > 0)
 const fetchPlanDetails = async () => {
   loading.value = true
   try {
-    const response = await api.post('/billing/payment-summary', {
+    const response = await secureApi.post('/billing/payment-summary', {
       plan_code: planCode.value,
       billing_cycle: period.value === 'annual' ? 'yearly' : 'monthly',
     })
@@ -76,7 +76,7 @@ const handlePayment = async () => {
 
   try {
     // TODO: Replace with actual checkout endpoint
-    const response = await api.post('/billing/checkout', {
+    const response = await secureApi.post('/billing/checkout', {
       plan_code: planCode.value,
       billing_cycle: period.value === 'annual' ? 'yearly' : 'monthly',
     })

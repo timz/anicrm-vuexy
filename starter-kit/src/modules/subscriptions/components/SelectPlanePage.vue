@@ -1,16 +1,12 @@
 <script setup lang="ts">
 import AppPricing from '@modules/subscriptions/components/AppPricing.vue'
-import { api } from '@crudui/services/AxiosService'
+import { secureApi } from '@crudui/services/AxiosService'
 import type { FormattedPricingPlan, PricingPlan } from '@modules/subscriptions/types/pricing'
 
 const router = useRouter()
 
 const pricingPlans = ref<FormattedPricingPlan[]>([])
 const loading = ref(false)
-
-const findActivePlan = (): FormattedPricingPlan | null => {
-  return pricingPlans.value.find(plan => plan.active === true) || null
-}
 
 const findPlanByCode = (code: string): FormattedPricingPlan | null => {
   return pricingPlans.value.find(plan => plan.code === code) || null
@@ -19,7 +15,7 @@ const findPlanByCode = (code: string): FormattedPricingPlan | null => {
 const fetchPricingPlans = async () => {
   loading.value = true
   try {
-    const response = await api.post('/billing/info')
+    const response = await secureApi.post('/billing/info')
 
     if (response.data?.success && response.data?.content?.items) {
       // Map pricing plans for display
@@ -56,7 +52,6 @@ const handlePlanSelectedWithPeriod = (data: { code: string; period: 'monthly' | 
     })
   }
 }
-
 
 onMounted(() => {
   fetchPricingPlans()
