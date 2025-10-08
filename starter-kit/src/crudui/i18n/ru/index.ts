@@ -289,6 +289,19 @@ export default {
       pageTitle: 'Подписки',
       single: 'Подписка',
     },
+    billing: {
+      title: 'Биллинг',
+      history: {
+        title: 'История платежей',
+        pageTitle: 'История платежей',
+        fields: {
+          id: 'ID',
+          amount: 'Сумма',
+          status: 'Статус',
+          paidAt: 'Дата оплаты',
+        },
+      },
+    },
   },
 
   // English keys for navigation (backwards compatibility)

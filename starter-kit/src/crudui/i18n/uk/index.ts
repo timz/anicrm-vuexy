@@ -290,6 +290,19 @@ export default {
       pageTitle: 'Підписки',
       single: 'Підписка',
     },
+    billing: {
+      title: 'Білінг',
+      history: {
+        title: 'Історія платежів',
+        pageTitle: 'Історія платежів',
+        fields: {
+          id: 'ID',
+          amount: 'Сума',
+          status: 'Статус',
+          paidAt: 'Дата оплати',
+        },
+      },
+    },
   },
 
   validation,

@@ -289,6 +289,19 @@ export default {
       pageTitle: 'Subscriptions',
       single: 'Subscription',
     },
+    billing: {
+      title: 'Billing',
+      history: {
+        title: 'Payment History',
+        pageTitle: 'Payment History',
+        fields: {
+          id: 'ID',
+          amount: 'Amount',
+          status: 'Status',
+          paidAt: 'Paid At',
+        },
+      },
+    },
   },
 
   // English keys for navigation (backwards compatibility)
