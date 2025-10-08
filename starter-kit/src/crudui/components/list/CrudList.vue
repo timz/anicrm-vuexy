@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, onMounted, ref, useSlots } from 'vue'
-import { useI18n } from 'vue-i18n'
+import { computed, inject, onMounted, ref } from 'vue'
 import type { CrudRowAction, UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import ButtonBatchDelete from '@crudui/components/table/buttons/ButtonBatchDelete.vue'
 import ButtonAction from '@crudui/components/table/buttons/ButtonAction.vue'
@@ -8,9 +7,7 @@ import CrudButtonPrimary from '@crudui/components/buttons/CrudButtonPrimary.vue'
 import CrudButtonSecondary from '@crudui/components/buttons/CrudButtonSecondary.vue'
 import CrudConfirmDialog from '@crudui/components/dialogs/CrudConfirmDialog.vue'
 
-const { t } = useI18n()
 const filterPanel = ref(false)
-const slots = useSlots()
 
 // Delete confirmation dialog state
 const deleteDialog = ref(false)
@@ -64,6 +61,12 @@ const handleActionClick = (action: CrudRowAction<unknown>, item: unknown) => {
   }
 }
 
+const cancelDelete = () => {
+  deleteDialog.value = false
+  itemToDelete.value = null
+  deleteAction.value = null
+}
+
 const confirmDelete = async () => {
   if (!itemToDelete.value || !deleteAction.value)
     return
@@ -84,12 +87,6 @@ const confirmDelete = async () => {
   finally {
     cancelDelete()
   }
-}
-
-const cancelDelete = () => {
-  deleteDialog.value = false
-  itemToDelete.value = null
-  deleteAction.value = null
 }
 
 const handleDeleteConfirm = async () => {
@@ -121,8 +118,7 @@ const applyFilter = async (): Promise<void> => {
   const formData = new FormData(formElement)
   const filterData: Record<string, unknown> = {}
 
-  for (const [key, value] of formData.entries())
-    filterData[key] = value
+  for (const [key, value] of formData.entries()) filterData[key] = value
 
   // Also collect data from v-model fields
   const inputs = formElement.querySelectorAll('input, select, textarea')
@@ -234,22 +230,22 @@ const itemsPerPageOptions = [
       </div>
     </v-expand-transition>
 
-    <v-divider />
-
     <!-- List -->
-    <div class="ma-6">
-      <v-list v-if="!loading || listItems.length > 0" lines="two" border class="rounded">
+    <div class="pa-4">
+      <v-list v-if="!loading || listItems.length > 0">
         <template v-for="(item, index) in listItems" :key="(item as any)[pk]">
           <v-list-item>
             <!-- Checkbox -->
-            <template #prepend>
+            <!--
+              <template #prepend>
               <v-checkbox
-                :model-value="isSelected((item as any)[pk])"
-                hide-details
-                density="compact"
-                @update:model-value="toggleSelection(item)"
+              :model-value="isSelected((item as any)[pk])"
+              hide-details
+              density="compact"
+              @update:model-value="toggleSelection(item)"
               />
-            </template>
+              </template>
+            -->
 
             <!-- Custom content slot -->
             <div v-if="$slots['list-item']">
@@ -275,8 +271,6 @@ const itemsPerPageOptions = [
               </div>
             </template>
           </v-list-item>
-
-          <v-divider v-if="index !== listItems.length - 1" />
         </template>
       </v-list>
 
@@ -287,22 +281,17 @@ const itemsPerPageOptions = [
 
       <!-- Empty state -->
       <div v-if="!loading && listItems.length === 0" class="text-center pa-6">
-        <v-icon size="48" color="grey" class="mb-4">
-          mdi-folder-open-outline
-        </v-icon>
         <div class="text-h6 text-grey">
           {{ $t('common.noData') }}
         </div>
       </div>
     </div>
 
-    <!-- Pagination -->
-    <v-divider v-if="!loading && listItems.length > 0" />
-
     <div v-if="!loading && listItems.length > 0" class="d-flex justify-space-between align-center flex-wrap gap-4 ma-6">
       <!-- Items info -->
       <div class="text-body-2 text-medium-emphasis">
-        {{ $t('common.showing') }} {{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ Math.min(currentPage * itemsPerPage, total) }} {{ $t('common.of') }} {{ total }}
+        {{ $t('common.showing') }} {{ (currentPage - 1) * itemsPerPage + 1 }} -
+        {{ Math.min(currentPage * itemsPerPage, total) }} {{ $t('common.of') }} {{ total }}
       </div>
 
       <div class="d-flex align-center gap-4">
@@ -348,7 +337,7 @@ const itemsPerPageOptions = [
 // Стили для списка
 :deep(.v-list) {
   .v-list-item {
-    padding: 12px 16px;
+    //padding: 12px 16px;
   }
 
   .v-checkbox {
