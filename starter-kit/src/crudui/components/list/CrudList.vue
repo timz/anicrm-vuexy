@@ -16,7 +16,8 @@ const deleteAction = ref<CrudRowAction<unknown> | null>(null)
 
 const dataListProvider = inject<UseCrudDataListReturn<Record<string, unknown>>>('dataListProvider')
 
-if (!dataListProvider) throw new Error('dataListProvider not provided')
+if (!dataListProvider)
+  throw new Error('dataListProvider not provided')
 
 const {
   listItems,
@@ -53,7 +54,8 @@ const handleActionClick = (action: CrudRowAction<unknown>, item: unknown) => {
     itemToDelete.value = item
     deleteAction.value = action
     deleteDialog.value = true
-  } else {
+  }
+  else {
     // Execute other actions directly
     action.handler(item)
   }
@@ -66,18 +68,23 @@ const cancelDelete = () => {
 }
 
 const confirmDelete = async () => {
-  if (!itemToDelete.value || !deleteAction.value) return
+  if (!itemToDelete.value || !deleteAction.value)
+    return
 
   try {
     // Call original handler if provided
-    if (deleteAction.value.handler) await deleteAction.value.handler(itemToDelete.value)
+    if (deleteAction.value.handler)
+      await deleteAction.value.handler(itemToDelete.value)
 
     // Call dataListProvider remove method
     const itemId = (itemToDelete.value as any)[pk]
-    if (itemId) await remove([itemId])
-  } catch (error) {
+    if (itemId)
+      await remove([itemId])
+  }
+  catch (error) {
     console.error('Failed to delete item:', error)
-  } finally {
+  }
+  finally {
     cancelDelete()
   }
 }
@@ -87,20 +94,24 @@ const handleDeleteConfirm = async () => {
 }
 
 const deleteSelected = async (): Promise<void> => {
-  if (selectedIds.value.length === 0) return
+  if (selectedIds.value.length === 0)
+    return
 
   try {
     await remove(selectedIds.value)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Failed to delete items:', error)
   }
 }
 
 const applyFilter = async (): Promise<void> => {
-  if (!filterFormRef.value) return
+  if (!filterFormRef.value)
+    return
 
   const { valid } = await filterFormRef.value.validate()
-  if (!valid) return
+  if (!valid)
+    return
 
   // Get filter data from form elements
   const formElement = filterFormRef.value.$el as HTMLFormElement
@@ -114,7 +125,8 @@ const applyFilter = async (): Promise<void> => {
 
   inputs.forEach((input: Element) => {
     const htmlInput = input as HTMLInputElement
-    if (htmlInput.name && htmlInput.value !== undefined) filterData[htmlInput.name] = htmlInput.value
+    if (htmlInput.name && htmlInput.value !== undefined)
+      filterData[htmlInput.name] = htmlInput.value
   })
 
   Object.assign(filter.value, filterData)
@@ -122,7 +134,8 @@ const applyFilter = async (): Promise<void> => {
 }
 
 const resetFilter = async (): Promise<void> => {
-  if (filterFormRef.value) filterFormRef.value.reset()
+  if (filterFormRef.value)
+    filterFormRef.value.reset()
 
   filter.value = {}
   await loadList()
@@ -216,7 +229,7 @@ const itemsPerPageOptions = [
     </v-expand-transition>
 
     <!-- List -->
-    <v-list class="mt-2" v-if="!loading || listItems.length > 0">
+    <v-list v-if="!loading || listItems.length > 0" class="mt-2">
       <template v-for="(item, index) in listItems" :key="(item as any)[pk]">
         <v-list-item class="px-0">
           <!-- Prepend slot -->
@@ -269,34 +282,33 @@ const itemsPerPageOptions = [
       </div>
     </div>
 
-    <div v-if="!loading && listItems.length > 0" class="d-flex justify-space-between align-center flex-wrap gap-4 ma-6">
-      <!-- Items info -->
-      <div class="text-body-2 text-medium-emphasis">
-        {{ $t('common.showing') }} {{ (currentPage - 1) * itemsPerPage + 1 }} -
-        {{ Math.min(currentPage * itemsPerPage, total) }} {{ $t('common.of') }} {{ total }}
-      </div>
+    <div v-if="!loading && listItems.length > 0" class="d-flex justify-center ">
+      <div class="d-flex align-center gap-4 flex-wrap">
+        <div class="d-flex align-center gap-4 justify-center">
+          <!-- Items per page selector -->
+          <label>{{ $t('common.itemsPerPage') }}</label>
 
-      <div class="d-flex align-center gap-4">
-        <!-- Items per page selector -->
-        <v-select
-          v-model="itemsPerPage"
-          :items="itemsPerPageOptions"
-          :label="$t('common.itemsPerPage')"
-          density="compact"
-          variant="outlined"
-          hide-details
-          style="max-width: 150px"
-          :disabled="loading"
-        />
-
+          <v-select
+            v-model="itemsPerPage"
+            style="min-width: 80px"
+            :items="itemsPerPageOptions"
+            variant="outlined"
+            hide-details
+            :disabled="loading"
+          />
+        </div>
+        <label>
+          {{ (currentPage - 1) * itemsPerPage + 1 }} -
+          {{ Math.min(currentPage * itemsPerPage, total) }} {{ $t('common.of') }} {{ total }}
+        </label>
         <!-- Pagination -->
         <v-pagination
-          v-if="totalPages > 1"
           v-model="currentPage"
           :length="totalPages"
           :total-visible="5"
           :disabled="loading"
           density="comfortable"
+          variant="outlined"
         />
       </div>
     </div>
