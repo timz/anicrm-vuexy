@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, ref, useSlots } from 'vue'
+import { computed, inject, onMounted, ref, useSlots } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { CrudRowAction, UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import ButtonBatchDelete from '@crudui/components/table/buttons/ButtonBatchDelete.vue'
@@ -41,6 +41,11 @@ const {
 } = dataListProvider
 
 const filterFormRef = ref()
+
+// Load data on component mount
+onMounted(() => {
+  loadList()
+})
 
 const getVisibleActions = (item: unknown): CrudRowAction<unknown>[] => {
   return rowActions.filter(action => !action.show || action.show(item))
@@ -172,6 +177,7 @@ const totalPages = computed(() => {
 })
 
 const itemsPerPageOptions = [
+  { value: 5, title: '5' },
   { value: 10, title: '10' },
   { value: 12, title: '12' },
   { value: 20, title: '20' },
@@ -291,24 +297,37 @@ const itemsPerPageOptions = [
     </div>
 
     <!-- Pagination -->
-    <div v-if="totalPages > 1" class="d-flex justify-center align-center flex-wrap gap-4 ma-6">
-      <v-pagination
-        v-model="currentPage"
-        :length="totalPages"
-        :total-visible="7"
-        :disabled="loading"
-      />
+    <v-divider v-if="!loading && listItems.length > 0" />
 
-      <v-select
-        v-model="itemsPerPage"
-        :items="itemsPerPageOptions"
-        :label="$t('common.itemsPerPage')"
-        density="compact"
-        variant="outlined"
-        hide-details
-        style="max-width: 120px"
-        :disabled="loading"
-      />
+    <div v-if="!loading && listItems.length > 0" class="d-flex justify-space-between align-center flex-wrap gap-4 ma-6">
+      <!-- Items info -->
+      <div class="text-body-2 text-medium-emphasis">
+        {{ $t('common.showing') }} {{ ((currentPage - 1) * itemsPerPage) + 1 }} - {{ Math.min(currentPage * itemsPerPage, total) }} {{ $t('common.of') }} {{ total }}
+      </div>
+
+      <div class="d-flex align-center gap-4">
+        <!-- Items per page selector -->
+        <v-select
+          v-model="itemsPerPage"
+          :items="itemsPerPageOptions"
+          :label="$t('common.itemsPerPage')"
+          density="compact"
+          variant="outlined"
+          hide-details
+          style="max-width: 150px"
+          :disabled="loading"
+        />
+
+        <!-- Pagination -->
+        <v-pagination
+          v-if="totalPages > 1"
+          v-model="currentPage"
+          :length="totalPages"
+          :total-visible="5"
+          :disabled="loading"
+          density="comfortable"
+        />
+      </div>
     </div>
   </v-card>
 
