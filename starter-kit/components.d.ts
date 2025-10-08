@@ -25,6 +25,7 @@ declare module 'vue' {
     CrudDialog: typeof import('./src/crudui/components/dialogs/CrudDialog.vue')['default']
     CrudEditForm: typeof import('./src/crudui/components/forms/CrudEditForm.vue')['default']
     CrudInput: typeof import('./src/crudui/components/Inputs/CrudInput.vue')['default']
+    CrudList: typeof import('./src/crudui/components/list/CrudList.vue')['default']
     CrudMoney: typeof import('./src/crudui/components/Inputs/CrudMoney.vue')['default']
     CrudSelect: typeof import('./src/crudui/components/Inputs/CrudSelect.vue')['default']
     CrudSelector: typeof import('./src/crudui/components/Inputs/CrudSelector.vue')['default']

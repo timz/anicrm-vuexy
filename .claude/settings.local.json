@@ -10,7 +10,8 @@
       "Bash(python:*)",
       "mcp__playwright:*",
       "Bash(pnpm:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(xargs ls:*)"
     ],
     "deny": [],
     "ask": []
