@@ -89,19 +89,23 @@ const dataListProvider: UseCrudDataListReturn<BillingPaymentItem> = useCrudDataL
 provide('dataListProvider', dataListProvider)
 
 // Helper functions
-const getStatusColor = (status: string): string => {
+const getStatusColor = (status: unknown): string => {
   const statusColors: Record<string, string> = {
-    'paid': 'success',
-    'pending': 'warning',
-    'failed': 'error',
-    'refunded': 'info',
+    paid: 'success',
+    pending: 'warning',
+    failed: 'error',
+    refunded: 'info',
   }
+
   return statusColors[status.toLowerCase()] || 'default'
 }
 
 const formatDate = (dateString: string): string => {
-  if (!dateString) return '-'
+  if (!dateString) {
+    return '-'
+  }
   const date = new Date(dateString)
+
   return date.toLocaleDateString('ru-RU', {
     year: 'numeric',
     month: 'long',

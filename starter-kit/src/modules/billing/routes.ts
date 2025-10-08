@@ -6,6 +6,7 @@ export default <TCrudRouteRecord[]>[
     name: 'billingHistory',
     component: () => import('./components/HistoryPage.vue'),
     meta: {
+      layout: 'boxed',
       menuTitle: 'modules.billing.history.title',
       menuIcon: 'mdi-history',
       menuSort: 100,
