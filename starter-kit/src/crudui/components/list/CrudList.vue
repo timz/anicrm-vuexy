@@ -235,21 +235,14 @@ const itemsPerPageOptions = [
       <v-list v-if="!loading || listItems.length > 0">
         <template v-for="(item, index) in listItems" :key="(item as any)[pk]">
           <v-list-item>
-            <!-- Checkbox -->
-            <!--
-              <template #prepend>
-              <v-checkbox
-              :model-value="isSelected((item as any)[pk])"
-              hide-details
-              density="compact"
-              @update:model-value="toggleSelection(item)"
-              />
-              </template>
-            -->
+            <!-- Prepend slot -->
+            <template v-if="$slots.prepend" #prepend>
+              <slot name="prepend" :item="item" :index="index" />
+            </template>
 
-            <!-- Custom content slot -->
-            <div v-if="$slots['list-item']">
-              <slot name="list-item" :item="item" :index="index" />
+            <!-- Default content slot -->
+            <div v-if="$slots.default">
+              <slot :item="item" :index="index" />
             </div>
 
             <!-- Default content if no slot provided -->
@@ -257,17 +250,23 @@ const itemsPerPageOptions = [
               <v-list-item-title>{{ $t('common.item') }} #{{ (item as any)[pk] }}</v-list-item-title>
             </div>
 
-            <!-- Actions -->
-            <template v-if="rowActions.length > 0" #append>
-              <div class="d-flex gap-x-1">
-                <ButtonAction
-                  v-for="action in getVisibleActions(item)"
-                  :key="action.name"
-                  :icon="action.icon"
-                  :color="action.color"
-                  :tooltip="action.tooltip"
-                  @click="handleActionClick(action, item)"
-                />
+            <!-- Append slot + Actions -->
+            <template #append>
+              <div class="d-flex gap-x-1 align-center">
+                <!-- User append slot -->
+                <slot v-if="$slots.append" name="append" :item="item" :index="index" />
+
+                <!-- Actions -->
+                <div v-if="rowActions.length > 0" class="d-flex gap-x-1">
+                  <ButtonAction
+                    v-for="action in getVisibleActions(item)"
+                    :key="action.name"
+                    :icon="action.icon"
+                    :color="action.color"
+                    :tooltip="action.tooltip"
+                    @click="handleActionClick(action, item)"
+                  />
+                </div>
               </div>
             </template>
           </v-list-item>

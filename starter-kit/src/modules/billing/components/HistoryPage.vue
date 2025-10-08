@@ -1,23 +1,23 @@
 <template>
   <PageTitle>{{ $t('modules.billing.history.pageTitle') }}</PageTitle>
   <crud-list>
-    <template #list-item="{ item }">
-      <v-list-item-title class="d-flex align-center gap-2">
-        <v-icon icon="mdi-cash-multiple" size="20" color="primary" />
-        <v-chip size="small" :color="getStatusColor(item.status)" variant="tonal">
-          {{ item.status }}
-        </v-chip>
+    <template #prepend>
+      <VAvatar color="secondary" variant="tonal">
+        <VIcon :size="22" icon="tabler-clipboard-text" />
+      </VAvatar>
+    </template>
+    <template #default="{ item }">
+      <v-list-item-title>
+        {{ $t('modules.billing.history.fields.paidAt') }}: {{ formatDate(item.paid_at) }}
       </v-list-item-title>
-      <v-list-item-subtitle class="mt-2 d-flex flex-wrap gap-4">
-        <span>
-          <v-icon icon="mdi-currency-usd" size="16" class="me-1" />
-          {{ $t('modules.billing.history.fields.amount') }}: <strong>{{ item.amount }}</strong>
-        </span>
-        <span>
-          <v-icon icon="mdi-calendar" size="16" class="me-1" />
-          {{ $t('modules.billing.history.fields.paidAt') }}: {{ formatDate(item.paid_at) }}
-        </span>
+      <v-list-item-subtitle >
+        {{ $t('modules.billing.history.fields.amount') }}: <strong>{{ item.amount }}</strong>
       </v-list-item-subtitle>
+    </template>
+    <template #append="{ item }">
+      <v-chip size="small" :color="getStatusColor(item.status)" variant="tonal">
+        {{ item.status }}
+      </v-chip>
     </template>
   </crud-list>
 </template>
