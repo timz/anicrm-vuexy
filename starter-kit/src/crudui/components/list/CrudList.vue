@@ -16,8 +16,7 @@ const deleteAction = ref<CrudRowAction<unknown> | null>(null)
 
 const dataListProvider = inject<UseCrudDataListReturn<Record<string, unknown>>>('dataListProvider')
 
-if (!dataListProvider)
-  throw new Error('dataListProvider not provided')
+if (!dataListProvider) throw new Error('dataListProvider not provided')
 
 const {
   listItems,
@@ -54,8 +53,7 @@ const handleActionClick = (action: CrudRowAction<unknown>, item: unknown) => {
     itemToDelete.value = item
     deleteAction.value = action
     deleteDialog.value = true
-  }
-  else {
+  } else {
     // Execute other actions directly
     action.handler(item)
   }
@@ -68,23 +66,18 @@ const cancelDelete = () => {
 }
 
 const confirmDelete = async () => {
-  if (!itemToDelete.value || !deleteAction.value)
-    return
+  if (!itemToDelete.value || !deleteAction.value) return
 
   try {
     // Call original handler if provided
-    if (deleteAction.value.handler)
-      await deleteAction.value.handler(itemToDelete.value)
+    if (deleteAction.value.handler) await deleteAction.value.handler(itemToDelete.value)
 
     // Call dataListProvider remove method
     const itemId = (itemToDelete.value as any)[pk]
-    if (itemId)
-      await remove([itemId])
-  }
-  catch (error) {
+    if (itemId) await remove([itemId])
+  } catch (error) {
     console.error('Failed to delete item:', error)
-  }
-  finally {
+  } finally {
     cancelDelete()
   }
 }
@@ -94,24 +87,20 @@ const handleDeleteConfirm = async () => {
 }
 
 const deleteSelected = async (): Promise<void> => {
-  if (selectedIds.value.length === 0)
-    return
+  if (selectedIds.value.length === 0) return
 
   try {
     await remove(selectedIds.value)
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Failed to delete items:', error)
   }
 }
 
 const applyFilter = async (): Promise<void> => {
-  if (!filterFormRef.value)
-    return
+  if (!filterFormRef.value) return
 
   const { valid } = await filterFormRef.value.validate()
-  if (!valid)
-    return
+  if (!valid) return
 
   // Get filter data from form elements
   const formElement = filterFormRef.value.$el as HTMLFormElement
@@ -125,8 +114,7 @@ const applyFilter = async (): Promise<void> => {
 
   inputs.forEach((input: Element) => {
     const htmlInput = input as HTMLInputElement
-    if (htmlInput.name && htmlInput.value !== undefined)
-      filterData[htmlInput.name] = htmlInput.value
+    if (htmlInput.name && htmlInput.value !== undefined) filterData[htmlInput.name] = htmlInput.value
   })
 
   Object.assign(filter.value, filterData)
@@ -134,8 +122,7 @@ const applyFilter = async (): Promise<void> => {
 }
 
 const resetFilter = async (): Promise<void> => {
-  if (filterFormRef.value)
-    filterFormRef.value.reset()
+  if (filterFormRef.value) filterFormRef.value.reset()
 
   filter.value = {}
   await loadList()
@@ -182,10 +169,10 @@ const itemsPerPageOptions = [
 </script>
 
 <template>
-  <v-card>
+  <v-card class="pa-6">
     <!-- Actions Bar -->
-    <div class="d-flex flex-wrap gap-4 ma-6">
-      <div class="d-flex align-center gap-2">
+    <div class="d-flex">
+      <div class="d-flex">
         <slot v-if="$slots.actionsSection" name="actionsSection" />
 
         <template v-if="dataListProvider.selectedIds.value.length > 0">
@@ -195,7 +182,7 @@ const itemsPerPageOptions = [
 
       <v-spacer />
 
-      <div class="d-flex gap-2 align-center">
+      <div class="d-flex">
         <v-btn variant="text" icon="mdi-refresh" color="default" :disabled="loading" @click="refresh" />
 
         <v-btn
@@ -207,8 +194,6 @@ const itemsPerPageOptions = [
         />
       </div>
     </div>
-
-    <v-divider v-if="$slots.filterForm && filterPanel" />
 
     <!-- Filter Panel -->
     <v-expand-transition>
@@ -231,58 +216,56 @@ const itemsPerPageOptions = [
     </v-expand-transition>
 
     <!-- List -->
-    <div class="pa-4">
-      <v-list v-if="!loading || listItems.length > 0">
-        <template v-for="(item, index) in listItems" :key="(item as any)[pk]">
-          <v-list-item>
-            <!-- Prepend slot -->
-            <template v-if="$slots.prepend" #prepend>
-              <slot name="prepend" :item="item" :index="index" />
-            </template>
+    <v-list class="mt-2" v-if="!loading || listItems.length > 0">
+      <template v-for="(item, index) in listItems" :key="(item as any)[pk]">
+        <v-list-item class="px-0">
+          <!-- Prepend slot -->
+          <template v-if="$slots.prepend" #prepend>
+            <slot name="prepend" :item="item" :index="index" />
+          </template>
 
-            <!-- Default content slot -->
-            <div v-if="$slots.default">
-              <slot :item="item" :index="index" />
-            </div>
+          <!-- Default content slot -->
+          <div v-if="$slots.default">
+            <slot :item="item" :index="index" />
+          </div>
 
-            <!-- Default content if no slot provided -->
-            <div v-else>
-              <v-list-item-title>{{ $t('common.item') }} #{{ (item as any)[pk] }}</v-list-item-title>
-            </div>
+          <!-- Default content if no slot provided -->
+          <div v-else>
+            <v-list-item-title>{{ $t('common.item') }} #{{ (item as any)[pk] }}</v-list-item-title>
+          </div>
 
-            <!-- Append slot + Actions -->
-            <template #append>
-              <div class="d-flex gap-x-1 align-center">
-                <!-- User append slot -->
-                <slot v-if="$slots.append" name="append" :item="item" :index="index" />
+          <!-- Append slot + Actions -->
+          <template #append>
+            <div class="d-flex gap-x-1 align-center">
+              <!-- User append slot -->
+              <slot v-if="$slots.append" name="append" :item="item" :index="index" />
 
-                <!-- Actions -->
-                <div v-if="rowActions.length > 0" class="d-flex gap-x-1">
-                  <ButtonAction
-                    v-for="action in getVisibleActions(item)"
-                    :key="action.name"
-                    :icon="action.icon"
-                    :color="action.color"
-                    :tooltip="action.tooltip"
-                    @click="handleActionClick(action, item)"
-                  />
-                </div>
+              <!-- Actions -->
+              <div v-if="rowActions.length > 0" class="d-flex gap-x-1">
+                <ButtonAction
+                  v-for="action in getVisibleActions(item)"
+                  :key="action.name"
+                  :icon="action.icon"
+                  :color="action.color"
+                  :tooltip="action.tooltip"
+                  @click="handleActionClick(action, item)"
+                />
               </div>
-            </template>
-          </v-list-item>
-        </template>
-      </v-list>
+            </div>
+          </template>
+        </v-list-item>
+      </template>
+    </v-list>
 
-      <!-- Loading state -->
-      <div v-if="loading && listItems.length === 0" class="d-flex justify-center align-center pa-6">
-        <v-progress-circular indeterminate color="primary" />
-      </div>
+    <!-- Loading state -->
+    <div v-if="loading && listItems.length === 0" class="d-flex justify-center align-center pa-6">
+      <v-progress-circular indeterminate color="primary" />
+    </div>
 
-      <!-- Empty state -->
-      <div v-if="!loading && listItems.length === 0" class="text-center pa-6">
-        <div class="text-h6 text-grey">
-          {{ $t('common.noData') }}
-        </div>
+    <!-- Empty state -->
+    <div v-if="!loading && listItems.length === 0" class="text-center pa-6">
+      <div class="text-h6 text-grey">
+        {{ $t('common.noData') }}
       </div>
     </div>
 

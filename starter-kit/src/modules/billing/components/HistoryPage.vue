@@ -1,6 +1,9 @@
 <template>
   <PageTitle>{{ $t('modules.billing.history.pageTitle') }}</PageTitle>
   <crud-list>
+    <template #actionsSection>
+      <crud-button-primary>Оплатить или изменить тариф</crud-button-primary>
+    </template>
     <template #prepend>
       <VAvatar color="secondary" variant="tonal">
         <VIcon :size="22" icon="tabler-clipboard-text" />
