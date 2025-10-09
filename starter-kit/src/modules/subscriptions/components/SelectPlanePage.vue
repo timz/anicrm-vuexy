@@ -15,7 +15,7 @@ const findPlanByCode = (code: string): FormattedPricingPlan | null => {
 const fetchPricingPlans = async () => {
   loading.value = true
   try {
-    const response = await secureApi.post('/billing/info')
+    const response = await secureApi.post('/billing/plans-info')
 
     if (response.data?.success && response.data?.content?.items) {
       // Map pricing plans for display
