@@ -25,7 +25,17 @@
           <v-skeleton-loader type="list-item-two-line" />
         </div>
         <div class="d-flex gap-2 justify-center mt-4">
-          <crud-button-primary size="small"  :to="{ name: 'SelectPlanePage' }">
+          <crud-button-primary
+            v-if="activePlanInfo?.billing_cycle !== 'trial'"
+            size="small"
+            :to="{
+              name: 'PaymentSummaryPage',
+              query: {
+                plan: activePlanInfo?.plan_code,
+                period: activePlanInfo?.billing_cycle,
+              },
+            }"
+          >
             Продлить текущий
           </crud-button-primary>
           <crud-button-primary size="small"   :to="{ name: 'SelectPlanePage' }">
@@ -138,8 +148,8 @@ const formatDate = (dateString: string): string => {
 const loadActivePlanInfo = async () => {
   try {
     const response = await secureApi.post('/billing/active-plan-info')
-    if (response.data?.data) {
-      activePlanInfo.value = response.data.data
+    if (response.data?.content) {
+      activePlanInfo.value = response.data.content
     }
   }
   catch (error) {
