@@ -6,20 +6,23 @@
         <div class="text-h5 mb-4">
           Текущий тариф
         </div>
-        <div class="mb-6">
+        <div v-if="activePlanInfo" class="mb-6">
 
           <div class="d-flex justify-space-between mb-1">
             <span class="text-body-1">Тарифный план:</span>
-            <strong class="text-h6 font-weight-bold text-medium-emphasis">Профессионал</strong>
+            <strong class="text-h6 font-weight-bold text-medium-emphasis">{{ activePlanInfo.plan_title }}</strong>
           </div>
           <div class="d-flex justify-space-between mb-3">
             <span class="text-body-1">Период подписки:</span>
-            <strong class="text-h6 font-weight-bold text-medium-emphasis">1 месяц</strong>
+            <strong class="text-h6 font-weight-bold text-medium-emphasis">{{ getBillingCycleLabel(activePlanInfo.billing_cycle) }}</strong>
           </div>
           <div class="d-flex justify-space-between">
             <span class="text-body-1">Окончание подписки:</span>
-            <strong class="text-h6 font-weight-bold text-medium-emphasis">19.11.1980</strong>
+            <strong class="text-h6 font-weight-bold text-medium-emphasis">{{ formatEndDate(activePlanInfo.ends_at) }}</strong>
           </div>
+        </div>
+        <div v-else class="mb-6">
+          <v-skeleton-loader type="list-item-two-line" />
         </div>
         <div class="d-flex gap-2 justify-center mt-4">
           <crud-button-primary size="small"  :to="{ name: 'SelectPlanePage' }">
@@ -68,13 +71,18 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from 'vue'
+import { onMounted, provide, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import type { ActivePlanInfoDto } from '../types/pricing'
 import CrudList from '@crudui/components/list/CrudList.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
+import { secureApi } from '@crudui/services/AxiosService'
 
 const { t } = useI18n()
+
+// Данные о текущем тарифе
+const activePlanInfo = ref<ActivePlanInfoDto | null>(null)
 
 interface BillingPaymentItem {
   id: string
@@ -125,4 +133,48 @@ const formatDate = (dateString: string): string => {
     minute: '2-digit',
   })
 }
+
+// Функция для загрузки информации о текущем тарифе
+const loadActivePlanInfo = async () => {
+  try {
+    const response = await secureApi.post('/billing/active-plan-info')
+    if (response.data?.data) {
+      activePlanInfo.value = response.data.data
+    }
+  }
+  catch (error) {
+    console.error('Ошибка при загрузке информации о тарифе:', error)
+  }
+}
+
+// Маппинг billing_cycle в читаемый формат
+const getBillingCycleLabel = (cycle: string): string => {
+  const cycleLabels: Record<string, string> = {
+    monthly: '1 месяц',
+    yearly: '1 год',
+    trial: 'Пробный период',
+  }
+
+  return cycleLabels[cycle] || cycle
+}
+
+// Форматирование даты окончания подписки
+const formatEndDate = (dateString: string | null): string => {
+  if (!dateString) {
+    return 'Бессрочно'
+  }
+
+  const date = new Date(dateString)
+
+  return date.toLocaleDateString('ru-RU', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  })
+}
+
+// Загрузка данных при монтировании компонента
+onMounted(() => {
+  loadActivePlanInfo()
+})
 </script>

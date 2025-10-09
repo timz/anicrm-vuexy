@@ -1,0 +1,33 @@
+Схема ActivePlanInfoDto:
+================================================================================
+Название: ActivePlanInfoDto
+Описание: DTO информации о текущей активной подписке организации
+Тип: object
+
+Обязательные поля: plan_code, plan_title, billing_cycle, ends_at
+
+Поля:
+--------------------------------------------------------------------------------
+
+Поле: plan_code
+  Тип: string
+  Название: Plan Code
+  Описание: Системное название тарифа
+
+Поле: plan_title
+  Тип: string
+  Название: Plan Title
+  Описание: Название тарифа
+
+Поле: billing_cycle
+  Тип: string
+  Название: Billing Cycle
+  Описание: Период: monthly, yearly или trial
+
+Поле: ends_at
+  Тип: N/A
+  Тип (anyOf):
+    - type: string, format: date-time
+    - type: null
+  Название: Ends At
+  Описание: Дата окончания подписки (None для безлимитных)
