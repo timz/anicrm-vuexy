@@ -2,9 +2,12 @@
   <PageTitle>{{ $t('modules.billing.history.pageTitle') }}</PageTitle>
   <crud-list>
     <template #actionsSection>
-      <crud-button-primary :to="{ name: 'SelectPlanePage' }">
+      {{ $t('modules.billing.history.pageTitle') }}
+      <!--
+        <crud-button-primary :to="{ name: 'SelectPlanePage' }">
         Оплатить или изменить тариф
-      </crud-button-primary>
+        </crud-button-primary>
+      -->
     </template>
     <template #prepend>
       <VAvatar color="secondary" variant="tonal">

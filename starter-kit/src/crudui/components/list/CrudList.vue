@@ -182,7 +182,7 @@ const itemsPerPageOptions = [
 </script>
 
 <template>
-  <v-card class="pa-6">
+  <v-card class="pa-2 pa-sm-4">
     <!-- Actions Bar -->
     <div class="d-flex">
       <div class="d-flex">
