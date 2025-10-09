@@ -75,7 +75,6 @@ const handlePayment = async () => {
   loading.value = true
 
   try {
-    // TODO: Replace with actual checkout endpoint
     const response = await secureApi.post('/billing/checkout', {
       plan_code: planCode.value,
       billing_cycle: period.value === 'annual' ? 'yearly' : 'monthly',
