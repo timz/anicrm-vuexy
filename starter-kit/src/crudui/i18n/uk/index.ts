@@ -303,8 +303,8 @@ export default {
         },
         statuses: {
           pending: 'Очікується',
-          succeeded: 'Успішно',
-          failed: 'Невдало',
+          succeeded: 'Успішна оплата',
+          failed: 'Платіж не надійшов',
         },
       },
     },

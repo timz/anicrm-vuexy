@@ -302,8 +302,8 @@ export default {
         },
         statuses: {
           pending: 'Pending',
-          succeeded: 'Succeeded',
-          failed: 'Failed',
+          succeeded: 'Successful payment',
+          failed: 'Payment not received',
         },
       },
     },
