@@ -11,16 +11,19 @@
     </template>
     <template #default="{ item }">
       <v-list-item-title>
-        {{ $t('modules.billing.history.fields.paidAt') }}: {{ formatDate(item.paid_at) }}
+        {{ item.title }}
       </v-list-item-title>
       <v-list-item-subtitle >
-        {{ $t('modules.billing.history.fields.amount') }}: <strong>{{ item.amount }}</strong>
+        {{ formatDate(item.paid_at) }}
       </v-list-item-subtitle>
     </template>
     <template #append="{ item }">
-      <v-chip size="small" :color="getStatusColor(item.status)" variant="tonal">
-        {{ item.status }}
-      </v-chip>
+      <div class="flex-d flex-column flex-col">
+        <v-chip size="small" :color="getStatusColor(item.status)" variant="tonal">
+          {{ item.status }}
+        </v-chip>
+        <div class="font-weight-bold">{{ item.amount }}</div>
+      </div>
     </template>
   </crud-list>
 </template>
