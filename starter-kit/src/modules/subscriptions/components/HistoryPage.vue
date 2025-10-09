@@ -22,7 +22,7 @@
           </div>
         </div>
         <div v-else class="mb-6">
-          <v-skeleton-loader type="list-item-two-line" />
+          <v-skeleton-loader type="list-item-three-line" />
         </div>
         <div class="d-flex gap-2 justify-center mt-4">
           <crud-button-primary
