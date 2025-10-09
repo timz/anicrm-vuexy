@@ -24,8 +24,8 @@
         <v-chip size="small" :color="getStatusColor(item.status)" variant="tonal">
           {{ getStatusLabel(item.status) }}
         </v-chip>
-        <div class="font-weight-bold">
-          {{ item.amount }}
+        <div class="font-weight-bold text-right text-subtitle-1">
+          {{ item.amount.toLocaleString('ru-RU') }} ₽
         </div>
       </div>
     </template>
@@ -85,7 +85,7 @@ const formatDate = (dateString: string): string => {
 
   return date.toLocaleDateString('ru-RU', {
     year: 'numeric',
-    month: 'long',
+    month: 'numeric',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
