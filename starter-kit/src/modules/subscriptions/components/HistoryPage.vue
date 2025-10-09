@@ -2,7 +2,9 @@
   <PageTitle>{{ $t('modules.billing.history.pageTitle') }}</PageTitle>
   <crud-list>
     <template #actionsSection>
-      <crud-button-primary>Оплатить или изменить тариф</crud-button-primary>
+      <crud-button-primary :to="{ name: 'SelectPlanePage' }">
+        Оплатить или изменить тариф
+      </crud-button-primary>
     </template>
     <template #prepend>
       <VAvatar color="secondary" variant="tonal">
@@ -13,7 +15,7 @@
       <v-list-item-title>
         {{ item.title }}
       </v-list-item-title>
-      <v-list-item-subtitle >
+      <v-list-item-subtitle>
         {{ formatDate(item.paid_at) }}
       </v-list-item-subtitle>
     </template>
@@ -22,7 +24,9 @@
         <v-chip size="small" :color="getStatusColor(item.status)" variant="tonal">
           {{ getStatusLabel(item.status) }}
         </v-chip>
-        <div class="font-weight-bold">{{ item.amount }}</div>
+        <div class="font-weight-bold">
+          {{ item.amount }}
+        </div>
       </div>
     </template>
   </crud-list>

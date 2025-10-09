@@ -2,6 +2,18 @@ import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
 
 export default <TCrudRouteRecord[]>[
   {
+    path: '/history',
+    name: 'BillingHistory',
+    component: () => import('./components/HistoryPage.vue'),
+    meta: {
+      layout: 'boxed',
+      menuTitle: 'modules.billing.history.title',
+      menuIcon: 'mdi-history',
+      menuSort: 100,
+      menuHide: false,
+    },
+  },
+  {
     path: '/subscription-plans',
     name: 'SubscriptionPlans',
     component: () => import('./components/SubscriptionPlansPage.vue'),
