@@ -300,6 +300,11 @@ export default {
           status: 'Статус',
           paidAt: 'Дата оплаты',
         },
+        statuses: {
+          pending: 'Ожидается',
+          succeeded: 'Успешная оплата',
+          failed: 'Платеж не поступил',
+        },
       },
     },
   },

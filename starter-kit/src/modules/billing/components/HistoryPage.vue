@@ -20,7 +20,7 @@
     <template #append="{ item }">
       <div class="flex-d flex-column flex-col">
         <v-chip size="small" :color="getStatusColor(item.status)" variant="tonal">
-          {{ item.status }}
+          {{ getStatusLabel(item.status) }}
         </v-chip>
         <div class="font-weight-bold">{{ item.amount }}</div>
       </div>
@@ -30,10 +30,13 @@
 
 <script setup lang="ts">
 import { provide } from 'vue'
+import { useI18n } from 'vue-i18n'
 import CrudList from '@crudui/components/list/CrudList.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
 import PageTitle from '@crudui/components/templates/PageTitle.vue'
+
+const { t } = useI18n()
 
 interface BillingPaymentItem {
   id: string
@@ -56,13 +59,18 @@ provide('dataListProvider', dataListProvider)
 // Helper functions
 const getStatusColor = (status: unknown): string => {
   const statusColors: Record<string, string> = {
-    paid: 'success',
     pending: 'warning',
+    succeeded: 'success',
     failed: 'error',
-    refunded: 'info',
   }
 
   return statusColors[status.toLowerCase()] || 'default'
+}
+
+const getStatusLabel = (status: string): string => {
+  const statusKey = `modules.billing.history.statuses.${status.toLowerCase()}`
+
+  return t(statusKey)
 }
 
 const formatDate = (dateString: string): string => {

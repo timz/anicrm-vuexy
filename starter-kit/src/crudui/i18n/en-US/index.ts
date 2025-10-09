@@ -300,6 +300,11 @@ export default {
           status: 'Status',
           paidAt: 'Paid At',
         },
+        statuses: {
+          pending: 'Pending',
+          succeeded: 'Succeeded',
+          failed: 'Failed',
+        },
       },
     },
   },

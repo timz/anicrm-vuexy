@@ -301,6 +301,11 @@ export default {
           status: 'Статус',
           paidAt: 'Дата оплати',
         },
+        statuses: {
+          pending: 'Очікується',
+          succeeded: 'Успішно',
+          failed: 'Невдало',
+        },
       },
     },
   },
