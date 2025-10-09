@@ -25,7 +25,7 @@
           {{ getStatusLabel(item.status) }}
         </v-chip>
         <div class="font-weight-bold text-right text-subtitle-1">
-          {{ item.amount.toLocaleString('ru-RU') }} ₽
+          {{ Number(item.amount).toLocaleString('ru-RU') }} ₽
         </div>
       </div>
     </template>
@@ -44,7 +44,7 @@ const { t } = useI18n()
 
 interface BillingPaymentItem {
   id: string
-  amount: string
+  amount: number
   status: string
   paid_at: string
 }
