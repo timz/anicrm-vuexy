@@ -13,17 +13,7 @@ export default <TCrudRouteRecord[]>[
       menuHide: false,
     },
   },
-  {
-    path: '/subscription-plans',
-    name: 'SubscriptionPlans',
-    component: () => import('./components/SubscriptionPlansPage.vue'),
-    meta: {
-      menuTitle: 'SubscriptionPlans',
-      menuIcon: 'mdi-credit-card',
-      menuSort: 110,
-      menuHide: true,
-    },
-  },
+
   {
     path: '/select-plane',
     name: 'SelectPlanePage',
@@ -41,16 +31,6 @@ export default <TCrudRouteRecord[]>[
     meta: {
       layout: 'boxed',
       menuTitle: 'Pay Blocked Page',
-      menuSort: 110,
-    },
-  },
-  {
-    path: '/subscriptions',
-    name: 'subscriptionsIndex',
-    component: () => import('./components/IndexPage.vue'),
-    meta: {
-      menuTitle: 'modules.subscriptions.title',
-      menuIcon: 'mdi-credit-card',
       menuSort: 110,
     },
   },
