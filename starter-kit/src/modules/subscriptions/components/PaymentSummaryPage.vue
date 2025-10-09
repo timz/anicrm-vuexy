@@ -80,9 +80,9 @@ const handlePayment = async () => {
       billing_cycle: period.value === 'annual' ? 'yearly' : 'monthly',
     })
 
-    if (response.data?.success && response.data?.redirect_url) {
+    if (response.data?.success && response.data?.content?.payment_url) {
       // Redirect to YooKassa
-      window.location.href = response.data.redirect_url
+      window.location.href = response.data.content.payment_url
     }
     else {
       console.error('Checkout failed:', response.data)
