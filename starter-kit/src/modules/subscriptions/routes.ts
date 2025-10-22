@@ -16,7 +16,7 @@ export default <TCrudRouteRecord[]>[
 
   {
     path: '/change-subscription',
-    name: 'ChangeSubscriptionPage',
+    name: 'changeSubscriptionPage',
     component: () => import('./components/ChangeSubscriptionPage.vue'),
     meta: {
       layout: 'boxed',

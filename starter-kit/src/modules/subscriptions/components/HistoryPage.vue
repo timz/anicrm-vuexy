@@ -38,7 +38,8 @@
           >
             Продлить текущий
           </crud-button-primary>
-          <crud-button-primary size="small"   :to="{ name: 'SelectPlanePage' }">
+
+          <crud-button-primary size="small"   :to="{ name: 'changeSubscriptionPage' }">
             Изменить тариф
           </crud-button-primary>
         </div>
