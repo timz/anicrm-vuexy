@@ -18,8 +18,8 @@
           </h3>
         </div>
 
-        <div v-if="!loading && pricingPlans.length > 0">
-          <AppPricing :pricing-plans="pricingPlans" md="4" @plan-selected="handlePlanSelectedWithPeriod" />
+        <div v-if="!props.loading && props.pricingPlans.length > 0">
+          <AppPricing :pricing-plans="props.pricingPlans" md="4" @plan-selected="handlePlanSelectedWithPeriod" />
         </div>
 
         <div v-else class="d-flex justify-center align-center" style="min-height: 400px">
@@ -31,15 +31,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import type { ActivePlanInfoDto, FormattedPricingPlan, PricingPlan } from '../types/pricing'
+import type { ActivePlanInfoDto, FormattedPricingPlan } from '../types/pricing'
 import AppPricing from './AppPricing.vue'
 import DialogCloseBtn from '@crudui/components/dialogs/DialogCloseBtn.vue'
-import { secureApi } from '@crudui/services/AxiosService'
 
 interface Props {
   modelValue: boolean
   activePlanInfo: ActivePlanInfoDto | null
+  pricingPlans: FormattedPricingPlan[]
+  loading: boolean
 }
 
 interface Emits {
@@ -50,45 +50,6 @@ const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
 const router = useRouter()
-
-// Состояние загрузки тарифов
-const loading = ref(false)
-const pricingPlans = ref<FormattedPricingPlan[]>([])
-
-// Загрузка информации о тарифах
-const fetchPricingPlans = async () => {
-  loading.value = true
-  try {
-    const response = await secureApi.post('/billing/plans-info')
-
-    if (response.data?.success && response.data?.content?.items) {
-      pricingPlans.value = response.data.content.items.map((plan: PricingPlan) => ({
-        name: plan.title,
-        monthlyPrice: Number.parseFloat(plan.price_monthly),
-        yearlyPrice: Number.parseFloat(plan.price_annual),
-        priceAnnualMonth: plan.info.price_annual_month,
-        priceMonthlyYear: plan.info.price_monthly_year,
-        highlight: plan.info.highlight,
-        active: plan.active,
-        features: plan.info.features,
-        code: plan.code,
-      }))
-    }
-  }
-  catch (error) {
-    console.error('Ошибка при загрузке тарифов:', error)
-  }
-  finally {
-    loading.value = false
-  }
-}
-
-// Загрузка тарифов при открытии диалога
-watch(() => props.modelValue, (newValue) => {
-  if (newValue && pricingPlans.value.length === 0) {
-    fetchPricingPlans()
-  }
-})
 
 // Обработчик выбора тарифа
 const handlePlanSelectedWithPeriod = (data: { code: string; period: 'monthly' | 'annual' }) => {

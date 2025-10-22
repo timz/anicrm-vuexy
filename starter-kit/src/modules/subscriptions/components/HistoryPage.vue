@@ -47,6 +47,8 @@
           <PayRenewDialog
             v-model="isRenewDialogVisible"
             :active-plan-info="activePlanInfo"
+            :pricing-plans="pricingPlans"
+            :loading="loadingPlans"
             @renew="handleRenew"
           />
 
@@ -57,6 +59,8 @@
           <ChangeSubscriptionDialog
             v-model="isChangeSubscriptionDialogVisible"
             :active-plan-info="activePlanInfo"
+            :pricing-plans="pricingPlans"
+            :loading="loadingPlans"
           />
         </div>
       </VCard>
@@ -100,7 +104,7 @@
 <script setup lang="ts">
 import { onMounted, provide, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { ActivePlanInfoDto } from '../types/pricing'
+import type { ActivePlanInfoDto, FormattedPricingPlan, PricingPlan } from '../types/pricing'
 import CrudList from '@crudui/components/list/CrudList.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
@@ -112,6 +116,10 @@ const { t } = useI18n()
 
 // Данные о текущем тарифе
 const activePlanInfo = ref<ActivePlanInfoDto | null>(null)
+
+// Данные о тарифах
+const pricingPlans = ref<FormattedPricingPlan[]>([])
+const loadingPlans = ref(false)
 
 const isRenewDialogVisible = ref(false)
 const isChangeSubscriptionDialogVisible = ref(false)
@@ -179,6 +187,34 @@ const loadActivePlanInfo = async () => {
   }
 }
 
+// Функция для загрузки информации о тарифах
+const fetchPricingPlans = async () => {
+  loadingPlans.value = true
+  try {
+    const response = await secureApi.post('/billing/plans-info')
+
+    if (response.data?.success && response.data?.content?.items) {
+      pricingPlans.value = response.data.content.items.map((plan: PricingPlan) => ({
+        name: plan.title,
+        monthlyPrice: Number.parseFloat(plan.price_monthly),
+        yearlyPrice: Number.parseFloat(plan.price_annual),
+        priceAnnualMonth: plan.info.price_annual_month,
+        priceMonthlyYear: plan.info.price_monthly_year,
+        highlight: plan.info.highlight,
+        active: plan.active,
+        features: plan.info.features,
+        code: plan.code,
+      }))
+    }
+  }
+  catch (error) {
+    console.error('Ошибка при загрузке тарифов:', error)
+  }
+  finally {
+    loadingPlans.value = false
+  }
+}
+
 // Маппинг billing_cycle в читаемый формат
 const getBillingCycleLabel = (cycle: string): string => {
   const cycleLabels: Record<string, string> = {
@@ -214,5 +250,6 @@ const handleRenew = (period: string) => {
 // Загрузка данных при монтировании компонента
 onMounted(() => {
   loadActivePlanInfo()
+  fetchPricingPlans()
 })
 </script>

@@ -62,16 +62,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import type { ActivePlanInfoDto, FormattedPricingPlan, PricingPlan } from '../types/pricing'
+import { ref, computed } from 'vue'
+import type { ActivePlanInfoDto, FormattedPricingPlan } from '../types/pricing'
 import type { CustomInputContent } from '@core/utils/types'
 import CustomRadios from '@crudui/components/app-form-elements/CustomRadios.vue'
 import DialogCloseBtn from '@crudui/components/dialogs/DialogCloseBtn.vue'
-import { secureApi } from '@crudui/services/AxiosService'
 
 interface Props {
   modelValue: boolean
   activePlanInfo: ActivePlanInfoDto | null
+  pricingPlans: FormattedPricingPlan[]
+  loading: boolean
 }
 
 interface Emits {
@@ -85,52 +86,13 @@ const emit = defineEmits<Emits>()
 // Выбранный период продления
 const selectedPeriod = ref<string>('monthly')
 
-// Состояние загрузки тарифов
-const loading = ref(false)
-const pricingPlans = ref<FormattedPricingPlan[]>([])
-
-// Загрузка информации о тарифах
-const fetchPricingPlans = async () => {
-  loading.value = true
-  try {
-    const response = await secureApi.post('/billing/plans-info')
-
-    if (response.data?.success && response.data?.content?.items) {
-      pricingPlans.value = response.data.content.items.map((plan: PricingPlan) => ({
-        name: plan.title,
-        monthlyPrice: Number.parseFloat(plan.price_monthly),
-        yearlyPrice: Number.parseFloat(plan.price_annual),
-        priceAnnualMonth: plan.info.price_annual_month,
-        priceMonthlyYear: plan.info.price_monthly_year,
-        highlight: plan.info.highlight,
-        active: plan.active,
-        features: plan.info.features,
-        code: plan.code,
-      }))
-    }
-  }
-  catch (error) {
-    console.error('Ошибка при загрузке тарифов:', error)
-  }
-  finally {
-    loading.value = false
-  }
-}
-
-// Загрузка тарифов при открытии диалога
-watch(() => props.modelValue, (newValue) => {
-  if (newValue && pricingPlans.value.length === 0) {
-    fetchPricingPlans()
-  }
-})
-
 // Поиск активного тарифа по plan_code
 const activePlan = computed<FormattedPricingPlan | null>(() => {
-  if (!props.activePlanInfo || pricingPlans.value.length === 0) {
+  if (!props.activePlanInfo || props.pricingPlans.length === 0) {
     return null
   }
 
-  return pricingPlans.value.find(plan => plan.code === props.activePlanInfo?.plan_code) || null
+  return props.pricingPlans.find(plan => plan.code === props.activePlanInfo?.plan_code) || null
 })
 
 // Опции для выбора периода
