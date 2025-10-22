@@ -168,7 +168,7 @@ onMounted(() => {
 
         <div v-if="showUnspentAmount" class="d-flex justify-space-between mb-3 text-success">
           <span>Остаток от предыдущего тарифа</span>
-          <span>-{{ unspentAmount.toLocaleString() }} ₽</span>
+          <span>{{ unspentAmount.toLocaleString() }} ₽</span>
         </div>
 
         <VDivider class="my-4" />

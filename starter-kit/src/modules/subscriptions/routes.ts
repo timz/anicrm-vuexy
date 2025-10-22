@@ -15,9 +15,9 @@ export default <TCrudRouteRecord[]>[
   },
 
   {
-    path: '/select-plane',
-    name: 'SelectPlanePage',
-    component: () => import('./components/SelectPlanePage.vue'),
+    path: '/change-subscription',
+    name: 'ChangeSubscriptionPage',
+    component: () => import('./components/ChangeSubscriptionPage.vue'),
     meta: {
       layout: 'boxed',
       menuTitle: 'Select Plane Page',
