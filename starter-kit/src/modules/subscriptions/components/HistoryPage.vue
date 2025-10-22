@@ -40,45 +40,24 @@
           </crud-button-primary>
 
 
-          <VDialog
+          <VBtn @click="isRenewDialogVisible = true">
+            Быстрое продление
+          </VBtn>
+
+          <PayRenewDialog
             v-model="isRenewDialogVisible"
-            persistent
-            class="v-dialog-sm"
-          >
-            <!-- Dialog Activator -->
-            <template #activator="{ props }">
-              <VBtn v-bind="props">
-                Open Dialog
-              </VBtn>
-            </template>
+            :active-plan-info="activePlanInfo"
+            @renew="handleRenew"
+          />
 
-            <!-- Dialog close btn -->
-            <DialogCloseBtn @click="isRenewDialogVisible = !isRenewDialogVisible" />
-
-            <!-- Dialog Content -->
-            <VCard title="Use Google's location service?">
-              <VCardText>
-                Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.
-              </VCardText>
-
-              <VCardText class="d-flex justify-end gap-3 flex-wrap">
-                <VBtn
-                  color="secondary"
-                  variant="tonal"
-                  @click="isDialogVisible = false"
-                >
-                  Disagree
-                </VBtn>
-                <VBtn @click="isDialogVisible = false">
-                  Agree
-                </VBtn>
-              </VCardText>
-            </VCard>
-          </VDialog>
-
-          <crud-button-primary size="small"   :to="{ name: 'changeSubscriptionPage' }">
+          <VBtn size="small" @click="isChangeSubscriptionDialogVisible = true">
             Изменить тариф
-          </crud-button-primary>
+          </VBtn>
+
+          <ChangeSubscriptionDialog
+            v-model="isChangeSubscriptionDialogVisible"
+            :active-plan-info="activePlanInfo"
+          />
         </div>
       </VCard>
 
@@ -126,6 +105,8 @@ import CrudList from '@crudui/components/list/CrudList.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
 import { secureApi } from '@crudui/services/AxiosService'
+import PayRenewDialog from './PayRenewDialog.vue'
+import ChangeSubscriptionDialog from './ChangeSubscriptionDialog.vue'
 
 const { t } = useI18n()
 
@@ -133,6 +114,7 @@ const { t } = useI18n()
 const activePlanInfo = ref<ActivePlanInfoDto | null>(null)
 
 const isRenewDialogVisible = ref(false)
+const isChangeSubscriptionDialogVisible = ref(false)
 
 interface BillingPaymentItem {
   id: string
@@ -221,6 +203,12 @@ const formatEndDate = (dateString: string | null): string => {
     month: '2-digit',
     day: '2-digit',
   })
+}
+
+// Обработчик продления подписки
+const handleRenew = (period: string) => {
+  console.log('Продление подписки на период:', period)
+  // TODO: Реализовать логику продления подписки
 }
 
 // Загрузка данных при монтировании компонента
