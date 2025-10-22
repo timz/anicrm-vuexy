@@ -174,26 +174,14 @@ const formatDate = (dateString: string): string => {
   })
 }
 
-// Функция для загрузки информации о текущем тарифе
-const loadActivePlanInfo = async () => {
-  try {
-    const response = await secureApi.post('/billing/active-plan-info')
-    if (response.data?.content) {
-      activePlanInfo.value = response.data.content
-    }
-  }
-  catch (error) {
-    console.error('Ошибка при загрузке информации о тарифе:', error)
-  }
-}
-
-// Функция для загрузки информации о тарифах
+// Функция для загрузки информации о тарифах и текущей подписке
 const fetchPricingPlans = async () => {
   loadingPlans.value = true
   try {
     const response = await secureApi.post('/billing/plans-info')
 
     if (response.data?.success && response.data?.content?.items) {
+      // Маппинг тарифных планов
       pricingPlans.value = response.data.content.items.map((plan: PricingPlan) => ({
         name: plan.title,
         monthlyPrice: Number.parseFloat(plan.price_monthly),
@@ -205,6 +193,11 @@ const fetchPricingPlans = async () => {
         features: plan.info.features,
         code: plan.code,
       }))
+
+      // Извлечение информации о текущей подписке
+      if (response.data.content.current_subscription) {
+        activePlanInfo.value = response.data.content.current_subscription
+      }
     }
   }
   catch (error) {
@@ -249,7 +242,6 @@ const handleRenew = (period: string) => {
 
 // Загрузка данных при монтировании компонента
 onMounted(() => {
-  loadActivePlanInfo()
   fetchPricingPlans()
 })
 </script>

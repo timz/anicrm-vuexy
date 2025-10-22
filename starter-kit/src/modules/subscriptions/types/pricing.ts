@@ -51,3 +51,17 @@ export interface ActivePlanInfoDto {
    */
   ends_at: string | null
 }
+
+/**
+ * Ответ API /billing/plans-info с информацией о тарифах и текущей подписке
+ */
+export interface BillingPlansInfoResponse {
+  success: boolean
+  code: number
+  error: string | null
+  message: string | null
+  content: {
+    items: PricingPlan[]
+    current_subscription: ActivePlanInfoDto
+  }
+}
