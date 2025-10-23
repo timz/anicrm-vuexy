@@ -53,7 +53,7 @@
           />
 
           <VBtn @click="isChangeSubscriptionDialogVisible = true">
-            Изменить
+            Изменить тариф
           </VBtn>
 
           <ChangeSubscriptionDialog
