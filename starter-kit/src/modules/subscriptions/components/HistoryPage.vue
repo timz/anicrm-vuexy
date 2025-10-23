@@ -36,12 +36,12 @@
               },
             }"
           >
-            Продлить текущий
+            Продлить
           </crud-button-primary>
 
 
           <VBtn @click="isRenewDialogVisible = true">
-            Быстрое продление
+            Продлить
           </VBtn>
 
           <PayRenewDialog
@@ -52,8 +52,8 @@
             @renew="handleRenew"
           />
 
-          <VBtn size="small" @click="isChangeSubscriptionDialogVisible = true">
-            Изменить тариф
+          <VBtn @click="isChangeSubscriptionDialogVisible = true">
+            Изменить
           </VBtn>
 
           <ChangeSubscriptionDialog

@@ -31,13 +31,12 @@
 </template>
 
 <script setup lang="ts">
-import type { ActivePlanInfoDto, FormattedPricingPlan } from '../types/pricing'
+import type { FormattedPricingPlan } from '../types/pricing'
 import AppPricing from './AppPricing.vue'
 import DialogCloseBtn from '@crudui/components/dialogs/DialogCloseBtn.vue'
 
 interface Props {
   modelValue: boolean
-  activePlanInfo: ActivePlanInfoDto | null
   pricingPlans: FormattedPricingPlan[]
   loading: boolean
 }

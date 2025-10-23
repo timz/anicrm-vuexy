@@ -124,7 +124,7 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
           </VList>
 
           <!-- 👉 Plan actions -->
-          <VBtn block @click="handlePlanSelect(plan)">
+          <VBtn :disabled="plan.active" block @click="handlePlanSelect(plan)">
             {{ plan.active ? 'Ваш текущий план' : 'Выбрать' }}
           </VBtn>
         </VCardText>
