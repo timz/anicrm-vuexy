@@ -6,24 +6,25 @@ export default <TCrudRouteRecord[]>[
     name: 'billingHistory',
     component: () => import('./components/HistoryPage.vue'),
     meta: {
-      layout: 'boxed',
       menuTitle: 'modules.billing.history.title',
       menuIcon: 'mdi-history',
       menuSort: 100,
       menuHide: false,
     },
   },
-
   {
-    path: '/change-subscription',
-    name: 'changeSubscriptionPage',
-    component: () => import('./components/ChangeSubscriptionPage.vue'),
+    path: '/blocked-history',
+    name: 'blockedBillingHistory',
+    component: () => import('./components/HistoryPage.vue'),
     meta: {
       layout: 'boxed',
-      menuTitle: 'Select Plane Page',
-      menuSort: 110,
+      menuTitle: 'blocked Billing History',
+      menuIcon: 'mdi-history',
+      menuSort: 100,
+      menuHide: false,
     },
   },
+
   {
     path: '/blocked',
     name: 'PayBlockedPage',

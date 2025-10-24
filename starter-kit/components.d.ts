@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppLoadingIndicator: typeof import('./src/crudui/components/templates/AppLoadingIndicator.vue')['default']
-    AppSelect: typeof import('./src/crudui/components/app-form-elements/AppSelect.vue')['default']
     AppStepper: typeof import('./src/crudui/components/templates/AppStepper.vue')['default']
     ButtonAction: typeof import('./src/crudui/components/table/buttons/ButtonAction.vue')['default']
     ButtonBatchDelete: typeof import('./src/crudui/components/table/buttons/ButtonBatchDelete.vue')['default']

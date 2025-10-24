@@ -83,6 +83,14 @@ const router = createRouter({
         redirect: { name: 'dashboardIndex' },
       },
       {
+        path: '/profile',
+        name: 'profilePage',
+        component: () => import('@/modules/auth/ProfilePage.vue'),
+        meta: {
+          public: true,
+        },
+      },
+      {
         path: '/login',
         name: 'login',
         component: () => import('@/modules/auth/LoginPage.vue'),

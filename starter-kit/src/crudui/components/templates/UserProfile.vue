@@ -65,7 +65,7 @@ const handleLogout = async () => {
 
           <template v-if="!shortMenu">
             <!-- 👉 Profile -->
-            <VListItem link>
+            <VListItem link :to="{ name: 'profilePage' }">
               <template #prepend>
                 <VIcon class="me-2" icon="tabler-user" size="22" />
               </template>
@@ -74,16 +74,16 @@ const handleLogout = async () => {
             </VListItem>
 
             <!-- 👉 Settings -->
-            <VListItem link>
-              <template #prepend>
-                <VIcon class="me-2" icon="tabler-settings" size="22" />
-              </template>
+<!--            <VListItem link>-->
+<!--              <template #prepend>-->
+<!--                <VIcon class="me-2" icon="tabler-settings" size="22" />-->
+<!--              </template>-->
 
-              <VListItemTitle>{{ $t('userProfile.settings') }}</VListItemTitle>
-            </VListItem>
+<!--              <VListItemTitle>{{ $t('userProfile.settings') }}</VListItemTitle>-->
+<!--            </VListItem>-->
 
             <!-- 👉 Pricing -->
-            <VListItem link :to="{ name: 'SubscriptionPlans' }">
+            <VListItem link :to="{ name: 'billingHistory' }">
               <template #prepend>
                 <VIcon class="me-2" icon="tabler-currency-dollar" size="22" />
               </template>
@@ -92,13 +92,13 @@ const handleLogout = async () => {
             </VListItem>
 
             <!-- 👉 FAQ -->
-            <VListItem link>
-              <template #prepend>
-                <VIcon class="me-2" icon="tabler-help" size="22" />
-              </template>
+<!--            <VListItem link>-->
+<!--              <template #prepend>-->
+<!--                <VIcon class="me-2" icon="tabler-help" size="22" />-->
+<!--              </template>-->
 
-              <VListItemTitle>{{ $t('userProfile.faq') }}</VListItemTitle>
-            </VListItem>
+<!--              <VListItemTitle>{{ $t('userProfile.faq') }}</VListItemTitle>-->
+<!--            </VListItem>-->
 
             <!-- Divider -->
             <VDivider class="my-2" />
