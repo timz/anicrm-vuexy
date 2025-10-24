@@ -33,6 +33,7 @@
               query: {
                 plan: activePlanInfo?.plan_code,
                 period: activePlanInfo?.billing_cycle,
+                operation_type: 'renewal',
               },
             }"
           >

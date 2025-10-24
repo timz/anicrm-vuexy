@@ -83,6 +83,9 @@ interface Emits {
 const props = defineProps<Props>()
 const emit = defineEmits<Emits>()
 
+// Router для навигации
+const router = useRouter()
+
 // Выбранный период продления
 const selectedPeriod = ref<string>('monthly')
 
@@ -121,7 +124,17 @@ const periodOptions = computed<CustomInputContent[]>(() => {
 
 // Обработчик продления подписки
 const handleRenew = () => {
-  emit('renew', selectedPeriod.value)
+  // Переход на страницу оплаты с параметрами
+  router.push({
+    name: 'PaymentSummaryPage',
+    query: {
+      plan: props.activePlanInfo?.plan_code,
+      period: selectedPeriod.value,
+      operation_type: 'renewal',
+    },
+  })
+
+  // Закрываем диалог
   emit('update:modelValue', false)
 }
 </script>

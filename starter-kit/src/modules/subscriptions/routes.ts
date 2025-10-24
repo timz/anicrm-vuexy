@@ -50,7 +50,7 @@ export default <TCrudRouteRecord[]>[
     meta: {
       layout: 'boxed',
       menuTitle: 'Payment Summary Page',
-      menuHide: true,
+      menuHide: false,
     },
   },
 ]

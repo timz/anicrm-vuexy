@@ -48,6 +48,7 @@ const handlePlanSelectedWithPeriod = (data: { code: string; period: 'monthly' | 
       query: {
         plan: data.code,
         period: data.period,
+        operation_type: 'plan_change',
       },
     })
   }

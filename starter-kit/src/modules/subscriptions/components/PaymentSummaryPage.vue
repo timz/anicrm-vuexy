@@ -7,6 +7,7 @@ const route = useRoute()
 // Data from route query params
 const planCode = computed(() => route.query.plan as string)
 const period = computed(() => route.query.period as 'monthly' | 'annual')
+const operationType = computed(() => route.query.operation_type as string || 'renewal')
 
 // Reactive state
 interface PaymentSummaryData {
@@ -43,6 +44,7 @@ const fetchPlanDetails = async () => {
     const response = await secureApi.post('/billing/payment-summary', {
       plan_code: planCode.value,
       billing_cycle: period.value === 'annual' ? 'yearly' : 'monthly',
+      operation_type: operationType.value,
     })
 
     if (response.data?.success && response.data?.content) {
@@ -58,12 +60,12 @@ const fetchPlanDetails = async () => {
     }
     else {
       // Plan not found, redirect back
-      router.push('/select-plane')
+      // router.push('/select-plane')
     }
   }
   catch (error) {
     console.error('Error fetching plan details:', error)
-    router.push('/select-plane')
+    // router.push('/select-plane')
   }
   finally {
     loading.value = false
@@ -78,6 +80,7 @@ const handlePayment = async () => {
     const response = await secureApi.post('/billing/checkout', {
       plan_code: planCode.value,
       billing_cycle: period.value === 'annual' ? 'yearly' : 'monthly',
+      operation_type: operationType.value,
     })
 
     if (response.data?.success && response.data?.content?.payment_url) {
@@ -103,6 +106,7 @@ const goBack = () => {
     query: {
       plan: planCode.value,
       period: period.value,
+      operation_type: operationType.value,
     },
   })
 }
@@ -110,11 +114,11 @@ const goBack = () => {
 // Lifecycle
 onMounted(() => {
   // Validate required query params
-  if (!planCode.value || !period.value) {
-    router.push('/select-plane')
-
-    return
-  }
+  // if (!planCode.value || !period.value) {
+  //   router.push('/select-plane')
+  //
+  //   return
+  // }
 
   fetchPlanDetails()
 })
