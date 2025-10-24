@@ -29,7 +29,7 @@ declare module 'vue' {
     CrudSelect: typeof import('./src/crudui/components/Inputs/CrudSelect.vue')['default']
     CrudSelector: typeof import('./src/crudui/components/Inputs/CrudSelector.vue')['default']
     CrudTable: typeof import('./src/crudui/components/table/CrudTable.vue')['default']
-    CustomRadios: typeof import('./src/crudui/components/app-form-elements/CustomRadios.vue')['default']
+    CustomRadios: typeof import('./src/crudui/components/CustomRadios.vue')['default']
     DefaultLayoutWithHorizontalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithHorizontalNav.vue')['default']
     DefaultLayoutWithoutNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithoutNav.vue')['default']
     DefaultLayoutWithVerticalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithVerticalNav.vue')['default']

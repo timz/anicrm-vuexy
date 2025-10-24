@@ -65,7 +65,7 @@
 import { ref, computed } from 'vue'
 import type { ActivePlanInfoDto, FormattedPricingPlan } from '../types/pricing'
 import type { CustomInputContent } from '@core/utils/types'
-import CustomRadios from '@crudui/components/app-form-elements/CustomRadios.vue'
+import CustomRadios from '@crudui/components/CustomRadios.vue'
 import DialogCloseBtn from '@crudui/components/dialogs/DialogCloseBtn.vue'
 
 interface Props {
