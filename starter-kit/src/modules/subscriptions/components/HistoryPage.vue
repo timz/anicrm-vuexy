@@ -25,22 +25,6 @@
           <v-skeleton-loader type="list-item-three-line" />
         </div>
         <div class="d-flex gap-2 justify-center mt-4">
-          <crud-button-primary
-            v-if="activePlanInfo?.billing_cycle !== 'trial'"
-            size="small"
-            :to="{
-              name: 'PaymentSummaryPage',
-              query: {
-                plan: activePlanInfo?.plan_code,
-                period: activePlanInfo?.billing_cycle,
-                operation_type: 'renewal',
-              },
-            }"
-          >
-            Продлить
-          </crud-button-primary>
-
-
           <VBtn @click="isRenewDialogVisible = true">
             Продлить
           </VBtn>
@@ -144,6 +128,12 @@ const dataListProvider: UseCrudDataListReturn<BillingPaymentItem> = useCrudDataL
 provide('dataListProvider', dataListProvider)
 
 // Helper functions
+// Преобразование billing_cycle из API формата в формат query параметров
+const convertBillingCycleToQueryPeriod = (billingCycle: string): string => {
+  // API возвращает 'yearly', но мы используем 'annual' в query
+  return billingCycle === 'yearly' ? 'annual' : billingCycle
+}
+
 const getStatusColor = (status: unknown): string => {
   const statusColors: Record<string, string> = {
     pending: 'warning',

@@ -117,20 +117,26 @@ const periodOptions = computed<CustomInputContent[]>(() => {
       title: 'Годовая подписка',
       subtitle: `${plan.yearlyPrice.toLocaleString('ru-RU')} ₽/год`,
       desc: `Выгоднее! ~${plan.priceAnnualMonth.toLocaleString('ru-RU')} ₽/мес`,
-      value: 'yearly',
+      value: 'annual',
     },
   ]
 })
 
 // Обработчик продления подписки
 const handleRenew = () => {
+  // Определяем тип операции: renewal или cycle_change
+  // Если выбранный период отличается от текущего billing_cycle - это смена цикла
+  const currentCycle = props.activePlanInfo?.billing_cycle
+  const selectedCycle = selectedPeriod.value === 'annual' ? 'yearly' : selectedPeriod.value
+  const operationType = currentCycle === selectedCycle ? 'renewal' : 'cycle_change'
+
   // Переход на страницу оплаты с параметрами
   router.push({
     name: 'PaymentSummaryPage',
     query: {
       plan: props.activePlanInfo?.plan_code,
       period: selectedPeriod.value,
-      operation_type: 'renewal',
+      operation_type: operationType,
     },
   })
 
