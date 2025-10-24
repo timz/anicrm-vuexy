@@ -89,37 +89,16 @@ const handlePayment = async () => {
     }
     else {
       console.error('Checkout failed:', response.data)
+      loading.value = false
     }
   }
   catch (error) {
     console.error('Error creating payment:', error)
-  }
-  finally {
     loading.value = false
   }
 }
 
-// Go back to plan selection
-const goBack = () => {
-  router.push({
-    path: '/select-plane',
-    query: {
-      plan: planCode.value,
-      period: period.value,
-      operation_type: operationType.value,
-    },
-  })
-}
-
-// Lifecycle
 onMounted(() => {
-  // Validate required query params
-  // if (!planCode.value || !period.value) {
-  //   router.push('/select-plane')
-  //
-  //   return
-  // }
-
   fetchPlanDetails()
 })
 </script>
@@ -187,22 +166,7 @@ onMounted(() => {
 
       <!-- Action Buttons -->
       <div class="d-flex flex-wrap gap-4 justify-center">
-        <VBtn
-          color="secondary"
-          variant="tonal"
-          size="large"
-          @click="goBack"
-        >
-          <VIcon icon="tabler-arrow-left" start class="flip-in-rtl" />
-          Назад
-        </VBtn>
-
-        <VBtn
-          color="success"
-          size="large"
-          :loading="loading"
-          @click="handlePayment"
-        >
+        <VBtn color="primary" :loading="loading" @click="handlePayment">
           Перейти к оплате
           <VIcon icon="tabler-arrow-right" end class="flip-in-rtl" />
         </VBtn>
