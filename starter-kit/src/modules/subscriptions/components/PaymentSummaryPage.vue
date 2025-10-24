@@ -9,7 +9,6 @@ const planCode = computed(() => route.query.plan as string)
 const period = computed(() => route.query.period as 'monthly' | 'annual')
 const operationType = computed(() => route.query.operation_type as string || 'renewal')
 
-// Reactive state
 interface PaymentSummaryData {
   planTitle: string
   price: number
@@ -21,7 +20,6 @@ interface PaymentSummaryData {
 const paymentSummary = ref<PaymentSummaryData | null>(null)
 const loading = ref(false)
 
-// Computed values
 const basePrice = computed(() => paymentSummary.value?.price || 0)
 
 const vat = computed(() => {
@@ -60,12 +58,12 @@ const fetchPlanDetails = async () => {
     }
     else {
       // Plan not found, redirect back
-      // router.push('/select-plane')
+      router.push({name:'billingHistory'})
     }
   }
   catch (error) {
     console.error('Error fetching plan details:', error)
-    // router.push('/select-plane')
+    router.push({name:'billingHistory'})
   }
   finally {
     loading.value = false

@@ -3,7 +3,7 @@ import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
 export default <TCrudRouteRecord[]>[
   {
     path: '/history',
-    name: 'BillingHistory',
+    name: 'billingHistory',
     component: () => import('./components/HistoryPage.vue'),
     meta: {
       layout: 'boxed',
