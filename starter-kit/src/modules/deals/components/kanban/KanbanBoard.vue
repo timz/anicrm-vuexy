@@ -2,7 +2,7 @@
 import { animations, remapNodes } from '@formkit/drag-and-drop'
 import { dragAndDrop } from '@formkit/drag-and-drop/vue'
 import { VForm } from 'vuetify/components/VForm'
-import KanbanBoardEditDrawer from './KanbanBoardEditDrawer.vue'
+import KanbanBoardEditDialog from './KanbanBoardEditDialog.vue'
 import KanbanItems from './KanbanItems.vue'
 import type { AddNewKanbanItem, EditKanbanItem, KanbanBoard, KanbanData, KanbanState, RenameKanbanBoard } from './types'
 import { requiredValidator } from '@crudui/utils/validators'
@@ -203,9 +203,9 @@ onClickOutside(refAddNewBoard, hideAddNewForm)
     </div>
   </div>
 
-  <!-- kanban edit drawer -->
-  <KanbanBoardEditDrawer
-    v-model:is-drawer-open="isKanbanBoardEditVisible"
+  <!-- kanban edit dialog -->
+  <KanbanBoardEditDialog
+    v-model:is-dialog-open="isKanbanBoardEditVisible"
     :kanban-item="editKanbanItem"
     @update:kanban-item="emitUpdatedTaskFn"
     @delete-kanban-item="deleteKanbanItemFn"
