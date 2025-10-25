@@ -13,6 +13,7 @@ const props = defineProps<{
   boardId: number
   kanbanData: KanbanData
   kanbanItems: any[]
+  canAddItems: boolean
 }>()
 
 const emit = defineEmits<{
@@ -119,7 +120,10 @@ const handleEnterKeydown = (event: { key: string; shiftKey: any }) => {
       </template>
 
       <!-- 👉 Add new Form -->
-      <div class="add-new-form">
+      <div
+        v-if="canAddItems"
+        class="add-new-form"
+      >
         <h6
           class="text-base font-weight-regular cursor-pointer ms-4"
           @click="isAddNewFormVisible = !isAddNewFormVisible"

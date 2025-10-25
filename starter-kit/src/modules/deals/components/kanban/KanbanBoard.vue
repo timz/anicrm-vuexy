@@ -60,7 +60,7 @@ const deleteKanbanItemFn = (item: EditKanbanItem) => {
     <!-- 👉 kanban render  -->
     <div class="d-flex ga-6">
       <template
-        v-for="kb in localKanbanData"
+        v-for="(kb, index) in localKanbanData"
         :key="kb.id"
       >
         <!-- 👉 kanban task render -->
@@ -71,6 +71,7 @@ const deleteKanbanItemFn = (item: EditKanbanItem) => {
           :board-id="kb.id"
           :kanban-items="kanbanData.items"
           :kanban-data="kanbanData"
+          :can-add-items="index === 0"
           @add-new-item="addNewItem"
           @edit-item="editKanbanItemFn"
           @update-items-state="updateStateFn"
