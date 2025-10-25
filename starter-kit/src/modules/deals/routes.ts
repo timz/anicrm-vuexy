@@ -2,6 +2,17 @@ import type { TCrudRouteRecord } from '@crudui/interfaces/CrudRouterInterface'
 
 export default <TCrudRouteRecord[]>[
   {
+    path: '/kanban',
+    name: 'kanbanIndex',
+    component: () => import('./components/kanban/KanbanPage.vue'),
+    meta: {
+      permission: 'deals_index',
+      menuTitle: 'kanban',
+      menuIcon: 'mdi-handshake',
+      menuSort: 10,
+    },
+  },
+  {
     path: '/deals',
     name: 'dealsIndex',
     component: () => import('./components/IndexPage.vue'),

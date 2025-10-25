@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppDrawerHeaderSection: typeof import('./src/crudui/components/AppDrawerHeaderSection.vue')['default']
     AppLoadingIndicator: typeof import('./src/crudui/components/templates/AppLoadingIndicator.vue')['default']
     AppStepper: typeof import('./src/crudui/components/templates/AppStepper.vue')['default']
     ButtonAction: typeof import('./src/crudui/components/table/buttons/ButtonAction.vue')['default']
