@@ -33,9 +33,7 @@ const props = withDefaults(defineProps<{
       labels: [],
       members: [],
       id: 0,
-      attachments: 0,
       commentsCount: 0,
-      image: '',
       comments: '',
     },
     boardId: 0,
@@ -97,8 +95,6 @@ const users = [
   { img: avatar5, name: 'Mike White' },
   { img: avatar6, name: 'Anna Black' },
 ]
-
-const fileAttached = ref()
 
 const editor = useEditor({
   content: '',
@@ -217,23 +213,6 @@ const editor = useEditor({
                     </template>
                   </VSelect>
                 </div>
-              </VCol>
-
-              <VCol cols="12">
-                <VFileInput
-                  v-model="fileAttached"
-                  prepend-icon=""
-                  multiple
-                  variant="outlined"
-                  label="No file chosen"
-                  clearable
-                >
-                  <template #append>
-                    <VBtn variant="tonal">
-                      Choose
-                    </VBtn>
-                  </template>
-                </VFileInput>
               </VCol>
 
               <VCol cols="12">

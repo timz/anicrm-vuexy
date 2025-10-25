@@ -8,9 +8,7 @@ export interface KanbanItem {
   dueDate?: string
   labels?: string[]
   members?: Member[]
-  attachments?: number
   commentsCount?: number
-  image?: string
 }
 export interface KanbanBoard {
   id: number

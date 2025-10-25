@@ -41,9 +41,7 @@ export const database: KanbanData = {
       labels: ['UX'],
       members: [{ img: avatar1, name: 'John Doe' }, { img: avatar2, name: 'Jane Smith' }, { img: avatar3, name: 'Robert Johnson' }],
       comments: 'FAQ page design is ready and needs to be implemented.',
-      attachments: 2,
       commentsCount: 1,
-      image: '',
     },
     {
       id: 2,
@@ -52,9 +50,7 @@ export const database: KanbanData = {
       labels: ['Code Review'],
       members: [{ img: avatar1, name: 'John Doe' }, { img: avatar2, name: 'Jane Smith' }],
       comments: 'JavaScript code needs to be reviewed and refactored.',
-      attachments: 2,
       commentsCount: 4,
-      image: '',
     },
     {
       id: 3,
@@ -63,8 +59,6 @@ export const database: KanbanData = {
       labels: ['Dashboard'],
       members: [{ img: avatar1, name: 'John Doe' }, { img: avatar2, name: 'Jane Smith' }],
       comments: 'Apps design is ready and needs to be implemented.',
-      image: '',
-      attachments: 5,
       commentsCount: 10,
     },
     {
@@ -74,8 +68,6 @@ export const database: KanbanData = {
       labels: ['Image'],
       members: [{ img: avatar1, name: 'John Doe' }, { img: avatar2, name: 'Jane Smith' }, { img: avatar3, name: 'Robert Johnson' }],
       comments: 'New images need to be found for the new pages.',
-      image: '',
-      attachments: 5,
       commentsCount: 4,
     },
     {
@@ -85,9 +77,7 @@ export const database: KanbanData = {
       labels: ['App'],
       members: [{ img: avatar1, name: 'John Doe' }, { img: avatar2, name: 'Jane Smith' }],
       comments: 'Forms and tables need to be updated.',
-      attachments: 7,
       commentsCount: 2,
-      image: '',
     },
     {
       id: 6,
@@ -96,9 +86,7 @@ export const database: KanbanData = {
       labels: ['Charts & Maps'],
       members: [{ img: avatar1, name: 'John Doe' }],
       comments: 'Charts and maps need to be updated.',
-      attachments: 1,
       commentsCount: 10,
-      image: '',
     },
   ],
 }

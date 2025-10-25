@@ -14,7 +14,6 @@ export function useKanban() {
       kanban.value.items.push({
         id: itemId,
         title: newItem.itemTitle,
-        attachments: 0,
         comments: '',
         commentsCount: 0,
         dueDate: '',
@@ -37,7 +36,6 @@ export function useKanban() {
     kanban.value.items.forEach(item => {
       if (editItem.item && item.id === editItem.item.id) {
         item.title = editItem.item.title
-        item.attachments = editItem.item.attachments
         item.comments = editItem.item.comments
         item.commentsCount = editItem.item.commentsCount
         item.dueDate = editItem.item.dueDate

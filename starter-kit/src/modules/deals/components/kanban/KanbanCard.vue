@@ -82,13 +82,6 @@ const moreOptions = [
         </VMenu>
       </div>
 
-      <!-- Task Img -->
-      <VImg
-        v-if="item.image && item.image.length"
-        :src="item.image"
-        class="rounded"
-      />
-
       <!-- Task title -->
       <p class="text-base text-high-emphasis mb-0">
         {{ item.title }}
@@ -97,18 +90,9 @@ const moreOptions = [
       <!-- footer  -->
       <div class="task-footer d-flex align-center flex-wrap justify-space-between">
         <div
-          v-if="item.attachments || item.commentsCount"
+          v-if="item.commentsCount"
           class="d-flex align-center gap-4"
         >
-          <div v-if="item.attachments">
-            <VIcon
-              size="20"
-              icon="tabler-paperclip"
-              class="me-1"
-            />
-            <span class="text-body-1 d-inline-block">{{ item.attachments }}</span>
-          </div>
-
           <div v-if="item.commentsCount">
             <VIcon
               size="20"
