@@ -96,9 +96,9 @@ dragAndDrop({
 })
 
 // 👉 watch kanbanIds its is useful when you add new task
-watch(() => props, () => {
-  localIds.value = props.kanbanIds
-}, { immediate: true, deep: true })
+watch(() => props.kanbanIds, (newIds) => {
+  localIds.value = newIds
+}, { immediate: true })
 
 // 👉 resolve item using id
 const resolveItemUsingId = (id: number) => props.kanbanData.items.find(item => item.id === id)

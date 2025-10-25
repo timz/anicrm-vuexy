@@ -387,15 +387,19 @@ declare module 'vue' {
     readonly Skins: UnwrapRef<typeof import('./src/crudui/utils/enums')['Skins']>
     readonly Theme: UnwrapRef<typeof import('./src/crudui/utils/enums')['Theme']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
+    readonly alphaDashValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['alphaDashValidator']>
+    readonly alphaValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['alphaValidator']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly availableLocales: UnwrapRef<typeof import('./src/crudui/composables/useLocale')['availableLocales']>
     readonly avatarText: UnwrapRef<typeof import('./src/crudui/utils/formatters')['avatarText']>
+    readonly betweenValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['betweenValidator']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
     readonly computedInject: UnwrapRef<typeof import('@vueuse/core')['computedInject']>
     readonly computedWithControl: UnwrapRef<typeof import('@vueuse/core')['computedWithControl']>
+    readonly confirmedValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['confirmedValidator']>
     readonly controlledComputed: UnwrapRef<typeof import('@vueuse/core')['controlledComputed']>
     readonly controlledRef: UnwrapRef<typeof import('@vueuse/core')['controlledRef']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
@@ -421,6 +425,7 @@ declare module 'vue' {
     readonly defineThemeConfig: UnwrapRef<typeof import('./src/crudui/utils/index')['defineThemeConfig']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
+    readonly emailValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['emailValidator']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly formatDate: UnwrapRef<typeof import('./src/crudui/utils/formatters')['formatDate']>
     readonly formatDateToMonthShort: UnwrapRef<typeof import('./src/crudui/utils/formatters')['formatDateToMonthShort']>
@@ -433,6 +438,7 @@ declare module 'vue' {
     readonly initCore: UnwrapRef<typeof import('./src/crudui/utils/initCore')['default']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly injectLocal: UnwrapRef<typeof import('@vueuse/core')['injectLocal']>
+    readonly integerValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['integerValidator']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isEmpty: UnwrapRef<typeof import('./src/crudui/utils/helpers')['isEmpty']>
     readonly isEmptyArray: UnwrapRef<typeof import('./src/crudui/utils/helpers')['isEmptyArray']>
@@ -444,6 +450,7 @@ declare module 'vue' {
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly isToday: UnwrapRef<typeof import('./src/crudui/utils/helpers')['isToday']>
     readonly kFormatter: UnwrapRef<typeof import('./src/crudui/utils/formatters')['kFormatter']>
+    readonly lengthValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['lengthValidator']>
     readonly logicAnd: UnwrapRef<typeof import('@vueuse/math')['logicAnd']>
     readonly logicNot: UnwrapRef<typeof import('@vueuse/math')['logicNot']>
     readonly logicOr: UnwrapRef<typeof import('@vueuse/math')['logicOr']>
@@ -476,6 +483,7 @@ declare module 'vue' {
     readonly onUpdated: UnwrapRef<typeof import('vue')['onUpdated']>
     readonly onWatcherCleanup: UnwrapRef<typeof import('vue')['onWatcherCleanup']>
     readonly paginationMeta: UnwrapRef<typeof import('./src/crudui/utils/paginationMeta')['paginationMeta']>
+    readonly passwordValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['passwordValidator']>
     readonly pausableWatch: UnwrapRef<typeof import('@vueuse/core')['pausableWatch']>
     readonly prefixWithPlus: UnwrapRef<typeof import('./src/crudui/utils/formatters')['prefixWithPlus']>
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
@@ -493,7 +501,9 @@ declare module 'vue' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
+    readonly regexValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['regexValidator']>
     readonly registerPlugins: UnwrapRef<typeof import('./src/crudui/utils/plugins')['registerPlugins']>
+    readonly requiredValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['requiredValidator']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
@@ -524,6 +534,7 @@ declare module 'vue' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly unrefElement: UnwrapRef<typeof import('@vueuse/core')['unrefElement']>
     readonly until: UnwrapRef<typeof import('@vueuse/core')['until']>
+    readonly urlValidator: UnwrapRef<typeof import('./src/crudui/utils/validators')['urlValidator']>
     readonly useAbility: UnwrapRef<typeof import('./src/crudui/plugins/casl/composables/useAbility')['useAbility']>
     readonly useAbs: UnwrapRef<typeof import('@vueuse/math')['useAbs']>
     readonly useActiveElement: UnwrapRef<typeof import('@vueuse/core')['useActiveElement']>

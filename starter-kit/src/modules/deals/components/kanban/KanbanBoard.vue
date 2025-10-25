@@ -83,8 +83,9 @@ dragAndDrop({
 })
 
 // assign the new kanban data to the local kanban data
-watch(() => props, () => {
-  localKanbanData.value = props.kanbanData.boards
+watch(() => props.kanbanData.boards, (newBoards) => {
+  localKanbanData.value = newBoards
+  previousBoardIds.value = newBoards.map(board => board.id)
 
   // 👉 remap the nodes when we rename the board: https://github.com/formkit/drag-and-drop/discussions/52#discussioncomment-8995203
   remapNodes(kanbanWrapper.value as any)
@@ -101,11 +102,19 @@ const deleteKanbanItemFn = (item: EditKanbanItem) => {
 }
 
 // 👉 update boards data when it sort
+const previousBoardIds = ref<number[]>(props.kanbanData.boards.map(board => board.id))
 watch(localKanbanData, () => {
   const getIds = localKanbanData.value.map(board => board.id)
 
-  emit('updateBoardState', getIds)
-}, { deep: true })
+  // Only emit if the order of boards actually changed
+  const orderChanged = getIds.length !== previousBoardIds.value.length ||
+    getIds.some((id, index) => id !== previousBoardIds.value[index])
+
+  if (orderChanged) {
+    previousBoardIds.value = getIds
+    emit('updateBoardState', getIds)
+  }
+})
 
 // 👉 validators for add new board
 const validateBoardTitle = () => {
