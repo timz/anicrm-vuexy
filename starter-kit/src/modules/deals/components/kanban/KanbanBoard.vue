@@ -58,7 +58,7 @@ const deleteKanbanItemFn = (item: EditKanbanItem) => {
 <template>
   <div class="kanban-main-wrapper d-flex gap-4 h-100">
     <!-- 👉 kanban render  -->
-    <div class="d-flex ga-6">
+    <div class="d-flex ga-4">
       <template
         v-for="(kb, index) in localKanbanData"
         :key="kb.id"
@@ -98,8 +98,8 @@ const deleteKanbanItemFn = (item: EditKanbanItem) => {
   padding-inline-start: 0.6rem;
 
   .kanban-board {
-    inline-size: 16.875rem;
-    min-inline-size: 16.875rem;
+    inline-size: 16.6rem;
+    min-inline-size: 16.6rem;
 
     .kanban-board-drop-zone {
       min-block-size: 100%;

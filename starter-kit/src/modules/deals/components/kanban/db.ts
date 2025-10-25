@@ -9,18 +9,28 @@ export const database: KanbanData = {
   boards: [
     {
       id: 1,
-      title: 'In Progress',
+      title: 'Новое',
       itemsIds: [1, 2],
     },
     {
       id: 2,
-      title: 'In Review',
+      title: 'В работе',
       itemsIds: [3, 4],
     },
     {
       id: 3,
-      title: 'Done',
+      title: 'Зарезервировано',
       itemsIds: [5, 6],
+    },
+    {
+      id: 4,
+      title: 'Выполнено',
+      itemsIds: [5],
+    },
+    {
+      id: 5,
+      title: 'Отменено',
+      itemsIds: [6],
     },
   ],
   items: [
