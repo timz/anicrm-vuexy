@@ -179,21 +179,13 @@ const handleEnterKeydown = (event: { key: string; shiftKey: any }) => {
           {{ boardName }}
         </h4>
 
-        <div class="d-flex align-center">
-          <VIcon
-            class="drag-handler"
-            size="20"
-            icon="tabler-arrows-move"
-          />
-
-          <MoreBtn
-            size="28"
-            icon-size="20"
-            class="text-high-emphasis"
-            :menu-list="boardActions"
-            item-props
-          />
-        </div>
+        <MoreBtn
+          size="28"
+          icon-size="20"
+          class="text-high-emphasis"
+          :menu-list="boardActions"
+          item-props
+        />
       </div>
     </div>
 
@@ -269,21 +261,3 @@ const handleEnterKeydown = (event: { key: string; shiftKey: any }) => {
   </div>
 </template>
 
-<style lang="scss">
-.kanban-board-header {
-  .drag-handler {
-    cursor: grab;
-    opacity: 0;
-
-    &:active {
-      cursor: grabbing;
-    }
-  }
-
-  &:hover {
-    .drag-handler {
-      opacity: 1;
-    }
-  }
-}
-</style>

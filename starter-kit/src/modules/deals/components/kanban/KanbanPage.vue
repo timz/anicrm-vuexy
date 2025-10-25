@@ -13,7 +13,6 @@ const {
   editItemFn,
   deleteItemFn,
   updateItemState,
-  updateBoardState,
 } = useKanban()
 
 // 👉 adding new board
@@ -59,11 +58,6 @@ const handleDeleteItem = async (deleteItem: EditKanbanItem) => {
 const handleUpdateItemState = async (kanbanState: KanbanState) => {
   await updateItemState(kanbanState)
 }
-
-// 👉 update board state
-const handleUpdateBoardState = async (kanbanBoardIds: number[]) => {
-  await updateBoardState(kanbanBoardIds)
-}
 </script>
 
 <template>
@@ -77,6 +71,5 @@ const handleUpdateBoardState = async (kanbanBoardIds: number[]) => {
     @edit-item="handleEditItem"
     @delete-item="handleDeleteItem"
     @update-items-state="handleUpdateItemState"
-    @update-board-state="handleUpdateBoardState"
   />
 </template>

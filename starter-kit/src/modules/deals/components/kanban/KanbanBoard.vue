@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { animations, remapNodes } from '@formkit/drag-and-drop'
-import { dragAndDrop } from '@formkit/drag-and-drop/vue'
 import { VForm } from 'vuetify/components/VForm'
 import KanbanBoardEditDialog from './KanbanBoardEditDialog.vue'
 import KanbanItems from './KanbanItems.vue'
@@ -22,10 +20,8 @@ const emit = defineEmits<{
   (e: 'editItem', value: EditKanbanItem): void
   (e: 'deleteItem', value: EditKanbanItem): void
   (e: 'updateItemsState', value: KanbanState): void
-  (e: 'updateBoardState', value: number[]): void
 }>()
 
-const kanbanWrapper = ref<HTMLElement>()
 const localKanbanData = ref<KanbanBoard[]>(props.kanbanData.boards)
 const isKanbanBoardEditVisible = ref(false)
 
@@ -74,21 +70,9 @@ const updateStateFn = (kanbanState: KanbanState) => {
   emit('updateItemsState', kanbanState)
 }
 
-// 👉 initialize the drag and drop
-dragAndDrop({
-  parent: kanbanWrapper,
-  values: localKanbanData,
-  dragHandle: '.drag-handler',
-  plugins: [animations()],
-})
-
 // assign the new kanban data to the local kanban data
 watch(() => props.kanbanData.boards, (newBoards) => {
   localKanbanData.value = newBoards
-  previousBoardIds.value = newBoards.map(board => board.id)
-
-  // 👉 remap the nodes when we rename the board: https://github.com/formkit/drag-and-drop/discussions/52#discussioncomment-8995203
-  remapNodes(kanbanWrapper.value as any)
 }, { deep: true })
 
 // 👉 emit updated task to parent
@@ -100,21 +84,6 @@ const emitUpdatedTaskFn = (item: EditKanbanItem) => {
 const deleteKanbanItemFn = (item: EditKanbanItem) => {
   emit('deleteItem', item)
 }
-
-// 👉 update boards data when it sort
-const previousBoardIds = ref<number[]>(props.kanbanData.boards.map(board => board.id))
-watch(localKanbanData, () => {
-  const getIds = localKanbanData.value.map(board => board.id)
-
-  // Only emit if the order of boards actually changed
-  const orderChanged = getIds.length !== previousBoardIds.value.length ||
-    getIds.some((id, index) => id !== previousBoardIds.value[index])
-
-  if (orderChanged) {
-    previousBoardIds.value = getIds
-    emit('updateBoardState', getIds)
-  }
-})
 
 // 👉 validators for add new board
 const validateBoardTitle = () => {
@@ -133,10 +102,7 @@ onClickOutside(refAddNewBoard, hideAddNewForm)
 <template>
   <div class="kanban-main-wrapper d-flex gap-4 h-100">
     <!-- 👉 kanban render  -->
-    <div
-      ref="kanbanWrapper"
-      class="d-flex ga-6"
-    >
+    <div class="d-flex ga-6">
       <template
         v-for="kb in localKanbanData"
         :key="kb.id"

@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { database } from './db'
-import type { AddNewKanbanItem, EditKanbanItem, KanbanBoard, KanbanData, KanbanState, RenameKanbanBoard } from './types'
+import type { AddNewKanbanItem, EditKanbanItem, KanbanData, KanbanState, RenameKanbanBoard } from './types'
 
 export function useKanban() {
   const kanban = ref<KanbanData>(JSON.parse(JSON.stringify(database)))
@@ -104,16 +104,6 @@ export function useKanban() {
     })
   }
 
-  // 👉 update board state
-  const updateBoardState = async (kanbanBoardIds: number[]) => {
-    // sort board as per boardState
-    const sortedBoards: KanbanBoard[] = kanbanBoardIds.map(boardId => {
-      return kanban.value.boards.find(board => board.id === boardId) as KanbanBoard
-    })
-
-    kanban.value.boards = sortedBoards
-  }
-
   return {
     kanban,
     addNewBoard,
@@ -123,6 +113,5 @@ export function useKanban() {
     editItemFn,
     deleteItemFn,
     updateItemState,
-    updateBoardState,
   }
 }
