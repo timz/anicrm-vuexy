@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import KanbanBoard from './KanbanBoard.vue'
-import type { AddNewKanbanItem, EditKanbanItem, KanbanState, RenameKanbanBoard } from './types'
+import type { AddNewKanbanItem, EditKanbanItem, KanbanState } from './types'
 import { useKanban } from './useKanban'
 
 // 👉 Use kanban composable
 const {
   kanban,
   addNewBoard,
-  deleteBoard,
-  renameTheBoard,
   addNewItem,
   editItemFn,
   deleteItemFn,
@@ -23,16 +21,6 @@ const handleAddNewBoard = async (newBoardName: string) => {
   catch (error) {
     console.error('Error adding new board:', error)
   }
-}
-
-// 👉 delete board
-const handleDeleteBoard = async (boardId: number) => {
-  await deleteBoard(boardId)
-}
-
-// 👉 rename board
-const handleRenameBoard = async (kanbanBoard: RenameKanbanBoard) => {
-  await renameTheBoard(kanbanBoard)
 }
 
 // 👉 add new item
@@ -65,8 +53,6 @@ const handleUpdateItemState = async (kanbanState: KanbanState) => {
     v-if="kanban"
     :kanban-data="kanban"
     @add-new-board="handleAddNewBoard"
-    @delete-board="handleDeleteBoard"
-    @rename-board="handleRenameBoard"
     @add-new-item="handleAddNewItem"
     @edit-item="handleEditItem"
     @delete-item="handleDeleteItem"

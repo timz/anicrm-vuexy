@@ -2,7 +2,7 @@
 import { VForm } from 'vuetify/components/VForm'
 import KanbanBoardEditDialog from './KanbanBoardEditDialog.vue'
 import KanbanItems from './KanbanItems.vue'
-import type { AddNewKanbanItem, EditKanbanItem, KanbanBoard, KanbanData, KanbanState, RenameKanbanBoard } from './types'
+import type { AddNewKanbanItem, EditKanbanItem, KanbanBoard, KanbanData, KanbanState } from './types'
 import { requiredValidator } from '@crudui/utils/validators'
 
 const props = withDefaults(defineProps<{
@@ -14,8 +14,6 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
   (e: 'addNewBoard', value: string): void
-  (e: 'renameBoard', value: RenameKanbanBoard): void
-  (e: 'deleteBoard', value: number): void
   (e: 'addNewItem', value: AddNewKanbanItem): void
   (e: 'editItem', value: EditKanbanItem): void
   (e: 'deleteItem', value: EditKanbanItem): void
@@ -40,16 +38,6 @@ const addNewBoard = () => {
       boardTitle.value = ''
     }
   })
-}
-
-// 👉 emit delete board event
-const deleteBoard = (boardId: number) => {
-  emit('deleteBoard', boardId)
-}
-
-// 👉 emit rename board event
-const renameBoard = (boardName: RenameKanbanBoard) => {
-  emit('renameBoard', boardName)
 }
 
 // 👉 emit add new task event
@@ -115,8 +103,6 @@ onClickOutside(refAddNewBoard, hideAddNewForm)
           :board-id="kb.id"
           :kanban-items="kanbanData.items"
           :kanban-data="kanbanData"
-          @delete-board="deleteBoard"
-          @rename-board="renameBoard"
           @add-new-item="addNewItem"
           @edit-item="editKanbanItemFn"
           @update-items-state="updateStateFn"

@@ -2,7 +2,7 @@
 import { animations, handleEnd, performTransfer } from '@formkit/drag-and-drop'
 import { dragAndDrop } from '@formkit/drag-and-drop/vue'
 import { VForm } from 'vuetify/components/VForm'
-import type { AddNewKanbanItem, EditKanbanItem, KanbanData, KanbanState, RenameKanbanBoard } from './types'
+import type { AddNewKanbanItem, EditKanbanItem, KanbanData, KanbanState } from './types'
 import KanbanCard from './KanbanCard.vue'
 import { requiredValidator } from '@crudui/utils/validators'
 
@@ -16,8 +16,6 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'renameBoard', value: RenameKanbanBoard): void
-  (e: 'deleteBoard', value: number): void
   (e: 'addNewItem', value: AddNewKanbanItem): void
   (e: 'editItem', value: EditKanbanItem | undefined): void
   (e: 'updateItemsState', value: KanbanState): void
@@ -25,43 +23,11 @@ const emit = defineEmits<{
 }>()
 
 const refKanbanBoard = ref<HTMLElement>()
-const localBoardName = ref(props.boardName)
-
 const localIds = ref<number[]>(props.kanbanIds)
 
 const isAddNewFormVisible = ref(false)
-const isBoardNameEditing = ref(false)
 const refForm = ref<VForm>()
 const newTaskTitle = ref<string>('')
-const refKanbanBoardTitle = ref<VForm>()
-
-// 👉 required validator
-const boardActions = [
-  {
-    title: 'Rename',
-    prependIcon: 'tabler-pencil',
-    onClick: () => { isBoardNameEditing.value = true },
-  },
-  {
-    title: 'Delete',
-    prependIcon: 'tabler-trash',
-    onClick: () => (emit('deleteBoard', props.boardId)),
-  },
-]
-
-// 👉 emit rename board event
-const renameBoard = () => {
-  refKanbanBoardTitle.value?.validate().then(valid => {
-    if (valid.valid) {
-      emit('renameBoard', {
-        oldName: props.boardName,
-        newName: localBoardName.value,
-        boardId: props.boardId,
-      })
-      isBoardNameEditing.value = false
-    }
-  })
-}
 
 // 👉 emit add new item event
 const addNewItem = () => {
@@ -116,17 +82,6 @@ const hideAddNewForm = () => {
 // close add new item form when you loose focus from the form
 onClickOutside(refForm, hideAddNewForm)
 
-// close board name form when you loose focus from the form
-onClickOutside(refKanbanBoardTitle, () => {
-  isBoardNameEditing.value = false
-})
-
-// 👉 reset board rename form when esc or close
-const hideResetBoardNameForm = () => {
-  isBoardNameEditing.value = false
-  localBoardName.value = props.boardName
-}
-
 // 👉 submit form on enter and new line on shift-enter
 const handleEnterKeydown = (event: { key: string; shiftKey: any }) => {
   if (event.key === 'Enter' && !event.shiftKey)
@@ -138,55 +93,9 @@ const handleEnterKeydown = (event: { key: string; shiftKey: any }) => {
   <div class="kanban-board">
     <!-- 👉 board heading and title -->
     <div class="kanban-board-header pb-4">
-      <VForm
-        v-if="isBoardNameEditing"
-        ref="refKanbanBoardTitle"
-        @submit.prevent="renameBoard"
-      >
-        <VTextField
-          v-model="localBoardName"
-          autofocus
-          variant="underlined"
-          :rules="[requiredValidator]"
-          hide-details
-          class="border-0"
-          @keydown.esc="hideResetBoardNameForm"
-        >
-          <template #append-inner>
-            <VIcon
-              size="20"
-              color="success"
-              icon="tabler-check"
-              class="me-1"
-              @click="renameBoard"
-            />
-
-            <VIcon
-              size="20"
-              color="error"
-              icon="tabler-x"
-              @click="hideResetBoardNameForm"
-            />
-          </template>
-        </VTextField>
-      </VForm>
-
-      <div
-        v-else
-        class="d-flex align-center justify-space-between "
-      >
-        <h4 class="text-lg font-weight-medium text-truncate">
-          {{ boardName }}
-        </h4>
-
-        <MoreBtn
-          size="28"
-          icon-size="20"
-          class="text-high-emphasis"
-          :menu-list="boardActions"
-          item-props
-        />
-      </div>
+      <h4 class="text-lg font-weight-medium text-truncate">
+        {{ boardName }}
+      </h4>
     </div>
 
     <!-- 👉 draggable task start here -->
