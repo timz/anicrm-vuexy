@@ -6,22 +6,11 @@ import { useKanban } from './useKanban'
 // 👉 Use kanban composable
 const {
   kanban,
-  addNewBoard,
   addNewItem,
   editItemFn,
   deleteItemFn,
   updateItemState,
 } = useKanban()
-
-// 👉 adding new board
-const handleAddNewBoard = async (newBoardName: string) => {
-  try {
-    await addNewBoard(newBoardName)
-  }
-  catch (error) {
-    console.error('Error adding new board:', error)
-  }
-}
 
 // 👉 add new item
 const handleAddNewItem = async (newItem: AddNewKanbanItem) => {
@@ -52,7 +41,6 @@ const handleUpdateItemState = async (kanbanState: KanbanState) => {
   <KanbanBoard
     v-if="kanban"
     :kanban-data="kanban"
-    @add-new-board="handleAddNewBoard"
     @add-new-item="handleAddNewItem"
     @edit-item="handleEditItem"
     @delete-item="handleDeleteItem"

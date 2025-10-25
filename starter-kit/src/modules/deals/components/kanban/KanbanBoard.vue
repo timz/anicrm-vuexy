@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { VForm } from 'vuetify/components/VForm'
 import KanbanBoardEditDialog from './KanbanBoardEditDialog.vue'
 import KanbanItems from './KanbanItems.vue'
 import type { AddNewKanbanItem, EditKanbanItem, KanbanBoard, KanbanData, KanbanState } from './types'
-import { requiredValidator } from '@crudui/utils/validators'
 
 const props = withDefaults(defineProps<{
   kanbanData: KanbanData
@@ -13,7 +11,6 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-  (e: 'addNewBoard', value: string): void
   (e: 'addNewItem', value: AddNewKanbanItem): void
   (e: 'editItem', value: EditKanbanItem): void
   (e: 'deleteItem', value: EditKanbanItem): void
@@ -22,23 +19,7 @@ const emit = defineEmits<{
 
 const localKanbanData = ref<KanbanBoard[]>(props.kanbanData.boards)
 const isKanbanBoardEditVisible = ref(false)
-
-const isAddNewFormVisible = ref(false)
-const refAddNewBoard = ref<VForm>()
-const boardTitle = ref<string>('')
-
 const editKanbanItem = ref<EditKanbanItem>()
-
-// 👉 Add new board function that emit the name and id of new board
-const addNewBoard = () => {
-  refAddNewBoard.value?.validate().then(valid => {
-    if (valid.valid) {
-      emit('addNewBoard', boardTitle.value)
-      isAddNewFormVisible.value = false
-      boardTitle.value = ''
-    }
-  })
-}
 
 // 👉 emit add new task event
 const addNewItem = (item: AddNewKanbanItem) => {
@@ -72,19 +53,6 @@ const emitUpdatedTaskFn = (item: EditKanbanItem) => {
 const deleteKanbanItemFn = (item: EditKanbanItem) => {
   emit('deleteItem', item)
 }
-
-// 👉 validators for add new board
-const validateBoardTitle = () => {
-  return props.kanbanData.boards.some(board => boardTitle.value && board.title.toLowerCase() === boardTitle.value.toLowerCase()) ? 'Board title already exists' : true
-}
-
-const hideAddNewForm = () => {
-  isAddNewFormVisible.value = false
-  refAddNewBoard.value?.reset()
-}
-
-// close add new item form when you loose focus from the form
-onClickOutside(refAddNewBoard, hideAddNewForm)
 </script>
 
 <template>
@@ -110,58 +78,6 @@ onClickOutside(refAddNewBoard, hideAddNewForm)
         />
       </template>
     </div>
-
-    <!-- 👉 add new form  -->
-    <div
-      class="add-new-form text-no-wrap"
-      style="inline-size: 10rem;"
-    >
-      <h6
-        class="text-lg font-weight-medium cursor-pointer"
-        @click="isAddNewFormVisible = !isAddNewFormVisible"
-      >
-        <VIcon
-          size="18"
-          icon="tabler-plus"
-        /> Add New
-      </h6>
-
-      <!-- 👉 Form -->
-      <VForm
-        v-if="isAddNewFormVisible"
-        ref="refAddNewBoard"
-        class="mt-4"
-        validate-on="submit"
-        @submit.prevent="addNewBoard"
-      >
-        <div class="mb-4">
-          <VTextField
-            v-model="boardTitle"
-            :rules="[requiredValidator, validateBoardTitle]"
-            autofocus
-            placeholder="Add Board Title"
-            @keydown.esc="hideAddNewForm"
-          />
-        </div>
-        <div class="d-flex gap-3">
-          <VBtn
-            size="small"
-            type="submit"
-          >
-            Add
-          </VBtn>
-          <VBtn
-            size="small"
-            variant="tonal"
-            color="secondary"
-            type="reset"
-            @click="hideAddNewForm"
-          >
-            Cancel
-          </VBtn>
-        </div>
-      </VForm>
-    </div>
   </div>
 
   <!-- kanban edit dialog -->
@@ -174,8 +90,6 @@ onClickOutside(refAddNewBoard, hideAddNewForm)
 </template>
 
 <style lang="scss">
-@use "@styles/variables/_vuetify.scss" as vuetify;
-
 .kanban-main-wrapper {
   overflow: auto hidden;
   margin-inline-start: -0.6rem;
@@ -188,13 +102,6 @@ onClickOutside(refAddNewBoard, hideAddNewForm)
 
     .kanban-board-drop-zone {
       min-block-size: 100%;
-    }
-  }
-
-  .add-new-form {
-    .v-field__field {
-      border-radius: vuetify.$border-radius-root;
-      background-color: rgb(var(--v-theme-surface));
     }
   }
 }

@@ -5,28 +5,6 @@ import type { AddNewKanbanItem, EditKanbanItem, KanbanData, KanbanState } from '
 export function useKanban() {
   const kanban = ref<KanbanData>(JSON.parse(JSON.stringify(database)))
 
-  // 👉 adding new board
-  const addNewBoard = async (newBoardName: string) => {
-    const getNewBoardId = () => {
-      const newBoardId = kanban.value.boards.length + 1
-      if (!(kanban.value.boards.some(board => board.id === newBoardId)))
-        return newBoardId
-      else
-        return newBoardId + 1
-    }
-
-    if (kanban.value.boards.some(board => board.title === newBoardName)) {
-      throw new Error('Board with this name already exists')
-    }
-    else {
-      kanban.value.boards.push({
-        id: getNewBoardId(),
-        title: newBoardName,
-        itemsIds: [],
-      })
-    }
-  }
-
   // 👉 add new item
   const addNewItem = async (newItem: AddNewKanbanItem) => {
     const itemId = kanban.value.items[kanban.value.items.length - 1].id + 1
@@ -91,7 +69,6 @@ export function useKanban() {
 
   return {
     kanban,
-    addNewBoard,
     addNewItem,
     editItemFn,
     deleteItemFn,
