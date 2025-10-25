@@ -7,11 +7,14 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AppDateTimePicker: typeof import('./src/crudui/components/calendar/AppDateTimePicker.vue')['default']
     AppDrawerHeaderSection: typeof import('./src/crudui/components/AppDrawerHeaderSection.vue')['default']
     AppLoadingIndicator: typeof import('./src/crudui/components/templates/AppLoadingIndicator.vue')['default']
     AppStepper: typeof import('./src/crudui/components/templates/AppStepper.vue')['default']
     ButtonAction: typeof import('./src/crudui/components/table/buttons/ButtonAction.vue')['default']
     ButtonBatchDelete: typeof import('./src/crudui/components/table/buttons/ButtonBatchDelete.vue')['default']
+    Calendar: typeof import('./src/crudui/components/calendar/calendar.vue')['default']
+    CalendarEventHandler: typeof import('./src/crudui/components/calendar/CalendarEventHandler.vue')['default']
     CenteredContentWrapper: typeof import('./src/crudui/components/templates/CenteredContentWrapper.vue')['default']
     CreateButton: typeof import('./src/crudui/components/buttons/CreateButton.vue')['default']
     CrudBooleanSelect: typeof import('./src/crudui/components/Inputs/CrudBooleanSelect.vue')['default']
