@@ -11,7 +11,8 @@
       "mcp__playwright:*",
       "Bash(pnpm:*)",
       "Bash(mkdir:*)",
-      "Bash(xargs ls:*)"
+      "Bash(xargs ls:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

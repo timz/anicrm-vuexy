@@ -98,8 +98,8 @@ const deleteKanbanItemFn = (item: EditKanbanItem) => {
   padding-inline-start: 0.6rem;
 
   .kanban-board {
-    inline-size: 16.6rem;
-    min-inline-size: 16.6rem;
+    inline-size: 14.3rem;
+    min-inline-size: 14.3rem;
 
     .kanban-board-drop-zone {
       min-block-size: 100%;
