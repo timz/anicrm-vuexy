@@ -25,17 +25,9 @@
           <v-skeleton-loader type="list-item-three-line" />
         </div>
         <div class="d-flex gap-2 justify-center mt-4">
-          <VBtn @click="isRenewDialogVisible = true">
+          <VBtn @click="handleDirectRenew">
             Продлить
           </VBtn>
-
-          <PayRenewDialog
-            v-model="isRenewDialogVisible"
-            :active-plan-info="activePlanInfo"
-            :pricing-plans="pricingPlans"
-            :loading="loadingPlans"
-            @renew="handleRenew"
-          />
 
           <VBtn @click="isChangeSubscriptionDialogVisible = true">
             Изменить тариф
@@ -94,8 +86,8 @@ import CrudList from '@crudui/components/list/CrudList.vue'
 import type { UseCrudDataListReturn } from '@crudui/providers/useCrudDataList'
 import { useCrudDataList } from '@crudui/providers/useCrudDataList'
 import { secureApi } from '@crudui/services/AxiosService'
-import PayRenewDialog from './PayRenewDialog.vue'
 import ChangeSubscriptionDialog from './ChangeSubscriptionDialog.vue'
+import { useRouter } from 'vue-router'
 
 const { t } = useI18n()
 
@@ -106,8 +98,8 @@ const activePlanInfo = ref<ActivePlanInfoDto | null>(null)
 const pricingPlans = ref<FormattedPricingPlan[]>([])
 const loadingPlans = ref(false)
 
-const isRenewDialogVisible = ref(false)
 const isChangeSubscriptionDialogVisible = ref(false)
+const router = useRouter()
 
 interface BillingPaymentItem {
   id: string
@@ -229,10 +221,22 @@ const formatEndDate = (dateString: string | null): string => {
   })
 }
 
-// Обработчик продления подписки
-const handleRenew = (period: string) => {
-  console.log('Продление подписки на период:', period)
-  // TODO: Реализовать логику продления подписки
+// Обработчик прямого продления подписки по текущему тарифу и периоду
+const handleDirectRenew = () => {
+  if (!activePlanInfo.value) {
+    console.error('Информация о текущей подписке недоступна')
+    return
+  }
+
+  // Переход на страницу подтверждения оплаты с текущими параметрами подписки
+  router.push({
+    name: 'PaymentSummaryPage',
+    query: {
+      plan: activePlanInfo.value.plan_code,
+      period: convertBillingCycleToQueryPeriod(activePlanInfo.value.billing_cycle),
+      operation_type: 'renewal',
+    },
+  })
 }
 
 // Загрузка данных при монтировании компонента
