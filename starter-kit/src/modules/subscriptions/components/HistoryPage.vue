@@ -26,7 +26,7 @@
         </div>
         <div class="d-flex gap-2 justify-center mt-4">
           <VBtn @click="handleDirectRenew">
-            Продлить
+            {{ renewButtonLabel }}
           </VBtn>
 
           <VBtn @click="isChangeSubscriptionDialogVisible = true">
@@ -79,7 +79,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, provide, ref } from 'vue'
+import { computed, onMounted, provide, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { ActivePlanInfoDto, FormattedPricingPlan, PricingPlan } from '../types/pricing'
 import CrudList from '@crudui/components/list/CrudList.vue'
@@ -100,6 +100,25 @@ const loadingPlans = ref(false)
 
 const isChangeSubscriptionDialogVisible = ref(false)
 const router = useRouter()
+
+// Динамическая подпись кнопки продления в зависимости от типа и периода подписки
+const renewButtonLabel = computed(() => {
+  if (!activePlanInfo.value) {
+    return 'Продлить'
+  }
+
+  // Если пробный тариф или месячная подписка - продлить на месяц
+  if (activePlanInfo.value.is_trial || activePlanInfo.value.billing_cycle === 'monthly') {
+    return 'Продлить на месяц'
+  }
+
+  // Если годовая подписка - продлить на год
+  if (activePlanInfo.value.billing_cycle === 'yearly') {
+    return 'Продлить на год'
+  }
+
+  return 'Продлить'
+})
 
 interface BillingPaymentItem {
   id: string
