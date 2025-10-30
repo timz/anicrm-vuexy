@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import type { FormattedPricingPlan } from '@modules/subscriptions/types/pricing'
+import type { ActivePlanInfoDto, FormattedPricingPlan } from '@modules/subscriptions/types/pricing'
 
 const props = defineProps<{
   md?: string | number
   pricingPlans: FormattedPricingPlan[]
+  activePlanInfo?: ActivePlanInfoDto | null
 }>()
 
 const emit = defineEmits<{
@@ -11,6 +12,32 @@ const emit = defineEmits<{
 }>()
 
 const annualMonthlyPlanPriceToggler = ref(false)
+
+/**
+ * Проверяет, является ли план активным с учетом выбранного периода оплаты
+ */
+const isPlanActive = (plan: FormattedPricingPlan): boolean => {
+  if (!props.activePlanInfo) return false
+
+  // Проверяем, что это тот же тарифный план
+  if (plan.code !== props.activePlanInfo.plan_code) return false
+
+  const selectedPeriod = annualMonthlyPlanPriceToggler.value ? 'yearly' : 'monthly'
+
+  // Если выбран месячный период
+  if (selectedPeriod === 'monthly') {
+    // Активен для месячных подписок или триала
+    return props.activePlanInfo.billing_cycle === 'monthly' || props.activePlanInfo.is_trial === true
+  }
+
+  // Если выбран годовой период
+  if (selectedPeriod === 'yearly') {
+    // Активен только для годовых подписок
+    return props.activePlanInfo.billing_cycle === 'yearly'
+  }
+
+  return false
+}
 
 const handlePlanSelect = (plan: FormattedPricingPlan) => {
   const period = annualMonthlyPlanPriceToggler.value ? 'annual' : 'monthly'
@@ -124,8 +151,8 @@ const handlePlanSelect = (plan: FormattedPricingPlan) => {
           </VList>
 
           <!-- 👉 Plan actions -->
-          <VBtn :disabled="plan.active" block @click="handlePlanSelect(plan)">
-            {{ plan.active ? 'Ваш текущий план' : 'Выбрать' }}
+          <VBtn :disabled="isPlanActive(plan)" block @click="handlePlanSelect(plan)">
+            {{ isPlanActive(plan) ? 'Ваш текущий план' : 'Выбрать' }}
           </VBtn>
         </VCardText>
       </VCard>

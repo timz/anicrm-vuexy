@@ -19,7 +19,7 @@
         </div>
 
         <div v-if="!props.loading && props.pricingPlans.length > 0">
-          <AppPricing :pricing-plans="props.pricingPlans" md="4" @plan-selected="handlePlanSelectedWithPeriod" />
+          <AppPricing :pricing-plans="props.pricingPlans" :active-plan-info="props.activePlanInfo" md="4" @plan-selected="handlePlanSelectedWithPeriod" />
         </div>
 
         <div v-else class="d-flex justify-center align-center" style="min-height: 400px">
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormattedPricingPlan } from '../types/pricing'
+import type { ActivePlanInfoDto, FormattedPricingPlan } from '../types/pricing'
 import AppPricing from './AppPricing.vue'
 import DialogCloseBtn from '@crudui/components/dialogs/DialogCloseBtn.vue'
 
@@ -39,6 +39,7 @@ interface Props {
   modelValue: boolean
   pricingPlans: FormattedPricingPlan[]
   loading: boolean
+  activePlanInfo: ActivePlanInfoDto | null
 }
 
 interface Emits {
