@@ -50,6 +50,11 @@ export interface ActivePlanInfoDto {
    * Дата окончания подписки (null для безлимитных)
    */
   ends_at: string | null
+
+  /**
+   * Признак пробного периода
+   */
+  is_trial?: boolean
 }
 
 /**

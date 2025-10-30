@@ -14,7 +14,7 @@
           </div>
           <div class="d-flex justify-space-between mb-3">
             <span class="text-body-1">Период подписки:</span>
-            <strong class="text-h6 font-weight-bold text-medium-emphasis">{{ getBillingCycleLabel(activePlanInfo.billing_cycle) }}</strong>
+            <strong class="text-h6 font-weight-bold text-medium-emphasis">{{ getBillingCycleLabel(activePlanInfo.billing_cycle, activePlanInfo.is_trial) }}</strong>
           </div>
           <div class="d-flex justify-space-between">
             <span class="text-body-1">Окончание подписки:</span>
@@ -200,11 +200,15 @@ const fetchPricingPlans = async () => {
 }
 
 // Маппинг billing_cycle в читаемый формат
-const getBillingCycleLabel = (cycle: string): string => {
+const getBillingCycleLabel = (cycle: string, isTrial?: boolean): string => {
+  // Если это пробный период, возвращаем соответствующий текст
+  if (isTrial) {
+    return 'Пробный период'
+  }
+
   const cycleLabels: Record<string, string> = {
     monthly: '1 месяц',
     yearly: '1 год',
-    trial: 'Пробный период',
   }
 
   return cycleLabels[cycle] || cycle
