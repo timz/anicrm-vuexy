@@ -8,7 +8,6 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppDateTimePicker: typeof import('./src/crudui/components/calendar/AppDateTimePicker.vue')['default']
-    AppDrawerHeaderSection: typeof import('./src/crudui/components/AppDrawerHeaderSection.vue')['default']
     AppLoadingIndicator: typeof import('./src/crudui/components/templates/AppLoadingIndicator.vue')['default']
     AppStepper: typeof import('./src/crudui/components/templates/AppStepper.vue')['default']
     ButtonAction: typeof import('./src/crudui/components/table/buttons/ButtonAction.vue')['default']
@@ -35,7 +34,6 @@ declare module 'vue' {
     CrudTable: typeof import('./src/crudui/components/table/CrudTable.vue')['default']
     CustomRadios: typeof import('./src/crudui/components/CustomRadios.vue')['default']
     DefaultLayoutWithHorizontalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithHorizontalNav.vue')['default']
-    DefaultLayoutWithoutNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithoutNav.vue')['default']
     DefaultLayoutWithVerticalNav: typeof import('./src/crudui/components/templates/DefaultLayoutWithVerticalNav.vue')['default']
     DialogCloseBtn: typeof import('./src/crudui/components/dialogs/DialogCloseBtn.vue')['default']
     DropZone: typeof import('./src/crudui/components/DropZone.vue')['default']
@@ -59,6 +57,5 @@ declare module 'vue' {
     VerticalNavLayout: typeof import('./src/crudui/components/templates/navigation/vertical/VerticalNavLayout.vue')['default']
     VerticalNavLink: typeof import('./src/crudui/components/templates/navigation/vertical/VerticalNavLink.vue')['default']
     VerticalNavSectionTitle: typeof import('./src/crudui/components/templates/navigation/vertical/VerticalNavSectionTitle.vue')['default']
-    WithoutNavLayout: typeof import('./src/crudui/components/templates/navigation/vertical/WithoutNavLayout.vue')['default']
   }
 }
