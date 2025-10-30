@@ -29,7 +29,7 @@ const vat = computed(() => {
 
 const unspentAmount = computed(() => paymentSummary.value?.unspentAmount || 0)
 
-const totalPrice = computed(() => paymentSummary.value?.totalAmount || 0)
+const totalPrice = computed(() => Math.max(paymentSummary.value?.totalAmount || 0, 0))
 
 const periodText = computed(() => paymentSummary.value?.billingCycle || '')
 
@@ -165,7 +165,7 @@ onMounted(() => {
       <!-- Action Buttons -->
       <div class="d-flex flex-wrap gap-4 justify-center">
         <VBtn color="primary" :loading="loading" @click="handlePayment">
-          Перейти к оплате
+          {{ totalPrice === 0 ? 'Применить новые условия' : 'Перейти к оплате' }}
           <VIcon icon="tabler-arrow-right" end class="flip-in-rtl" />
         </VBtn>
       </div>
